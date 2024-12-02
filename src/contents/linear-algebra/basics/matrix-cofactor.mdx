@@ -1,0 +1,140 @@
+<Config
+  title="余因子"
+  published
+/>
+
+## <Q w="cofactor"k d/>
+
+<Save w="1">
+  ```math:inline
+    A=
+    \left(
+      \begin{array}{c|c|c}
+        B & * & C \\ \hline
+        * & a_{i,j} & * \\ \hline
+        B & * & E \\
+      \end{array}
+    \right)
+  ```
+</Save>
+
+<Load w="1"/>について、
+
+<Save w="1">
+  ```math:inline
+    \tilde a_{i,j} \defeq (-1)^{i+j} \left|\begin{array}{c|c}
+      B & C \\ \hline
+      D & E \\
+    \end{array}\right|
+  ```
+</Save>
+
+<Load w="1"/>と定義し、これを$(i, j)$<Q w="cofactor"/>と呼ぶ。
+
+### <Q w="mat-det"/>の<Q w="cofactor"/>による展開
+
+$i$行目について。
+
+```math:trans:1
+  |A|
+=
+  \left|\begin{matrix}
+    * \\
+    \begin{matrix}
+      a_{i, 0} & a_{i, 1} & \cdots & a_{i, n-1} \\
+    \end{matrix} \\
+    * \\
+  \end{matrix}\right|
+=
+  \left|\begin{matrix}
+    * \\
+    \begin{matrix}
+      a_{i, 0} & 0 & \cdots & 0 \\
+    \end{matrix} \\
+    * \\
+  \end{matrix}\right|
+  +
+  \left|\begin{matrix}
+    * \\
+    \begin{matrix}
+      0 & a_{i, 1} & \cdots & 0 \\
+    \end{matrix} \\
+    * \\
+  \end{matrix}\right|
+  +
+  \cdots
+  +
+  \left|\begin{matrix}
+    * \\
+    \begin{matrix}
+      0 & 0 & \cdots & a_{i, n-1} \\
+    \end{matrix} \\
+    * \\
+  \end{matrix}\right|
+=
+  a_{i,0} \tilde a_{i,0}
+  +
+  a_{i,1} \tilde a_{i,1}
+  +
+  \cdots
+  +
+  a_{i,n-1} \tilde a_{i,n-1}
+=
+  \sum_{k \in n} a_{i, k} \tilde a_{i, k}
+```
+
+同様にして、$j$列目について、$|A|=\sum_{k \in n}a_{k, j} \tilde a_{k, j}$
+
+$i \neq i'$について、$\sum_{k \in n}a_{i', k} \tilde a_{i, k}$を考える。
+これは、$A$の$i'$行目を$i$行目にコピーして、$i$行目で展開していた<Q w="mat-det"/>になる。よって、同じ<Q w="row"/>を持つ<Q w="mat"/>の<Q w="mat-det"/>なので$0$となる。<Q w="column"/>に対しても同様にすると、
+
+- $i \neq i'$について、$\sum_{k \in n}a_{i', k} \tilde a_{i, k} = 0$
+- $j \neq j'$について、$\sum_{k \in n}a_{k, j'} \tilde a_{k, j} = 0$
+
+となる。まとめると、<Q w="kronecker-delta"/>を用いて、
+
+- $\sum_{k \in n}a_{i, k} \tilde a_{j, k} = |A| \delta _{i, j}$
+- $\sum_{k \in n}a_{k, i} \tilde a_{k, j} = |A| \delta _{i, j}$
+
+とかける。
+
+## <Q w="cofactor-matrix"k/>
+
+<Q w="cofactor-matrix"/>$\tilde A$を$\t{(\tilde a_{i, j})_{i,j}}={(\tilde a_{j, i})_{i,j}}$として定義する。
+
+## 定理: $A\tilde A = \tilde A A = |A|I$
+
+$A\tilde A = (\sum_{k \in n} a_{i,k} \tilde a_{j,k})_{i,j} = (|A| \delta _{i,j}) = |A| (\delta _{i,j}) = |A|I$
+
+$\tilde AA = (\sum_{k \in n} \tilde a_{k,i} a_{k,j})_{i,j} = (|A| \delta _{i,j}) = |A| (\delta _{i,j}) = |A|I$
+
+## 系: $A^{-1}=|A|^{-1}\tilde A$
+
+<Save w="1">
+  ```math:inline
+    A = \begin{pmatrix}
+      a & b \\
+      c & d \\
+    \end{pmatrix}
+  ```
+</Save>
+
+例えば、<Load w="1"/>の場合を考える。
+
+```math
+  \tilde A = \begin{pmatrix}
+    d & -c \\
+    -b & a \\
+  \end{pmatrix}
+```
+
+なので、
+
+```math
+  A^{-1} =
+  \frac{1}{ad - bc}
+  \begin{pmatrix}
+    d & -c \\
+    -b & a \\
+  \end{pmatrix}
+```

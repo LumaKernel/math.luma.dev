@@ -1,0 +1,130 @@
+<Config
+  title="線形写像"
+  published
+/>
+
+## <Q w="linear-map"k d/>
+
+同じ$\K$上の<Q w="lin-sp"/>$V, W$について、$f: V \to W$であって、つぎの性質を満たすものを<Q w="linear-map"/>という。
+
+- <Q w="add"/>を保存: $f(\mathbf a + \mathbf b) = f(\mathbf a) + f(\mathbf b)$
+- <Q w="scaling"/>を保存: $c \cdot f(\mathbf a) = f(c \cdot \mathbf a)$
+
+これは$V$から$W$への<Q w="homomorphism"/>$\Hom{V, W}$にほかならない。つまり、$V$の構造を$W$の中にもっていく<Q w="mapping"/>だ。
+
+## <Q w="linear-map"/>の性質
+
+- $f(\mathbf 0) = \mathbf 0$
+- $f(-\mathbf a) = -f(\mathbf a)$
+
+## <Q w="linear-transform"k d/>
+
+$V=W$であるような<Q w="linear-map"/>(つまり<Q w="automorphism"/>$f \in \Aut{V}$)を<Q w="linear-transform"/>と呼ぶ。
+
+## <Q w="transform-matrix"k d/>
+
+$V$と$W$を<Q w="fin-dimen"/>の<Q w="lin-sp"/>とする。$n=\dim V, m=\dim W$とする。
+また、$V$の<Q w="base"/>$E^V = \begin{pmatrix}\mathbf e^V_0 & \mathbf e^V_1 & \cdots & \mathbf e^V_{n-1}\end{pmatrix}$と$W$の<Q w="base"/>$E^W = \begin{pmatrix}\mathbf e^W_0 & \mathbf e^W_1 & \cdots & \mathbf e^W_{m-1}\end{pmatrix}$をとる。（任意のどれかをとると考えて良い）
+<Q w="linear-map"/>$f: V \to W$を考える。$\mathbf v \in V$について、$f(\mathbf v) \eqqcolon \mathbf w$とする。
+
+<Q w="base"/>を用いれば、$\mathbf x \in \K^n$、$\mathbf y \in \K^m$が存在して、$\mathbf v = \t{\mathbf x} \cdot E^V$、$\mathbf w = \t{\mathbf y} \cdot E^W$と書ける。
+
+このとき、$A \in \K^{m \times n}$が存在して、$A \mathbf x = \mathbf y$の形式で表せる。このときの$A$を<Q w="transform-matrix"/>と呼ぶ。
+
+まとめると以下のような対比ができる。
+
+```math
+f(\mathbf v) = \mathbf w
+\\
+f\left(\t{\mathbf x} \cdot E^V\right) = \t{\mathbf y} \cdot E^W
+\\
+A \mathbf x = \mathbf y
+```
+
+<Q w="linear-map"/>$f$は<Q w="mat"/>で表せるということだ。
+
+<Q w="transform-matrix"/>で表すことを、行列表現と言ったりするが、英語では普通に _shown in matrix A_ のように書かれる。
+
+<Save w="1">
+```math:inline
+  A=
+  \begin{pmatrix}
+    f\left(\mathbf e^V_0\right) &
+    f\left(\mathbf e^V_1\right) &
+    \cdots &
+    f\left(\mathbf e^V_{n-1}\right) \\
+  \end{pmatrix}
+```
+</Save>
+簡単に直感的な定義を与えると、<Load w="1"/>となる。
+
+<Prove>
+各$j \in n$について、$\displaystyle f(\mathbf e^V_j) = \sum_{i \in m} a_{i, j} \cdot \mathbf e^W_i$のように表わせる。
+
+$A \coloneqq (a_{i,j})$が<Q w="transform-matrix"/>になる。それを導く。
+
+```math:def
+\gdef\yimat#1{\begin{pmatrix}a_{#1,0} & a_{#1,1} & \cdots & a_{#1,n-1}\end{pmatrix} \cdot \mathbf x}
+```
+
+```math:trans
+  \mathbf w
+= f\left(\t{\mathbf x} \cdot \mathbf e^V\right)
+= f\left(\sum_{j \in n} x_j \cdot \mathbf e^V_j\right)
+= \sum_{j \in n} x_j \cdot f\left(\mathbf e^V_j\right)
+= \sum_{j \in n} x_j \cdot \sum_{i \in m} a_{i,j} \cdot \mathbf e^W_i
+= \sum_{i \in m} \left(\sum_{j \in n} a_{i,j} \cdot x_j\right) \cdot \mathbf e^W_i
+```
+
+<p>
+
+```math:trans
+  y_j
+= \sum_{j \in n} a_{i,j} \cdot x_j
+= \yimat{i}
+```
+
+</p>
+
+```math:trans
+  \mathbf y
+= \begin{pmatrix}
+  y_{0} \\
+  y_{1} \\
+  \vdots \\
+  y_{m-1} \\
+  \end{pmatrix}
+= \begin{pmatrix}
+  \yimat{0} \\
+  \yimat{1} \\
+  \vdots \\
+  \yimat{m-1} \\
+  \end{pmatrix}
+=
+  \begin{pmatrix}
+    a_{0,0} & a_{0,1} & \cdots & a_{0,m-1}\\
+    a_{1,0} & a_{1,1} & \cdots & a_{1,m-1}\\
+    \vdots & \vdots & \ddots & \vdots\\
+    a_{n-1,0} & a_{n-1,1} & \cdots & a_{n-1,m-1}\\
+  \end{pmatrix}
+  \cdot
+  \mathbf x
+=
+  A \cdot \mathbf x
+```
+</Prove>
+
+実際には$A$は<Q w="base"/>$E^V$と$E^W$のとり方によって変わってくる。<Q w="base"/>$E^V$と$E^W$を決めて、<Q w="mat"/>の世界に持ち込んだとき、<Q w="linear-map"/>も同様に<Q w="mat"/>の世界に持ち込める。
+
+| <Q w="lin-sp"/>の世界 | <Q w="elem"/>が$K$の<Q w="mat"/>の世界 |
+|  :---:  |  :---:  |
+|  $n$<Q w="dimen"/>の<Q w="lin-sp"/>$V$  |  $\K^n$  |
+|  <Q w="base"/>$E^V$  |  <Q w="orthonormal-system"/>$U$  |
+|  $E^V$から${E^V}'$への<Q w="transition"/>  |  <Q w="transition-matrix"/>  |
+|  $E^V$から$E^V$自身への<Q w="transition"/>  |  <Q w="identity-matrix"/>$I_n$  |
+|  $v \in V$  |  $\mathbf x = \t{\begin{pmatrix}x_0 & x_1 & \cdots & x_{n-1}\end{pmatrix}} \in \K^n$  |
+|  $k$個の<Q w="vec"/>の<Q w="seq"/>$A \in V^k$  |  <Q w="mat"/>$A=\begin{pmatrix}\mathbf a_0 & \mathbf a_1 & \cdots & \mathbf a_{k-1}\end{pmatrix} \in \K^{n \times k}$  |
+|  <Q w="vec"/>の<Q w="seq"/>$E^V$  |  <Q w="identity-matrix"/>$I_n$  |
+|  <Q w="linear-map"/>$f \in \Hom{V, W}$  |  <Q w="mat"/>$A \in \K^{m \times n}$  |
+
+なお、$A$の<Q w="base"/>のとり方によるゆらぎは、<Q w="transition-matrix"/>で橋渡しできる。

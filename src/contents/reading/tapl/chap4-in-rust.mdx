@@ -1,0 +1,367 @@
+{/* generated from notebook */}
+<Config
+  isIpynb
+  ipynbLang="rust"
+  ipynbRelPath="reading/tapl/chap4-in-rust"
+/>
+
+<Config
+  title="第四章をRustで実装する"
+  published
+  />
+
+
+
+```rust
+#[derive(Debug, Clone, PartialEq)]
+enum BTerm {
+  True,
+  False,
+  If(Box<BTerm>, Box<BTerm>, Box<BTerm>),
+  Zero,
+  Succ(Box<BTerm>),
+  Pred(Box<BTerm>),
+  IsZero(Box<BTerm>),
+  Wrong,
+}
+```
+
+
+
+## 数値判定 `is_numeric_val` の定義
+
+
+
+```rust
+fn is_numeric_val(t: &BTerm) -> bool {
+  match t {
+    BTerm::Zero => true,
+    BTerm::Succ(t1) => is_numeric_val(&*t1),
+    _ => false,
+  }
+}
+```
+
+
+
+## `is_numeric_val` の挙動確認
+
+
+
+```rust
+// is_numeric_val(true)
+assert_eq!(
+  is_numeric_val(&BTerm::True),
+  false,
+);
+```
+
+
+
+
+
+```rust
+// is_numeric_val(0)
+assert_eq!(
+  is_numeric_val(&BTerm::Zero),
+  true,
+);
+```
+
+
+
+
+
+```rust
+// is_numeric_val(1)
+assert_eq!(
+  is_numeric_val(&BTerm::Succ(BTerm::Zero.into())),
+  true,
+);
+```
+
+
+
+
+
+```rust
+// is_numeric_val(succ(true))
+assert_eq!(
+  is_numeric_val(&BTerm::Succ(BTerm::True.into())),
+  false,
+);
+```
+
+
+
+## 値の定義
+
+
+
+```rust
+fn is_val(t: &BTerm) -> bool {
+  match t {
+    BTerm::True => true,
+    BTerm::False => true,
+    _ => is_numeric_val(t),
+  }
+}
+```
+
+
+
+
+
+```rust
+is_val(&BTerm::True)
+```
+
+
+
+```rust
+true
+```
+
+
+
+
+
+```rust
+is_val(&BTerm::If(BTerm::True.into(), BTerm::True.into(), BTerm::True.into()))
+```
+
+
+
+```rust
+false
+```
+
+
+
+### 単一ステップの評価器
+
+(不採用案) まずはじめに、 `exception NoRuleApplies` のようなものを [`panic!()`](https://doc.rust-lang.org/std/macro.panic.html) マクロを利用して定義しておく。
+evcxr の制約上、マクロの定義は使えない。[evcxr#118](https://github.com/google/evcxr/issues/118)
+
+```rust
+fn panic_no_rule_applies() -> T {
+  panic!("NoRuleApplies")
+}
+```
+
+追記: と思ったが、 [`std::panic::catch_unwind`](https://doc.rust-lang.org/std/panic/fn.catch_unwind.html) と組み合わせてもエラー表示をsuppressできなさそうなので `Wrong` を項に追加する方法をとってみた。
+
+
+
+```rust
+fn eval1(t: &BTerm) -> Option<BTerm> {
+  match t {
+    BTerm::If(t1, t2, t3) => match (&**t1, &**t2, &**t3) {
+      (BTerm::Wrong, _, _) => Some(BTerm::Wrong), // *
+      (BTerm::True, _, _) => Some(*t2.clone()),
+      (BTerm::False, _, _) => Some(*t3.clone()),
+      _ => Some(BTerm::If(
+        eval1(&t1)?.into(),
+        (*t2.clone()).into(),
+        (*t3.clone()).into(),
+      )),
+    },
+    BTerm::Succ(t1) => match &**t1 {
+      BTerm::Wrong => Some(BTerm::Wrong), // *
+      BTerm::True => Some(BTerm::Wrong), // *
+      BTerm::False => Some(BTerm::Wrong), // *
+      _ => Some(BTerm::Succ(eval1(&t1)?.into())),
+    },
+    BTerm::Pred(t1) => match &**t1 {
+      BTerm::Wrong => Some(BTerm::Wrong), // *
+      BTerm::True => Some(BTerm::Wrong), // *
+      BTerm::False => Some(BTerm::Wrong), // *
+      BTerm::Zero => Some(BTerm::Zero),
+      BTerm::Succ(nv1) if is_numeric_val(&*nv1) => Some(*t1.clone()),
+      _ => Some(BTerm::Pred(eval1(&t1)?.into())),
+    },
+    BTerm::IsZero(t1) => match &**t1 {
+      BTerm::Wrong => Some(BTerm::Wrong), // *
+      BTerm::Zero => Some(BTerm::True),
+      BTerm::Succ(nv1) if is_numeric_val(&*nv1) => Some(BTerm::True),
+      _ => Some(BTerm::IsZero(eval1(&t1)?.into())),
+    },
+    _ => None,
+  }
+}
+```
+
+
+
+### `eval1` の動作確認
+
+
+
+```rust
+// pred(succ(0)) --(eval1)--> 0
+eval1(&BTerm::Pred(BTerm::Zero.into()))
+```
+
+
+
+```rust
+Some(Zero)
+```
+
+
+
+
+
+```rust
+// if(true, 1, 0) --(eval1)--> 1
+eval1(&BTerm::If(
+  BTerm::True.into(),
+  BTerm::Succ(BTerm::Zero.into()).into(),
+  BTerm::Zero.into(),
+))
+```
+
+
+
+```rust
+Some(Succ(Zero))
+```
+
+
+
+
+
+```rust
+// if(if(false, false, true), 1, 0) --(eval1)--> if(true, succ(0), 0)
+eval1(&BTerm::If(
+  BTerm::If(
+    BTerm::False.into(),
+    BTerm::False.into(),
+    BTerm::True.into(),
+  ).into(),
+  BTerm::Succ(BTerm::Zero.into()).into(),
+  BTerm::Zero.into(),
+))
+```
+
+
+
+```rust
+Some(If(True, Succ(Zero), Zero))
+```
+
+
+
+
+
+```rust
+// succ(true)
+eval1(&BTerm::Succ(BTerm::True.into()))
+```
+
+
+
+```rust
+Some(Wrong)
+```
+
+
+
+マッチする評価規則が存在しない場合(正規形)は `None` を返す。
+
+
+
+```rust
+// wrong
+eval1(&BTerm::Wrong)
+```
+
+
+
+```rust
+None
+```
+
+
+
+
+
+```rust
+// true
+eval1(&BTerm::True)
+```
+
+
+
+```rust
+None
+```
+
+
+
+### 小ステップ評価器を完成させる
+
+1ステップ評価器を利用して、正規形まですすめる評価器を作成する。
+
+
+
+```rust
+fn eval (t: &BTerm) -> BTerm {
+  let mut s = t.clone();
+  loop {
+    match eval1(&s) {
+      Some(v) => { s = v; },
+      None => { return s; },
+    }
+  }
+}
+```
+
+
+
+### 小ステップ評価器 `eval` の動作確認
+
+
+
+```rust
+// if(if(false, false, true), 1, 0)
+eval(&BTerm::If(
+  BTerm::If(
+    BTerm::False.into(),
+    BTerm::False.into(),
+    BTerm::True.into(),
+  ).into(),
+  BTerm::Succ(BTerm::Zero.into()).into(),
+  BTerm::Zero.into(),
+))
+```
+
+
+
+```rust
+Succ(Zero)
+```
+
+
+
+
+
+```rust
+// s(p(s(p(true))))
+eval(&BTerm::Succ(
+  BTerm::Pred(
+    BTerm::Succ(
+      BTerm::Pred(
+        BTerm::True.into(),
+      ).into(),
+    ).into(),
+  ).into(),
+))
+```
+
+
+
+```rust
+Wrong
+```
+

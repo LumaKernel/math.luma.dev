@@ -1,0 +1,51 @@
+<Config
+  title="トレース"
+  published
+/>
+
+## <Q w="mat-trace"k d/>
+
+<Q w="square-matrix"/>$A$に対して、<Q w="main-diag"/>の<Q w="sum"/>を<Q w="mat-trace"/>$\Tr A$として定義する。
+
+つまり、$\Tr A \defeq \sum_{i \in n} a_{i,i}$
+
+### 性質
+
+1. <Q w="linearity"/>: $\Tr {\alpha A + \beta B } = \alpha \Tr A + \beta \Tr B$
+2. $\Tr{AB} = \Tr{BA}$
+
+<Prove>
+
+<span>2.</span>について。
+
+```math:trans:1
+  \Tr {AB}
+= \Tr {(a_{i,j}) \cdot (b_{i, j})}
+= \Tr {\left(\sum_{j} a_{i,j} \cdot b_{j,k}\right)_{i,k}}
+= \sum_i \left(
+    \sum_j \left(
+      a_{i, j}
+      b_{j, i}
+    \right)
+  \right)
+```
+
+<Q w="commutativity"/>より上記は$A$と$B$を入れ替えれば題意が導かれる。
+
+</Prove>
+
+### <Q w="invariance"/>
+
+以下のような<Q w="mat"/>の操作に対して<Q w="mat-trace"/>は不変である。
+
+1. <Q w="transpose"/>: $\Tr A = \Tr {\t{A}}$
+1. <Q w="similar-mat"/>: $\Tr {P^{-1}AP} = \Tr {A}$
+1. <Q w="cyclic"/>: $\Tr {\Pi A_{i}} = \Tr {\Pi A_{\sigma(i)}}$、ただし、$\sigma \in \mathfrak S_n (n)$
+
+TODO: 解説と証明
+
+## 一般の<Q w="trace"k d/>の定義
+
+より一般の<Q w="trace"/>の定義をして、その定義を<Q w="mat"/>に対して満たすものが<Q w="mat-trace"/>か、もしくは定数倍のみであることを確かめる。
+
+TODO

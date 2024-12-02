@@ -1,0 +1,231 @@
+{/* generated from notebook */}
+<Config
+  isIpynb
+  ipynbLang="Wolfram Language"
+  ipynbRelPath="reading/tapl/chap4-in-wolfram"
+/>
+
+<Config
+  title="第四章をWolframで実装する"
+  published
+  />
+
+
+
+```wolfram
+SetOptions[$Output, FormatType -> TeXForm];
+```
+
+
+
+## 項の定義
+
+
+
+```wolfram
+ClearAll[zero, succ, pred, true, false, iszero, if];
+zero = Symbol["zero"];
+succ = Symbol["succ"];
+pred = Symbol["pred"];
+true = Symbol["true"];
+false = Symbol["false"];
+iszero = Symbol["iszero"];
+if = Symbol["if"];
+
+noRuleApplies = Symbol["noRuleApplies"];
+```
+
+
+
+## 数値の定義
+
+
+
+```wolfram
+ClearAll[isnumericval];
+isnumericval[zero] := True;
+isnumericval[succ[t_]] := isnumericval[t];
+isnumericval[_] := False;
+```
+
+
+
+## `isnumerical`の動作確認
+
+
+
+```wolfram
+isnumericval[zero]
+```
+
+$$\text{True}$$
+
+
+
+```wolfram
+isnumericval[succ[succ[zero]]]
+```
+
+$$\text{True}$$
+
+
+
+```wolfram
+isnumericval[true]
+```
+
+$$\text{False}$$
+
+
+
+```wolfram
+isnumericval[pred[succ[true]]]
+```
+
+$$\text{False}$$
+
+## 値の定義
+
+
+
+```wolfram
+clearAll[isval];
+isval[true] := True;
+isval[false] := True;
+isval[t_] := isnumericval[t];
+```
+
+
+
+## `isval`の動作確認
+
+
+
+```wolfram
+isval[true]
+```
+
+$$\text{True}$$
+
+
+
+```wolfram
+isval[false]
+```
+
+$$\text{True}$$
+
+
+
+```wolfram
+isval[succ[succ[zero]]]
+```
+
+$$\text{True}$$
+
+
+
+```wolfram
+isval[pred[succ[true]]]
+```
+
+$$\text{False}$$
+
+## 1ステップ評価器の定義
+
+
+
+```wolfram
+ClearAll[eval1];
+eval1[if[true, t2_, _]] := t2;
+eval1[if[false, _, t3_]] := t3;
+eval1[if[t1_, t2_, t3_]] := if[eval1[t1], t2, t3];
+eval1[succ[t1_]] := succ[eval1[t1]];
+eval1[pred[zero]] := zero;
+eval1[pred[succ[t1_]]] := If[
+  isnumericval[t1],
+  t1,
+  pred[eval[succ[t1]]]
+];
+eval1[pred[t1_]] := pred[eval1[t1]];
+eval1[iszero[zero]] := true
+eval1[iszero[succ[t1_]]] := If[
+  isnumericval[t1],
+  false,
+  iszero[eval1[succ[t1]]]
+];
+eval1[iszero[t1_]] := iszero[eval1[t1]];
+eval1[_] := Throw[noRuleApplies]
+```
+
+
+
+## `eval1`の動作確認
+
+
+
+```wolfram
+eval1[pred[zero]]
+```
+
+$$\text{zero}$$
+
+
+
+```wolfram
+eval1[if[true, succ[zero], zero]]
+```
+
+$$\text{succ}(\text{zero})$$
+
+
+
+```wolfram
+eval1[if[if[false, false, true], succ[zero], zero]]
+```
+
+$$\text{if}(\text{true},\text{succ}(\text{zero}),\text{zero})$$
+
+
+
+```wolfram
+Catch[eval1[succ[true]]]
+```
+
+$$\text{noRuleApplies}$$
+
+
+
+```wolfram
+Catch[eval1[true]]
+```
+
+$$\text{noRuleApplies}$$
+
+## 評価器の定義
+
+
+
+```wolfram
+ClearAll[eval];
+eval[t_] := Block[
+  {s = Catch[eval1[t]]},
+  If[
+    MatchQ[s, noRuleApplies],
+    t,
+    eval[s]
+  ]
+];
+```
+
+
+
+## `eval`の動作確認
+
+
+
+```wolfram
+eval[if[if[false, false, true], succ[zero], zero]]
+```
+
+$$\text{succ}(\text{zero})$$

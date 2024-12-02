@@ -1,0 +1,42 @@
+title: クラメルの公式
+published: true
+term-preset:
+  - matrix
+terms:
+  自由度: 行列の自由度
+---
+
+## クラメルの公式
+
+クラメルの公式は、線形方程式に対して明示的に解を与える公式。
+
+自由度$0$の線形方程式$\underset{n \times m}A \mathbf{x} = \mathbf{b}$について考える。
+
+- $A = (\begin{matrix} \mathbf a_0 & \mathbf a_1 & \cdots & \mathbf a_{m-1} \end{matrix})$
+- $\mathbf x = \t(\begin{matrix} x_0 & x_1 & \cdots & x_{m-1} \end{matrix})$
+
+とする。
+
+```math
+x_0 = \frac{\left| \begin{matrix}\ci{\mathbf b} & \mathbf a_1 & \mathbf a_2 & \cdots & \mathbf a_{m-1}\end{matrix} \right|}{|A|} \\
+x_1 = \frac{\left| \begin{matrix}\mathbf a_0 & \ci{\mathbf b} & \mathbf a_2 & \cdots & \mathbf a_{m-1}\end{matrix} \right|}{|A|} \\
+\vdots \\
+x_{m-1} = \frac{\left| \begin{matrix} \mathbf a_0 & \mathbf a_1 & \mathbf a_2 & \cdots & \ci{\mathbf b}\end{matrix} \right|}{|A|} \\
+```
+
+が成り立つ。
+
+<Prove>
+
+```math:trans:1
+\left| \begin{matrix}\mathbf a_1 & \mathbf a_2 & \cdots & \mathbf a_{i-1} & \mathbf b & \mathbf a_{i+1} & \cdots & \mathbf a_{m-1}\end{matrix} \right|
+= \left| \begin{matrix}\mathbf a_1 & \mathbf a_2 & \cdots & \mathbf a_{i-1} & (\ci{A\mathbf x}) & \mathbf a_{i+1} & \cdots & \mathbf a_{m-1}\end{matrix} \right|
+= \left| \begin{matrix}\mathbf a_1 & \mathbf a_2 & \cdots & \mathbf a_{i-1} & (\ci{\sum_{k \in n} \mathbf a_k \cdot x_k}) & \mathbf a_{i+1} & \cdots & \mathbf a_{m-1}\end{matrix} \right|
+= \left| \begin{matrix}\mathbf a_1 & \mathbf a_2 & \cdots & \mathbf a_{i-1} & (\ci{\mathbf a_i \cdot x_i}) & \mathbf a_{i+1} & \cdots & \mathbf a_{m-1}\end{matrix} \right|
+= x_i \left| \begin{matrix}\mathbf a_1 & \mathbf a_2 & \cdots & \mathbf a_{i-1} & \mathbf a_i & \mathbf a_{i+1} & \cdots & \mathbf a_{m-1}\end{matrix} \right|
+= x_i |A|
+```
+
+自由度$0$なので$n - \rank A = 0$、つまり$\rank A = n$なので$|A| \neq 0$。$|A|^{-1}$を両辺に乗じる。
+</Prove>
+

@@ -1,0 +1,336 @@
+<Config
+  title="行列に関する基本的な定義"
+  published
+/>
+
+## <Q w="mat-eq" k />
+
+行数と列数が等しい<Q w="mat" />$A$と$B$が等しいのは、各<Q w="elem" />も等しいときであり、$A=B$と書く。
+
+つまり、$a_{i,j}=b_{i,j} \defiff \forall ~ i,j ~ [a_{i, j} = b_{i, j}]$
+
+{/* TODO: 定義の必然性みたいな話 */}
+
+### 例
+
+```math
+\begin{pmatrix}
+1 & 2 \\
+3 & 4 \\
+\end{pmatrix}
+=
+\begin{pmatrix}
+1 & 2 \\
+3 & 4 \\
+\end{pmatrix}
+```
+
+```math
+\begin{pmatrix}
+1 & 1 \\
+1 & 1 \\
+\end{pmatrix}
+\neq
+\begin{pmatrix}
+0 & 0 \\
+0 & 0 \\
+\end{pmatrix}
+```
+
+## <Q w="zero-matrix" k d />
+
+<Q w="zero-matrix" />とは、すべての<Q w="elem" />が $0$ (零) であるような<Q w="mat" />のこと。
+
+$O$ (オー) と表記する。行数と列数は前後の文脈から容易にわかる場合にしばしば省略する。
+
+$O = (o_{i, j})$ としたとき、 $o_{i, j} = 0$ となるような<Q w="mat" />と定義される。
+
+### $2 \times 2$ の<Q w="zero-matrix" />の例
+
+```math
+O = \begin{pmatrix}
+0 & 0 \\
+0 & 0 \\
+\end{pmatrix}
+```
+
+## <Q w="square-matrix" k d />
+
+<Q w="square-matrix" />とは、<Q w="row"/>数と<Q w="column"/>数が等しい、$n \times n$ の<Q w="mat" />のこと。
+
+
+## <Q w="main-diag" k d />
+
+<Q w="main-diag" />とは、$i=j$ であるような<Q w="elem" /> $a_{i,j}$ のこと。<Q w="square-matrix" />でなくともこう呼ぶ。
+
+下記の例で言う、アスタリスクのある位置が<Q w="main-diag"/>。
+
+```math
+\begin{pmatrix}
+  * &  &  & \\
+   & * &  & \\
+   &  & * & \\
+   &  &  & *\\
+\end{pmatrix}
+```
+
+## <Q w="kronecker-delta" k d />
+
+<Q w="kronecker-delta" />とは、以下のように定義される関数 $\delta: \N \times \N \rightarrow \R$ である。
+
+```math
+\delta_{i,j} = \begin{cases}
+ 1 &\text{if } i=j \\
+ 0 &\text{otherwise}
+\end{cases}
+```
+
+## <Q w="identity-matrix" k d />
+
+<Q w="identity-matrix" />とは、<Q w="square-matrix" />であって、<Q w="main-diag" />がすべて $1$ であるような<Q w="mat" />。$I$ と書かれることが多い。<Q w="kronecker-delta" />を用いて、$I = (\delta_{i,j})$ と書ける。
+
+また、 $n \times n$ の<Q w="identity-matrix" />を $I_n$ と書くこともある。
+
+```math
+I_4 = \begin{pmatrix}
+  1 &  &  & \\
+   & 1 &  & \\
+   &  & 1 & \\
+   &  &  & 1\\
+\end{pmatrix}
+```
+
+基本的には $I$ が使われ、行数と列数は文脈から自明であることが多く、その場合は明記しない。
+<Q w="kronecker-delta" />による定義は、形式的な議論をする際に役立つ。
+
+## <Q w="mat-add" k d />
+
+$n \times m$ の<Q w="mat" />同士の和をそのまま$n \times m$<Q w="mat" />になるものとして以下のように定義する。
+
+
+$(a_{i, j}) + (b_{i, j}) \defeq (a_{i, j} + b_{i,j})$ と定義する。
+
+### 例
+
+```math
+\begin{pmatrix}
+  a_{0,0} & a_{0,1} & a_{0,2} \\
+  a_{1,0} & a_{1,1} & a_{1,2} \\
+  a_{2,0} & a_{2,1} & a_{2,2} \\
+\end{pmatrix}
++
+\begin{pmatrix}
+  b_{0,0} & b_{0,1} & b_{0,2} \\
+  b_{1,0} & b_{1,1} & b_{1,2} \\
+  b_{2,0} & b_{2,1} & b_{2,2} \\
+\end{pmatrix}
+=
+\begin{pmatrix}
+  a_{0,0}+b_{0,0} & a_{0,1}+b_{0,1} & a_{0,2}+b_{0,2} \\
+  a_{1,0}+b_{1,0} & a_{1,1}+b_{1,1} & a_{1,2}+b_{1,2} \\
+  a_{2,0}+b_{2,0} & a_{2,1}+b_{2,1} & a_{2,2}+b_{2,2} \\
+\end{pmatrix}
+```
+
+### 系: <Q w="zero-matrix" />は<Q w="mat-add" />の<Q w="identity" />である
+
+$A + O = O + A = A$
+
+<Prove>
+
+$C \coloneqq A + O$ とすると
+
+$c_{i, j} = a_{i, j} + o_{i, j} = a_{i, j} + 0 = a_{i, j}$
+
+</Prove>
+
+## <Q w="scaling" k d />
+
+$k \in \R$ と $n \times m$ の<Q w="mat" /> $A$ について、$k \cdot (a_{i,j}) \defeq (k a_{i,j})$と定義する。
+
+### 例
+
+```math
+k \times \begin{pmatrix}
+  a_{0,0} & a_{0,1} & a_{0,2} \\
+  a_{1,0} & a_{1,1} & a_{1,2} \\
+  a_{2,0} & a_{2,1} & a_{2,2} \\
+\end{pmatrix}
+=
+\begin{pmatrix}
+  k\times b_{0,0} & k\times b_{0,1} & k\times b_{0,2} \\
+  k\times b_{1,0} & k\times b_{1,1} & k\times b_{1,2} \\
+  k\times b_{2,0} & k\times b_{2,1} & k\times b_{2,2} \\
+\end{pmatrix}
+```
+
+## <Q w="mat-negation" />
+
+任意の<Q w="mat"/> $A$ に対する単項<Q w="operator" /> $-A$ を $-A \defeq (-1) \times A$ と定義する。
+
+## <Q w="mat-subt" k d />
+
+$n \times m$ の<Q w="mat" />同士の差を $n \times m$ の<Q w="mat" />になるものとして、 $A - B \defeq A + (-B)$ と定義する。
+
+### 系: $(a_{i, j}) - (b_{i, j}) = (a_{i, j} - b_{i,j})$
+
+これは自明だが、この系の背景で定義がどう働いているかというのを示すために証明を記す。
+
+<Prove>
+
+
+```math:trans
+(a_{i, j}) - (b_{i, j})
+= (a_{i, j}) + (-(b_{i, j}))
+?\load{q:mat-subt}
+= (a_{i, j}) + (-1) \cdot (b_{i, j})
+?\load{q:mat-negation}
+= (a_{i, j}) + ((-1) \cdot b_{i, j})
+?\load{q:scaling}
+= \left(a_{i, j} + (-1) \cdot b_{i, j}\right)
+?\load{q:mat-add}
+= (a_{i, j} - b_{i, j})
+?\load{qk:field}に関する式変形
+```
+
+</Prove>
+
+## <Q w="scaling" k />と<Q w="mat-add" k />の性質
+
+1. <Q w="commutativity" />: $A+B=B+A$
+1. <Q w="associativity" />: $(A+B)+C=A+(B+C)$
+1. <Q w="distributivity" />: $k(A+B)=kA+kB$
+
+証明は省略。
+
+## <Q w="transpose" k />
+
+<Q w="mat" />$\underset{n \times m}{A}$の<Q w="transpose" />を、<Q w="mat" />$\underset{m \times n}{\t{A}}=(\t{a}_{i, j})=(a_{j,i})$として定義する。
+
+つまり、対角線に関して反転した形になる。
+
+### <Q w="transpose" />の例
+
+```math
+\t{
+  \begin{pmatrix}
+  1 & 2 & 3 \\
+  4 & 5 & 6 \\
+  \end{pmatrix}
+}
+=
+\begin{pmatrix}
+1 & 4 \\
+2 & 5 \\
+3 & 6 \\
+\end{pmatrix}
+```
+
+## <Q w="transpose" k />の性質
+
+1. $\t{(\t{A})}=A$
+1. $\t{(A + B)}=\t{A} + \t{B}$
+1. $\t{(kA)}=k(\t{A})$
+
+証明は省略する。
+
+## <Q w="symmetrix-matrix" k d />
+
+<Q w="symmetrix-matrix" />とは、<Q w="square-matrix" />であって、$\t{A}=A$な<Q w="mat" />$A$のこと。
+
+
+### <Q w="symmetrix-matrix" k />の例
+
+```math
+\begin{pmatrix}
+1 & 4 & 5 \\
+4 & 2 & 6 \\
+5 & 6 & 3 \\
+\end{pmatrix}
+```
+
+## <Q w="skew-symmetrix-matrix" k d />
+
+<Q w="skew-symmetrix-matrix" />とは、<Q w="square-matrix" />であって、$\t{A}=-A$な<Q w="mat" />$A$のこと。
+
+<Q w="main-diag" />については$a_{i,i}=-a_{i,i}$となるので$a_{i,i}=0$となる。
+
+### <Q w="skew-symmetrix-matrix" k />の例
+
+```math
+\begin{pmatrix}
+0 & 1 & 2 \\
+-1 & 0 & 3 \\
+-2 & -3 & 0 \\
+\end{pmatrix}
+```
+
+## <Q w="upper-triangular-matrix" k d />
+
+<Q w="upper-triangular-matrix" />とは、$i > j$について$a_{i, j}=0$であるような<Q w="mat" />。
+
+### <Q w="upper-triangular-matrix" />の例
+
+```math
+\begin{pmatrix}
+a & b & c \\
+  & d & e \\
+  &   & f \\
+\end{pmatrix}
+```
+
+## <Q w="lower-triangular-matrix" k d />
+
+<Q w="lower-triangular-matrix" />とは、$i < j$について$a_{i, j}=0$であるような<Q w="mat" />。
+
+### <Q w="lower-triangular-matrix" />の例
+
+```math
+\begin{pmatrix}
+a &   &   \\
+b & d &   \\
+d & e & f \\
+\end{pmatrix}
+```
+
+## <Q w="diagonal-matrix" k />
+
+<Q w="diagonal-matrix" />とは、$i \neq j$について$a_{i, j}=0$であるような<Q w="mat" />。
+
+<Q w="upper-triangular-matrix" />かつ<Q w="lower-triangular-matrix" />とも定義できる。
+
+また、<Q w="square-matrix" />かつ<Q w="diagonal-matrix" />な$n \times n$の<Q w="mat" />を、その<Q w="main-diag" />を用いて$\diag(a_0, a_1, \cdots, a_{n-1})$と書く。
+
+<Q w="identity-matrix" />は$\diag(1, 1, \cdots, 1)$と書ける。
+
+### <Q w="diagonal-matrix" />の例
+
+```math
+\begin{pmatrix}
+a &   &   \\
+  & b &   \\
+  &   & c \\
+\end{pmatrix}
+```
+
+```math
+\diag(1, 0, 3)
+=
+\begin{pmatrix}
+1 &   &   \\
+  & 0 &   \\
+  &   & 3 \\
+\end{pmatrix}
+```
+
+```math
+\diag(1, 1, 1)
+=
+\begin{pmatrix}
+1 &   &   \\
+  & 1 &   \\
+  &   & 1 \\
+\end{pmatrix}
+=
+I_3
+```

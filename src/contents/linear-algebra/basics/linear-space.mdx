@@ -1,0 +1,98 @@
+<Config
+  title="線形空間"
+  published
+/>
+
+## <Q w="lin-sp"k d/>
+
+<Q w="field"/>$(\K, +_\K, \cdot_\K)$に対し、$\K$上の<Q w="lin-sp"/>とは、<Q w="set"/>$V$、$V$上の<Q w="add"/>$+_V: V \times V \rightarrow V$と<Q w="scaling"/>$\cdot: \K \times V \rightarrow V$の<Q w="tuple"/>$(V, +_V, \cdot)$であって次の<Q w="axiom"/>を満たすものである。それなりに分類しているが、わかりにくければ無視して問題ない。
+
+- $(V, +_V)$が以下の<Q w="axiom"/>を満たす（<Q w="c-group"/>）
+  - <Q w="associativity"/>: $(\mathbf a + \mathbf b) + \mathbf c = \mathbf a + (\mathbf b + \mathbf c)$
+  - <Q w="commutativity"/>: $\mathbf a + \mathbf b = \mathbf b + \mathbf a$
+  - <Q w="identity"/>$0$の存在: $\mathbf 0 + \mathbf a = \mathbf a + \mathbf 0 = \mathbf 0$
+  - <Q w="inverse"/>$-\mathbf a$の存在: $\mathbf a + (-\mathbf a) = \mathbf 0$
+- $k \cdot \mathbf a$は次のように、ある種の構造を保存する（<Q w="homomorphism"/>）
+  - <Q w="linearity"/>: $k \cdot (\mathbf a + \mathbf b) = k \cdot \mathbf a + k \cdot \mathbf b$
+- <Q w="act"/>させても変化しない$k \in \K$（<Q w="id-morph"/>）の存在（後述）
+  - $1 \cdot \mathbf a = \mathbf a$
+- <Q w="act"/>は<Q w="commutative"/>である
+  - $(k \cdot_\K l) \cdot \mathbf a = k \cdot (l \cdot \mathbf a)$
+
+ただし、$\mathbf a , \mathbf b \in V$、$k \in \K$である。今後も同様に、太字で$V$の<Q w="elem"/>を、普通のイタリック体で$\K$の<Q w="elem"/>を表すものとして、$+$は$+_\K$か$+_V$のうち、どちらであるか自動でわかるので省略する。<Q w="mult"/>$\cdot_\K$についても同様、また、単に省略することもある。
+
+$V$の<Q w="elem"/>を<Q w="vec"/>と呼ぶ。
+
+## <Q w="lin-sp"k/>の例
+
+
+<Q w="lin-sp"/>は多くの分野で実用的なものは非常に興味深いものなど多くある。
+
+最も基本的なものは$\R$上の<Q w="real-sp"/>$\R^n$と、$\Complex$上の<Q w="comp-sp"/>$\Complex^n$だ。
+
+$\Complex^n$は$\R$上の<Q w="lin-sp"/>であると捉えることも可能。
+同様に、$n\in\N$に対して、$\K^n$を$\R^n$の<Q w="op"/>と同様の定義とする。$\K^n$は$\K$上の<Q w="lin-sp"/>となる。
+
+$\K$上の<Q w="lin-sp"/>$V$と<Q w="set"/>$X$について、$f: X \rightarrow V$であるような$f$全体（$\Hom{X, V}$）を以下のような<Q w="op"/>とともに<Q w="func-sp"/>として定義する。この<Q w="func-sp"/>は$\K$上の<Q w="lin-sp"/>となる。
+
+- $(f + g)(x) \coloneqq f(x) + g(x)$
+- $(k \cdot f)(x) \coloneqq k \cdot f(x)$
+
+その他の多くの<Q w="lin-sp"/>については、TODOなどを参照。
+
+## <Q w="lin-sp"k/>の解釈
+
+<Q w="lin-sp"/>を考えるモチベーションについて。
+<Q w="lin-sp"/>はまず<Q w="field"/>$(\K, +_\K, \cdot_\K)$と<Q w="c-group"/>$(V, +_V)$、そしてそれらを結ぶ、<Q w="act"/>$k \cdot \mathbf a$からなる。
+
+最後の<Q w="op"/>を追加するまでは、$V$と$\K$は独立している。それを結ぶのが、<Q w="act"/>である。それは何でもいいというわけではなく、ある種の構造を保存したまま、$V$を$V$に変換する。そういう変換のことを、$V$上の$\K$の<Q w="act"d/>と呼ぶ。これは$V$の<Q w="homomorphism"/>ともいう。（そうみなせる）
+
+このある種の構造を保つ、$V$から$V$（ないしはその他の<Q w="lin-sp"/>$W$）への変換は、これから解説する<Q w="linear-transform"/>というものであり、それらはたくさんあるのだが、それらを<Q w="mat"/>を通して**見る**事ができるのである。
+
+## 等価な<Q w="axiom"/>: 乗じても変化しない$k \in \K$が存在 $\iff$ $1$を乗じても変化しない
+
+<Q w="lin-sp"/>の<Q w="axiom"/>のなかに$1 \cdot \mathbf a = \mathbf a$というものがある。
+
+これは、$k \cdot \mathbf a = \mathbf a$であるような$k$が存在することと等価なのだ。まずはこのことを証明する。
+
+命題: $\exists ~ k \in \K ~ \left[ \forall \mathbf ~ a \in V ~ \left[ k \cdot \mathbf a = \mathbf a \right]\right] \iff 1 \cdot \mathbf a = \mathbf a$
+
+<Prove>
+$(\Longleftarrow)$について。こちらは明らか。$k = 1$ を提示すればよい。
+
+$(\Longrightarrow)$について。
+$k = 0$である場合。
+
+```math:trans:1
+ 0 \cdot \mathbf a
+= (0 + 0) \cdot \mathbf a
+= (0 \cdot \mathbf a) + (0 \cdot \mathbf a)
+= \mathbf a + \mathbf a
+```
+
+$0 \cdot \mathbf a = \mathbf a$と組み合わせて、
+
+```math:trans:1
+  \mathbf a + \mathbf a = \mathbf a
+-
+  \mathbf a = \mathbf 0
+```
+
+つまり、任意の$\mathbf a$が$\mathbf 0$であるということになる。そのような、$V = \{\mathbf 0\}$の場合、$1 \cdot \mathbf 0 = \mathbf 0$になるので問題ない。$V \neq \{\mathbf 0\}$の場合、$k \neq 0$ということになる。
+
+```math:trans:1
+k \cdot \mathbf a = \mathbf a
+> 1 \cdot (k \cdot \mathbf a) = 1 \cdot \mathbf a
+? 左から$1$
+- (1 \cdot k) \cdot \mathbf a = 1 \cdot \mathbf a
+? TODO
+- k \cdot \mathbf a = 1 \cdot \mathbf a
+- \mathbf a = 1 \cdot \mathbf a
+? $k \cdot \mathbf a = \mathbf a$を左辺に代入
+```
+</Prove>
+
+つまり、該当の<Q w="axiom"/>は、ただ「とにかく何でもいいから、掛けても変化しない値が存在する」といっているのと等価だということだ。
+
+これは、<Q w="category"/>でいうところの、<Q w="id-morph"/>の存在の<Q w="axiom"/>に相当する。実際、<Q w="category"/>の中に<Q w="lin-sp"/>を構築すると、該当の<Q w="axiom"/>は<Q w="category"/>の<Q w="axiom"/>から自動で得られる事になる。
+

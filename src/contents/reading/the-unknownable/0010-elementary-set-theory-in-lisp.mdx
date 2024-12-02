@@ -1,0 +1,625 @@
+{/* generated from notebook */}
+<Config
+  isIpynb
+  ipynbLang="common-lisp"
+  ipynbRelPath="reading/the-unknownable/0010-elementary-set-theory-in-lisp"
+/>
+
+## LISPで有限集合を定義する
+
+p.45あたりから。Elementary Set Theory. 集合論の基礎、もしくは初等集合論かな。
+
+### メンバーシップ述語$\in$の実装`member?`
+
+
+
+```plain
+(defun member? (e a)
+    (if (null a)
+        nil
+    (if (eq e (car a))
+        t
+        (member? e (cdr a)))))
+```
+
+
+
+```plain
+MEMBER?
+```
+
+
+
+
+
+```plain
+SB-KERNEL:REDEFINITION-WITH-DEFUN: redefining COMMON-LISP-USER::MEMBER? in DEFUN
+```
+
+
+
+
+
+```plain
+(member? 1 '(1 2 3))
+```
+
+
+
+```plain
+T
+```
+
+
+
+
+
+```plain
+(member? 4 '(1 2 3))
+```
+
+
+
+```plain
+NIL
+```
+
+
+
+### $\cap$の実装`myintersection`
+
+Common Lispにはbuilt-inで`intersection`が存在するので、名前を避けた。
+2つのリスト`a`, `b`を受け取り、`a`を先頭から見て`b`に含まれるものをすべて連結していく。
+
+
+
+```plain
+(defun myintersection (a b)
+    (if (null a)
+        nil
+    (let ((a0 (car a)))
+    (let ((r (myintersection (cdr a) b)))
+    (if (member? a0 b)
+        (cons a0 r)
+    r)))))
+```
+
+
+
+```plain
+MYINTERSECTION
+```
+
+
+
+
+
+```plain
+(myintersection '(1 2 3) '(2 3 5))
+```
+
+
+
+```plain
+(2 3)
+```
+
+
+
+
+
+```plain
+(intersection '(1 2 3) '(2 3 5))
+```
+
+
+
+```plain
+(3 2)
+```
+
+
+
+
+
+```plain
+(myintersection '(1 2 3 2) '(2 3 5))
+```
+
+
+
+```plain
+(2 3 2)
+```
+
+
+
+
+
+```plain
+(intersection '(1 2 3 2) '(2 3 5))
+```
+
+
+
+```plain
+(2 3 2)
+```
+
+
+
+built-inの`intersection`も二個返すかもしれないんですね。
+
+### $\cup$の実装`myunion`
+
+同様にbuilt-inの`union`の名前を避けている。
+リスト`a`, `b`をとり、`a`を先頭から見て、`b`に含まれていないものを連結していって、最後に`b`自身を後ろにつける。
+
+
+
+```plain
+(defun myunion (a b)
+    (if (null a)
+        b
+    (let (
+        (a0 (car a))
+        (r (myunion (cdr a) b)))
+    (if (member? a0 b)
+        r
+    (cons a0 r)))))
+```
+
+
+
+```plain
+MYUNION
+```
+
+
+
+
+
+```plain
+(myunion '(1 2 3) '(2 3 4))
+```
+
+
+
+```plain
+(1 2 3 4)
+```
+
+
+
+
+
+```plain
+(union '(1 2 3) '(2 3 4))
+```
+
+
+
+```plain
+(1 2 3 4)
+```
+
+
+
+
+
+```plain
+(myunion '(1 2 3) '(2 3 4 2))
+```
+
+
+
+```plain
+(1 2 3 4 2)
+```
+
+
+
+
+
+```plain
+(union '(1 2 3) '(2 3 4 2))
+```
+
+
+
+```plain
+(4 1 2 3)
+```
+
+
+
+
+
+```plain
+(union '(1 2 3 1) '(2 3 4))
+```
+
+
+
+```plain
+(1 1 2 3 4)
+```
+
+
+
+若干の実装の差はありそうだけど、大体同じような内容のようだ。
+
+### 演習: 下位集合術語$\subseteq$の実装
+
+
+
+```plain
+(defun subset? (x y)
+    (if (null x)
+        t
+    (if (member? (car x) y)
+        (subset (cdr x) y)
+    nil)))
+```
+
+
+
+```plain
+SUBSET?
+```
+
+
+
+
+
+```plain
+(subset? '(1 2) '(1 2 3))
+```
+
+
+
+```plain
+T
+```
+
+
+
+
+
+```plain
+(subset? '(4) '(1 2 3))
+```
+
+
+
+```plain
+NIL
+```
+
+
+
+
+
+```plain
+(subset? '(2 3 4) '(1 2 3))
+```
+
+
+
+```plain
+NIL
+```
+
+
+
+### 演習: 相対補集合$\setminus$の実装
+
+差集合ですね。
+
+
+
+```plain
+(defun setminus (x y)
+    (if (null x)
+        nil
+    (let (
+        (xh (car x))
+        (r (setminus (cdr x) y)))
+    (if (member? xh y)
+        r
+    (cons xh r)))))
+```
+
+
+
+```plain
+SETMINUS
+```
+
+
+
+
+
+```plain
+SB-KERNEL:REDEFINITION-WITH-DEFUN: redefining COMMON-LISP-USER::SETMINUS in DEFUN
+```
+
+
+
+
+
+```plain
+(setminus '(1 2 3) '(2 4 5))
+```
+
+
+
+```plain
+(1 3)
+```
+
+
+
+### 演習: 集合のリストの合併の実装
+
+題意がいまいち掴めないのであとで。
+
+解を見たが、やはり集合のリストを受け取り、すべての集合を合併したものを返す関数だった。
+印刷の都合で`union1`に見えたが`unionl`だった。listのlだろう。
+
+
+
+```plain
+(defun unionl (l)
+    (if (null l)
+        nil
+    (union (car l) (unionl (cdr l)))))
+```
+
+
+
+```plain
+UNIONL
+```
+
+
+
+
+
+```plain
+(unionl '((0 2 4 6 8) (0 3 6 9) (0 5)))
+```
+
+
+
+```plain
+(8 4 2 9 6 3 5 0)
+```
+
+
+
+### 演習: 集合の直積$\times$
+
+デカルト積。パッとは今までのような方法は思いつかないな。綺麗で自然なのはサブで使う関数を定義することだろう。もしくは簡単にするため`map`のようなものが使いたくなる。合わせて`concatenate`も使いたい。
+
+#### `map`を使う実装
+
+先にこちらを書いた。`map`の型指定`'list`の部分はまだよくわかっていないが、とりあえず以下のように使える。
+
+
+
+```plain
+(map 'list #'(lambda (x) (+ x 1)) '(1 2 3))
+```
+
+
+
+```plain
+(2 3 4)
+```
+
+
+
+`#'`はセットでひとつのトークンで、`function`を意味する。関数を高階関数に渡す際に用いる。
+
+
+
+```plain
+(defun setproduct (x y)
+    (if (null x)
+        nil
+    (let (
+        (x0 (car x))
+        (r (settimes (cdr x) y)))
+    (flet ((withx0 (e) (list x0 e)))
+    (concatenate 'list (map 'list #'withx0 y) r)))))
+```
+
+
+
+```plain
+SETPRODUCT
+```
+
+
+
+`flet`は`let`の関数版。
+
+
+
+```plain
+(setproduct '(1 2 3) '(2 3 4))
+```
+
+
+
+```plain
+((1 2) (1 3) (1 4) (2 2) (2 3) (2 4) (3 2) (3 3) (3 4))
+```
+
+
+
+`map`無しも実装しようと思ったが、やめた。その代わり、`map`と`concatenate`の実装をしてみよう。
+
+### `map`の簡易版を実装
+
+
+
+```plain
+(defun mymap (f a)
+    (if (null a)
+        nil
+    (cons (funcall f (car a)) (mymap f (cdr a)))))
+```
+
+
+
+```plain
+MYMAP
+```
+
+
+
+
+
+```plain
+(mymap #'(lambda (e) (* e 2)) '(1 2 3))
+```
+
+
+
+```plain
+(2 4 6)
+```
+
+
+
+`funcall`の使用例を書きたかっただけなのでこんなものでよし。
+
+解を見たが、やはり`product`のサブ関数`product1`を利用して定義していた。
+
+### 演習: 下位集合すべてを求める関数の実装
+
+冪集合(power set)ですね。
+
+
+
+```plain
+(defun setpower (a)
+    (if (null a)
+        '(nil)
+    (let (
+        (a0 (car a))
+        (exc (setpower (cdr a))))
+    (let ((inc (map 'list #'(lambda (e) (cons a0 e)) exc)))
+    (concatenate 'list inc exc)))))
+```
+
+
+
+```plain
+SETPOWER
+```
+
+
+
+
+
+```plain
+SB-KERNEL:REDEFINITION-WITH-DEFUN: redefining COMMON-LISP-USER::SETPOWER in DEFUN
+```
+
+
+
+
+
+```plain
+(setpower '(1 2 3 4))
+```
+
+
+
+```plain
+((1 2 3 4) (1 2 3) (1 2 4) (1 2) (1 3 4) (1 3) (1 4) (1) (2 3 4) (2 3) (2 4)
+ (2) (3 4) (3) (4) NIL)
+```
+
+
+
+
+
+```plain
+(length (setpower '()))
+```
+
+
+
+```plain
+1
+```
+
+
+
+
+
+```plain
+(length (setpower '(1)))
+```
+
+
+
+```plain
+2
+```
+
+
+
+
+
+```plain
+(length (setpower '(1 2)))
+```
+
+
+
+```plain
+4
+```
+
+
+
+
+
+```plain
+(length (setpower '(1 2 3)))
+```
+
+
+
+```plain
+8
+```
+
+
+
+
+
+```plain
+(length (setpower '(1 2 3 4)))
+```
+
+
+
+```plain
+16
+```
+
+
+
+ちゃんとサイズが2冪になっている。
+
+## 準備完了
+
+これでゲーデルの不完全性定理と停止問題が解決不能だというチューリングの定理を証明する準備ができたそうです。楽しみ。
+
+おそらく使い回すだろうのでモジュールにしておきたいな。

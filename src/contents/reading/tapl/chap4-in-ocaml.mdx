@@ -1,0 +1,558 @@
+{/* generated from notebook */}
+<Config
+  isIpynb
+  ipynbLang="OCaml"
+  ipynbRelPath="reading/tapl/chap4-in-ocaml"
+/>
+
+<Config
+  title="第四章をOCamlで実装する+メモ"
+  published
+  />
+
+http://www.cis.upenn.edu/~bcpierce/tapl
+
+TaPL p.35 4章 算術式のML実装 に対応する。
+
+MLの言語処理系をこれから実装していく上で、本質的に利用したいOCamlの言語特性は、
+
+- 自動メモリ管理(ガベージコレクション)
+- 構造データ型に対するパターンマッチを用いて再帰関数を用意に定義できる
+
+## 型無算術式の構文をOCamlで定義
+
+### 構文の定義方法
+
+構文を定義する際、以下のような方式が使える。
+
+- BNF (3.1)
+- 帰納的に集合を定義 (3.2.1)
+- 推論規則による方法 (3.2.2)
+- 累積的に集合を定義 (3.2.3)
+
+MLのdatatypeを用いた方法は、上記のうちで最も近いのはBNFということになるだろう。
+
+TODO: それぞれの表記法の強力さ(CFGなどのクラス)が知りたいな。BNFに関しては多分CFGだと思うけれど。集合に関しては論理式の強さによるとかなのだろうか。推論規則もCFGなんじゃないだろうか。
+
+気をつけるべきは、`succ(true)`のような一見意味のないようなものも、意味をまだ考えないうちは「項である」し、`if true then 0 else succ(0)` とはこの見た目そのものであって、`0`とは構文的には等価ではない。$\text{if true then 0 else succ(0)} \not \equiv \text{0}$
+
+これに評価のされ方、などという意味を与えるのが意味論(semantics)である。こういう意味では、言語に同値類を与えることが意味論といえるだろう。
+
+
+
+```ocaml
+type term =
+  | TmTrue
+  | TmFalse
+  | TmIf of term * term * term
+  | TmZero
+  | TmSucc of term
+  | TmPred of term
+  | TmIsZero of term
+```
+
+
+
+```ocaml
+type term =
+    TmTrue
+  | TmFalse
+  | TmIf of term * term * term
+  | TmZero
+  | TmSucc of term
+  | TmPred of term
+  | TmIsZero of term
+```
+
+
+
+なお、もとのTaPLにある `info` に関する記述は除いた。
+
+```ocaml
+type info = FI of string * int * int | UNKNOWN
+```
+
+という形式をしている。 `FI` は File Information という意味であり、ファイル名、行番号、列番号、とくる。つまり、ロケーション情報だ。
+今やっていることは言語処理系を書くことなのだから、これは重要ではあるが、初めて書く分にはノイズになりそうなので一旦省いた。
+
+datatypeはRustではenumだ。TODO: あとでRustでも書いてみよう。
+
+## 値(value)を表す項の定義
+
+項(term)は無限に考えられる。`0`, `succ(0)`, `if true then succ(0) else 0` のようなものや、`succ(true)` など意味がなさそうなものなど。
+このうち、まず値と呼ぶものを定義する。リテラルみたいなものだ。意味論的には、評価が終わった最終形みたいなものの集合だ。それとはそれである、としか言えないような。
+
+### 数値(numeric value)の定義
+
+
+
+```ocaml
+let rec isnumericval t = match t with
+  | TmZero -> true
+  | TmSucc t1 -> isnumericval t1
+  | _ -> false
+```
+
+
+
+```ocaml
+val isnumericval : term -> bool = <fun>
+```
+
+
+
+
+
+```ocaml
+isnumericval TmTrue (* true *)
+```
+
+
+
+```ocaml
+- : bool = false
+```
+
+
+
+
+
+```ocaml
+isnumericval TmZero (* 0 *)
+```
+
+
+
+```ocaml
+- : bool = true
+```
+
+
+
+
+
+```ocaml
+isnumericval (TmSucc TmZero) (* succ(0) = 1 *)
+```
+
+
+
+```ocaml
+- : bool = true
+```
+
+
+
+
+
+```ocaml
+isnumericval (TmPred (TmSucc TmZero)) (* pred(succ(0)) *)
+```
+
+
+
+```ocaml
+- : bool = false
+```
+
+
+
+数値を表す項は、`0`, `1`(=`succ(0)`), `2`(=`succ(succ(0))`), ... のみということだ。
+
+### ブール値含めた値(value)の定義
+
+
+
+```ocaml
+let rec isval t = match t with
+  | TmTrue -> true
+  | TmFalse -> true
+  | t when isnumericval t -> true
+  | _ -> false
+```
+
+
+
+```ocaml
+val isval : term -> bool = <fun>
+```
+
+
+
+`t when isnumericval t` の最初の `t` は任意のパターンにマッチして `t` に束縛するということだ。
+
+
+
+
+```ocaml
+isval (TmTrue) (* true *)
+```
+
+
+
+```ocaml
+- : bool = true
+```
+
+
+
+
+
+```ocaml
+isval (TmIf (TmTrue, TmTrue, TmTrue)) (* if true then true else true *)
+```
+
+
+
+```ocaml
+- : bool = false
+```
+
+
+
+## 評価(p.36:4.2)
+
+評価を通して意味を与えられる。
+エラーの扱い方はOCamlに限った話ではないだろう。
+(ただし、OCamlという言語そのものに着目するなら、帯域脱出をもつかどうかは言語の表現能力に関わってくる。この話は "コンピュータは数学者になれるのか？（照井一成）" でみかけた。)
+TaPLでは大域脱出を利用。簡単そうなのでこれを利用する。
+
+
+
+
+```ocaml
+exception NoRuleApplies
+```
+
+
+
+```ocaml
+exception NoRuleApplies
+```
+
+
+
+### 単一ステップの評価器
+
+
+
+```ocaml
+let rec eval1 t = match t with
+  | TmIf(TmTrue, t2, t3) -> t2
+  | TmIf(TmFalse, t2, t3) -> t3
+  | TmIf(t1, t2, t3) ->
+    let t1' = eval1 t1 in
+    TmIf(t1', t2, t3)
+  | TmSucc(t1) ->
+    let t1' = eval1 t1 in
+    TmSucc(t1')
+  | TmPred(TmZero) -> TmZero
+  | TmPred(TmSucc(nv1)) when (isnumericval nv1) ->
+    nv1
+  | TmPred(t1) ->
+    let t1' = eval1 t1 in
+    TmPred(t1')
+  | TmIsZero(TmZero) -> TmTrue
+  | TmIsZero(TmSucc(nv1)) when (isnumericval nv1) -> TmTrue
+  | TmIsZero(t1) ->
+    let t1' = eval1 t1 in
+    TmIsZero(t1')
+  | _ ->
+    raise NoRuleApplies
+```
+
+
+
+```ocaml
+val eval1 : term -> term = <fun>
+```
+
+
+
+これで1ステップ評価をOCamlに書き下せた。実際にはファイル情報も操作するべきだが、その場合は、「(現在作成中のこの言語の)ユーザーのファイルには存在しない項」というのが出てくることになる。そこだけ注意すれば、あとは基本的にはファイル情報を引き継ぐだけで終わる。
+
+`term -> term` という型はつまり、項を項に変換する関数だということだ。
+
+
+`let ... in ...` は関数型言語で見かけるものだ。ちょうど "The Unknownable (Gregory J. Chaitin)" でも扱われていた。`lambda` を利用した変数束縛の簡易な書き方(syntax sugar)であり、いつでもラムダに変換可能だ。
+
+### `eval1` の動作確認
+
+
+
+```ocaml
+(* pred(succ(0)) --(eval1)--> 0 *)
+eval1 (TmPred (TmSucc TmZero))
+```
+
+
+
+```ocaml
+- : term = TmZero
+```
+
+
+
+
+
+```ocaml
+(* if(true, 1, 0) --(eval1)--> 1 *)
+eval1 (TmIf (TmTrue, TmSucc(TmZero), TmZero))
+```
+
+
+
+```ocaml
+- : term = TmSucc TmZero
+```
+
+
+
+
+
+```ocaml
+(* if(if(false, false, true), 1, 0) --(eval1)--> if(true, succ(0), 0) *)
+eval1 (TmIf (TmIf (TmFalse, TmFalse, TmTrue), TmSucc(TmZero), TmZero))
+```
+
+
+
+```ocaml
+- : term = TmIf (TmTrue, TmSucc TmZero, TmZero)
+```
+
+
+
+上記はもうワンステップ評価しないと正規形(定義はp.31:3.5.15)が得られない。
+
+
+
+```ocaml
+eval1 TmTrue
+```
+
+
+
+上記のように、値(value)はこれ以上評価できないので例外となる。
+
+
+
+```ocaml
+eval1 (TmSucc (TmTrue))
+```
+
+
+
+`succ(true)` は、1ステップ評価の時点でエラーになり、値ではない、つまり行き詰まり状態である。こうしてこの項は無意味という意味が与えられることになる。
+
+### 正規形まで評価する評価器を1ステップ評価器から作る
+
+
+
+```ocaml
+let rec eval t : term =
+  try
+    let t' = eval1 t in
+    eval t'
+  with NoRuleApplies -> t
+```
+
+
+
+```ocaml
+val eval : term -> term = <fun>
+```
+
+
+
+
+
+```ocaml
+(* if(if(false, false, true), 1, 0) *)
+eval (TmIf (TmIf (TmFalse, TmFalse, TmTrue), TmSucc(TmZero), TmZero))
+```
+
+
+
+```ocaml
+- : term = TmSucc TmZero
+```
+
+
+
+期待通り2ステップ分適用されている。
+
+## 言語処理系にしていくために
+
+実際には
+
+```plain
+ファイルI/O -(文字)-> 字句解析 -(トークン)-> 構文解析 -(項)-> 評価 -(値)-> 表示
+```
+
+という言語処理系に必要なもののうち、評価の部分を実装したことになる。
+
+字句解析はlexer、構文解析はparserのことだ。構文解析器によって、AST(抽象構文木)が得られる。
+
+あとは、ここで省略したファイル情報の取り回しも必要になる。
+
+## 演習4.2.1
+
+tryハンドラを使わない方法は、前に書いたように、大域脱出を使わず、Rustの `Option` やGoの `(err, ...values)` 形式に似たやり方をすることになる。
+これはちょうど、p.31:3.5.16でやったような、言語に `wrong` を追加するのに相当するはず。(いや、どうだろう。値を1ステップ評価するのが `wrong` かと言われるとそれも違うような)
+
+[Optionモジュール](https://ocaml.org/api/Option.html)を使うと良い。これの定義は
+
+```ocaml
+type 'a t = 'a option = 
+  | None
+  | Some of 'a
+```
+
+となっている。Rustの `Option` が近い。Haskellなどもおそらく同じ感じだと思われる。
+
+以上を踏まえて、大域脱出を使わない `eval1` のバリアント `eval1_ww` を書いてみた。 `ww` は with wrong のつもり。
+
+
+
+```ocaml
+let rec eval1_ww s : term option = match s with
+
+  | Some(t) -> (match t with
+    | TmIf(TmTrue, t2, t3) -> Some(t2)
+    | TmIf(TmFalse, t2, t3) -> Some(t3)
+    | TmIf(t1, t2, t3) ->
+      let s1' = eval1_ww (Some t1) in
+      (match s1' with
+        | Some(t1') -> Some(TmIf(t1', t2, t3))
+        | _ -> None
+      )
+    | TmSucc(t1) ->
+      let s1' = eval1_ww (Some t1) in
+      (match s1' with
+        | Some(t1') -> Some(TmSucc(t1'))
+        | _ -> None
+      )
+    | TmPred(TmZero) -> Some(TmZero)
+    | TmPred(TmSucc(nv1)) when (isnumericval nv1) -> Some(nv1)
+    | TmPred(t1) ->
+      let s1' = eval1_ww (Some t1) in
+      (match s1' with
+        | Some(t1') -> Some(TmPred(t1'))
+        | _ -> None
+      )
+    | TmIsZero(TmZero) -> Some(TmTrue)
+    | TmIsZero(TmSucc(nv1)) when (isnumericval nv1) -> Some(TmTrue)
+    | TmIsZero(t1) ->
+      let s1' = eval1_ww (Some t1) in
+      (match s1' with
+        | Some(t1') -> Some(TmIsZero(t1'))
+        | _ -> None
+      )
+    | _ -> None
+    )
+  | _ -> None
+```
+
+
+
+```ocaml
+val eval1_ww : term option -> term option = <fun>
+```
+
+
+
+### `eval1_ww` の動作確認
+
+
+
+```ocaml
+eval1_ww (Some(TmIf(TmTrue, TmSucc(TmZero), TmZero))) (* if(true, 1, 0) --> 1 *)
+```
+
+
+
+```ocaml
+- : term option = Some (TmSucc TmZero)
+```
+
+
+
+
+
+```ocaml
+eval1_ww (Some(TmIf(TmZero, TmZero, TmZero))) (* if(0, 0, 0) --> None *)
+```
+
+
+
+```ocaml
+- : term option = None
+```
+
+
+
+### 上記を書く上で学んだこと
+
+- `match` はネストするなら曖昧なので括弧をつける必要がある
+- `eval_ww Some(t1)` と最初書いていたが、これは `eval_ww Some t1` と `eval_ww` に2つの引数を渡す形になってエラー
+- この規模は `: term option` と書いているように、明示的に型を書いたほうが、エラー時にわかりやすいと思う
+
+### `eval_ww`も作る
+
+
+
+```ocaml
+let rec eval_ww t =
+  let s' = eval1_ww(Some t) in
+  match s' with
+  | Some(t') -> eval_ww t'
+  | _ -> t
+```
+
+
+
+```ocaml
+val eval_ww : term -> term = <fun>
+```
+
+
+
+`eval_ww`は項を受け取り、正規形の項を返す。これは常に実行可能なため、こちらはoptionalではない。`eval` と完全に等価な関数だ。
+
+### `eval_ww`の動作確認
+
+
+
+```ocaml
+eval_ww (TmIf(TmTrue, TmPred(TmSucc(TmZero)), TmSucc(TmZero))) (* if(true, pred(1), 0) -> pred(1) -> 0 *)
+```
+
+
+
+```ocaml
+- : term = TmZero
+```
+
+
+
+
+
+```ocaml
+eval_ww (TmIf(TmZero, TmZero, TmZero)) (* if(0, 0, 0) *)
+```
+
+
+
+```ocaml
+- : term = TmIf (TmZero, TmZero, TmZero)
+```
+
+
+
+
+
+
+
+`if(0, 0, 0)` はこれ自体は意味のない項だが、分類としては正規形ということになる。
+正規形が意味を持つか否かに関しては、上で定義した `isval` を使うことになるのだろう。

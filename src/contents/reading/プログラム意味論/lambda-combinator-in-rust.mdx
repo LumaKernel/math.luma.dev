@@ -1,0 +1,450 @@
+{/* generated from notebook */}
+<Config
+  isIpynb
+  ipynbLang="rust"
+  ipynbRelPath="reading/プログラム意味論/lambda-combinator-in-rust"
+/>
+
+<Config
+  title="ラムダ計算とコンビネータ理論"
+  published
+  />
+
+ラムダ計算とコンビネータの相互変換に関する話が p.38 2.6 コンビネータ理論より続く。
+
+この相互変換をRustで実装してみようと思う。
+
+## 準備
+
+
+
+```rust
+use std::collections::HashSet;
+```
+
+
+
+## コンビネータ理論の実装
+
+Combinatory Theory
+
+### コンビネータ理論の項の定義
+
+
+
+```rust
+#[derive(Debug, Clone)]
+enum Combinatory {
+  I,
+  S,
+  K,
+  Variable(String),
+  Apply(Box<Combinatory>, Box<Combinatory>),
+}
+```
+
+
+
+以下のように項を用意しておく。
+
+
+
+```rust
+let comb_term_1 = Combinatory::Apply(
+  Combinatory::Apply(Combinatory::K.into(), Combinatory::Variable("a".into()).into()).into(),
+  Combinatory::Apply(
+    Combinatory::Apply(
+      Combinatory::I.into(),
+      Combinatory::Variable("b".into()).into()
+    ).into(),
+    Combinatory::Variable("a".into()).into(),
+  ).into(),
+);
+```
+
+
+
+### コンビネータ理論のプリント
+
+文字列と $\LaTeX$ への変換を用意しておく。なお、左結合のため、右側が _apply_ だった場合のみ、右側に括弧をつける。
+
+
+
+```rust
+impl Combinatory {
+  fn to_string(&self) -> String {
+    match self {
+      Combinatory::I => "I".into(),
+      Combinatory::S => "S".into(),
+      Combinatory::K => "K".into(),
+      Combinatory::Variable(v) => v.clone(),
+      Combinatory::Apply(t1, t2) => match **t2 {
+        Combinatory::Apply(_, _) => format!("{}({})", t1.to_string(), t2.to_string()),
+        _ => format!("{}{}", t1.to_string(), t2.to_string()),
+      }
+    }
+  }
+  fn to_latex(&self) -> String {
+    match self {
+      Combinatory::I => "\\mathbf{I}".into(),
+      Combinatory::S => "\\mathbf{S}".into(),
+      Combinatory::K => "\\mathbf{K}".into(),
+      Combinatory::Variable(v) => v.clone(),
+      Combinatory::Apply(t1, t2) => match **t2 {
+        Combinatory::Apply(_, _) => format!("{}({})", t1.to_latex(), t2.to_latex()),
+        _ => format!("{}{}", t1.to_latex(), t2.to_latex()),
+      }
+    }
+  }
+  fn free_variables(&self) -> HashSet<String> {
+    match self {
+      Combinatory::Variable(v) => HashSet::from([v.clone()]),
+      Combinatory::Apply(t1, t2) => (*t1).free_variables().union(&(*t2).free_variables()).map(|e| e.clone()).collect::<HashSet<_>>(),
+      _ => HashSet::new(),
+    }
+  }
+}
+```
+
+
+
+### コンビネータ理論のプリントを試す
+
+
+
+```rust
+comb_term_1
+```
+
+
+
+```rust
+Apply(Apply(K, Variable("a")), Apply(Apply(I, Variable("b")), Variable("a")))
+```
+
+
+
+
+
+```rust
+println!("{}", comb_term_1.to_string());
+```
+
+
+
+```rust
+Ka(Iba)
+```
+
+
+
+
+
+```rust
+println!("${}$", comb_term_1.to_latex());
+```
+
+$\mathbf{K}a(\mathbf{I}ba)$
+
+
+
+
+```rust
+comb_term_1.free_variables()
+```
+
+
+
+```rust
+{"a", "b"}
+```
+
+
+
+## ラムダ計算
+
+
+
+```rust
+#[derive(Debug, Clone)]
+enum Lambda {
+  Variable(String),
+  Abstract(String, Box<Lambda>),
+  Apply(Box<Lambda>, Box<Lambda>),
+}
+```
+
+
+
+
+
+```rust
+let lambda_term_1 = Lambda::Apply(
+  Lambda::Apply(
+    Lambda::Abstract("x".into(), Lambda::Variable("x".into()).into()).into(),
+    Lambda::Abstract("x".into(), Lambda::Variable("x".into()).into()).into(),
+  ).into(),
+  Lambda::Abstract(
+    "y".into(), 
+    Lambda::Abstract(
+      "y".into(), 
+      Lambda::Apply(
+        Lambda::Variable("y".into()).into(),
+        Lambda::Apply(
+          Lambda::Variable("y".into()).into(),
+          Lambda::Variable("a".into()).into(),
+        ).into(),
+      ).into(),
+    ).into(),
+  ).into(),
+);
+```
+
+
+
+
+
+```rust
+impl Lambda {
+  fn to_string(&self) -> String {
+    match self {
+      Lambda::Variable(v) => v.clone(),
+      Lambda::Abstract(v, t1) => format!("(\\{}.{})", v, t1.to_string()),
+      Lambda::Apply(t1, t2) => match **t2 {
+        Lambda::Apply(_, _) => format!("{}({})", t1.to_string(), t2.to_string()),
+        _ => format!("{}{}", t1.to_string(), t2.to_string()),
+      }
+    }
+  }
+  fn to_latex(&self) -> String {
+    match self {
+      Lambda::Variable(v) => v.clone(),
+      Lambda::Abstract(v, t1) => format!("(\\lambda {}.{})", v, t1.to_latex()),
+      Lambda::Apply(t1, t2) => match **t2 {
+        Lambda::Apply(_, _) => format!("{}({})", t1.to_latex(), t2.to_latex()),
+        _ => format!("{}{}", t1.to_latex(), t2.to_latex()),
+      }
+    }
+  }
+  fn free_variables(&self) -> HashSet<String> {
+    match self {
+      Lambda::Variable(v) => HashSet::from([v.clone()]),
+      Lambda::Apply(t1, t2) => (*t1).free_variables().union(&(*t2).free_variables()).map(|e| e.clone()).collect::<HashSet<_>>(),
+      Lambda::Abstract(v, t1) => {
+        let mut s = (*t1).free_variables();
+        s.remove(v);
+        s
+      },
+    }
+  }
+}
+```
+
+
+
+
+
+```rust
+lambda_term_1
+```
+
+
+
+```rust
+Apply(Apply(Abstract("x", Variable("x")), Abstract("x", Variable("x"))), Abstract("y", Abstract("y", Apply(Variable("y"), Apply(Variable("y"), Variable("a"))))))
+```
+
+
+
+
+
+```rust
+println!("{}", lambda_term_1.to_string());
+```
+
+
+
+```rust
+(\x.x)(\x.x)(\y.(\y.y(ya)))
+```
+
+
+
+
+
+```rust
+println!("${}$", lambda_term_1.to_latex());
+```
+
+$(\lambda x.x)(\lambda x.x)(\lambda y.(\lambda y.y(ya)))$
+
+
+
+
+```rust
+lambda_term_1.free_variables()
+```
+
+
+
+```rust
+{"a"}
+```
+
+
+
+## ラムダ計算からコンビネータ理論
+
+p.40 付近。
+
+
+
+```rust
+fn lambda_ast_of(v: &String, t: &Combinatory) -> Combinatory {
+  match t {
+    Combinatory::Variable(u) if *v == *u => Combinatory::I,
+    Combinatory::Apply(t1, t2) if (*t).free_variables().contains(v) => Combinatory::Apply(
+      Combinatory::Apply(
+        Combinatory::S.into(),
+        lambda_ast_of(v, &*t1).into(),
+      ).into(),
+      lambda_ast_of(v, &*t2).into(),
+    ),
+    _ => Combinatory::Apply(Combinatory::K.into(), t.clone().into()),
+  }
+}
+```
+
+
+
+
+
+```rust
+fn print_lambda_ast_of(v: &String, t: &Combinatory) {
+  println!("$\\lambda^\\ast {}.{} \\equiv {}$", v, t.to_latex(), lambda_ast_of(v, t).to_latex());
+}
+```
+
+
+
+
+
+```rust
+print_lambda_ast_of(&"x".to_string(), &comb_term_1);
+```
+
+$\lambda^\ast x.\mathbf{K}a(\mathbf{I}ba) \equiv \mathbf{K}(\mathbf{K}a(\mathbf{I}ba))$
+
+
+
+
+```rust
+print_lambda_ast_of(&"a".to_string(), &comb_term_1);
+```
+
+$\lambda^\ast a.\mathbf{K}a(\mathbf{I}ba) \equiv \mathbf{S}(\mathbf{S}(\mathbf{K}\mathbf{K})\mathbf{I})(\mathbf{S}(\mathbf{K}(\mathbf{I}b))\mathbf{I})$
+
+
+
+
+```rust
+fn lambda2combinatory(t: &Lambda) -> Combinatory {
+  match t {
+    Lambda::Variable(v) => Combinatory::Variable(v.clone()),
+    Lambda::Abstract(v, t1) => lambda_ast_of(v, &lambda2combinatory(&*t1)),
+    Lambda::Apply(t1, t2) => Combinatory::Apply(
+      lambda2combinatory(&*t1).into(),
+      lambda2combinatory(&*t2).into(),
+    ),
+  }
+}
+```
+
+
+
+
+
+```rust
+fn print_lambda2combinatory(t: &Lambda) {
+  println!("$\\left({}\\right)_{} \\equiv {}$", t.to_latex(), "{\\mathrm{CL}}", lambda2combinatory(&t).to_latex());
+}
+```
+
+
+
+
+
+```rust
+print_lambda2combinatory(&lambda_term_1);
+```
+
+$\left((\lambda x.x)(\lambda x.x)(\lambda y.(\lambda y.y(ya)))\right)_{\mathrm{CL}} \equiv \mathbf{I}\mathbf{I}(\mathbf{K}(\mathbf{S}\mathbf{I}(\mathbf{S}\mathbf{I}(\mathbf{K}a))))$
+
+
+## コンビネータ理論からラムダ計算
+
+
+
+```rust
+fn combinatory2lambda(t: &Combinatory) -> Lambda {
+  match t {
+    Combinatory::I => Lambda::Abstract(
+      "x".into(),
+      Lambda::Variable("x".into()).into(),
+    ),
+    Combinatory::K => Lambda::Abstract(
+      "x".into(),
+      Lambda::Abstract(
+        "y".into(),
+        Lambda::Variable("x".into()).into(),
+      ).into(),
+    ),
+    Combinatory::S => Lambda::Abstract(
+      "x".into(),
+      Lambda::Abstract(
+        "y".into(),
+        Lambda::Abstract(
+          "z".into(),
+          Lambda::Apply(
+            Lambda::Apply(
+              Lambda::Variable("x".into()).into(),
+              Lambda::Variable("z".into()).into(),
+            ).into(),
+            Lambda::Apply(
+              Lambda::Variable("y".into()).into(),
+              Lambda::Variable("z".into()).into(),
+            ).into(),
+          ).into(),
+        ).into(),
+      ).into(),
+    ),
+    Combinatory::Apply(t1, t2) => Lambda::Apply(
+      combinatory2lambda(t1).into(),
+      combinatory2lambda(t2).into(),
+    ),
+    Combinatory::Variable(v) => Lambda::Variable(
+      v.clone(),
+    ),
+  }
+}
+```
+
+
+
+
+
+```rust
+fn print_combinatory2lambda(t: &Combinatory) {
+  println!("$\\left({}\\right)_{} \\equiv {}$", t.to_latex(), "\\lambda", combinatory2lambda(&t).to_latex());
+}
+```
+
+
+
+
+
+```rust
+print_combinatory2lambda(&comb_term_1);
+```
+
+$\left(\mathbf{K}a(\mathbf{I}ba)\right)_\lambda \equiv (\lambda x.(\lambda y.x))a((\lambda x.x)ba)$

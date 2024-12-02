@@ -1,0 +1,775 @@
+{/* generated from notebook */}
+<Config
+  isIpynb
+  ipynbLang="python"
+  ipynbRelPath="a"
+/>
+
+<Config
+  title="「ニューラルネットワークを作ってみる」の実践"
+  />
+
+[【図解】ネコでも分かるDeepLearningの基礎まとめ【初心者向け】(NekoAllergy) | Zenn](https://zenn.dev/nekoallergy/books/904df952389317/viewer/dl-basic-nn04)
+
+
+
+```python
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+
+from sklearn import datasets
+from sklearn.neural_network import MLPClassifier
+from sklearn.model_selection import train_test_split
+```
+
+
+
+
+
+```python
+iris = datasets.load_iris()
+
+print(type(iris))
+```
+
+
+
+```python
+<class 'sklearn.utils._bunch.Bunch'>
+```
+
+
+
+
+
+```python
+print(type(iris.data))
+print(iris.keys())
+print(iris.data.shape)
+```
+
+
+
+```python
+<class 'numpy.ndarray'>
+dict_keys(['data', 'target', 'frame', 'target_names', 'DESCR', 'feature_names', 'filename', 'data_module'])
+(150, 4)
+```
+
+
+
+データセットの中には、データ(`data`)、ターゲット(`target`)、それぞれのカラム名(`target_names`, `feature_names`)、説明(`DESCR`)がある。
+
+データはいくつかの特徴量を表している。
+このデータセットは150個のアイリスの情報がある。それぞれは、４つの特徴量を持ち、3種類に分類されれる。
+
+４つの特徴量は以下を表す。
+
+
+
+```python
+print(iris.feature_names)
+```
+
+
+
+```python
+['sepal length (cm)', 'sepal width (cm)', 'petal length (cm)', 'petal width (cm)']
+```
+
+
+
+sepal(がく片)の長さ・幅と、petal(花弁)の長さ・幅が記録されている。
+
+それぞれが実際なんなのかは `target` の中に 0, 1, 2 の数値として書かれているが、これが表すものが `target_names` に書かれている。
+
+
+
+```python
+print(iris.target_names)
+```
+
+
+
+```python
+['setosa' 'versicolor' 'virginica']
+```
+
+
+
+(それぞれがアイリスの実際どういうものなのかとかは多分生物学者しかしらん。)
+一応Wikipediaページ
+- https://en.wikipedia.org/wiki/Iris_setosa
+- https://en.wikipedia.org/wiki/Iris_versicolor
+- https://en.wikipedia.org/wiki/Iris_virginica
+
+他のデータセットを探したければ、 https://scikit-learn.org/stable/modules/classes.html#loaders を見れば良さそう。
+今やっているのは classification(分類問題) というものに該当するデータセットを見ていると思うので、そこから別のものを選べば良さそう。
+
+
+
+```python
+wine = datasets.load_wine()
+print(wine.data.shape)
+print(wine.DESCR)
+```
+
+
+
+```python
+(178, 13)
+.. _wine_dataset:
+
+Wine recognition dataset
+------------------------
+
+**Data Set Characteristics:**
+
+    :Number of Instances: 178 (50 in each of three classes)
+    :Number of Attributes: 13 numeric, predictive attributes and the class
+    :Attribute Information:
+ 		- Alcohol
+ 		- Malic acid
+ 		- Ash
+		- Alcalinity of ash  
+ 		- Magnesium
+		- Total phenols
+ 		- Flavanoids
+ 		- Nonflavanoid phenols
+ 		- Proanthocyanins
+		- Color intensity
+ 		- Hue
+ 		- OD280/OD315 of diluted wines
+ 		- Proline
+
+    - class:
+            - class_0
+            - class_1
+            - class_2
+		
+    :Summary Statistics:
+    
+    ============================= ==== ===== ======= =====
+                                   Min   Max   Mean     SD
+    ============================= ==== ===== ======= =====
+    Alcohol:                      11.0  14.8    13.0   0.8
+    Malic Acid:                   0.74  5.80    2.34  1.12
+    Ash:                          1.36  3.23    2.36  0.27
+    Alcalinity of Ash:            10.6  30.0    19.5   3.3
+    Magnesium:                    70.0 162.0    99.7  14.3
+    Total Phenols:                0.98  3.88    2.29  0.63
+    Flavanoids:                   0.34  5.08    2.03  1.00
+    Nonflavanoid Phenols:         0.13  0.66    0.36  0.12
+    Proanthocyanins:              0.41  3.58    1.59  0.57
+    Colour Intensity:              1.3  13.0     5.1   2.3
+    Hue:                          0.48  1.71    0.96  0.23
+    OD280/OD315 of diluted wines: 1.27  4.00    2.61  0.71
+    Proline:                       278  1680     746   315
+    ============================= ==== ===== ======= =====
+
+    :Missing Attribute Values: None
+    :Class Distribution: class_0 (59), class_1 (71), class_2 (48)
+    :Creator: R.A. Fisher
+    :Donor: Michael Marshall (MARSHALL%PLU@io.arc.nasa.gov)
+    :Date: July, 1988
+
+This is a copy of UCI ML Wine recognition datasets.
+https://archive.ics.uci.edu/ml/machine-learning-databases/wine/wine.data
+
+The data is the results of a chemical analysis of wines grown in the same
+region in Italy by three different cultivators. There are thirteen different
+measurements taken for different constituents found in the three types of
+wine.
+
+Original Owners: 
+
+Forina, M. et al, PARVUS - 
+An Extendible Package for Data Exploration, Classification and Correlation. 
+Institute of Pharmaceutical and Food Analysis and Technologies,
+Via Brigata Salerno, 16147 Genoa, Italy.
+
+Citation:
+
+Lichman, M. (2013). UCI Machine Learning Repository
+[https://archive.ics.uci.edu/ml]. Irvine, CA: University of California,
+School of Information and Computer Science. 
+
+.. topic:: References
+
+  (1) S. Aeberhard, D. Coomans and O. de Vel, 
+  Comparison of Classifiers in High Dimensional Settings, 
+  Tech. Rep. no. 92-02, (1992), Dept. of Computer Science and Dept. of  
+  Mathematics and Statistics, James Cook University of North Queensland. 
+  (Also submitted to Technometrics). 
+
+  The data was used with many others for comparing various 
+  classifiers. The classes are separable, though only RDA 
+  has achieved 100% correct classification. 
+  (RDA : 100%, QDA 99.4%, LDA 98.9%, 1NN 96.1% (z-transformed data)) 
+  (All results using the leave-one-out technique) 
+
+  (2) S. Aeberhard, D. Coomans and O. de Vel, 
+  "THE CLASSIFICATION PERFORMANCE OF RDA" 
+  Tech. Rep. no. 92-01, (1992), Dept. of Computer Science and Dept. of 
+  Mathematics and Statistics, James Cook University of North Queensland. 
+  (Also submitted to Journal of Chemometrics).
+```
+
+
+
+完全に初心者で、トップダウンに分類してみるのをやってみないといけないと思うが、自分で特徴を取るのはなんという呼び名に該当するのだろうか。
+
+## データフレーム
+
+- https://pandas.pydata.org/getting_started.html
+- https://pandas.pydata.org/docs/
+- https://pandas.pydata.org/docs/user_guide/index.html#user-guide
+
+pandasユーザーガイドだけ軽く見よう。
+
+
+
+```python
+df2 = pd.DataFrame(
+    {
+        "A": 1.0,
+        "B": pd.Timestamp("20130102"),
+        "C": pd.Series(1, index=list(range(4)), dtype="float32"),
+        "D": np.array([3] * 4, dtype="int32"),
+        "E": pd.Categorical(["test", "train", "test", "train"]),
+        "F": "foo",
+    }
+)
+df2
+```
+
+
+
+```ipynb--raw:?lang=python
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>A</th>
+      <th>B</th>
+      <th>C</th>
+      <th>D</th>
+      <th>E</th>
+      <th>F</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1.0</td>
+      <td>2013-01-02</td>
+      <td>1.0</td>
+      <td>3</td>
+      <td>test</td>
+      <td>foo</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1.0</td>
+      <td>2013-01-02</td>
+      <td>1.0</td>
+      <td>3</td>
+      <td>train</td>
+      <td>foo</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1.0</td>
+      <td>2013-01-02</td>
+      <td>1.0</td>
+      <td>3</td>
+      <td>test</td>
+      <td>foo</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1.0</td>
+      <td>2013-01-02</td>
+      <td>1.0</td>
+      <td>3</td>
+      <td>train</td>
+      <td>foo</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+```
+
+
+
+なにこれ。
+
+DataFrameは簡単にはExcelのような表データであると解説されている。
+公式ドキュメントを見ると、dictの要素がデータシリーズで固定されているもの、という考え方をすると良さそう。
+
+- https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html#pandas-dataframe
+
+> class pandas.DataFrame(data=None, index=None, columns=None, dtype=None, copy=None)[source]
+
+dataに関しては以下。
+
+> Dict can contain Series, arrays, constants, dataclass or list-like objects.
+
+list-likeってのがアバウトだなあと思ってしまうわけだが、探すと `is_list_like` という項目が見つかる。その中をたどると以下になる。
+
+https://github.com/pandas-dev/pandas/blob/a45c7fa674a2b3134317d69c9225ec43ab5903cb/pandas/_libs/lib.pyx#L1115-L1132
+
+これはCythonの関数定義だが、listやiter、そしてnumpy的な配列の場合1次元以上である必要があるが、次元の定義は [NEP22(duck array)](https://numpy.org/neps/nep-0022-ndarray-duck-typing-overview.html) で標準化されているということのようだ。
+
+## データフレームに変換
+
+
+
+```python
+df_iris = pd.DataFrame(data=iris.data, columns=iris.feature_names)
+df_iris
+```
+
+
+
+```ipynb--raw:?lang=python
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>sepal length (cm)</th>
+      <th>sepal width (cm)</th>
+      <th>petal length (cm)</th>
+      <th>petal width (cm)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>5.1</td>
+      <td>3.5</td>
+      <td>1.4</td>
+      <td>0.2</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>4.9</td>
+      <td>3.0</td>
+      <td>1.4</td>
+      <td>0.2</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>4.7</td>
+      <td>3.2</td>
+      <td>1.3</td>
+      <td>0.2</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4.6</td>
+      <td>3.1</td>
+      <td>1.5</td>
+      <td>0.2</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5.0</td>
+      <td>3.6</td>
+      <td>1.4</td>
+      <td>0.2</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>145</th>
+      <td>6.7</td>
+      <td>3.0</td>
+      <td>5.2</td>
+      <td>2.3</td>
+    </tr>
+    <tr>
+      <th>146</th>
+      <td>6.3</td>
+      <td>2.5</td>
+      <td>5.0</td>
+      <td>1.9</td>
+    </tr>
+    <tr>
+      <th>147</th>
+      <td>6.5</td>
+      <td>3.0</td>
+      <td>5.2</td>
+      <td>2.0</td>
+    </tr>
+    <tr>
+      <th>148</th>
+      <td>6.2</td>
+      <td>3.4</td>
+      <td>5.4</td>
+      <td>2.3</td>
+    </tr>
+    <tr>
+      <th>149</th>
+      <td>5.9</td>
+      <td>3.0</td>
+      <td>5.1</td>
+      <td>1.8</td>
+    </tr>
+  </tbody>
+</table>
+<p>150 rows × 4 columns</p>
+</div>
+```
+
+
+
+
+
+```python
+df_iris.describe()
+```
+
+
+
+```ipynb--raw:?lang=python
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>sepal length (cm)</th>
+      <th>sepal width (cm)</th>
+      <th>petal length (cm)</th>
+      <th>petal width (cm)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>150.000000</td>
+      <td>150.000000</td>
+      <td>150.000000</td>
+      <td>150.000000</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>5.843333</td>
+      <td>3.057333</td>
+      <td>3.758000</td>
+      <td>1.199333</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>0.828066</td>
+      <td>0.435866</td>
+      <td>1.765298</td>
+      <td>0.762238</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>4.300000</td>
+      <td>2.000000</td>
+      <td>1.000000</td>
+      <td>0.100000</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>5.100000</td>
+      <td>2.800000</td>
+      <td>1.600000</td>
+      <td>0.300000</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>5.800000</td>
+      <td>3.000000</td>
+      <td>4.350000</td>
+      <td>1.300000</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>6.400000</td>
+      <td>3.300000</td>
+      <td>5.100000</td>
+      <td>1.800000</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>7.900000</td>
+      <td>4.400000</td>
+      <td>6.900000</td>
+      <td>2.500000</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+```
+
+
+
+`help(df_iris.describe)`
+
+
+
+```python
+data_train, data_test, target_train, target_test = train_test_split(
+    iris.data, iris.target, test_size=0.2, random_state=0)
+
+print(type(data_train), type(data_test), type(target_train), type(target_test))
+print(data_train.shape, data_test.shape, target_train.shape, target_test.shape)
+```
+
+
+
+```python
+<class 'numpy.ndarray'> <class 'numpy.ndarray'> <class 'numpy.ndarray'> <class 'numpy.ndarray'>
+(120, 4) (30, 4) (120,) (30,)
+```
+
+
+
+- [train_test_splitのドキュメント](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html)
+
+リストみたいな奴らをtrainとtestにランダムに分ける。`test_size`で割合を指定。`random_state`はシード値。
+デフォルトではシャッフルもされる。
+
+
+
+```python
+clf = MLPClassifier(
+  hidden_layer_sizes=10,
+  activation='relu',
+  solver='adam',
+  max_iter=10000,
+  random_state=0,
+)
+
+clf
+```
+
+
+
+```ipynb--raw:?lang=python
+<style>#sk-container-id-6 {color: black;background-color: white;}#sk-container-id-6 pre{padding: 0;}#sk-container-id-6 div.sk-toggleable {background-color: white;}#sk-container-id-6 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-container-id-6 label.sk-toggleable__label-arrow:before {content: "▸";float: left;margin-right: 0.25em;color: #696969;}#sk-container-id-6 label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-container-id-6 div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-container-id-6 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-container-id-6 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-container-id-6 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-container-id-6 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: "▾";}#sk-container-id-6 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-6 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-6 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-container-id-6 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-container-id-6 div.sk-estimator:hover {background-color: #d4ebff;}#sk-container-id-6 div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-container-id-6 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-6 div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: 0;}#sk-container-id-6 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;position: relative;}#sk-container-id-6 div.sk-item {position: relative;z-index: 1;}#sk-container-id-6 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;position: relative;}#sk-container-id-6 div.sk-item::before, #sk-container-id-6 div.sk-parallel-item::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: -1;}#sk-container-id-6 div.sk-parallel-item {display: flex;flex-direction: column;z-index: 1;position: relative;background-color: white;}#sk-container-id-6 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-container-id-6 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-container-id-6 div.sk-parallel-item:only-child::after {width: 0;}#sk-container-id-6 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;}#sk-container-id-6 div.sk-label label {font-family: monospace;font-weight: bold;display: inline-block;line-height: 1.2em;}#sk-container-id-6 div.sk-label-container {text-align: center;}#sk-container-id-6 div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-container-id-6 div.sk-text-repr-fallback {display: none;}</style><div id="sk-container-id-6" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>MLPClassifier(hidden_layer_sizes=10, max_iter=10000, random_state=0)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-6" type="checkbox" checked><label for="sk-estimator-id-6" class="sk-toggleable__label sk-toggleable__label-arrow">MLPClassifier</label><div class="sk-toggleable__content"><pre>MLPClassifier(hidden_layer_sizes=10, max_iter=10000, random_state=0)</pre></div></div></div></div></div>
+```
+
+
+
+- [sklearn.neural_network.MLPClassifierのドキュメント](https://scikit-learn.org/stable/modules/generated/sklearn.neural_network.MLPClassifier.html)
+
+Multi-layer Perceptron classifier
+
+- Perception: 知覚する能力。人間の知覚を一般化したInput装置と考えておけば良さそう。
+
+[stochastic](https://www.dictionary.com/browse/stochastic)という単語をよく見かける。
+確率分布に従うように振る舞う、ということだと思うが、この場合で言えば、花弁の幅は種類ごとに何かしらの確率分布に従って長さが決まっているとモデリングできるという仮定をおいているということになる。
+(正規分布のみを指しているのかはよくわからない。)
+
+adamに関して言えばそのようだ。
+
+Weigh optimization というアルゴリズムの選択があり、それが
+
+- `lbfgs` is an optimizer in the family of quasi-Newton methods.
+- `sgd` refers to stochastic gradient descent.
+- `adam` refers to a stochastic gradient-based optimizer proposed by Kingma, Diederik, and Jimmy Ba
+
+のように選択できる。
+
+Adamの論文は [Adam: A Method for Stochastic Optimization | arxiv](https://arxiv.org/abs/1412.6980)で確認できる。
+
+途中に擬似コードがあり、収束するまでパラメータを
+
+`max_iter=10000`は本では1000だったが、converge(収束)してないという警告が出たので、10000回に増やしてみた。これで警告は出なくなった。
+
+
+
+```python
+clf.fit(data_train, target_train)
+```
+
+
+
+```ipynb--raw:?lang=python
+<style>#sk-container-id-7 {color: black;background-color: white;}#sk-container-id-7 pre{padding: 0;}#sk-container-id-7 div.sk-toggleable {background-color: white;}#sk-container-id-7 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-container-id-7 label.sk-toggleable__label-arrow:before {content: "▸";float: left;margin-right: 0.25em;color: #696969;}#sk-container-id-7 label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-container-id-7 div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-container-id-7 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-container-id-7 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-container-id-7 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-container-id-7 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: "▾";}#sk-container-id-7 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-7 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-7 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-container-id-7 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-container-id-7 div.sk-estimator:hover {background-color: #d4ebff;}#sk-container-id-7 div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-container-id-7 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-7 div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: 0;}#sk-container-id-7 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;position: relative;}#sk-container-id-7 div.sk-item {position: relative;z-index: 1;}#sk-container-id-7 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;position: relative;}#sk-container-id-7 div.sk-item::before, #sk-container-id-7 div.sk-parallel-item::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: -1;}#sk-container-id-7 div.sk-parallel-item {display: flex;flex-direction: column;z-index: 1;position: relative;background-color: white;}#sk-container-id-7 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-container-id-7 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-container-id-7 div.sk-parallel-item:only-child::after {width: 0;}#sk-container-id-7 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;}#sk-container-id-7 div.sk-label label {font-family: monospace;font-weight: bold;display: inline-block;line-height: 1.2em;}#sk-container-id-7 div.sk-label-container {text-align: center;}#sk-container-id-7 div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-container-id-7 div.sk-text-repr-fallback {display: none;}</style><div id="sk-container-id-7" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>MLPClassifier(hidden_layer_sizes=10, max_iter=10000, random_state=0)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-7" type="checkbox" checked><label for="sk-estimator-id-7" class="sk-toggleable__label sk-toggleable__label-arrow">MLPClassifier</label><div class="sk-toggleable__content"><pre>MLPClassifier(hidden_layer_sizes=10, max_iter=10000, random_state=0)</pre></div></div></div></div></div>
+```
+
+
+
+<W en="Multilayer_perceptron"/>
+
+
+
+
+```python
+print(clf.score(data_train, target_train))
+print(clf.score(data_test, target_test))
+```
+
+
+
+```python
+0.975
+1.0
+```
+
+
+
+トレーニングデータでは97.5%、テストデータでは100%のスコア。
+
+
+
+```python
+print(clf.predict(data_test))
+print(target_test)
+```
+
+
+
+```python
+[2 1 0 2 0 2 0 1 1 1 2 1 1 1 1 0 1 1 0 0 2 1 0 0 2 0 0 1 1 0]
+[2 1 0 2 0 2 0 1 1 1 2 1 1 1 1 0 1 1 0 0 2 1 0 0 2 0 0 1 1 0]
+```
+
+
+
+実際に見てみると全て正解している。
+
+
+
+```python
+print("[:10]=", clf.loss_curve_[:10])
+print("[-10:]=", clf.loss_curve_[-10:])
+print("len=", len(clf.loss_curve_))
+print("data len * iteration=", len(data_train)*len(clf.loss_curve_))
+print("t=", clf.t_)
+print("best_loss=", clf.best_loss_)
+```
+
+
+
+```python
+[:10]= [1.2545541587195779, 1.225860469796917, 1.198800362769896, 1.1734146118808904, 1.1496981655936855, 1.1276634969723547, 1.1072877785208768, 1.0885044650723086, 1.0712134933234247, 1.0552895854419688]
+[-10:]= [0.09095344627548493, 0.09085435601198186, 0.09075570266662122, 0.09065746673883247, 0.09055964563155987, 0.09046223716048243, 0.09036523832837674, 0.09026864656487106, 0.09017245967400725, 0.09007667554029132]
+len= 1189
+data len * iteration= 142680
+t= 142680
+best_loss= 0.09007667554029132
+```
+
+
+
+上限10000回と指定したのに対し、実際のイテレーション回数は1189回のようだ。
+最後のロスがベストのロスのよう。
+
+
+
+```python
+plt.plot(clf.loss_curve_)
+plt.title("Loss Curve")
+plt.xlabel("Iteration")
+plt.ylabel("Loss")
+plt.grid()
+plt.show()
+```
+
+
+
+```ipynb--raw:?lang=python
+<img alt="Output" src="data:image/png;base64,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">
+```
+
+
+
+lossってなんだというところに関してはまだわからないな。評価関数のようなものなのだろうとは思うのだけれど。
+
+## その他
+
+関連した機械学習に関する記事など
+
+- [機械学習入門者向け 分類と回帰の違いをプログラムを書いて学ぼう | AVINTON](https://avinton.com/academy/classification-regression/)
+- [強化学習の基本的な考え方 | Qiita](https://qiita.com/qiita_kuru/items/2c00a81b4b26bf9ad210)
+- [ベイズ最適化と遺伝的アルゴリズムと強化学習の違い | stack overflow](https://ja.stackoverflow.com/questions/67730/%E3%83%99%E3%82%A4%E3%82%BA%E6%9C%80%E9%81%A9%E5%8C%96%E3%81%A8%E9%81%BA%E4%BC%9D%E7%9A%84%E3%82%A2%E3%83%AB%E3%82%B4%E3%83%AA%E3%82%BA%E3%83%A0%E3%81%A8%E5%BC%B7%E5%8C%96%E5%AD%A6%E7%BF%92%E3%81%AE%E9%81%95%E3%81%84)
+- [【7分でわかる】AI研究、60年の歴史を完全解説！ | AINOW](https://ainow.ai/2019/11/29/180898/)
+- [コンピュータ将棋の歴史を全解説 (予備校のノリで学ぶ「大学の数学・物理」) | YouTube](https://www.youtube.com/watch?v=Wqtq5b_S_Us)
+
+まず、機械学習の分類として、「教師あり学習」、「教師なし学習」、「強化学習」と分類されており、それぞれにまたいくつかの種類がある。
+
+遺伝的アルゴリズムは一昔前の、第一次AIというところに入っていた。
+気をつけねばならないのは、stack overflowの中にもあるように、これらは対象としている問題が違う。
+問題の分類と、手法の分類がある種ごっちゃになっているところはあるので、そこは注意して見る必要がある。
+
+遺伝的アルゴリズムなどが解くのは、関数に対して出力を最大化する入力を探す<Q w="black-box-optimization" />と呼ばれる問題だ。
+マリオをクリアする、といった場合、ゴールまでの一連のキー入力が入力で、クリアしたかどうか（もしくはどこまで進んだかなど）が出力になる。
+
+一方、AlphaGoなどは強化学習であり、解く問題は累積報酬の最大化である。つまり、囲碁は累積報酬の最大化問題ということになる。
+
+相手方プレイヤーがいて、決定に対し不確定なやり取りをするというのが累積報酬の特徴ということだろう。
+マリオがこれに該当しないのは、（乱数生成器は決定的であるとして）不確定な応答があるというわけではないからだろう。
+
+逆に、<Q w="black-box-optimization" />を解く手法としてはヒューリスティクスである遺伝的アルゴリズムや、確率論に基づくベイズ最適化などがある。
+
+そもそも解いている(もしくは帰着させた)問題が違うという前提のもとで、AIとおおよそ呼ばれるものは、AINOWの記事が紹介するように、2022年現時点では三世代あると考えるのがとてもわかりやすそうだ。
+
+そして、この記事で見てきたニューラルネットワークやそのパーセプトロンの開発は第一次に分類されるようだ。分類としては「教師あり学習」になる。
+
+教師は変数 `*_train` に格納したデータに相当する。
+
+(雑感: 帰着手法が変わったという考え方もできるかもしれないが、やはりマリオが全く別の様式に帰着されるというわけでもないだろうし、基本的には問題の幅が広がったということなんじゃなかろーか)
+
+AINOWの歴史の記事はわかりやすいが、これも手法と問題が混合している用に思えて、一部は既製品の品質向上なのではないかなと思ったり。もちろん、その中には何百という論文レベルの新技術が盛り込まれているのだろうので、むしろ大きなステップで区切ろうとするほうがナンセンスな可能性もある。
+
+第二世代では誤差逆伝播法が、第三世代ではディープラーニングや統計的自然言語処理が、手法としての躍進としてありそうだ。
+
+
+コンピュータ将棋・囲碁で見てみよう。
+
+2005年にBonanzaが教師あり学習で躍進を果たした。
+その後に深層学習、強化学習、もしくは深層学習と強化学習による組み合わせなどで躍進を果たした。

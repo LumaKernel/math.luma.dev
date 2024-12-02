@@ -1,0 +1,39 @@
+{
+  "name": "nextjs-sand-2024-11-30",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@luma-dev/math-luma-dev-dirty-util": "npm:@jsr/luma-dev__math-luma-dev-dirty-util@0.2.0",
+    "@luma-dev/my-unified": "^1.5.0",
+    "@mdx-js/loader": "^3.1.0",
+    "@mdx-js/react": "^3.1.0",
+    "@next/mdx": "^15.0.3",
+    "@types/mdx": "^2.0.13",
+    "next": "15.0.4-canary.38",
+    "next-mdx-remote": "^5.0.0",
+    "react": "19.0.0-rc-66855b96-20241106",
+    "react-dom": "19.0.0-rc-66855b96-20241106",
+    "react-icons": "^5.4.0",
+    "remark-frontmatter": "^5.0.0",
+    "remark-math": "^6.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "eslint": "^8",
+    "eslint-config-next": "15.0.3",
+    "katex": "^0.16.11",
+    "postcss": "^8",
+    "prettier": "^3.4.1",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5"
+  },
+  "packageManager": "npm@10.8.2+sha512.c7f0088c520a46596b85c6f8f1da943400199748a0f7ea8cb8df75469668dc26f6fb3ba26df87e2884a5ebe91557292d0f3db7d0929cdb4f14910c3032ac81fb"
+}

@@ -1,0 +1,45 @@
+自然数: natural
+整数: number
+整数論: number theory
+有理数: rational
+無理数: irrational
+実数: real
+複素数: complex
+代数: algebra
+加算:
+  ruby: addition
+  alt:
+    - text: 和
+総和: summation
+減算:
+  ruby: subtraction
+  alt:
+    - text: 差
+乗算:
+  ruby: multiplication
+  alt:
+    - text: 積
+総積: product
+体:
+  ruby: field
+  jaRuby: たい
+群: group
+可換群:
+  ruby: commutative group
+  alt:
+    - text: アーベル群
+      ruby: Abelian group
+対象: object
+射: morphism
+同型射: isomorphism
+自己同型射: automorphism
+準同型射: homomorphism
+自己準同型射: endomorphism
+同型: isomorphic
+自己同型: automorphic
+準同型: homomorphic
+自己準同型: endomorphic
+恒等射: identity morphism
+作用: action
+単位元: identity
+

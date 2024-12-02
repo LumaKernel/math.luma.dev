@@ -1,0 +1,189 @@
+import H1 from '@blogkit/blog-components/src/h1';
+import type { QuickTermDefinition } from '@blogkit/blog-components/src/lib/quick-term-dict';
+import { quickTerms } from '@blogkit/blog-components/src/lib/quick-term-dict';
+import type { PageConfig, PageLocation } from '@blogkit/blog-components/src/util/pages';
+import { locEq } from '@blogkit/blog-components/src/util/pages';
+import QuickTerm from '@blogkit/blog-components/src/quick-term';
+import ShowError from '@blogkit/blog-components/src/show-error';
+import { NextSeo } from 'next-seo';
+import type { FC } from 'react';
+import MainLayout from '@blogkit/blog-components/src/layouts/main-layout';
+import pagesMetaData from '@blogkit/blog-components/pages-metadata.json';
+import H2 from '@blogkit/blog-components/src/h2';
+import PathBreadcrumbs from '@blogkit/blog-components/src/path-breadcrumbs';
+import Link from 'next/link';
+import { hostOf } from '@blogkit/blog-components/src/util';
+
+interface Placement {
+  loc: PageLocation;
+  pageConfig: PageConfig;
+  slug?: string | null;
+}
+
+const quickTermBySlug = Object.fromEntries<[string, QuickTermDefinition] | undefined>(
+  Object.entries(quickTerms).map(([key, v]) => {
+    if (typeof v?.slug === 'string') {
+      return [v.slug, [key, v]];
+    }
+    return [key, [key, v]];
+  }) as any,
+);
+
+interface Props2 {
+  usage: Placement[];
+}
+const TermUsageListInPage: FC<Props2> = ({ usage }) => {
+  const list: (string | null | undefined)[] = [];
+  let last = undefined as string | null | undefined;
+  usage.forEach((e) => {
+    if (last !== e.slug) {
+      list.push(last);
+    }
+    last = e.slug;
+  });
+  list.push(last);
+
+  const {
+    loc: { linkPath, subdomain },
+    pageConfig: { title },
+  } = usage[0];
+
+  return (
+    <>
+      <span>{title}</span>
+      <br />
+      <span>
+        <PathBreadcrumbs path={linkPath} subdomain={subdomain} />
+      </span>
+      <br />
+      <ul>
+        {list
+          .filter((e) => e)
+          .map((e) => (
+            <li key={e}>
+              <Link href={`${hostOf(subdomain)}/${linkPath}#${e}`} passHref>
+                <a>#{e}</a>
+              </Link>
+            </li>
+          ))}
+      </ul>
+    </>
+  );
+};
+
+const Li: FC<any> = (props) => (
+  <>
+    <li {...props} />
+    <style jsx>{`
+      li {
+        margin-top: 0.6em;
+      }
+    `}</style>
+  </>
+);
+
+interface Props1 {
+  usage: Placement[];
+}
+const TermUsageList: FC<Props1> = ({ usage }) => {
+  const list: React.ReactNode[] = [];
+  let tmp: Placement[] = [];
+  let last = undefined as Placement | undefined;
+  usage.forEach((e) => {
+    if (last && locEq(last.loc, e.loc)) {
+      tmp.push(e);
+    } else {
+      if (tmp.length) list.push(<TermUsageListInPage usage={tmp} />);
+      tmp = [e];
+    }
+    last = e;
+  });
+  if (tmp.length) list.push(<TermUsageListInPage usage={tmp} />);
+  return (
+    <ul>
+      {list.map((e, i) => (
+        <Li key={i}>{e}</Li>
+      ))}
+    </ul>
+  );
+};
+
+interface Props {
+  children?: React.ReactNode;
+  subdomain: string;
+  name: string;
+}
+
+const DefLayout: FC<Props> = ({ children, subdomain, name }) => {
+  const [w, term] = quickTermBySlug[name] ?? [undefined, undefined];
+  if (!w || !term) return <ShowError error={`name "${name}" not found`} />;
+
+  const titleText = term.jaRuby ? `${term.text}（${term.jaRuby}）` : term.text;
+
+  const defined: Placement[] = pagesMetaData
+    .map((e): Placement | null => {
+      const { loc, pageConfig } = e;
+      if (pageConfig) {
+        for (const { termName, placeSlug } of pageConfig.termUsage.defined) {
+          if (termName === w) {
+            return {
+              loc,
+              pageConfig,
+              slug: placeSlug,
+            };
+          }
+        }
+      }
+      return null;
+    })
+    .filter((e) => e) as any;
+
+  const used: Placement[] = pagesMetaData
+    .map((e): Placement | null => {
+      const { loc, pageConfig } = e;
+      if (pageConfig) {
+        for (const { termName, placeSlug } of pageConfig.termUsage.used) {
+          if (termName === w) {
+            return {
+              loc,
+              pageConfig,
+              slug: placeSlug,
+            };
+          }
+        }
+      }
+      return null;
+    })
+    .filter((e) => e) as any;
+
+  return (
+    <MainLayout>
+      <NextSeo
+        title={`${titleText} - ${subdomain}.luma.dev`}
+        description={term.text}
+        canonical={`${hostOf(subdomain)}/terms/${name}`}
+      />
+      <H1>
+        <QuickTerm w={w} o />
+      </H1>
+      <p>
+        <QuickTerm w={w} isFirst />
+      </p>
+      {children}
+      <H2 slug="定義箇所">定義箇所</H2>
+      <TermUsageList usage={defined} />
+      <H2 slug="使用箇所">使用箇所</H2>
+      <TermUsageList usage={used} />
+      {process.env.NODE_ENV === 'development' && (
+        <div>
+          <h2>デバッグ情報</h2>
+          <ul>
+            <li>w: {w}</li>
+          </ul>
+        </div>
+      )}
+    </MainLayout>
+  );
+};
+
+export default DefLayout;

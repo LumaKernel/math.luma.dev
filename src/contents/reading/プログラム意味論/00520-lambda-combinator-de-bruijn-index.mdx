@@ -1,0 +1,404 @@
+{/* generated from notebook */}
+<Config
+  isIpynb
+  ipynbLang="rust"
+  ipynbRelPath="reading/プログラム意味論/00520-lambda-combinator-de-bruijn-index"
+/>
+
+<Config
+  title="ラムダ計算とコンビネータ理論"
+  published
+  />
+
+ラムダ計算とコンビネータの相互変換に関する話が p.38 2.6 コンビネータ理論より続く。
+
+この相互変換をRustで実装してみようと思う。
+
+## 準備
+
+
+
+```rust
+use std::collections::HashSet;
+```
+
+
+
+## De Bruijnインデックスの準備
+
+`"x"` などの文字列を直接変数の内部データとして取り扱うこともできるが、非使用文字を探すのがすこしめんどくさい。
+ここでは、通常の変数を機械的に変換して得られる、数値で表すDe Bruijnインデックスを使用する。
+
+以下に変換を実装した。ただし、De Bruijnインデックスと変数は見た目通り一対一に対応するわけではなく、ラムダを飛び越えるたびにベースが1ずつカウントアップされると考える。
+
+詳しくはTaPLを参照。TODO: 定義を書き下す。
+
+
+
+```rust
+fn de_bruijn_index_to_string (index: u32, base: u32) -> String {
+  if index < base {
+    // bound variable
+    match base + index - 1 {
+      0 => "x".to_string(),
+      1 => "y".to_string(),
+      2 => "z".to_string(),
+      _ => format!("x{}", index),
+    }
+  } else {
+    // free variable
+    match index - base {
+      0 => "a".to_string(),
+      1 => "b".to_string(),
+      2 => "c".to_string(),
+      _ => format!("a{}", index),
+    }
+  }
+}
+
+fn de_bruijn_index_to_latex (index: u32, base: u32) -> String {
+  if index < base {
+    // bound variable
+    let n = base + index - 1;
+    match n {
+      0 => "x".to_string(),
+      1 => "y".to_string(),
+      2 => "z".to_string(),
+      _ => format!("x_{}{}{}", "{", n, "}"),
+    }
+  } else {
+    // free variable
+    let n = index - base;
+    match n {
+      0 => "a".to_string(),
+      1 => "b".to_string(),
+      2 => "c".to_string(),
+      _ => format!("a_{}{}{}", "{", n, "}"),
+    }
+  }
+}
+```
+
+
+
+## コンビネータ理論の実装
+
+Combinatory Theory
+
+### コンビネータ理論の項の定義
+
+
+
+```rust
+#[derive(Debug, Clone)]
+enum Combinatory {
+  I,
+  S,
+  K,
+  Variable(u32),
+  Apply(Box<Combinatory>, Box<Combinatory>),
+}
+```
+
+
+
+以下のように項を用意しておく。
+
+
+
+```rust
+let comb_term_1 = Combinatory::Apply(
+  Combinatory::Apply(Combinatory::K.into(), Combinatory::Variable(0).into()).into(),
+  Combinatory::Apply(
+    Combinatory::Apply(
+      Combinatory::I.into(),
+      Combinatory::Variable(1).into()
+    ).into(),
+    Combinatory::Variable(0).into(),
+  ).into(),
+);
+```
+
+
+
+### コンビネータ理論のプリント
+
+文字列と $\LaTeX$ への変換を用意しておく。なお、左結合のため、右側が _apply_ だった場合のみ、右側に括弧をつける。
+
+
+
+```rust
+impl Combinatory {
+  fn to_string(&self) -> String {
+    match self {
+      Combinatory::I => "I".into(),
+      Combinatory::S => "S".into(),
+      Combinatory::K => "K".into(),
+      Combinatory::Variable(v) => de_bruijn_index_to_string(*v, 0),
+      Combinatory::Apply(t1, t2) => match **t2 {
+        Combinatory::Apply(_, _) => format!("{}({})", t1.to_string(), t2.to_string()),
+        _ => format!("{}{}", t1.to_string(), t2.to_string()),
+      }
+    }
+  }
+  fn to_latex(&self) -> String {
+    match self {
+      Combinatory::I => "\\mathbf{I}".into(),
+      Combinatory::S => "\\mathbf{S}".into(),
+      Combinatory::K => "\\mathbf{K}".into(),
+      Combinatory::Variable(v) => de_bruijn_index_to_latex(*v, 0),
+      Combinatory::Apply(t1, t2) => match **t2 {
+        Combinatory::Apply(_, _) => format!("{}({})", t1.to_latex(), t2.to_latex()),
+        _ => format!("{}{}", t1.to_latex(), t2.to_latex()),
+      }
+    }
+  }
+  fn free_variables(&self) -> HashSet<u32> {
+    match self {
+      Combinatory::Variable(v) => HashSet::from([*v]),
+      Combinatory::Apply(t1, t2) => (*t1).free_variables().union(&(*t2).free_variables()).map(|e| e.clone()).collect::<HashSet<_>>(),
+      _ => HashSet::new(),
+    }
+  }
+}
+```
+
+
+
+### コンビネータ理論のプリントを試す
+
+
+
+```rust
+comb_term_1
+```
+
+
+
+```rust
+Apply(Apply(K, Variable(0)), Apply(Apply(I, Variable(1)), Variable(0)))
+```
+
+
+
+
+
+```rust
+println!("{}", comb_term_1.to_string());
+```
+
+
+
+```rust
+Ka(Iba)
+```
+
+
+
+
+
+```rust
+println!("${}$", comb_term_1.to_latex());
+```
+
+$\mathbf{K}a(\mathbf{I}ba)$
+
+
+
+
+```rust
+comb_term_1.free_variables()
+```
+
+
+
+```rust
+{1, 0}
+```
+
+
+
+## ラムダ計算
+
+
+
+```rust
+#[derive(Debug, Clone)]
+enum Lambda {
+  Variable(u32),
+  Abstract(Box<Lambda>),
+  Apply(Box<Lambda>, Box<Lambda>),
+}
+```
+
+
+
+
+
+```rust
+let lambda_term_1 = Lambda::Apply(
+  Lambda::Apply(
+    Lambda::Abstract(Lambda::Variable(0).into()).into(),
+    Lambda::Abstract(Lambda::Variable(0).into()).into(),
+  ).into(),
+  Lambda::Abstract(
+    Lambda::Abstract(
+      Lambda::Apply(
+        Lambda::Variable(1).into(),
+        Lambda::Apply(
+          Lambda::Variable(1).into(),
+          Lambda::Variable(4).into(),
+        ).into(),
+      ).into(),
+    ).into(),
+  ).into(),
+);
+```
+
+
+
+
+
+```rust
+impl Lambda {
+  fn to_string(&self) -> String {
+    self._to_string(0)
+  }
+  fn _to_string(&self, base: u32) -> String {
+    match self {
+      Lambda::Variable(v) => de_bruijn_index_to_string(*v, base),
+      Lambda::Abstract(t1) => format!("(\\{}.{})", de_bruijn_index_to_string(0, base + 1), t1._to_string(base + 1)),
+      Lambda::Apply(t1, t2) => match **t2 {
+        Lambda::Apply(_, _) => format!("{}({})", t1._to_string(base), t2._to_string(base)),
+        _ => format!("{}{}", t1._to_string(base), t2._to_string(base)),
+      }
+    }
+  }
+  fn to_latex(&self) -> String {
+    self._to_latex(0)
+  }
+  fn _to_latex(&self, base: u32) -> String {
+    match self {
+      Lambda::Variable(v) => de_bruijn_index_to_latex(*v, base),
+      Lambda::Abstract(t1) => format!("(\\lambda {}.{})", de_bruijn_index_to_latex(0, base + 1), t1._to_latex(base + 1)),
+      Lambda::Apply(t1, t2) => match **t2 {
+        Lambda::Apply(_, _) => format!("{}({})", t1._to_latex(base), t2._to_latex(base)),
+        _ => format!("{}{}", t1._to_latex(base), t2._to_latex(base)),
+      }
+    }
+  }
+  fn free_variables(&self) -> HashSet<u32> {
+    match self {
+      Lambda::Variable(v) => HashSet::from([*v]),
+      Lambda::Apply(t1, t2) => (*t1).free_variables().union(&(*t2).free_variables()).map(|e| e.clone()).collect::<HashSet<_>>(),
+      Lambda::Abstract(t1) => {
+        let mut s = (*t1).free_variables();
+        s.remove(&0);
+        s.into_iter().map(|e| e - 1).collect()
+      },
+    }
+  }
+}
+```
+
+
+
+
+
+```rust
+lambda_term_1
+```
+
+
+
+```rust
+Apply(Apply(Abstract(Variable(0)), Abstract(Variable(0))), Abstract(Abstract(Apply(Variable(1), Apply(Variable(1), Variable(4))))))
+```
+
+
+
+
+
+```rust
+println!("{}", lambda_term_1.to_string());
+```
+
+
+
+```rust
+(\x.x)(\x.x)(\x.(\y.z(zc)))
+```
+
+
+
+
+
+```rust
+println!("${}$", lambda_term_1.to_latex());
+```
+
+$(\lambda x.x)(\lambda x.x)(\lambda x.(\lambda y.z(zc)))$
+
+
+
+
+```rust
+lambda_term_1.free_variables()
+```
+
+
+
+```rust
+{2}
+```
+
+
+
+## ラムダ計算からコンビネータ理論
+
+p.40 付近。
+
+
+
+```rust
+fn lambda2combinatory(t: &Lambda) -> Combinatory {
+  _lambda2combinatory(t, 0)
+}
+
+fn _lambda2combinatory(t: &Lambda, base: u32) -> Combinatory {
+  match t {
+    Lambda::Variable(v) => Combinatory::Variable(v),
+    Lambda::Abstract(t1) => {
+      let c = lambda2combinatory(**t1);
+      match c {
+        Combinatory::Variable(u) if *u == 0 => Combinatory::I,
+        _ => if (*t1).free_variables().contains(&v) {
+          
+        }
+      }
+    },
+    Lambda::Apply(t1, t2) => Combinatory::Apply(
+      lambda2combinatory(&*t1).into(),
+      lambda2combinatory(&*t2).into(),
+    ),
+  }
+}
+```
+
+
+
+
+
+
+
+## コンビネータ理論からラムダ計算
+
+
+
+```rust
+fn combinatory2lambda(t: &Combinatory) -> Lambda {
+  match t {
+  }
+}
+```
+

@@ -1,0 +1,39 @@
+{/* generated from notebook */}
+<Config
+  isIpynb
+  ipynbLang="OCaml"
+  ipynbRelPath="reading/tapl/misc-ocaml-excercise"
+/>
+
+<Config
+  title="OCamlの練習所"
+  published
+  />
+
+## datatypeとか
+
+- [Chapter 7Generalized algebraic datatypes - An introduction to OCaml](https://ocaml.org/manual/gadts-tutorial.html)
+- [cheatsheet](https://ocamlpro.github.io/ocaml-cheat-sheets/ocaml-lang.pdf)
+
+
+
+```ocaml
+type enum =
+| Constant
+| Param of string
+| Pair of string * int
+| Gadt : int -> enum
+| Inlined of { x : int }
+```
+
+
+
+```ocaml
+type enum =
+    Constant
+  | Param of string
+  | Pair of string * int
+  | Gadt : int -> enum
+  | Inlined of { x : int; }
+```
+

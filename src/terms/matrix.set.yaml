@@ -1,0 +1,108 @@
+行列: matrix
+行列の行:
+  ruby: row
+  local@matrix: 行
+行列の列:
+  ruby: column
+  local@matrix: 列
+行列の要素:
+  ruby: element
+  local@matrix: 要素
+  alt:
+    - text: 元
+基底変換行列:
+  ruby: transition matrix
+  alt:
+    - text: change-of-basis matrix
+基底変換: transition
+零行列: zero matrix
+正方行列: square matrix
+対称行列: symmetrix matrix
+交代行列: skew-symmetrix matrix
+上三角行列:
+  ruby: upper triangular matrix
+  alt:
+    - text: 右三角行列
+      ruby: right triangular matrix
+下三角行列:
+  ruby: lower triangular matrix
+  alt:
+    - text: 左三角行列
+      ruby: left triangular matrix
+対角行列: diagonal matrix
+対角成分: main diagonal
+余因子: cofactor
+余因子行列: cofactor matrix
+クラメルの公式:
+  ruby: Cramer's rule
+  slug: cramers-rule
+クロネッカーのデルタ:
+  ruby: Kronecker delta
+  slug: kronecker-delta
+単位行列: identity matrix
+行階段形: row echelon form
+行簡約階段形:
+  ruby: reduce row echelon form
+  alt:
+    - text: 行標準形
+    - text: 行簡約形
+行列の簡約化:
+  ruby: matrix reduction
+  local@matrix: 簡約化
+行列の対角化: diagonalization
+上三角化:
+  ruby: upper triangularization
+  alt:
+    - text: 右三角化
+      ruby: right triangularization
+下三角化:
+  ruby: lower triangularization
+  alt:
+    - text: 左三角化
+      ruby: left triangularization
+拡大行列: augmented matrix
+行列は簡約である:
+  local@matrix: 簡約
+  ruby: reduced
+ガウスの消去法:
+  ruby: Gaussian elimination
+  slug: gaussian-elimination
+前進消去: forward elimination
+後退代入: back substitution
+ガウス・ジョルダンの消去法:
+  ruby: Gauss-Jordan elimination
+  slug: gauss-jordan-elimination
+列基本変形: elementary column operation
+行基本変形: elementary row operation
+基本行列: elementary matrix
+主成分: leading entry
+枢軸:
+  ruby: pivot
+  jaRuby: すうじく
+枢軸選択:
+  ruby: pivotting
+  jaRuby: すうじくせんたく
+連立方程式: system of equations
+線形方程式: system of linear equations
+斉次:
+  ruby: homogeneous
+  jaRuby: さいじ
+  alt:
+    - text: 同次
+斉次方程式:
+  ruby: homogeneous system
+  jaRuby: さいじほうていしき
+線形結合: linear combination
+線形独立:
+  ruby: linearly independent
+  alt:
+    - text: 一次独立
+線形従属:
+  ruby: linearly dependent
+  alt:
+    - text: 一次従属
+線形代数: linear algebra
+線形: linear
+線形性: linearity
+線形写像: linear map
+線形変換: linear transformation
