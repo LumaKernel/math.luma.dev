@@ -1,7 +1,7 @@
-import type { FC } from 'react';
-import GraphSvg from '@blogkit/blog-components/src/svg/GraphSvg';
-import SvgNg from '@blogkit/blog-components/src/util/svg/SvgNg';
-import { Knapsack, Prob1 } from './parts';
+import type { FC } from "react";
+import GraphSvg from "@/components/svg/GraphSvg";
+import SvgNg from "@/components/util/svg/SvgNg";
+import { Knapsack, Prob1 } from "./parts";
 
 const Prob1Ex1: FC = () => {
   const X0 = -75;
@@ -9,7 +9,13 @@ const Prob1Ex1: FC = () => {
   const X2 = 25;
   const X3 = 75;
   return (
-    <GraphSvg width={60} height={35} viewBox="-140 -70 280 140" xmlns="http://www.w3.org/2000/svg" grid0={[5, 5]}>
+    <GraphSvg
+      width={60}
+      height={35}
+      viewBox="-140 -70 280 140"
+      xmlns="http://www.w3.org/2000/svg"
+      grid0={[5, 5]}
+    >
       <Knapsack x={X0} y={-40} size={8} sum={5} />
       <Prob1.Load0 x={X0} y={10} put />
       <Prob1.Load1 x={X0} y={-20} put />

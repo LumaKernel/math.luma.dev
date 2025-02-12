@@ -1,5 +1,4 @@
-export type ArticleMetadata = Readonly<{
+export type SrcMeta = Readonly<{
   originalPath: string;
-  originalPathAbs: string;
   linkPath: string;
 }>;

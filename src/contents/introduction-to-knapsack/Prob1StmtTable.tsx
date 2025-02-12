@@ -1,14 +1,17 @@
-import type { FC } from 'react';
-import { useState } from 'react';
-import GraphSvg from '@blogkit/blog-components/src/svg/GraphSvg';
-import { range } from '@blogkit/blog-components/src/lib/number';
-import { Knapsack, Prob1 } from './parts';
+import type { FC } from "react";
+import { useState } from "react";
+import GraphSvg from "@/components/svg/GraphSvg";
+import { range } from "@/lib/number";
+import { Knapsack, Prob1 } from "./parts";
 
 const ansTable = range(Prob1.N + 1).map(() => range(Prob1.S + 1).map(() => 0));
 range(1, Prob1.N + 1).forEach((n) => {
   range(1, Prob1.S + 1).forEach((s) => {
     const r = s - Prob1.x[n - 1];
-    ansTable[n][s] = Math.max(r >= 0 ? ansTable[n - 1][r] + Prob1.v[n - 1] : -Infinity, ansTable[n - 1][s]);
+    ansTable[n][s] = Math.max(
+      r >= 0 ? ansTable[n - 1][r] + Prob1.v[n - 1] : -Infinity,
+      ansTable[n - 1][s]
+    );
   });
 });
 
@@ -37,10 +40,11 @@ const Prob1StmtTable: FC = () => {
                 // const isSelectable = si !== 0 && ni !== 0;
                 const isSelectable = true;
                 const isBefore =
-                  (si === curS && ni === curN - 1) || (si === curS - Prob1.x[curN - 1] && ni === curN - 1);
-                const tdClassName = isSelectable ? 'selectable' : '';
-                const buttonClassName = `selector ${isCur ? 'current' : ''} ${isSelectable ? 'selectable' : ''} ${
-                  isBefore ? 'before' : ''
+                  (si === curS && ni === curN - 1) ||
+                  (si === curS - Prob1.x[curN - 1] && ni === curN - 1);
+                const tdClassName = isSelectable ? "selectable" : "";
+                const buttonClassName = `selector ${isCur ? "current" : ""} ${isSelectable ? "selectable" : ""} ${
+                  isBefore ? "before" : ""
                 }`;
                 const ans = ansTable[ni][si];
                 return (
@@ -62,7 +66,13 @@ const Prob1StmtTable: FC = () => {
           ))}
         </tbody>
       </table>
-      <GraphSvg width={60} height={25} viewBox="-90 -50 180 100" xmlns="http://www.w3.org/2000/svg" grid0={[5, 5]}>
+      <GraphSvg
+        width={60}
+        height={25}
+        viewBox="-90 -50 180 100"
+        xmlns="http://www.w3.org/2000/svg"
+        grid0={[5, 5]}
+      >
         {[
           <Prob1.Load0 x={-70} y={-45} />,
           <Prob1.Load1 x={-70} y={5} />,

@@ -3,7 +3,7 @@
 import React from "react";
 import MainLayout from "./MainLayout";
 import PathBreadcrumbs from "../PathBreadcrumbs";
-import { ArticleMetadata } from "@/types/article";
+import { SrcMeta } from "@/types/article";
 
 type ArticleLayoutProps = Readonly<
   React.PropsWithChildren<{

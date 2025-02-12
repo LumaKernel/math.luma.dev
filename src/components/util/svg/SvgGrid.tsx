@@ -1,5 +1,6 @@
-import type { FC } from 'react';
-import { range } from '@blogkit/blog-components/src/lib/number';
+"use client";
+import type { FC } from "react";
+import { range } from "@/lib/number";
 
 export interface Props {
   grid: [number, number];
@@ -26,10 +27,24 @@ const SvgGrid: FC<Props> = ({ grid }) => {
         </linearGradient>
       </defs>
       {range(-N, N).map((x) => (
-        <rect className="vert" x={x * grid[0] - W} width={W * 2} y="-50%" height="100%" />
+        <rect
+          key={x}
+          className="vert"
+          x={x * grid[0] - W}
+          width={W * 2}
+          y="-50%"
+          height="100%"
+        />
       ))}
       {range(-N, N).map((x) => (
-        <rect className="horiz" y={x * grid[1] - W} height={W * 2} x="-50%" width="100%" />
+        <rect
+          key={x}
+          className="horiz"
+          y={x * grid[1] - W}
+          height={W * 2}
+          x="-50%"
+          width="100%"
+        />
       ))}
       <style jsx>{`
         rect.vert {
