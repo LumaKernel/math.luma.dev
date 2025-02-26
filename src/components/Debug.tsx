@@ -1,4 +1,4 @@
-export type DebugProps = unknown;
+export type DebugProps = Record<string, unknown>;
 export default function Debug(props: DebugProps) {
   return (
     <div>

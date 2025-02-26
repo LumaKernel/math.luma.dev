@@ -29,54 +29,15 @@ import H3 from "@/components/heading/H3";
 import * as cp from "node:child_process";
 import path from "node:path";
 import _foo_bar from "@/contents/introduction-to-knapsack/Prob1Stmt";
+import LumaKatex from "@/components/luma-katex/LumaKatex";
+import {preparse} from "@/util/preparse";
+import {TermDict, TermMapPredefinedPresets} from "@/types/term";
 
 const srcDir = path.resolve(__dirname, "..");
 const contentsDir = path.resolve(srcDir, "contents");
 
-type TermReading = Readonly<{
-  text: string;
-  ruby?: string;
-  ja_ruby?: string;
-  slug: string;
-}>;
-type TermDef = Readonly<{
-  main: TermReading;
-  alt: ReadonlyArray<TermReading>;
-}>;
-type TermDict = ReadonlyArray<TermDef>;
-type TermMapPreset = Readonly<Record<string, string>>;
-type TermMapPredefinedPresets = Readonly<Record<string, TermMapPreset>>;
-export type PreparseInput = Readonly<{
-  mdx: string;
-  termDict: TermDict;
-  presets: TermMapPredefinedPresets;
-  srcMeta: SrcMeta;
-}>;
-
-// MDXの先頭にあるtomlのメタ
-type ArticleMeta = Readonly<{
-  published: boolean;
-  title: string;
-  // 使わないものは省略
-}>;
-
-type ArticleInfo = Readonly<{
-  meta: ArticleMeta;
-  contents: string;
-}>;
-
-const f = (input: PreparseInput) => {
-  const output = cp.execFileSync(
-    "preparse",
-    ["--input-json", JSON.stringify(input)],
-    { encoding: "utf8" }
-  );
-  const info: ArticleInfo = JSON.parse(output);
-  return info;
-};
 
 const presets: TermMapPredefinedPresets = {};
-
 const termDict: TermDict = [];
 
 export default async function Home() {
@@ -98,7 +59,7 @@ export default async function Home() {
     originalPath: "foo.mdx",
     linkPath: "foo",
   };
-  const info = f({
+  const info = await preparse({
     mdx,
     termDict,
     presets,
@@ -115,11 +76,12 @@ export default async function Home() {
             //code: Code,
             LumaToc: Fragment,
             LumaMdxLayout: Fragment,
-            LumaKatex: Debug,
+            LumaKatex,
             Prove,
             h1: H1,
             h2: H2 as any,
             h3: H3 as any,
+            Debug,
           }}
           options={{
             mdxOptions: {
