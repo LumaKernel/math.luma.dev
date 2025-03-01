@@ -1,5 +1,6 @@
+"use client";
 import type { FC } from "react";
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import GraphSvg from "@/components/svg/GraphSvg";
 import { range } from "@/lib/number";
 import { Knapsack, Prob1 } from "./parts";
@@ -48,7 +49,7 @@ const Prob1StmtTable: FC = () => {
                 }`;
                 const ans = ansTable[ni][si];
                 return (
-                  <td className={tdClassName} key={si}>
+                  <td className={tdClassName} key={ni}>
                     <button
                       disabled={!isSelectable}
                       onClick={() => {
@@ -71,7 +72,7 @@ const Prob1StmtTable: FC = () => {
         height={25}
         viewBox="-90 -50 180 100"
         xmlns="http://www.w3.org/2000/svg"
-        grid0={[5, 5]}
+        // grid={[5, 5]}
       >
         {[
           <Prob1.Load0 x={-70} y={-45} />,
@@ -81,7 +82,9 @@ const Prob1StmtTable: FC = () => {
           <Prob1.Load4 x={-10} y={15} />,
           <Prob1.Load5 x={20} y={-45} />,
           <Prob1.Load6 x={20} y={25} />,
-        ].slice(0, curN)}
+        ]
+          .map((p, i) => <Fragment key={i}>{p}</Fragment>)
+          .slice(0, curN)}
         <Knapsack x={50} y={-40} size={curS} />
       </GraphSvg>
       <style jsx>{`

@@ -1,3 +1,4 @@
+'use client';
 import type { FC } from "react";
 import GraphSvg from "@/components/svg/GraphSvg";
 import SvgNg from "@/components/util/svg/SvgNg";

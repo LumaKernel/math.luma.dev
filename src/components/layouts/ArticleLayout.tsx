@@ -7,7 +7,7 @@ import { SrcMeta } from "@/types/article";
 
 type ArticleLayoutProps = Readonly<
   React.PropsWithChildren<{
-    meta: ArticleMetadata;
+    meta: SrcMeta;
   }>
 >;
 export default function ArticleLayout({ meta, children }: ArticleLayoutProps) {

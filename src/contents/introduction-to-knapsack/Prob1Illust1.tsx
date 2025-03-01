@@ -1,3 +1,4 @@
+'use client';
 import type { FC } from "react";
 import GraphSvg from "@/components/svg/GraphSvg";
 import { Knapsack, Prob1 } from "./parts";

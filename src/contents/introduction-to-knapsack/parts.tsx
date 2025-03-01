@@ -1,3 +1,4 @@
+"use client";
 import type { FC } from "react";
 import { range } from "@/lib/number";
 
@@ -47,7 +48,7 @@ export const Knapsack: FC<KnapsackProps> = ({ x, y, size, sizeOver, sum }) => {
             y2={y + i * PER_SIZE}
             strokeDasharray="0.8,0.4"
             stroke="black"
-            stroke-width={0.2}
+            strokeWidth={0.2}
           />
         );
       })}
@@ -78,7 +79,7 @@ export const Knapsack: FC<KnapsackProps> = ({ x, y, size, sizeOver, sum }) => {
             v
           </tspan>
           <tspan
-            baseline-shift="sub"
+            baselineShift="sub"
             fontSize={2.4}
             fontStyle="italic"
             alignmentBaseline="mathematical"
@@ -168,7 +169,7 @@ export const Load: FC<LoadProps> = ({
             y2={y + i * PER_SIZE}
             strokeDasharray="0.8,0.4"
             stroke="black"
-            stroke-width={0.2}
+            strokeWidth={0.2}
           />
         );
       })}
@@ -186,7 +187,7 @@ export const Load: FC<LoadProps> = ({
               x
             </tspan>
             <tspan
-              baseline-shift="sub"
+              baselineShift="sub"
               fontSize={2.4}
               alignmentBaseline="mathematical"
             >
@@ -207,7 +208,7 @@ export const Load: FC<LoadProps> = ({
             v
           </tspan>
           <tspan
-            baseline-shift="sub"
+            baselineShift="sub"
             fontSize={2.4}
             alignmentBaseline="mathematical"
           >

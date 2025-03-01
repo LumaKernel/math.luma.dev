@@ -13,6 +13,9 @@ export type ArticleInfo = Readonly<{
 }>;
 
 export type SrcMeta = Readonly<{
+  /**
+   * contents/フォルダからの相対パス
+   */
   originalPath: string;
   linkPath: string;
 }>;
