@@ -1,20 +1,27 @@
-import type { FlippedProps } from 'flip-toolkit/lib/types';
-import type { FC } from 'react';
-import React, { useCallback, useMemo, useState } from 'react';
-import { Flipper, Flipped, spring } from 'react-flip-toolkit';
-import type { NumberRational } from '@blogkit/blog-components/src/lib/math-algebra/rational';
-import { numberToRational, numberRational } from '@blogkit/blog-components/src/lib/math-algebra/rational';
-import type { FieldProtocol } from '@blogkit/blog-components/src/lib/math-algebra/field';
-import { fieldUtil } from '@blogkit/blog-components/src/lib/math-algebra/field';
-import type { Matrix } from '@blogkit/blog-components/src/lib/math-algebra/linear-algebra';
-import { matSet, matRow, matMap } from '@blogkit/blog-components/src/lib/math-algebra/linear-algebra';
-import { gcdNumber, matShape, range } from '@blogkit/blog-components/src/lib/number';
-import MatViewer from '@blogkit/blog-components/src/graphs/linear-algebra/mat-viewer';
-import MatElemInput from '@blogkit/blog-components/src/graphs/linear-algebra/mat-elem-input';
-import { cssColors } from '@blogkit/blog-components/src/lib/colors';
-import MatIndexIndicator from '@blogkit/blog-components/src/graphs/linear-algebra/mat-index-indicator';
+"use client";
+import type { FlippedProps } from "flip-toolkit/lib/types";
+import React, { useCallback, useMemo, useState } from "react";
+import { Flipper, Flipped, spring } from "react-flip-toolkit";
+import type { NumberRational } from "@/lib/math-algebra/rational";
+import {
+  numberToRational,
+  numberRational,
+} from "@/components/lib/math-algebra/rational";
+import type { FieldProtocol } from "@/components/lib/math-algebra/field";
+import { fieldUtil } from "@/components/lib/math-algebra/field";
+import type { Matrix } from "@/components/lib/math-algebra/linear-algebra";
+import {
+  matSet,
+  matRow,
+  matMap,
+} from "@/components/lib/math-algebra/linear-algebra";
+import { gcdNumber, matShape, range } from "@/components/lib/number";
+import MatViewer from "./MatViewer";
+import MatElemInput from "./MatElemInput";
+import { cssColors } from "@/components/lib/colors";
+import MatIndexIndicator from "./MatIndexIndicator";
 
-const OuterWrapper: FC<any> = (props) => (
+const OuterWrapper = (props: React.ComponentProps<"div">) => (
   <>
     <div {...props} />
     <style jsx>{`
@@ -25,7 +32,7 @@ const OuterWrapper: FC<any> = (props) => (
   </>
 );
 
-const Wrapper: FC<any> = (props) => (
+const Wrapper = (props: React.ComponentProps<"div">) => (
   <>
     <div {...props} />
     <style jsx>{`
@@ -37,7 +44,7 @@ const Wrapper: FC<any> = (props) => (
   </>
 );
 
-const InlineBlock: FC<any> = (props) => (
+const InlineBlock = (props: React.ComponentProps<"div">) => (
   <>
     <div {...props} />
     <style jsx>{`
@@ -49,7 +56,7 @@ const InlineBlock: FC<any> = (props) => (
   </>
 );
 
-const ElemWrapperOuter: FC<any> = (props) => (
+const ElemWrapperOuter = (props: React.ComponentProps<"div">) => (
   <>
     <div {...props} />
     <style jsx>{`
@@ -64,7 +71,7 @@ const ElemWrapperOuter: FC<any> = (props) => (
   </>
 );
 
-const ElemWrapperInner: FC<any> = (props) => (
+const ElemWrapperInner = (props: React.ComponentProps<"div">) => (
   <>
     <div {...props} />
     <style jsx>{`
@@ -75,7 +82,7 @@ const ElemWrapperInner: FC<any> = (props) => (
   </>
 );
 
-const Copied: FC<any> = (props) => (
+const Copied = (props: React.ComponentProps<"div">) => (
   <>
     <div {...props} />
     <style jsx>{`
@@ -88,7 +95,7 @@ const Copied: FC<any> = (props) => (
   </>
 );
 
-const Message: FC<any> = (props) => (
+const Message = (props: React.ComponentProps<"div">) => (
   <>
     <div {...props} />
     <style jsx>{`
@@ -99,7 +106,7 @@ const Message: FC<any> = (props) => (
   </>
 );
 
-const MatTop: FC<any> = (props) => (
+const MatTop = (props: React.ComponentProps<"div">) => (
   <>
     <div {...props} />
     <style jsx>{`
@@ -121,7 +128,7 @@ const MatTop: FC<any> = (props) => (
   </>
 );
 
-const MatLeft: FC<any> = (props) => (
+const MatLeft = (props: React.ComponentProps<"div">) => (
   <>
     <div {...props} />
     <style jsx>{`
@@ -140,7 +147,7 @@ const MatLeft: FC<any> = (props) => (
   </>
 );
 
-const IndexNumber: FC<any> = (props) => (
+const IndexNumber = (props: React.ComponentProps<"div">) => (
   <>
     <div {...props} />
     <style jsx>{`
@@ -160,9 +167,16 @@ const IndexNumber: FC<any> = (props) => (
   </>
 );
 
-const F = (props: FlippedProps) => <Flipped onAppear={onElementAppear} key={props.flipId} onExit={onExit} {...props} />;
+const F = (props: FlippedProps) => (
+  <Flipped
+    onAppear={onElementAppear}
+    key={props.flipId}
+    onExit={onExit}
+    {...props}
+  />
+);
 
-interface ElemWrapperProps {
+export type ElemWrapperProps = {
   y: number;
   x: number;
   copied?: boolean;
@@ -170,8 +184,8 @@ interface ElemWrapperProps {
   i?: number;
   j?: number;
   k?: number;
-}
-const ElemWrapper: FC<ElemWrapperProps> = ({ y, x, copied, children, i, j, k }) => {
+};
+const ElemWrapper = ({ y, x, copied, children, i, j, k }: ElemWrapperProps) => {
   return (
     <ElemWrapperOuter>
       {x === 0 && (
@@ -183,7 +197,7 @@ const ElemWrapper: FC<ElemWrapperProps> = ({ y, x, copied, children, i, j, k }) 
                   vertical={false}
                   fgColor={cssColors.revertedText}
                   bgColor={cssColors.em1}
-                  children={'k'}
+                  children={"k"}
                 />
               </InlineBlock>
             </F>
@@ -195,7 +209,7 @@ const ElemWrapper: FC<ElemWrapperProps> = ({ y, x, copied, children, i, j, k }) 
                   vertical={false}
                   fgColor={cssColors.revertedText}
                   bgColor={cssColors.em3}
-                  children={'i'}
+                  children={"i"}
                 />
               </InlineBlock>
             </F>
@@ -214,7 +228,7 @@ const ElemWrapper: FC<ElemWrapperProps> = ({ y, x, copied, children, i, j, k }) 
                   vertical={false}
                   fgColor={cssColors.revertedText}
                   bgColor={cssColors.em2}
-                  children={'j'}
+                  children={"j"}
                 />
               </div>
             </F>
@@ -239,7 +253,7 @@ const appearMoveEasing = (t: number): number => {
   return 0.25 * k - k * (t - 0.5) * (t - 0.5);
 };
 
-const onElementAppear: FlippedProps['onAppear'] = (el, index) =>
+const onElementAppear: FlippedProps["onAppear"] = (el, index) =>
   spring({
     onUpdate: (val) => {
       const t = val as number;
@@ -252,7 +266,7 @@ const onElementAppear: FlippedProps['onAppear'] = (el, index) =>
     delay: index * 50,
   });
 
-const onExit: FlippedProps['onExit'] = (el, index, removeElement) => {
+const onExit: FlippedProps["onExit"] = (el, index, removeElement) => {
   spring({
     config: { overshootClamping: true },
     onUpdate: (val) => {
@@ -263,7 +277,7 @@ const onExit: FlippedProps['onExit'] = (el, index, removeElement) => {
   });
 
   return () => {
-    el.style.opacity = '';
+    el.style.opacity = "";
     removeElement();
   };
 };
@@ -281,19 +295,25 @@ export interface ElementaryMatrixProtocol<T> {
   lambda?: T;
 }
 
-export const renderElementaryMatrix: <T>(p: ElementaryMatrixProtocol<T>, renderElem: RenderElem<T>) => React.ReactNode =
-  (p, renderElem) => {
-    return (
-      <InlineBlock>
-        P<sub>{p.i + 1}</sub>
-        {p.j != null && <sub>, {p.j + 1}</sub>}
-        {p.lambda != null && <>({renderElem(p.lambda, cssColors.text)})</>}
-      </InlineBlock>
-    );
-  };
+export const renderElementaryMatrix: <T>(
+  p: ElementaryMatrixProtocol<T>,
+  renderElem: RenderElem<T>
+) => React.ReactNode = (p, renderElem) => {
+  return (
+    <InlineBlock>
+      P<sub>{p.i + 1}</sub>
+      {p.j != null && <sub>, {p.j + 1}</sub>}
+      {p.lambda != null && <>({renderElem(p.lambda, cssColors.text)})</>}
+    </InlineBlock>
+  );
+};
 
 /* eslint-disable no-loop-func */
-function* gaussElimIllust<T>(mat: Matrix<T>, field: FieldProtocol<T, T>, renderElem: RenderElem<T>) {
+function* gaussElimIllust<T>(
+  mat: Matrix<T>,
+  field: FieldProtocol<T, T>,
+  renderElem: RenderElem<T>
+) {
   const key = (() => {
     let tmp = 0;
     return () => {
@@ -303,14 +323,22 @@ function* gaussElimIllust<T>(mat: Matrix<T>, field: FieldProtocol<T, T>, renderE
   })();
   const ps: ElementaryMatrixProtocol<T>[] = [];
   let matKeys: Matrix<number> = mat.map((row) => row.map(() => key()));
-  const flippedMatElem = (y: number, x: number, nextMatKeys: Matrix<number> | null = null) =>
-    `(${(nextMatKeys ?? matKeys)[y][x]})`;
-  const flippedWith = (prefix: string, y: number, x: number) => `${prefix}(${y},${x},${matKeys[y][x]})`;
-  const flippedEq = (y: number, x: number) => flippedWith('eq', y, x);
+  const flippedMatElem = (
+    y: number,
+    x: number,
+    nextMatKeys: Matrix<number> | null = null
+  ) => `(${(nextMatKeys ?? matKeys)[y][x]})`;
+  const flippedWith = (prefix: string, y: number, x: number) =>
+    `${prefix}(${y},${x},${matKeys[y][x]})`;
+  const flippedEq = (y: number, x: number) => flippedWith("eq", y, x);
   const [n, m] = matShape(mat);
 
-  const ShowPs: FC = () => {
-    return <div>{ps.reverse().map((p) => renderElementaryMatrix(p, renderElem))}</div>;
+  const ShowPs = () => {
+    return (
+      <div>
+        {ps.reverse().map((p) => renderElementaryMatrix(p, renderElem))}
+      </div>
+    );
   };
 
   const basic = (text: string, i?: number, j?: number, k?: number) =>
@@ -322,7 +350,10 @@ function* gaussElimIllust<T>(mat: Matrix<T>, field: FieldProtocol<T, T>, renderE
           flipIdPrefix="mat"
           createElem={(y, x) => (
             <ElemWrapper y={y} x={x} i={i} j={j} k={k}>
-              <F flipId={flippedMatElem(y, x)} children={renderElem(mat[y][x], cssColors.text)} />
+              <F
+                flipId={flippedMatElem(y, x)}
+                children={renderElem(mat[y][x], cssColors.text)}
+              />
             </ElemWrapper>
           )}
         />
@@ -331,37 +362,48 @@ function* gaussElimIllust<T>(mat: Matrix<T>, field: FieldProtocol<T, T>, renderE
       </>
     ))(mat);
 
-  yield basic('初期状態');
+  yield basic("初期状態");
 
   const columnPivotExists = range(m).map(() => false);
   const pivotIndices: [number, number][] = [];
   {
     let i = 0;
     let j = 0;
-    const what0 = '前進消去: ';
+    const what0 = "前進消去: ";
     // O(min{n, m})
     for (; i < n && j < m; j += 1) {
-      yield basic(`${what0}${i === 0 ? 'i := 1, j := 1 で初期化' : 'j := j + 1 に更新'}`, i, j);
+      yield basic(
+        `${what0}${i === 0 ? "i := 1, j := 1 で初期化" : "j := j + 1 に更新"}`,
+        i,
+        j
+      );
       {
         let k = i;
         // O(n)
         {
-          const what1 = 'mat[k, i] ≠ 0 となるピボット候補を探索中。';
+          const what1 = "mat[k, i] ≠ 0 となるピボット候補を探索中。";
           for (; k < n; k += 1) {
             yield basic(
-              k === i ? `${what0}${what1}k := i で k を初期化` : `${what0}${what1}k := k + 1 に更新`,
+              k === i
+                ? `${what0}${what1}k := i で k を初期化`
+                : `${what0}${what1}k := k + 1 に更新`,
               i,
               j,
-              k,
+              k
             );
             if (fieldUtil(field).IsZero(mat[k][j])) {
-              const what2 = '0 なので該当せず。';
+              const what2 = "0 なので該当せず。";
               yield basic(`${what0}${what1}${what2}`, i, j, k);
             } else {
               if (i === k) {
                 yield basic(`${what0}${what1}見つかりました。`, i, j, k);
               } else {
-                yield basic(`${what0}${what1}見つかりました。i ≠ k なので入れ替えます。`, i, j, k);
+                yield basic(
+                  `${what0}${what1}見つかりました。i ≠ k なので入れ替えます。`,
+                  i,
+                  j,
+                  k
+                );
                 // 入れ替えが必要 (swap(mat[i], mat[k]))
                 const newMatKeys = matMap(matKeys, (y, x, v) => {
                   if (y === i || y === k) {
@@ -384,7 +426,8 @@ function* gaussElimIllust<T>(mat: Matrix<T>, field: FieldProtocol<T, T>, renderE
             }
           }
           if (k === n) {
-            const what2 = '最後の行に到達。見つかりませんでした。次の列を探します。 j := j + 1 を代入';
+            const what2 =
+              "最後の行に到達。見つかりませんでした。次の列を探します。 j := j + 1 を代入";
             yield basic(`${what0}${what1}${what2}`, i, j + 1);
             continue;
           }
@@ -395,9 +438,9 @@ function* gaussElimIllust<T>(mat: Matrix<T>, field: FieldProtocol<T, T>, renderE
       columnPivotExists[j] = true;
 
       {
-        const what1 = '対象の主成分を 1 にします。';
+        const what1 = "対象の主成分を 1 にします。";
         if (fieldUtil(field).IsOne(e)) {
-          const what2 = 'すでに mat[i, j] ＝ 1 なので完了';
+          const what2 = "すでに mat[i, j] ＝ 1 なので完了";
           yield basic(`${what0}${what1}${what2}`, i, j);
         } else {
           const pivotInv = field.MultInverse(e);
@@ -415,11 +458,18 @@ function* gaussElimIllust<T>(mat: Matrix<T>, field: FieldProtocol<T, T>, renderE
                         range(j, m).map((jj) => (
                           <F
                             key={jj}
-                            flipId={flippedWith('p', y, jj)}
-                            children={<Copied>{renderElem(mat[i][x], cssColors.em1)}</Copied>}
+                            flipId={flippedWith("p", y, jj)}
+                            children={
+                              <Copied>
+                                {renderElem(mat[i][x], cssColors.em1)}
+                              </Copied>
+                            }
                           />
                         ))}
-                      <F flipId={flippedMatElem(y, x)} children={renderElem(mat[y][x], cssColors.text)} />
+                      <F
+                        flipId={flippedMatElem(y, x)}
+                        children={renderElem(mat[y][x], cssColors.text)}
+                      />
                     </ElemWrapper>
                   );
                 }}
@@ -445,11 +495,16 @@ function* gaussElimIllust<T>(mat: Matrix<T>, field: FieldProtocol<T, T>, renderE
                   createElem={(y, x) => {
                     return (
                       <ElemWrapper y={y} x={x} i={i} j={j}>
-                        <F flipId={flippedMatElem(y, x)} children={renderElem(mat[y][x], cssColors.text)} />
+                        <F
+                          flipId={flippedMatElem(y, x)}
+                          children={renderElem(mat[y][x], cssColors.text)}
+                        />
                         {y === i && j <= x && (
                           <>
-                            <F flipId={flippedWith('p', y, x)}>
-                              <InlineBlock>✕{renderElem(pivotInv, cssColors.em1)}</InlineBlock>
+                            <F flipId={flippedWith("p", y, x)}>
+                              <InlineBlock>
+                                ✕{renderElem(pivotInv, cssColors.em1)}
+                              </InlineBlock>
                             </F>
                             {showAns && (
                               <>
@@ -458,7 +513,10 @@ function* gaussElimIllust<T>(mat: Matrix<T>, field: FieldProtocol<T, T>, renderE
                                 </F>
                                 <F
                                   flipId={flippedMatElem(y, x, newMatKeys)}
-                                  children={renderElem(field.Mult(mat[y][x], pivotInv), cssColors.text)}
+                                  children={renderElem(
+                                    field.Mult(mat[y][x], pivotInv),
+                                    cssColors.text
+                                  )}
                                 />
                               </>
                             )}
@@ -489,16 +547,21 @@ function* gaussElimIllust<T>(mat: Matrix<T>, field: FieldProtocol<T, T>, renderE
 
       const inverses = matRow(mat, i).map((e) => field.AddInverse(e));
 
-      const what1 = 'i 行目より下の行を消去していきます。';
+      const what1 = "i 行目より下の行を消去していきます。";
       // O(n)
       for (const k of range(i + 1, n)) {
-        yield basic(`${what0}${what1}${k === i + 1 ? 'k := i + 1 で初期化' : 'k := k + 1 に更新'}`, i, j, k);
+        yield basic(
+          `${what0}${what1}${k === i + 1 ? "k := i + 1 で初期化" : "k := k + 1 に更新"}`,
+          i,
+          j,
+          k
+        );
 
         if (fieldUtil(field).IsZero(mat[k][j])) {
-          const what2 = 'mat[k, j] ＝ 0 なのですでに完了';
+          const what2 = "mat[k, j] ＝ 0 なのですでに完了";
           yield basic(`${what0}${what1}${what2}`, i, j, k);
         } else {
-          const what2 = 'k 行目の mat[k, j] ≠ 0 を消去します。';
+          const what2 = "k 行目の mat[k, j] ≠ 0 を消去します。";
           yield (
             <>
               <MatViewer
@@ -510,8 +573,12 @@ function* gaussElimIllust<T>(mat: Matrix<T>, field: FieldProtocol<T, T>, renderE
                     <ElemWrapper y={y} x={x} i={i} j={j} k={k} copied>
                       {y === i && j <= x && (
                         <F
-                          flipId={flippedWith('m', k, x)}
-                          children={<Copied>{renderElem(mat[y][x], cssColors.em2)}</Copied>}
+                          flipId={flippedWith("m", k, x)}
+                          children={
+                            <Copied>
+                              {renderElem(mat[y][x], cssColors.em2)}
+                            </Copied>
+                          }
                         />
                       )}
                       {y === k &&
@@ -519,11 +586,18 @@ function* gaussElimIllust<T>(mat: Matrix<T>, field: FieldProtocol<T, T>, renderE
                         range(j, m).map((jj) => (
                           <F
                             key={jj}
-                            flipId={flippedWith('a', k, jj)}
-                            children={<Copied>{renderElem(mat[y][x], cssColors.em1)}</Copied>}
+                            flipId={flippedWith("a", k, jj)}
+                            children={
+                              <Copied>
+                                {renderElem(mat[y][x], cssColors.em1)}
+                              </Copied>
+                            }
                           />
                         ))}
-                      <F flipId={flippedMatElem(y, x)} children={renderElem(mat[y][x], cssColors.text)} />
+                      <F
+                        flipId={flippedMatElem(y, x)}
+                        children={renderElem(mat[y][x], cssColors.text)}
+                      />
                     </ElemWrapper>
                   );
                 }}
@@ -550,20 +624,38 @@ function* gaussElimIllust<T>(mat: Matrix<T>, field: FieldProtocol<T, T>, renderE
                   createElem={(y, x) => {
                     return (
                       <ElemWrapper y={y} x={x} i={i} j={j} k={k}>
-                        <F flipId={flippedMatElem(y, x)} children={renderElem(mat[y][x], cssColors.text)} />
+                        <F
+                          flipId={flippedMatElem(y, x)}
+                          children={renderElem(mat[y][x], cssColors.text)}
+                        />
                         {y === k && j <= x && (
                           <>
-                            <F flipId={flippedWith('a', y, x)}>
-                              <InlineBlock>＋{renderElem(field.AddInverse(mat[y][j]), cssColors.em1)}×</InlineBlock>
+                            <F flipId={flippedWith("a", y, x)}>
+                              <InlineBlock>
+                                ＋
+                                {renderElem(
+                                  field.AddInverse(mat[y][j]),
+                                  cssColors.em1
+                                )}
+                                ×
+                              </InlineBlock>
                             </F>
-                            <F flipId={flippedWith('m', y, x)}>
-                              <InlineBlock>{renderElem(mat[i][x], cssColors.em2)}</InlineBlock>
+                            <F flipId={flippedWith("m", y, x)}>
+                              <InlineBlock>
+                                {renderElem(mat[i][x], cssColors.em2)}
+                              </InlineBlock>
                             </F>
                             {showAns && (
                               <F flipId={flippedMatElem(y, x, newMatKeys)}>
                                 <InlineBlock>
                                   ＝
-                                  {renderElem(field.Add(mat[y][x], field.Mult(mat[y][j], inverses[x])), cssColors.text)}
+                                  {renderElem(
+                                    field.Add(
+                                      mat[y][x],
+                                      field.Mult(mat[y][j], inverses[x])
+                                    ),
+                                    cssColors.text
+                                  )}
                                 </InlineBlock>
                               </F>
                             )}
@@ -600,22 +692,29 @@ function* gaussElimIllust<T>(mat: Matrix<T>, field: FieldProtocol<T, T>, renderE
   }
 
   {
-    const what0 = '後退代入: ';
-    yield basic(`${what0}後退代入を開始します。すべてのピボットを見ていきます。`);
+    const what0 = "後退代入: ";
+    yield basic(
+      `${what0}後退代入を開始します。すべてのピボットを見ていきます。`
+    );
     // O(min{n, m})
     for (const [i, j] of pivotIndices.reverse()) {
-      const what1 = 'mat[i, j] のピボットに注目: ';
+      const what1 = "mat[i, j] のピボットに注目: ";
       yield basic(`${what0}${what1}`, i, j);
       const inverses = matRow(mat, i).map((e) => field.AddInverse(e));
 
       // O(min{n, m})
       for (const k of range(i)) {
-        yield basic(`${what0}${what1}${k === 0 ? 'k := 0 で初期化' : 'k := k + 1 を代入'}`, i, j, k);
+        yield basic(
+          `${what0}${what1}${k === 0 ? "k := 0 で初期化" : "k := k + 1 を代入"}`,
+          i,
+          j,
+          k
+        );
         if (fieldUtil(field).IsZero(mat[k][j])) {
-          const what2 = 'すでに mat[k, j] ＝ 0 なので次へ。';
+          const what2 = "すでに mat[k, j] ＝ 0 なので次へ。";
           yield basic(`${what0}${what1}${what2}`, i, j, k);
         } else {
-          const what2 = 'mat[k, j] ≠ 0 なので k 行目を削除';
+          const what2 = "mat[k, j] ≠ 0 なので k 行目を削除";
           yield (
             <>
               <MatViewer
@@ -625,23 +724,36 @@ function* gaussElimIllust<T>(mat: Matrix<T>, field: FieldProtocol<T, T>, renderE
                 createElem={(y, x) => {
                   return (
                     <ElemWrapper y={y} x={x} i={i} j={j} k={k} copied>
-                      {y === i && j <= x && (j === x || !columnPivotExists[x]) && (
-                        <F
-                          flipId={flippedWith('m', k, x)}
-                          children={<Copied>{renderElem(mat[y][x], cssColors.em2)}</Copied>}
-                        />
-                      )}
+                      {y === i &&
+                        j <= x &&
+                        (j === x || !columnPivotExists[x]) && (
+                          <F
+                            flipId={flippedWith("m", k, x)}
+                            children={
+                              <Copied>
+                                {renderElem(mat[y][x], cssColors.em2)}
+                              </Copied>
+                            }
+                          />
+                        )}
                       {y === k &&
                         x === j &&
                         (j === x || !columnPivotExists[x]) &&
                         range(j, m).map((jj) => (
                           <F
                             key={jj}
-                            flipId={flippedWith('a', k, jj)}
-                            children={<Copied>{renderElem(mat[y][x], cssColors.em1)}</Copied>}
+                            flipId={flippedWith("a", k, jj)}
+                            children={
+                              <Copied>
+                                {renderElem(mat[y][x], cssColors.em1)}
+                              </Copied>
+                            }
                           />
                         ))}
-                      <F flipId={flippedMatElem(y, x)} children={renderElem(mat[y][x], cssColors.text)} />
+                      <F
+                        flipId={flippedMatElem(y, x)}
+                        children={renderElem(mat[y][x], cssColors.text)}
+                      />
                     </ElemWrapper>
                   );
                 }}
@@ -667,25 +779,40 @@ function* gaussElimIllust<T>(mat: Matrix<T>, field: FieldProtocol<T, T>, renderE
                   createElem={(y, x) => {
                     return (
                       <ElemWrapper y={y} x={x} i={i} j={j} k={k}>
-                        <F flipId={flippedMatElem(y, x)} children={renderElem(mat[y][x], cssColors.text)} />
-                        {y === k && j <= x && (j === x || !columnPivotExists[x]) && (
-                          <>
-                            <F flipId={flippedWith('a', y, x)}>
-                              <InlineBlock>＋{renderElem(mat[y][j], cssColors.em1)}×</InlineBlock>
-                            </F>
-                            <F flipId={flippedWith('m', y, x)}>
-                              <InlineBlock>{renderElem(inverses[x], cssColors.em2)}</InlineBlock>
-                            </F>
-                            {showAns && (
-                              <F flipId={flippedMatElem(y, x, newMatKeys)}>
+                        <F
+                          flipId={flippedMatElem(y, x)}
+                          children={renderElem(mat[y][x], cssColors.text)}
+                        />
+                        {y === k &&
+                          j <= x &&
+                          (j === x || !columnPivotExists[x]) && (
+                            <>
+                              <F flipId={flippedWith("a", y, x)}>
                                 <InlineBlock>
-                                  ＝
-                                  {renderElem(field.Add(mat[y][x], field.Mult(mat[y][j], inverses[x])), cssColors.text)}
+                                  ＋{renderElem(mat[y][j], cssColors.em1)}×
                                 </InlineBlock>
                               </F>
-                            )}
-                          </>
-                        )}
+                              <F flipId={flippedWith("m", y, x)}>
+                                <InlineBlock>
+                                  {renderElem(inverses[x], cssColors.em2)}
+                                </InlineBlock>
+                              </F>
+                              {showAns && (
+                                <F flipId={flippedMatElem(y, x, newMatKeys)}>
+                                  <InlineBlock>
+                                    ＝
+                                    {renderElem(
+                                      field.Add(
+                                        mat[y][x],
+                                        field.Mult(mat[y][j], inverses[x])
+                                      ),
+                                      cssColors.text
+                                    )}
+                                  </InlineBlock>
+                                </F>
+                              )}
+                            </>
+                          )}
                       </ElemWrapper>
                     );
                   }}
@@ -712,7 +839,7 @@ function* gaussElimIllust<T>(mat: Matrix<T>, field: FieldProtocol<T, T>, renderE
       yield basic(`${what0}${what1}1行目から(i-1)行目までを探索完了。`, i, j);
     }
   }
-  yield basic('完了');
+  yield basic("完了");
 }
 /* eslint-enable no-loop-func */
 
@@ -729,7 +856,10 @@ export const signNumberRational = ({ numer, denom }: NumberRational) => {
 export const normalize = (e: NumberRational): NumberRational => {
   const g = gcdNumber(Math.abs(e.numer), Math.abs(e.denom));
   const sign = signNumberRational(e);
-  return { numer: sign * Math.round(Math.abs(e.numer) / g), denom: Math.round(Math.abs(e.denom) / g) };
+  return {
+    numer: sign * Math.round(Math.abs(e.numer) / g),
+    denom: Math.round(Math.abs(e.denom) / g),
+  };
 };
 
 export const serialize = (e: NumberRational) => {
@@ -748,14 +878,14 @@ const renderElem: RenderElem<NumberRational> = (t, color) => {
         if (tn.denom === 1) {
           return (
             <>
-              {sign < 0 ? '－' : ''}
+              {sign < 0 ? "－" : ""}
               {sign * tn.numer}
             </>
           );
         }
         return (
           <>
-            {sign < 0 ? '－' : ''}
+            {sign < 0 ? "－" : ""}
             {sign * tn.numer}/{tn.denom}
           </>
         );
@@ -764,17 +894,20 @@ const renderElem: RenderElem<NumberRational> = (t, color) => {
   );
 };
 
-interface Props {
-  init: number[][];
-}
-const GaussElim: FC<Props> = ({ init }) => {
+export type GaussElimProps = {
+  readonly init: number[][];
+};
+export default function GaussElim({ init }: GaussElimProps) {
   const [mat, setMat] = useState<NumMat>(init);
-  const numRatMat = useMemo<NumRatMat>(() => mat.map((row) => row.map(numberToRational)), [mat]);
+  const numRatMat = useMemo<NumRatMat>(
+    () => mat.map((row) => row.map(numberToRational)),
+    [mat]
+  );
   const [step, setStep] = useState(0);
   const [started, setStarted] = useState(false);
   const createGenerator: () => Generator<React.ReactElement> = useCallback(
     () => gaussElimIllust<NumberRational>(numRatMat, numRat, renderElem),
-    [numRatMat],
+    [numRatMat]
   );
   const createHistoryPoint = useCallback(
     (step: number) => {
@@ -788,7 +921,7 @@ const GaussElim: FC<Props> = ({ init }) => {
       }
       return last.value;
     },
-    [started, createGenerator],
+    [started, createGenerator]
   );
   const historyLength = useMemo(() => {
     if (!started) return 0;
@@ -801,7 +934,10 @@ const GaussElim: FC<Props> = ({ init }) => {
     setStep(step + 1);
   };
   const isFirst = useMemo(() => step === 0, [step]);
-  const isLast = useMemo(() => step + 1 === historyLength, [step, historyLength]);
+  const isLast = useMemo(
+    () => step + 1 === historyLength,
+    [step, historyLength]
+  );
   const [n, m] = useMemo(() => matShape(mat), [mat]);
   const start = useCallback(() => {
     setStarted(true);
@@ -852,6 +988,4 @@ const GaussElim: FC<Props> = ({ init }) => {
       </Flipper>
     </OuterWrapper>
   );
-};
-
-export default GaussElim;
+}

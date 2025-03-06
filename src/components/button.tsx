@@ -1,12 +1,12 @@
-import Link from 'next/link';
-import type { FC, MouseEventHandler } from 'react';
-import { useRef, useState } from 'react';
-import { cssColors } from '@blogkit/blog-components/src/lib/colors';
-import { rootClass } from '@blogkit/blog-components/src/root';
+import Link from "next/link";
+import type { FC, MouseEventHandler } from "react";
+import { useRef, useState } from "react";
+import { cssColors } from "@/components/lib/colors";
+import { rootClass } from "@/components/root";
 
-const thickness = '0.5px';
-const size = '6px';
-const gap = '2px';
+const thickness = "0.5px";
+const size = "6px";
+const gap = "2px";
 const hoverCircleSizePx = 40;
 
 const backCircleR = 1;
@@ -17,8 +17,8 @@ const svg1 = (isLight: boolean) => `
     <defs>
       <pattern id='bg' patternUnits='userSpaceOnUse' width='${backCircleM * 2}' height='${backCircleM * 2}'>
         <g transform="translate(${backCircleR} ${backCircleR})">
-          <circle cx="0" cy="0" r="${backCircleR}" fill="${isLight ? 'black' : 'white'}" />
-          <circle cx="${backCircleM}" cy="${backCircleM}" r="${backCircleR}" fill="${isLight ? 'black' : 'white'}" />
+          <circle cx="0" cy="0" r="${backCircleR}" fill="${isLight ? "black" : "white"}" />
+          <circle cx="${backCircleM}" cy="${backCircleM}" r="${backCircleR}" fill="${isLight ? "black" : "white"}" />
         </g>
       </pattern>
     </defs>
@@ -38,7 +38,8 @@ const svg2 = `
   <circle cx="5" cy="5" r="4" fill="url('#gradient')" />
 </svg>`;
 
-const svgToCssUrl = (svg: string): string => `"data:image/svg+xml,${encodeURIComponent(svg)}"`;
+const svgToCssUrl = (svg: string): string =>
+  `"data:image/svg+xml,${encodeURIComponent(svg)}"`;
 
 const wrapperStyle = `
   font-size: 0.8em;
@@ -225,8 +226,12 @@ type ButtonProps = Readonly<
 const Button: FC<ButtonProps> = ({ children, onClick, href }) => {
   const rootRef = useRef<HTMLAnchorElement & HTMLButtonElement>(null);
   const [mouseInside, setMouseInside] = useState(false);
-  const [mousePos, setMousePos] = useState<{ x: number; y: number } | null>(null);
-  const mouseMoveHandler: MouseEventHandler<HTMLAnchorElement | HTMLButtonElement> = (ev) => {
+  const [mousePos, setMousePos] = useState<{ x: number; y: number } | null>(
+    null
+  );
+  const mouseMoveHandler: MouseEventHandler<
+    HTMLAnchorElement | HTMLButtonElement
+  > = (ev) => {
     if (!rootRef.current) return;
     const rect = rootRef.current.getBoundingClientRect();
     const x = ev.clientX - rect.left;
@@ -273,11 +278,11 @@ const Button: FC<ButtonProps> = ({ children, onClick, href }) => {
     onMouseUp: mouseLeaveHandler,
     onMouseLeave: mouseLeaveHandler,
     children: inner,
-    className: 'wrapper',
+    className: "wrapper",
   } as const;
   return (
     <>
-      {typeof href === 'string' ? (
+      {typeof href === "string" ? (
         <Link href={href} passHref>
           <a {...params} />
         </Link>

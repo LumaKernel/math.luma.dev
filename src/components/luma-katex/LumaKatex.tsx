@@ -1,65 +1,34 @@
-'use server';
-import styleToObject from 'style-to-object';
-import { Fragment, type FC } from 'react';
-import {katexLumaRenderToString} from '@luma-dev/katex-luma';
-import { MDXRemote } from "next-mdx-remote/rsc";
-import {htmlToMdx} from '@/util/html-to-mdx';
-import Debug from '../Debug';
+"use server";
+import { katexLumaRenderToString } from "@luma-dev/katex-luma";
+import { DisplayMode } from "./type";
+import LumaKatexClient from "./LumaKatexClient";
 
-export type DisplayMode = 'inline' | 'block-display' | 'inline-display';
-
-
-//const InlineWrapper: FC<any> = (props) => (
-//  <>
-//    <span {...props} />
-//    <style jsx>{`
-//      span {
-//        margin-left: 0.4em;
-//        margin-right: 0.4em;
-//      }
-//      span :global(.base) {
-//        margin-top: 0.6em;
-//      }
-//    `}</style>
-//  </>
-//);
-//
-//const DisplayWrapper: FC<any> = (props) => (
-//  <>
-//    <div {...props} />
-//    <style jsx>{`
-//      div {
-//        margin-top: 2em;
-//      }
-//    `}</style>
-//  </>
-//);
-
-type LumaKatexProps = {
-    readonly mode: DisplayMode;
-
-    readonly defContext: string;
-    readonly content: string;
+export type LumaKatexProps = {
+  readonly options: unknown;
+  readonly globalContext: string;
+  readonly defContext: string;
+  readonly content: string;
 };
 
-const LumaKatex = async ({ content }: LumaKatexProps) => {
-  const html = katexLumaRenderToString(content, {throwOnError: false});
-  //const mdx = await htmlToMdx({html: rendered});
-  return <span dangerouslySetInnerHTML={{__html: html}} />;
-  // const Tag = (params: any) => {
-  //   switch(mode) {
-  //     case 'inline':
-  //       return <InlineWrapper {...params} />;
-  //     case 'block-display':
-  //       return <DisplayWrapper {...params} />;
-  //     case 'inline-display':
-  //       return <InlineWrapper {...params} />;
-  //     default:
-  //       const _a: never = mode;
-  //   }
-  // };
-  //
-  // return <Tag children={children} />;
+const parseKatexOptions = (options: unknown): DisplayMode => {
+  if (typeof options !== "string") return "block-display";
+  const opts = options.split(/\s+/);
+  if (opts.includes("inline")) return "inline";
+  return "block-display";
 };
 
-export default LumaKatex;
+export default async function LumaKatex({
+  options,
+  globalContext,
+  defContext,
+  content,
+}: LumaKatexProps) {
+  const fullContent = globalContext + defContext + content;
+  const html = katexLumaRenderToString(fullContent, { throwOnError: false });
+  const displayMode = parseKatexOptions(options);
+  return (
+    <LumaKatexClient displayMode={displayMode}>
+      <span dangerouslySetInnerHTML={{ __html: html }} />
+    </LumaKatexClient>
+  );
+}

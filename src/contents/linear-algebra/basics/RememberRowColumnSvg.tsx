@@ -1,7 +1,7 @@
-import type { FC } from 'react';
-import GraphSvg from '@blogkit/blog-components/src/svg/GraphSvg';
+"use client";
+import GraphSvg from "@/components/svg/GraphSvg";
 
-const RowRect: FC<any> = (props) => (
+const RowRect = (props: React.ComponentProps<"rect">) => (
   <>
     <rect {...props} />
     <style jsx>{`
@@ -17,7 +17,7 @@ const RowRect: FC<any> = (props) => (
   </>
 );
 
-const ColumnRect: FC<any> = (props) => (
+const ColumnRect = (props: React.ComponentProps<"rect">) => (
   <>
     <rect {...props} />
     <style jsx>{`
@@ -33,7 +33,7 @@ const ColumnRect: FC<any> = (props) => (
   </>
 );
 
-const Gyou: FC = () => (
+const Gyou = () => (
   <>
     <text fontSize="60" alignmentBaseline="middle" textAnchor="middle">
       行
@@ -42,7 +42,7 @@ const Gyou: FC = () => (
   </>
 );
 
-const Retsu: FC = () => (
+const Retsu = () => (
   <>
     <text fontSize="60" alignmentBaseline="middle" textAnchor="middle">
       列
@@ -51,32 +51,43 @@ const Retsu: FC = () => (
   </>
 );
 
-const Row: FC = () => (
+const Row = () => (
   <>
     <text fontSize="80" alignmentBaseline="middle" textAnchor="middle">
       R
     </text>
-    <text fontSize="20" alignmentBaseline="baseline" textAnchor="left" y="22" x="22">
+    <text
+      fontSize="20"
+      alignmentBaseline="baseline"
+      textAnchor="left"
+      y="22"
+      x="22"
+    >
       ow
     </text>
     <RowRect width="18" height="6" x="-8" y="18" />
   </>
 );
 
-const Column: FC = () => (
+const Column = () => (
   <>
     <text fontSize="80" alignmentBaseline="middle" textAnchor="middle">
       C
     </text>
-    <text fontSize="20" alignmentBaseline="baseline" textAnchor="left" y="22" x="22">
+    <text
+      fontSize="20"
+      alignmentBaseline="baseline"
+      textAnchor="left"
+      y="22"
+      x="22"
+    >
       olumn
     </text>
     <ColumnRect width="6.3" height="32.4" x="18" y="-24" />
   </>
 );
 
-interface Props {}
-const RememberRowColumnSvg: FC<Props> = () => {
+export default function RememberRowColumnSvg() {
   const w = 80;
   const h = 16;
   const m = 6;
@@ -106,6 +117,4 @@ const RememberRowColumnSvg: FC<Props> = () => {
       </g>
     </GraphSvg>
   );
-};
-
-export default RememberRowColumnSvg;
+}

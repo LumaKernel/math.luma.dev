@@ -1,8 +1,9 @@
-import { clampInAbs100Number } from '@blogkit/blog-components/src/lib/number';
-import type { FC, FormEvent } from 'react';
-import { cssColors } from '@blogkit/blog-components/src/lib/colors';
+"use client";
+import { clampInAbs100Number } from "@/components/lib/number";
+import type { FormEvent } from "react";
+import { cssColors } from "@/components/lib/colors";
 
-const Input: FC<any> = (props) => (
+const Input = (props: React.ComponentProps<"input">) => {
   <>
     <input {...props} />
     <style jsx>{`
@@ -14,28 +15,39 @@ const Input: FC<any> = (props) => (
         border: 1px solid ${cssColors.decorationPrimary};
       }
     `}</style>
-  </>
-);
+  </>;
+};
 
 const emphasizedStyle = `
   border-width: 5px;
   border-style: solid;
 `;
 
-export interface Props {
-  value: number;
-  emphasis?: string;
-  onInput?: (newValue: number) => void;
-}
-const MatElemInput: FC<Props> = ({ value, emphasis, onInput }) => {
+export type MatElemInputProps = {
+  readonly value: number;
+  readonly emphasis?: string;
+  readonly onInput?: (newValue: number) => void;
+};
+export default function MatElemInput({
+  value,
+  emphasis,
+  onInput,
+}: MatElemInputProps) {
   const inputHandler = (ev: FormEvent<HTMLInputElement>) => {
     const { value } = ev.target as any;
     onInput?.(clampInAbs100Number(value));
   };
   return (
     <>
-      <div className={`wrapper ${emphasis ? 'emphasized' : ''}`} style={{ borderColor: emphasis }}>
-        <Input type="number" value={value} onInput={(ev: FormEvent<HTMLInputElement>) => inputHandler(ev)} />
+      <div
+        className={`wrapper ${emphasis ? "emphasized" : ""}`}
+        style={{ borderColor: emphasis }}
+      >
+        <Input
+          type="number"
+          value={value}
+          onInput={(ev: FormEvent<HTMLInputElement>) => inputHandler(ev)}
+        />
       </div>
       <style jsx>{`
         .wrapper {
@@ -49,6 +61,4 @@ const MatElemInput: FC<Props> = ({ value, emphasis, onInput }) => {
       `}</style>
     </>
   );
-};
-
-export default MatElemInput;
+}

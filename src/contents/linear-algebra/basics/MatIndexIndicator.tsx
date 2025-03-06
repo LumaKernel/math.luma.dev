@@ -1,7 +1,7 @@
-import type { FC } from 'react';
-import { cssFonts } from '@blogkit/blog-components/src/lib/fonts';
+"use client";
+import { cssFonts } from "@/components/lib/fonts";
 
-const Indicator: FC<any> = (props) => (
+const Indicator = (props: React.ComponentProps<"div">) => (
   <>
     <div {...props} />
     <style jsx>{`
@@ -18,13 +18,17 @@ const Indicator: FC<any> = (props) => (
   </>
 );
 
-interface Props {
-  vertical: boolean;
-  fgColor: string;
-  bgColor: string;
-  children: React.ReactNode;
-}
-const MatIndexIndicator: FC<Props> = ({ fgColor, bgColor, children }) => {
+export type MatIndexIndicatorProps = {
+  readonly vertical: boolean;
+  readonly fgColor: string;
+  readonly bgColor: string;
+  readonly children: React.ReactNode;
+};
+export default function MatIndexIndicator({
+  fgColor,
+  bgColor,
+  children,
+}: MatIndexIndicatorProps) {
   return (
     <Indicator
       style={{
@@ -34,6 +38,4 @@ const MatIndexIndicator: FC<Props> = ({ fgColor, bgColor, children }) => {
       children={children}
     />
   );
-};
-
-export default MatIndexIndicator;
+}

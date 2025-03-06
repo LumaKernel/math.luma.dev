@@ -1,7 +1,7 @@
-'use client';
+"use client";
 import type { FC } from "react";
 import GraphSvg from "@/components/svg/GraphSvg";
-import { Knapsack, Prob1 } from "./parts";
+import { Knapsack, Prob1 } from "./_parts";
 
 const Prob1Illust2: FC = () => {
   return (

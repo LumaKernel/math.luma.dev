@@ -1,38 +1,40 @@
 "use server";
+import { stringTrimStart } from "@luma-dev/string-util-ts";
 import { MDXRemote } from "next-mdx-remote/rsc";
-import { renderCode } from "./render-code";
-import PreForCode from "./hl/PreForCode";
+import { Fragment } from "react";
 import Highlighted from "./hl/Highlighted";
+import PreForCode from "./hl/PreForCode";
 import Span from "./hl/Span";
-import { processCodeHtml } from "@luma-dev/math-luma-dev-dirty-util";
+import { renderCode } from "./render-code";
 
-export default async function Code({
-  children,
-  ...ps
-}: React.PropsWithChildren) {
+const parseClassName = (className: string) => {
+  const langCode = stringTrimStart(className.trim(), "language-");
+  return langCode;
+};
+
+export type CodeProps = React.PropsWithChildren<{
+  readonly className: string;
+}>;
+export default async function Code({ children, className }: CodeProps) {
   if (typeof children !== "string")
     throw new Error("children must be a string");
-
-  const { html } = await renderCode("js", children);
-  const mdxSource = await processCodeHtml(html);
+  const langCode = parseClassName(className);
+  const { mdx } = await renderCode(langCode, children);
 
   return (
     <>
       <PreForCode>
         <Highlighted>
           <MDXRemote
-            source={mdxSource}
+            source={mdx}
             components={{
-              Wrapper: "span",
+              Wrapper: Fragment,
               Span,
               NewLine: () => <span>{"\n"}</span>,
             }}
           ></MDXRemote>
         </Highlighted>
       </PreForCode>
-      <div>
-        <code>{JSON.stringify(ps)}</code>
-      </div>
     </>
   );
 }

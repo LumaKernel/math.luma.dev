@@ -1,4 +1,4 @@
-import { matShape, range } from '@blogkit/blog-components/src/lib/number';
+import { matShape, range } from "@/components/lib/number";
 
 export type Mat = readonly (readonly number[])[];
 
@@ -45,24 +45,35 @@ export const isZerosBelowNonZeros = (mat: Mat): boolean => {
   let firstZero = Infinity;
   const [n, m] = matShape(mat);
   for (const i of range(n)) {
-    const isZero = range(m).reduce((accum, j) => accum && mat[i][j] === 0, true);
+    const isZero = range(m).reduce(
+      (accum, j) => accum && mat[i][j] === 0,
+      true
+    );
     if (isZero) firstZero = Math.min(firstZero, i);
     if (!isZero) lastNonZero = Math.max(lastNonZero, i);
   }
   return lastNonZero < firstZero;
 };
 
-export const isRowEchelonMatrix = (mat: Mat): boolean => isPivotDescending(mat) && isZerosBelowNonZeros(mat);
+export const isRowEchelonMatrix = (mat: Mat): boolean =>
+  isPivotDescending(mat) && isZerosBelowNonZeros(mat);
 
 export const isAllPivotsAre1 = (mat: Mat): boolean => {
-  return extractPivots(mat).reduce<boolean>((accum, { v }) => accum && v === 1, true);
+  return extractPivots(mat).reduce<boolean>(
+    (accum, { v }) => accum && v === 1,
+    true
+  );
 };
 
 export const isOthersAre0InPivotColumn = (mat: Mat): boolean => {
   const [n] = matShape(mat);
   return extractPivots(mat).reduce<boolean>(
     (accum, { j, i: pivotI }) =>
-      accum && range(n).reduce<boolean>((accum, i) => accum && (mat[i][j] === 0 || i === pivotI), true),
-    true,
+      accum &&
+      range(n).reduce<boolean>(
+        (accum, i) => accum && (mat[i][j] === 0 || i === pivotI),
+        true
+      ),
+    true
   );
 };

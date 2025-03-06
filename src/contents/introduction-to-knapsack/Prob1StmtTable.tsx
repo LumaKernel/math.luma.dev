@@ -3,7 +3,7 @@ import type { FC } from "react";
 import { Fragment, useState } from "react";
 import GraphSvg from "@/components/svg/GraphSvg";
 import { range } from "@/lib/number";
-import { Knapsack, Prob1 } from "./parts";
+import { Knapsack, Prob1 } from "./_parts";
 
 const ansTable = range(Prob1.N + 1).map(() => range(Prob1.S + 1).map(() => 0));
 range(1, Prob1.N + 1).forEach((n) => {

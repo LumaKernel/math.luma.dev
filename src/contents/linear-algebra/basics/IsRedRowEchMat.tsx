@@ -1,13 +1,17 @@
-import Button from '@blogkit/blog-components/src/button';
-import MatWithPivot from '@blogkit/blog-components/src/graphs/linear-algebra/mat-with-pivot';
-import { isPivotDescending, isZerosBelowNonZeros } from '@blogkit/blog-components/src/lib/la';
-import { essentialOfChildren } from '@blogkit/blog-components/src/lib/react';
-import Ng from '@blogkit/blog-components/src/ng';
-import Ok from '@blogkit/blog-components/src/ok';
-import type { FC } from 'react';
-import React, { useCallback, useMemo, useState } from 'react';
+"use client";
+import Button from "@/components/button";
+import MatWithPivot1 from "./MatWithPivot1";
+import {
+  isAllPivotsAre1,
+  isOthersAre0InPivotColumn,
+  isRowEchelonMatrix,
+} from "@/components/lib/la";
+import { essentialOfChildren } from "@/components/lib/react";
+import Ng from "@/components/ng";
+import Ok from "@/components/ok";
+import React, { useCallback, useMemo, useState } from "react";
 
-const ResetOuter: FC<any> = (props) => (
+const ResetOuter = (props: React.ComponentProps<"div">) => (
   <>
     <div {...props} />
     <style jsx>{`
@@ -18,7 +22,7 @@ const ResetOuter: FC<any> = (props) => (
   </>
 );
 
-const ResetInner: FC<any> = (props) => (
+const ResetInner = (props: React.ComponentProps<"div">) => (
   <>
     <div {...props} />
     <style jsx>{`
@@ -33,7 +37,7 @@ interface Props {
   init: number[][];
   children: React.ReactNode[];
 }
-const IsRowEchMat: FC<Props> = ({ init, children }) => {
+const IsRedRowEchMat: React.FC<Props> = ({ init, children }) => {
   const es = essentialOfChildren(children);
   const [mat, setMat] = useState(init);
 
@@ -41,13 +45,14 @@ const IsRowEchMat: FC<Props> = ({ init, children }) => {
     setMat([...init]);
   }, [init]);
 
-  const ok0 = useMemo(() => isPivotDescending(mat), [mat]);
+  const ok0 = useMemo(() => isRowEchelonMatrix(mat), [mat]);
 
-  const ok1 = useMemo(() => isZerosBelowNonZeros(mat), [mat]);
+  const ok1 = useMemo(() => isAllPivotsAre1(mat), [mat]);
+  const ok2 = useMemo(() => isOthersAre0InPivotColumn(mat), [mat]);
 
   return (
     <div>
-      <MatWithPivot
+      <MatWithPivot1
         mat={mat}
         onInput={(y, x, v) => {
           const newMat = [...mat];
@@ -69,8 +74,12 @@ const IsRowEchMat: FC<Props> = ({ init, children }) => {
         {ok1 ? <Ok /> : <Ng />}
         {es[1]}
       </div>
+      <div>
+        {ok2 ? <Ok /> : <Ng />}
+        {es[2]}
+      </div>
     </div>
   );
 };
 
-export default IsRowEchMat;
+export default IsRedRowEchMat;

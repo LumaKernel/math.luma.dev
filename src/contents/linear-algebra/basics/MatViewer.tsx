@@ -1,10 +1,10 @@
-import type { FC } from 'react';
-import React from 'react';
-import { cssColors } from '@blogkit/blog-components/src/lib/colors';
-import { range } from '../../lib/number';
-import { usePrefixedFlipped } from '../prefixed-flipped';
+"use client";
+import React from "react";
+import { cssColors } from "@/components/lib/colors";
+import { range } from "@/components/lib/number";
+import { usePrefixedFlipped } from "@/components/graphs/prefixed-flipped";
 
-const Wrapper: FC<any> = (props) => (
+const Wrapper = (props: React.ComponentProps<"div">) => (
   <>
     <div {...props} />
     <style jsx>{`
@@ -17,7 +17,7 @@ const Wrapper: FC<any> = (props) => (
   </>
 );
 
-const Grid: FC<any> = (props) => (
+const Grid = (props: React.ComponentProps<"div">) => (
   <>
     <div {...props} />
     <style jsx>{`
@@ -40,7 +40,7 @@ const squareBraketWrapperStyle = `
   width: 4px;
 `;
 
-const SquareBraWrapper: FC<any> = (props) => (
+const SquareBraWrapper = (props: React.ComponentProps<"div">) => (
   <>
     <div {...props} />
     <style jsx>{`
@@ -52,7 +52,7 @@ const SquareBraWrapper: FC<any> = (props) => (
   </>
 );
 
-const SquareKetWrapper: FC<any> = (props) => (
+const SquareKetWrapper = (props: React.ComponentProps<"div">) => (
   <>
     <div {...props} />
     <style jsx>{`
@@ -71,7 +71,7 @@ const squareBraketStyle = `
   border-bottom: ${bracketBorder};
 `;
 
-const SquareBra: FC<any> = (props) => (
+const SquareBra = (props: React.ComponentProps<"div">) => (
   <>
     <div {...props} />
     <style jsx>{`
@@ -83,7 +83,7 @@ const SquareBra: FC<any> = (props) => (
   </>
 );
 
-const SquareKet: FC<any> = (props) => (
+const SquareKet = (props: React.ComponentProps<"div">) => (
   <>
     <div {...props} />
     <style jsx>{`
@@ -96,13 +96,18 @@ const SquareKet: FC<any> = (props) => (
 );
 
 export type CreateEelem = (y: number, x: number) => React.ReactElement;
-interface Props {
-  n: number;
-  m: number;
-  createElem: CreateEelem;
-  flipIdPrefix?: string | null;
-}
-const MatViewer: FC<Props> = ({ n, m, createElem, flipIdPrefix }) => {
+export type MatViewerProps = {
+  readonly n: number;
+  readonly m: number;
+  readonly createElem: CreateEelem;
+  readonly flipIdPrefix?: string | null;
+};
+export default function MatViewer({
+  n,
+  m,
+  createElem,
+  flipIdPrefix,
+}: MatViewerProps) {
   const PrefixedFlipped = usePrefixedFlipped(flipIdPrefix);
   return (
     <Wrapper>
@@ -118,11 +123,13 @@ const MatViewer: FC<Props> = ({ n, m, createElem, flipIdPrefix }) => {
       </PrefixedFlipped>
       <Grid style={{ gridTemplateColumns: `repeat(${m},1fr)` }}>
         {range(n).flatMap((y) =>
-          range(m).map((x) => <React.Fragment key={`${y},${x}`}>{createElem(y, x)}</React.Fragment>),
+          range(m).map((x) => (
+            <React.Fragment key={`${y},${x}`}>
+              {createElem(y, x)}
+            </React.Fragment>
+          ))
         )}
       </Grid>
     </Wrapper>
   );
-};
-
-export default MatViewer;
+}

@@ -1,40 +1,33 @@
-//import { spawn } from "node:child_process";
+import { execFile } from "node:child_process";
+import { promisify } from "node:util";
+const execFileAsync = promisify(execFile);
 
 type RenderCodeResult = Readonly<{
   langCode: string;
-  html: string;
+  mdx: string;
 }>;
 export const renderCode = async (
-  langCode: string,
+  langCode0: string,
   code: string
 ): Promise<RenderCodeResult> => {
-  const { spawn } = await import("node:child_process");
-  return new Promise((resolve, reject) => {
-    const p = spawn("luma-hl-render", ["--code", code, "--lang", langCode], {
-      stdio: ["ignore", "pipe", "pipe"],
-    });
+  const { stdout, stderr } = await execFileAsync("blogkit-internal-tool", [
+    "lumahl",
+    "--code",
+    code,
+    "--lang",
+    langCode0,
+  ]);
 
-    let stdoutString = "";
-    let stderrString = "";
-    p.stdout.on("data", (data) => {
-      stdoutString += data.toString();
-    });
-    p.stderr.on("data", (data) => {
-      stderrString += data.toString();
-    });
+  if (stderr.length > 0) {
+    console.error(stderr);
+  }
 
-    p.once("exit", (exitCode) => {
-      if (exitCode === 0) {
-        const sepIdx = stdoutString.search(":");
-        const langCode = stdoutString.slice(0, sepIdx);
-        const html = stdoutString.slice(sepIdx + 1);
-        resolve({
-          langCode,
-          html,
-        });
-      } else {
-        reject(new Error(`Failed to render code: ${stderrString}`));
-      }
-    });
-  });
+  const sepIdx = stdout.search(":");
+  const langCode = stdout.slice(0, sepIdx);
+  const mdx = stdout.slice(sepIdx + 1);
+
+  return {
+    langCode,
+    mdx,
+  };
 };

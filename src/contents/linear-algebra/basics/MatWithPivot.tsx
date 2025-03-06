@@ -1,19 +1,21 @@
-import type { FC } from 'react';
-import React, { useMemo, useCallback } from 'react';
-import { matShape, range } from '@blogkit/blog-components/src/lib/number';
-import { cssColors } from '@blogkit/blog-components/src/lib/colors';
-import MatElemInput from './mat-elem-input';
-import type { CreateEelem } from './mat-viewer';
-import MatViewer from './mat-viewer';
+"use client";
+import React, { useMemo, useCallback } from "react";
+import { matShape, range } from "@/components/lib/number";
+import { cssColors } from "@/components/lib/colors";
+import MatElemInput from "./MatElemInput";
+import type { CreateEelem } from "./MatViewer";
+import MatViewer from "./MatViewer";
 
-interface Props {
-  mat: number[][];
-  onInput?: (y: number, x: number, newValue: number) => void;
-}
-const MatWithPivot: FC<Props> = ({ mat, onInput }) => {
+export type MatWithPivotProps = {
+  readonly mat: number[][];
+  readonly onInput?: (y: number, x: number, newValue: number) => void;
+};
+export default function MatWithPivot({ mat, onInput }: MatWithPivotProps) {
   const colorsMat = useMemo(() => {
     const [n, m] = matShape(mat);
-    const tmp = mat.map((row) => row.map(() => undefined as undefined | string));
+    const tmp = mat.map((row) =>
+      row.map(() => undefined as undefined | string)
+    );
     for (const y of range(n)) {
       for (const x of range(m)) {
         if (mat[y][x] !== 0) {
@@ -38,12 +40,10 @@ const MatWithPivot: FC<Props> = ({ mat, onInput }) => {
         />
       );
     },
-    [mat],
+    [mat]
   );
 
   const [n, m] = useMemo(() => matShape(mat), [mat]);
 
   return <MatViewer n={n} m={m} createElem={createElem} />;
-};
-
-export default MatWithPivot;
+}
