@@ -17,7 +17,7 @@ import Counter from "@/components/counter/Counter";
 import Prove from "@/components/Prove";
 import { mdxIndex, tsExports } from "@/contents-index.gen";
 import { TermDict, TermMapPredefinedPresets } from "@/types/term";
-import { preparse } from "@/util/preparse";
+import { getPageInfo, preparse } from "@/util/preparse";
 import rehypeAddSlug from "@luma-dev/my-unified/rehype-add-slug";
 import rehypeCleanInternal from "@luma-dev/my-unified/rehype-clean-internal";
 import rehypeCodeMeta from "@luma-dev/my-unified/rehype-code-meta";
@@ -30,9 +30,7 @@ import rehypeSave from "@luma-dev/my-unified/rehype-save";
 import rehypeWrap from "@luma-dev/my-unified/rehype-wrap";
 import { fromAsyncThrowable } from "neverthrow";
 import path from "node:path";
-
-const presets: TermMapPredefinedPresets = {};
-const termDict: TermDict = [];
+import { makeGeneralAnchor } from "@/components/anchor/makeGeneralAnchor";
 
 export type ArticlePageProps = {
   readonly params: {
@@ -43,44 +41,7 @@ export default async function ArticlePage({
   params: { slug },
 }: ArticlePageProps) {
   const linkPath = slug?.join("/") ?? "";
-  const index = Object.hasOwn(mdxIndex, linkPath) ? mdxIndex[linkPath] : null;
-  if (index == null) {
-    throw new Error(`No index found for ${JSON.stringify(linkPath)}`);
-  }
-
-  const filePathCands =
-    linkPath === "" ? ["_.mdx"] : [`${linkPath}.mdx`, `${linkPath}/_.mdx`];
-  const fileContents = (
-    await Promise.all(
-      filePathCands.map(async (p) => {
-        return fromAsyncThrowable(() =>
-          fs.readFile(path.resolve(process.cwd(), "src/contents", p), "utf-8")
-        )()
-          .map((e) => [p, e] as const)
-          .unwrapOr(null);
-      })
-    )
-  ).filter((x) => x != null);
-  const [fileContent, fileContent1] = fileContents;
-  if (fileContent == null) {
-    throw new Error(`No file found for ${JSON.stringify(linkPath)}`);
-  }
-  if (fileContent1 != null) {
-    throw new Error(`Multiple files found for ${JSON.stringify(linkPath)}`);
-  }
-
-  const [originalPath, mdx] = fileContent;
-
-  const srcMeta: SrcMeta = {
-    originalPath,
-    linkPath,
-  };
-  const info = await preparse({
-    mdx,
-    termDict,
-    presets,
-    srcMeta,
-  });
+  const { index, srcMeta, info } = await getPageInfo(linkPath);
   return (
     <SharedApp>
       <ArticleLayout meta={srcMeta}>
@@ -93,7 +54,7 @@ export default async function ArticlePage({
             source={info.contents}
             components={{
               ...tsExports,
-              a: Debug,
+              a: makeGeneralAnchor({ linkPath }),
               p: Fragment,
               pre: Fragment,
               code: Code,
@@ -119,7 +80,7 @@ export default async function ArticlePage({
                   [
                     rehypeKatex,
                     {
-                      context: index.tex_context,
+                      context: index.texContext,
                     } satisfies RehypeKatexPluginParameters,
                   ],
                   rehypeSave,

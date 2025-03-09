@@ -1,0 +1,17 @@
+tags = [
+  "線形代数",
+  "基礎",
+]
+order = [
+  "matrix",
+  "matrix-basic-definitions",
+  "matrix-multiplication",
+  "matrix-determinant",
+  "matrix-cofactor",
+  "cramers-rule",
+  "linear-space",
+  "linear-combination",
+  "linear-map",
+  "matrix-trace",
+  "eigenvalue",
+]

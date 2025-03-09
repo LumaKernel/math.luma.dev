@@ -2,6 +2,7 @@
 import { katexLumaRenderToString } from "@luma-dev/katex-luma";
 import { DisplayMode } from "./type";
 import LumaKatexClient from "./LumaKatexClient";
+import Debug from "../Debug";
 
 export type LumaKatexProps = {
   readonly options: unknown;
@@ -24,11 +25,19 @@ export default async function LumaKatex({
   content,
 }: LumaKatexProps) {
   const fullContent = globalContext + defContext + content;
-  const html = katexLumaRenderToString(fullContent, { throwOnError: false });
-  const displayMode = parseKatexOptions(options);
-  return (
-    <LumaKatexClient displayMode={displayMode}>
-      <span dangerouslySetInnerHTML={{ __html: html }} />
-    </LumaKatexClient>
-  );
+  try {
+    const html = katexLumaRenderToString(fullContent, {
+      throwOnError: false,
+      strict: false,
+      trust: true,
+    });
+    const displayMode = parseKatexOptions(options);
+    return (
+      <LumaKatexClient displayMode={displayMode}>
+        <span dangerouslySetInnerHTML={{ __html: html }} />
+      </LumaKatexClient>
+    );
+  } catch (e) {
+    return <Debug fullContent={fullContent} />;
+  }
 }
