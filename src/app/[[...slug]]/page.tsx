@@ -31,6 +31,7 @@ import rehypeWrap from "@luma-dev/my-unified/rehype-wrap";
 import { fromAsyncThrowable } from "neverthrow";
 import path from "node:path";
 import { makeGeneralAnchor } from "@/components/anchor/makeGeneralAnchor";
+import Series, { makeSeries } from "@/components/series/Series";
 
 export type ArticlePageProps = {
   readonly params: {
@@ -54,13 +55,14 @@ export default async function ArticlePage({
             source={info.contents}
             components={{
               ...tsExports,
-              a: makeGeneralAnchor({ linkPath }),
+              a: makeGeneralAnchor(linkPath),
               p: Fragment,
               pre: Fragment,
               code: Code,
               LumaToc: Fragment,
               LumaMdxLayout: Fragment,
               LumaKatex,
+              Series: makeSeries(linkPath),
               // C: Counter,
               C: Debug,
               Prove,

@@ -2,7 +2,7 @@ tags = [
   "線形代数",
   "基礎",
 ]
-order = [
+chapters = [
   "matrix",
   "matrix-basic-definitions",
   "matrix-multiplication",

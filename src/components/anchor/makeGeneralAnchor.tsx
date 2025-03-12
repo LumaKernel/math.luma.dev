@@ -1,9 +1,4 @@
-import GeneralAnchor, { GeneralAnchorProps } from "./GeneralAnchor";
+import { makeMake } from "../make-make";
+import GeneralAnchor from "./GeneralAnchor";
 
-export const makeGeneralAnchor = ({
-  linkPath,
-}: Pick<GeneralAnchorProps, "linkPath">) => {
-  return (props: Omit<GeneralAnchorProps, "linkPath">) => (
-    <GeneralAnchor linkPath={linkPath} {...props} />
-  );
-};
+export const makeGeneralAnchor = makeMake(GeneralAnchor);

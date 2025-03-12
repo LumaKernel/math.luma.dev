@@ -1,14 +1,6 @@
-import type { PageLocation, ParsedPage } from '@blogkit/next-config/src/main/processor-option';
-
-export type { PageLocation, ParsedPage };
-export interface SeriesConfig {
-  tags: string[];
-  order?: string[];
-  chapterTemplate?: string;
-}
 export interface SeriesData {
   index: number;
-  config: SeriesConfig;
+  //config: SeriesConfig;
 }
 export interface AllMetaData {
   pagesMetaData: ParsedPage[];
