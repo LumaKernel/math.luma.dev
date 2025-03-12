@@ -1,7 +1,7 @@
-<Config
-  title="行列同士の積の定義"
-  published
-/>
+```toml
+title = "行列同士の積の定義"
+published = true
+```
 
 
 ```math:def
@@ -13,9 +13,9 @@
 \def\jh{\cj{\text{\textemdash}}}
 ```
 
-## <Q w="mat-mult" k d />
+## 行列の積
 
-<Q w="mat" />$\underset{n \times m}{A}$と$\underset{m \times l}{B}$の<Q w="mat-mult" />$A \cdot B$を<Q w="mat" />$\underset{n \times l}{C}$として定義する。ただし、
+行列$\underset{n \times m}{A}$と$\underset{m \times l}{B}$の行列の積$A \cdot B$を行列$\underset{n \times l}{C}$として定義する。ただし、
 
 ```math
   \underset{n \times m}{(a_{i,j})_{i,j}}
@@ -27,19 +27,19 @@
 
 とする。
 
-ところで、<Q w="mat"/>の<Q w="row"/>と<Q w="column"/>に関する定義は基本的には対照的で、どちらが横向きでもいいのだが、そうでない定義（片方で定義したものが特に意味を持つ定義）というのが今後登場する。この章にもそうした定義が登場する。その非対称性は、この<Q w="mat-mult" />の定義の、<Q w="row"/>と<Q w="column"/>の非対称性に由来する。
+ところで、行列の行と列に関する定義は基本的には対照的で、どちらが横向きでもいいのだが、そうでない定義（片方で定義したものが特に意味を持つ定義）というのが今後登場する。この章にもそうした定義が登場する。その非対称性は、この行列の積の定義の、行と列の非対称性に由来する。
 
 $A \cdot B$は省略して$AB$とも書く。
 
-## <Q w="mat-mult" k />の計算方法
+## 行列の積の計算方法
 
 TODO
 
-## <Q w="mat-mult" k />の意味
+## 行列の積の意味
 
 TODO
 
-### <Q w="multi-variable" k/><Q w="system-of-lin-eq" k />を<Q w="mat-mult" k />で表す
+### 多変数線形方程式を行列の積で表す
 
 ```math
 \begin{cases}
@@ -65,29 +65,29 @@ TODO
 
 と表すことができる。
 
-より一般に、$n$変数、$m$個の<Q w="equation"/>が連立しているとき、係数を表す<Q w="mat"/>$\underset{n \times m}{A}$、変数を表す<Q w="vec"/>$\mathbf{x}=(x_0, x_1, \cdots, x_{n-1})$、そして定数部を表す<Q w="vec"/>$\mathbf{b}=(b_0, b_1, \cdots, b_{m-1})$を用いて、
+より一般に、$n$変数、$m$個の方程式が連立しているとき、係数を表す行列$\underset{n \times m}{A}$、変数を表すベクトル$\mathbf{x}=(x_0, x_1, \cdots, x_{n-1})$、そして定数部を表すベクトル$\mathbf{b}=(b_0, b_1, \cdots, b_{m-1})$を用いて、
 
 ```math
 A\mathbf{x}=\mathbf{b}
 ```
 
-と表せる。これを<Q w="system-of-lin-eq" d/>と呼ぶ。また、$\mathbf{b}=\mathbf{0}$であるとき、<Q w="system-of-lin-eq"/>は<Q w="homo" d/>であるといい、<Q w="homo-system"/>と呼ぶ。
+と表せる。これを線型方程式と呼ぶ。また、$\mathbf{b}=\mathbf{0}$であるとき、線形方程式は斉次であるといい、斉次方程式と呼ぶ。
 
-## <Q w="mat-mult" k />の性質
+## 行列の積の性質
 
 <C w="mat-mult" template="%s. " start={1} />
 
-### <C w="mat-mult"/><Q w="associativity" />: $(AB)C=A(BC)$
+### <C w="mat-mult"/>結合律: $(AB)C=A(BC)$
 
 <Prove>
   TODO
 </Prove>
 
-### <C w="mat-mult"/><Q w="mat-add" />との<Q w="distributivity" />: $A(B+C)=AB+AC$
+### <C w="mat-mult"/>行列の和との分配則: $A(B+C)=AB+AC$
 
 証明略。
 
-### <C w="mat-mult"/><Q w="scaling" />との<Q w="associativity" />: $(kA)B=k(AB)$
+### <C w="mat-mult"/>スカラー倍との結合律: $(kA)B=k(AB)$
 
 証明略。
 
@@ -102,7 +102,7 @@ A\mathbf{x}=\mathbf{b}
   ?\load{qk:mat-mult}
   ```
 
-  上記の$i$と$k$を入れ替えることで<Q w="transpose" />となる。
+  上記の$i$と$k$を入れ替えることで転置となる。
 
   ```math:trans
   x_{i,k}
@@ -124,22 +124,22 @@ A\mathbf{x}=\mathbf{b}
   以上より$\forall~i,j~[x_{i,j}=y_{i,j}]$であることがわかった。つまり、$X=Y$となる。
 </Prove>
 
-## <Q w="inv-mat" k d />
+## 逆行列
 
-<Q w="mat" />$A$に対して、$AB=\idmat$かつ$BA=\idmat$となる<Q w="mat" />$B$を<Q w="inv-mat" />と呼ぶ。
+行列$A$に対して、$AB=\idmat$かつ$BA=\idmat$となる行列$B$を逆行列と呼ぶ。
 
-注意: このような$A$は<Q w="square-matrix"/>しかありえないが、証明するまでは循環論法を避けるためにこれらの性質は使わない。
+注意: このような$A$は正方行列しかありえないが、証明するまでは循環論法を避けるためにこれらの性質は使わない。
 
-## <Q w="invertible-mat" k d/>
+## 正則行列
 
-<Q w="invertible-mat"/>とは、<Q w="inv-mat"/>が存在する<Q w="mat"/>のことである。
+正則行列とは、逆行列が存在する行列のことである。
 
-## 定理: <Q w="invertible-mat"/>$A$の<Q w="inv-mat"/>は一意である
+## 定理: 正則行列$A$の逆行列は一意である
 
-<Q w="invertible-mat"/>$A$の<Q w="inv-mat"/>を$A^{-1}$と書く。
+正則行列$A$の逆行列を$A^{-1}$と書く。
 
 <Prove>
-$B$と$C$を<Q w="invertible-mat"/>$A$の<Q w="inv-mat"/>とする。
+$B$と$C$を正則行列$A$の逆行列とする。
 
 ```math:trans
 AB=I
@@ -158,41 +158,41 @@ B=C
 ```
 </Prove>
 
-## <Q w="invertible-mat" k/>の性質
+## 正則行列の性質
 
-### <Q w="invertible-mat" k/>に$0$のみの<Q w="row"/>や<Q w="column"/>は含まれない。
+### 正則行列に$0$のみの行や列は含まれない。
 
-$0$のみの<Q w="row"/>や<Q w="column"/>のことを<Q w="zero" d/><Q w="row"/>や<Q w="zero"/><Q w="column"/>と呼ぶことにする。
+$0$のみの行や列のことを零行や零列と呼ぶことにする。
 
 <Prove>
 $AB=I$
 
-[](#q-mat-mult-の計算方法)を見てもらうとわかるように、$A$の<Q w="row"/>$i$が$0$のみのなら、$I$の<Q w="row"/>$i$も$0$のみと言うことになるが、$I$には<Q w="zero"/><Q w="row"/>はないので矛盾。
-$BA=I$に対して同様の議論を行うことで、<Q w="zero"/><Q w="column"/>も含まれない。
+[](#q-mat-mult-の計算方法)を見てもらうとわかるように、$A$の行$i$が$0$のみのなら、$I$の行$i$も$0$のみと言うことになるが、$I$には零行はないので矛盾。
+$BA=I$に対して同様の議論を行うことで、零列も含まれない。
 </Prove>
 
-## <Q w="leading-entry" k d />
+## 主成分
 
-<Q w="leading-entry" />とは、<Q w="mat"/>内の<Q w="elem"/>であって、$0$を除いたもののうち、各<Q w="row"/>ごとに、最も左にある<Q w="elem"/>のこと。
-各<Q w="row"/>ごとに、高々$1$個の<Q w="leading-entry"/>が存在する。
+主成分とは、行列内の要素であって、$0$を除いたもののうち、各行ごとに、最も左にある要素のこと。
+各行ごとに、高々$1$個の主成分が存在する。
 
-なお、この<Q w="leading-entry" />が<Q w="row"/>に関して定義されていることがまさに、上記で述べた<Q w="row"/>と<Q w="column"/>の非対称性の一つになる。
+なお、この主成分が行に関して定義されていることがまさに、上記で述べた行と列の非対称性の一つになる。
 
-## <Q w="row-echelon-form" k d />
+## 行階段形
 
-<Q w="row-echelon-form" />とは、以下の条件をすべて満たす<Q w="mat"/>のこと。
+行階段形とは、以下の条件をすべて満たす行列のこと。
 
 <Graph
   w="is-row-ech-mat"
   init={[[4,3,2,0,2],[0,0,1,2,1],[0,0,0,1,0],[0,0,0,0,0]]}
 >
-  <><Q w="leading-entry"/>が右肩下がりである。</>
-  <>$0$だけの<Q w="row"/>より、そうでない<Q w="row"/>がすべて上にくる</>
+  <>主成分が右肩下がりである。</>
+  <>$0$だけの行より、そうでない行がすべて上にくる</>
 </Graph>
 
-## <Q w="reduced-row-echelon-form" k d />
+## 行簡約階段形
 
-<Q w="reduced-row-echelon-form" />とは、以下の条件をすべて満たす<Q w="mat"/>のこと。
+行簡約階段形とは、以下の条件をすべて満たす行列のこと。
 
 行標準形とも。
 
@@ -200,12 +200,12 @@ $BA=I$に対して同様の議論を行うことで、<Q w="zero"/><Q w="column"
   w="is-red-row-ech-mat"
   init={[[1,4,0,5,0,2],[0,0,1,0,0,2],[0,0,0,0,1,0],[0,0,0,0,0,0]]}
 >
-  <><Q w="row-echelon-form" />である</>
-  <>すべての<Q w="leading-entry"/>は$1$</>
-  <><Q w="leading-entry"/>のある<Q w="column"/>は、<Q w="leading-entry"/>以外は$0$</>
+  <>行階段形である</>
+  <>すべての主成分は$1$</>
+  <>主成分のある列は、主成分以外は$0$</>
 </Graph>
 
-### <Q w="sol"/>を求めた<Q w="multi-variable" k/><Q w="system-of-lin-eq" k/>を<Q w="mat"/>で表現すると<Q w="reduced-row-echelon-form" k />
+### 解を求めた多変数線形方程式を行列で表現すると行簡約階段形
 
 詳しい求め方は、後述する(TODO)で説明する。
 
@@ -234,8 +234,8 @@ $ \text{下の式を両辺}-1\text{倍する}
 $ \text{上の式から下の式を}2\text{倍して引く}
 ```
 
-より<Q w="sol"/>を<Q w="pmz"/>する。
-$a \in \R$を<Q w="pm"/>として、$z=a$とすれば、
+より解をパラメータ表示する。
+$a \in \R$をパラメータとして、$z=a$とすれば、
 
 ```math
 \begin{cases}
@@ -247,7 +247,7 @@ $a \in \R$を<Q w="pm"/>として、$z=a$とすれば、
 
 となる。
 
-ここで、最後の式変形後の<Q w="equation"/>を<Q w="mat"/>で表現すると、
+ここで、最後の式変形後の方程式を行列で表現すると、
 
 ```math
 \begin{pmatrix}
@@ -263,15 +263,15 @@ $a \in \R$を<Q w="pm"/>として、$z=a$とすれば、
 \end{pmatrix}
 ```
 
-ここで左辺の<Q w="mat"/>を見ると、これは<Q w="reduced-row-echelon-form"/>だ。
+ここで左辺の行列を見ると、これは行簡約階段形だ。
 
-## <Q w="el-row-op" k d />
+## 行基本変形
 
-ここで、上記のような<Q w="multi-variable"/>一次<Q w="system-of-lin-eq"/>に対して行えた操作をまとめて<Q w="el-row-op" />と呼ぶ。
+ここで、上記のような多変数一次線形方程式に対して行えた操作をまとめて行基本変形と呼ぶ。
 
-<Q w="el-row-op" />とは、以下の3つの<Q w="mat"/>に対する操作である。
+行基本変形とは、以下の3つの行列に対する操作である。
 
-### 1. <Q w="row"/>$i$と<Q w="row"/>$j$を入れ替える。
+### 1. 行$i$と行$j$を入れ替える。
 
 例えば、$\ci{i=2}$, $\cj{j=3}$を選択して、
 
@@ -291,7 +291,7 @@ $a \in \R$を<Q w="pm"/>として、$z=a$とすれば、
 \end{pmatrix}
 ```
 
-これは一般に、<Q w="mat"/>$\underset{n \times m}{A}$に対して、以下の<Q w="mat"/>を左から掛けることと同義である。
+これは一般に、行列$\underset{n \times m}{A}$に対して、以下の行列を左から掛けることと同義である。
 
 ```math
   \begin{array}{rcl}
@@ -365,7 +365,7 @@ $a \in \R$を<Q w="pm"/>として、$z=a$とすれば、
   \end{array}
 ```
 
-### 2. <Q w="row"/>$i$を$\lambda$倍する。($\lambda \in \R, \lambda \neq 0$)
+### 2. 行$i$を$\lambda$倍する。($\lambda \in \R, \lambda \neq 0$)
 
 例えば、$\ci{i=2}$, $\lambda=10$を選択して、
 
@@ -385,7 +385,7 @@ $a \in \R$を<Q w="pm"/>として、$z=a$とすれば、
 \end{pmatrix}
 ```
 
-これは一般に、$\underset{n \times m}{A}$に対して、以下の<Q w="mat"/>を左から掛けることと同義である。
+これは一般に、$\underset{n \times m}{A}$に対して、以下の行列を左から掛けることと同義である。
 
 ```math
   \begin{array}{rcl}
@@ -443,7 +443,7 @@ $a \in \R$を<Q w="pm"/>として、$z=a$とすれば、
   \end{array}
 ```
 
-### 3. <Q w="row"/>$i$に<Q w="row"/>$j$を$\lambda$倍したものを加える。($\lambda \in \R, \lambda \neq 0$)
+### 3. 行$i$に行$j$を$\lambda$倍したものを加える。($\lambda \in \R, \lambda \neq 0$)
 
 例えば、$\ci{i=3}$, $\cj{j=2}$, $\lambda=100$を選択して、
 
@@ -463,7 +463,7 @@ $a \in \R$を<Q w="pm"/>として、$z=a$とすれば、
 \end{pmatrix}
 ```
 
-これは一般に、<Q w="mat"/>$\underset{n \times m}{A}$に対して、以下の<Q w="mat"/>を左から掛けることと同義である。
+これは一般に、行列$\underset{n \times m}{A}$に対して、以下の行列を左から掛けることと同義である。
 
 ```math
   \begin{array}{rcl}
@@ -521,19 +521,19 @@ $a \in \R$を<Q w="pm"/>として、$z=a$とすれば、
   \end{array}
 ```
 
-## <Q w="el-mat" k d/>
+## 基本行列
 
-<Q w="el-mat" />とは、上記で定義した$P_{i,j}$と$P_{i}(\lambda)$、そして$P_{i,j}(\lambda)$のこと。
-**行**基本行列と呼ばないのは、仮に列基本行列を同様に定義したとしてもまったく同様の<Q w="mat"/>になるからだ。
+基本行列とは、上記で定義した$P_{i,j}$と$P_{i}(\lambda)$、そして$P_{i,j}(\lambda)$のこと。
+**行**基本行列と呼ばないのは、仮に列基本行列を同様に定義したとしてもまったく同様の行列になるからだ。
 
-## 系: <Q w="system-of-lin-eq" />を解くことは、<Q w="mat"/>を<Q w="el-row-op"/>を任意の回数行って<Q w="reduced-row-echelon-form"/>に変形することである
+## 系: 線形方程式を解くことは、行列を行基本変形を任意の回数行って行簡約階段形に変形することである
 
-<Q w="system-of-lin-eq" />の<Q w="mat"/>での表現を行うと、各<Q w="column"/>がそれぞれ一つの<Q w="variable"/>$x_j$に対応することになる。ここで、<Q w="leading-entry"/>の存在しない<Q w="column"/>を<Q w="pm"/>とすれば<Q w="sol"/>が求まる。
+線形方程式の行列での表現を行うと、各列がそれぞれ一つの変数$x_j$に対応することになる。ここで、主成分の存在しない列をパラメータとすれば解が求まる。
 
 
-## <Q w="el-mat" k d/>の<Q w="inv-mat" k d/>
+## 基本行列の逆行列
 
-<Q w="el-mat"/>$P$に対して、$P^{-1}$が次のように存在する。
+基本行列$P$に対して、$P^{-1}$が次のように存在する。
 
 ```math
 P_{i}(\lambda)^{-1} \defeq P_{i}(\lambda ^{-1}) \\
@@ -541,28 +541,29 @@ P_{i,j}^{-1} \defeq P_{i,j} \\
 P_{i,j}(\lambda)^{-1} \defeq P_{i, j} (- \lambda)
 ```
 
-これらはすべて、<Q w="el-row-op"/>をもとに戻す<Q w="el-row-op"/>に対応する。そのことから、以下のような性質を持つことがすぐにわかる。
+これらはすべて、行基本変形をもとに戻す行基本変形に対応する。そのことから、以下のような性質を持つことがすぐにわかる。
 
 - $PP^{-1} = I$
 - $P^{-1}P = I$
 - $(P^{-1})^{-1} = P$
 
-## <Q w="el-row-op" />による<Q w="eq-relation" k/>の定義
+## 行基本変形による同値関係の定義
 
-<Q w="mat"/>$A$に<Q w="el-row-op" />を何回か行って$B$が得られるとき、$A\sim B$という<Q w="relation2"/>を定義すると、これは<Q w="eq-relation"/>になる。
+行列$A$に行基本変形を何回か行って$B$が得られるとき、$A\sim B$という二項関係を定義すると、これは同値関係になる。
 
-言い換えると、<Q w="el-mat" />の<Q w="seq"/>$(P_0, P_1, \cdots, P_{n-1})$であって、$B=P_0 P_1 \cdots P_{n-1}A$であるものが存在するとき、かつそのときに限り$A \sim B$であると定義する。
+<!-- TODO: 列被り -->
+言い換えると、基本行列のSEQUENCE$(P_0, P_1, \cdots, P_{n-1})$であって、$B=P_0 P_1 \cdots P_{n-1}A$であるものが存在するとき、かつそのときに限り$A \sim B$であると定義する。
 
 <Prove>
-a. <Q w="reflexivity"/>: $A \sim A$
+a. 反射律: $A \sim A$
 
-<Q w="null-seq"/>が対応する。$A=A$であるため、$A \sim A$
+空列が対応する。$A=A$であるため、$A \sim A$
 
-b. <Q w="symmetricity"/>: $A \sim B \iff B \sim A$
-  $A$から$B$にする際の<Q w="el-row-op" />の<Q w="seq"/>を、<Q w="reverse"/>させてから、各操作を逆操作(<Q w="el-mat" k d/>の<Q w="inv-mat" k d/>)に換えると、$B$から$A$への<Q w="el-row-op" />の<Q w="seq"/>になる。
+b. 対称律: $A \sim B \iff B \sim A$
+  $A$から$B$にする際の行基本変形の列を、反転させてから、各操作を逆操作(基本行列の逆行列)に換えると、$B$から$A$への行基本変形の列になる。
     jaRuby: 'すうじく',
 
-  <Q w="el-mat"/>で言い換えると、
+  基本行列で言い換えると、
 
   - $B=P_0 P_1 \cdots P_{p-1} A$
 
@@ -572,10 +573,10 @@ b. <Q w="symmetricity"/>: $A \sim B \iff B \sim A$
 
   なので、$B \sim A$となる。
 
-c. <Q w="transitivity"/>: $A \sim B \wedge B \sim C \Longrightarrow A \sim C$
-  $A$から$B$、$B$から$C$への操作列をそのまま連結すると$A$から$C$への操作<Q w="seq"/>になる。
+c. 推移律: $A \sim B \wedge B \sim C \Longrightarrow A \sim C$
+  $A$から$B$、$B$から$C$への操作列をそのまま連結すると$A$から$C$への操作列になる。
 
-  <Q w="el-mat"/>で言い換えると、
+  基本行列で言い換えると、
 
   - $B=P_0 P_1 \cdots P_{p-1} A$
   - $C=Q_0 Q_1 \cdots Q_{q-1} B$
@@ -592,24 +593,24 @@ c. <Q w="transitivity"/>: $A \sim B \wedge B \sim C \Longrightarrow A \sim C$
      \load{qk:mat-mult}の\load{qk:associativity}
   ```
 
-  $(Q_0, Q_1, \cdots, Q_{q-1}, P_0, P_1, \cdots, P_{p-1})$ は<Q w="el-mat"/>の<Q w="seq"/>であるから、$A \sim C$
+  $(Q_0, Q_1, \cdots, Q_{q-1}, P_0, P_1, \cdots, P_{p-1})$ は基本行列の列であるから、$A \sim C$
 </Prove>
 
-## <Q w="matrix-elimination"k d/>
+## 簡約化
 
-<Q w="matrix-elimination"/>とは、<Q w="mat"/>を<Q w="el-row-op" />によって<Q w="reduced-row-echelon-form"/>に変形することだ。もう少し形式的に言うなら、与えられた<Q w="mat"/>$A$に対して、$B = P_0 P_1 \cdots P_{p-1} A$であるような<Q w="el-mat"/>の<Q w="seq"/>$P$と<Q w="reduced-row-echelon-form"/>$B$の<Q w="tuple"/>を提示すること、ということ。
+簡約化とは、行列を行基本変形によって行簡約階段形に変形することだ。もう少し形式的に言うなら、与えられた行列$A$に対して、$B = P_0 P_1 \cdots P_{p-1} A$であるような基本行列の列$P$と行簡約階段形$B$の組を提示すること、ということ。
 
-「$A$を<Q w="matrix-elimination"/>する」というのを、「<Q w="el-mat"/>の<Q w="seq"/>$P_0, P_1, \cdots P_{p-1}$であって、$P \coloneqq P_0 P_1 \cdots P_{p-1}$と定義して、$PA=X$なるものを選ぶ」を意味するものとする。<Q w="variable"/>$P, p$は$Q, q$であったりする場合もある。また、$P_{p-1}^{-1} \cdots P_1 P_0\cdots$を考えると、これは$P^{-1}$である。
+「$A$を簡約化する」というのを、「基本行列の列$P_0, P_1, \cdots P_{p-1}$であって、$P \coloneqq P_0 P_1 \cdots P_{p-1}$と定義して、$PA=X$なるものを選ぶ」を意味するものとする。変数$P, p$は$Q, q$であったりする場合もある。また、$P_{p-1}^{-1} \cdots P_1 P_0\cdots$を考えると、これは$P^{-1}$である。
 
 $P_i^{-1}$は[TODO](TODO)より常に存在する。
 
-また、同様の用語として、<Q w="upper-triangular-matrix"/>を目指すことを<Q w="mat-make-upper-tri"d/>と呼ぶことにする。
+また、同様の用語として、上三角行列を目指すことを上三角化と呼ぶことにする。
 
-## <Q w="gauss-elim" k d/>
+## ガウスの消去法
 
-<Q w="gauss-elim"/>は、任意の<Q w="mat"/>を<Q w="matrix-elimination"/>する<Q w="algo"/>だ。
+ガウスの消去法は、任意の行列を簡約化するアルゴリズムだ。
 
-<Q w="forward-elim"/>と<Q w="back-subst"/>の2つのパートからなる。
+前進消去と後退代入の2つのパートからなる。
 
 ここではそれぞれの概要を説明する。厳密なアルゴリズムに関しては、以下のアニメーションを、数値を変えながら試してほしい。
 
@@ -617,25 +618,25 @@ $P_i^{-1}$は[TODO](TODO)より常に存在する。
 
 <Graph w="gauss-elim" init={[[1,2,2,4],[2,3,1,5],[2,0,-5,8]]}/>
 
-### <Q w="forward-elim" k d/>
+### 前進消去
 
-<Q w="forward-elim"/>では、<Q w="upper-triangular-matrix"/>かつ、主成分が$1$であることを目指す。同時に、<Q w="pivotting"/>という、見ている<Q w="elem"/>が$0$であった場合に別の<Q w="row"/>と交換する ($P_{i,j}$に対応する) をすることによって、<Q w="zero"/><Q w="row"/>が自動的に下に行く。
+前進消去では、上三角行列かつ、主成分が$1$であることを目指す。同時に、枢軸選択という、見ている要素が$0$であった場合に別の行と交換する ($P_{i,j}$に対応する) をすることによって、零行が自動的に下に行く。
 
-<Q w="forward-elim"/>の終了時点で得られた<Q w="leading-entry"/>は、最終的に得られる<Q w="reduced-row-echelon-form"/>の<Q w="leading-entry"/>となる。
+前進消去の終了時点で得られた主成分は、最終的に得られる行簡約階段形の主成分となる。
 
-### <Q w="back-subst" k d/>
+### 後退代入
 
-<Q w="back-subst"/>では、<Q w="forward-elim"/>で決定した<Q w="leading-entry"/>をすべてを、上向きに探索する。そして、それぞれについて、<Q w="forward-elim"/>と同じように、打ち消すように $P_{i, j}(\lambda)$を行う。やっていることはほぼ同じである。
+後退代入では、前進消去で決定した主成分をすべてを、上向きに探索する。そして、それぞれについて、前進消去と同じように、打ち消すように $P_{i, j}(\lambda)$を行う。やっていることはほぼ同じである。
 
-### <Q w="back-subst" k/>を行う理由について
+### 後退代入を行う理由について
 
-<Q w="back-subst"/>を行う理由、もしくは、<Q w="forward-elim"/>と<Q w="upper-triangular-matrix"/>を分ける理由について。単に<Q w="reduced-row-echelon-form"/>を得るだけなら、<Q w="forward-elim"/>の時点で、後ろ向きにも削除を行えば、<Q w="algo"/>はシンプルになる。<Q w="gauss-jordan-elim" d/>は、そのような実装のバリエーションを指すことがある。
+後退代入を行う理由、もしくは、前進消去と上三角行列を分ける理由について。単に行簡約階段形を得るだけなら、前進消去の時点で、後ろ向きにも削除を行えば、アルゴリズムはシンプルになる。ガウス・ジョルダンの消去法は、そのような実装のバリエーションを指すことがある。
 
-しかし、わざわざ<Q w="back-subst"/>として分けるのは、計算回数を抑えるためだ。実際、アニメーションを見てもらうと、<Q w="back-subst"/>の際には、これまで調べた<Q w="leading-entry"/>に関しては$0$だとわかっているので、処理をしなくてすむ。
+しかし、わざわざ後退代入として分けるのは、計算回数を抑えるためだ。実際、アニメーションを見てもらうと、後退代入の際には、これまで調べた主成分に関しては$0$だとわかっているので、処理をしなくてすむ。
 
-### <Q w="gauss-elim" k/>の<Q w="comp-comp"k/><diff/>
+### ガウスの消去法の計算量
 
-加算・乗算の回数がどれくらい起こるか、という<Q w="comp-comp"/>を考える。$n \times m$の<Q w="mat"/>に対して<Q w="gauss-elim"/>を行うとする。それぞれの$n, m$について最悪でどれくらいになるかを考える。
+加算・乗算の回数がどれくらい起こるか、という計算量を考える。$n \times m$の行列に対してガウスの消去法を行うとする。それぞれの$n, m$について最悪でどれくらいになるかを考える。
 これは最悪$\Theta(\min\{n, m\} n m) = \Theta((n + m)nm)$になる。
 
 ### 例
@@ -649,7 +650,7 @@ A=
 \end{pmatrix}
 ```
 
-上記の<Q w="mat"/>に対して<Q w="gauss-elim"/>を行う、以下の例を見る。
+上記の行列に対してガウスの消去法を行う、以下の例を見る。
 
 ```math:trans:1
 \begin{pmatrix}
@@ -736,29 +737,29 @@ A
 \end{pmatrix}
 ```
 
-左辺の<Q w="el-mat"/>の<Q w="seq"/>の<Q w="mat-mult"/>を計算すると、
+左辺の基本行列の列の行列の積を計算すると、
 
 ```math
 \left(\begin{matrix}5 & - \frac{10}{3} & \frac{4}{3}\\-4 & 3 & -1\\2 & - \frac{4}{3} & \frac{1}{3}\end{matrix}\right)
 ```
 
-## 定理: 任意の<Q w="mat"/>は、<Q w="el-row-op" />によって<Q w="reduced-row-echelon-form"/>に変形することが可能。
+## 定理: 任意の行列は、行基本変形によって行簡約階段形に変形することが可能。
 
-<Q w="gauss-elim"/>がそのまま構築による証明となる。
+ガウスの消去法がそのまま構築による証明となる。
 
-## <Q w="gauss-jordan-elim" k d />
+## ガウス・ジョルダンの消去法
 
-<Q w="gauss-elim"/>の中でも少しだけ触れたが、<Q w="gauss-jordan-elim"/>の定義はいくつかの文献でゆらぎがある。ただ、かんたんにまとめると、<Q w="gauss-jordan-elim"/>は<Q w="gauss-elim"/>のアルゴリズムの方針を利用して、<Q w="el-row-op"/>や<Q w="el-column-op"/>によって<Q w="reduced-row-echelon-form"/>や<Q w="upper-triangular-matrix"/>に変形すること、もしくはそのアイデアのことを指す。
+ガウスの消去法の中でも少しだけ触れたが、ガウス・ジョルダンの消去法の定義はいくつかの文献でゆらぎがある。ただ、かんたんにまとめると、ガウス・ジョルダンの消去法はガウスの消去法のアルゴリズムの方針を利用して、行基本変形や列基本変形によって行簡約階段形や上三角行列に変形すること、もしくはそのアイデアのことを指す。
 
-そのアイデアというのはつまり、左上から順に<Q w="leading-entry"/>を決定していくことである。
+そのアイデアというのはつまり、左上から順に主成分を決定していくことである。
 
-## 定理: 任意の<Q w="mat"/>について、<Q w="el-row-op" />によって得られる<Q w="reduced-row-echelon-form"/>は一意である。
+## 定理: 任意の行列について、行基本変形によって得られる行簡約階段形は一意である。
 
-この定理に明確に言及しているのを見かける機会は少ないかもしれないが、今後の各種定義が<Q w="well-def"/>であるかどうかはこの定理による部分が多い。
+この定理に明確に言及しているのを見かける機会は少ないかもしれないが、今後の各種定義がwell-definedであるかどうかはこの定理による部分が多い。
 
 <Prove>
 
-<Q w="mat"/>$A$が異なる<Q w="el-mat"/>の<Q w="seq"/>によって<Q w="matrix-elimination"/>されたとする。
+行列$A$が異なる基本行列の列によって簡約化されたとする。
 
 - $P_0 P_1 \cdots P_{p-1} A=K$
 - $Q_0 Q_1 \cdots Q_{q-1} A=K^\prime$
@@ -778,7 +779,7 @@ K=P_0 P_1 \cdots P_{p-1} Q_{q-1}^{-1} \cdots Q_1^{-1} Q_0^{-1} K^\prime
 
 となる。$F = P_0 P_1 \cdots P_{p-1} Q_{q-1}^{-1} \cdots Q_1^{-1} Q_0^{-1}$と置く。$K=FK^\prime$
 
-$F (Q_0 Q_1 \cdots Q_{q-1} P_{p-1}^{-1} \cdots P_1^{-1} P_0^{-1}) = I$であるから、$F$は<Q w="invertible-mat"/>だ。つまり、<Q w="zero"/><Q w="row"/>がない。この性質をこのあと用いる。
+$F (Q_0 Q_1 \cdots Q_{q-1} P_{p-1}^{-1} \cdots P_1^{-1} P_0^{-1}) = I$であるから、$F$は正則行列だ。つまり、零行がない。この性質をこのあと用いる。
 
 さて、ここからは、[TODO](#q-mat-mult-の計算方法)と同様の表記法をして、$K^\prime$のみから$F$と$K$が決定できることを示す。
 
@@ -826,13 +827,13 @@ $K^\prime=FK$の掛け算を以下のように表す。
 \end{matrix}
 ```
 
-$3$個の<Q w="leading-entry"/>である場合を例示している。なお、$K^\prime$の左側と下側の<Q w="zero"/><Q w="row"/>・<Q w="column"/>は$0$個以上の任意の数がそれぞれあり得る。また、$*$（アスタリスク）のある<Q w="column"/>も同様に$0$個以上の任意の数だ。
+$3$個の主成分である場合を例示している。なお、$K^\prime$の左側と下側の零行・列は$0$個以上の任意の数がそれぞれあり得る。また、$*$（アスタリスク）のある列も同様に$0$個以上の任意の数だ。
 
-$K$を左の<Q w="column"/>から決定していく。
+$K$を左の列から決定していく。
 
-### 1ブロック目 (最初に0列以上続く<Q w="zero"/><Q w="column"/>)
+### 1ブロック目 (最初に0列以上続く零列)
 
-まずは<Q w="zero"/><Q w="column"/>なので、$K$の1列目も$0$のみである。$F$については何も決定しない。
+まずは零列なので、$K$の1列目も$0$のみである。$F$については何も決定しない。
 
 ```math
 \begin{matrix}
@@ -863,7 +864,7 @@ $K$を左の<Q w="column"/>から決定していく。
 \end{matrix}
 ```
 
-### 2ブロック目 (最初の<Q w="leading-entry"/>を含む列)
+### 2ブロック目 (最初の主成分を含む列)
 
 ```math
 \begin{matrix}
@@ -894,9 +895,9 @@ $K$を左の<Q w="column"/>から決定していく。
 \end{matrix}
 ```
 
-$\ci{!}$で表した<Q w="elem"/>について、この値は$1$のみがありうる。
+$\ci{!}$で表した要素について、この値は$1$のみがありうる。
 まず、$0$だとしたら、$F$の1行目がすべて$0$となってしまう。
-そして、<Q w="reduced-row-echelon-form"/>の条件より$1$と決定できる。<Q w="reduced-row-echelon-form"/>であるため、その下も$0$だと決定できる。
+そして、行簡約階段形の条件より$1$と決定できる。行簡約階段形であるため、その下も$0$だと決定できる。
 
 ---
 
@@ -929,7 +930,7 @@ $\ci{!}$で表した<Q w="elem"/>について、この値は$1$のみがあり�
 \end{matrix}
 ```
 
-$\ci{!}$で表した$F$の<Q w="elem"/>について、$\cj{1} \times \ci{!} + 0 \times ? + 0 \times ? + 0 \times ? = \ck{1}$を満たす必要がある。
+$\ci{!}$で表した$F$の要素について、$\cj{1} \times \ci{!} + 0 \times ? + 0 \times ? + 0 \times ? = \ck{1}$を満たす必要がある。
 よって、この値は$1$のみがありうる。
 
 ---
@@ -963,7 +964,7 @@ $\ci{!}$で表した$F$の<Q w="elem"/>について、$\cj{1} \times \ci{!} + 0 
 \end{matrix}
 ```
 
-$\ci{!}$で表した$F$のすべての<Q w="elem"/>について、$\cj{1} \times \ci{!} + 0 \times ? + 0 \times ? + 0 \times ? = \ck{0}$を満たす必要がある。
+$\ci{!}$で表した$F$のすべての要素について、$\cj{1} \times \ci{!} + 0 \times ? + 0 \times ? + 0 \times ? = \ck{0}$を満たす必要がある。
 よって、この値は$0$のみがありうる。
 
 ---
@@ -1030,10 +1031,10 @@ $\ci{!}$で表した$F$のすべての<Q w="elem"/>について、$\cj{1} \times
 \end{matrix}
 ```
 
-$F$の1列目が決定しているため、$K^\prime$と同一の<Q w="column"/>であると決定する。
+$F$の1列目が決定しているため、$K^\prime$と同一の列であると決定する。
 $K$側の$*$は、$K^\prime$と同様の値であるとする。
 
-### 4ブロック目 (2個目の<Q w="leading-entry"/>を含む列)
+### 4ブロック目 (2個目の主成分を含む列)
 
 このブロックは、一般化すると、2ブロック目と同一だと捉えらる。
 
@@ -1066,7 +1067,7 @@ $K$側の$*$は、$K^\prime$と同様の値であるとする。
 \end{matrix}
 ```
 
-2ブロック目と同様に、$F$の2行目がすべて$0$になってはいけないこと、<Q w="mat-mult"/>による等式から$1$であることが決定し、<Q w="reduced-row-echelon-form"/>であることから、他の<Q w="elem"/>が$0$であることが決定する。
+2ブロック目と同様に、$F$の2行目がすべて$0$になってはいけないこと、行列の積による等式から$1$であることが決定し、行簡約階段形であることから、他の要素が$0$であることが決定する。
 
 ---
 
@@ -1140,9 +1141,9 @@ $F$についても、同様に2行目とそれ以外でそれぞれ立式する�
 
 上記は具体的なものしか取り扱っていないが、形式的な議論が見える範囲で記述するように心がけた。
 
-なお、$F$は上記のように決定しないこともある。行数より<Q w="leading-entry"/>が少ない場合がそうだ。これは、下の<Q w="zero"/><Q w="row"/>に関して<Q w="el-row-op"/>を追加でいくらやっても良い、その自由度から来ている。なお、この決定されない行数はそのまま<Q w="dof"/>の定義として使える。
+なお、$F$は上記のように決定しないこともある。行数より主成分が少ない場合がそうだ。これは、下の零行に関して行基本変形を追加でいくらやっても良い、その自由度から来ている。なお、この決定されない行数はそのまま自由度の定義として使える。
 
-## 定理: <Q w="invertible-mat"/>ならば<Q w="square-matrix"/>である。
+## 定理: 正則行列ならば正方行列である。
 
 <Prove>
 ```math
@@ -1163,34 +1164,34 @@ I_m
 
 としておく。
 
-$A$を<Q w="matrix-elimination"/>して$\underset{n \times n}{P}\cdot\underset{n \times m}{A}=\underset{n \times m}{X}$、両辺に右から$B$を乗じて$PAB=XB$、$PAB=P(AB)=PI=P$より、$P=XB$となる。
-$PP^{-1}=I$であるので、$P$は<Q w="zero"/><Q w="row"/>を含まない。
-ここで、もし$X$が<Q w="zero"/><Q w="row"/>を含むと、$P$も<Q w="zero"/><Q w="row"/>を持つことになるが、上記に矛盾するので、$X$は<Q w="zero"/><Q w="row"/>を含まない。
-<Q w="zero"/><Q w="row"/>を含まない<Q w="reduced-row-echelon-form"/>は<Q w="main-diag"/>が$1$で、それ以外が$0$のもので、$\underset{n \times m}{X}$は横長か<Q w="square-matrix"/>($n \leq m$)である。
+$A$を簡約化して$\underset{n \times n}{P}\cdot\underset{n \times m}{A}=\underset{n \times m}{X}$、両辺に右から$B$を乗じて$PAB=XB$、$PAB=P(AB)=PI=P$より、$P=XB$となる。
+$PP^{-1}=I$であるので、$P$は零行を含まない。
+ここで、もし$X$が零行を含むと、$P$も零行を持つことになるが、上記に矛盾するので、$X$は零行を含まない。
+零行を含まない行簡約階段形は対角成分が$1$で、それ以外が$0$のもので、$\underset{n \times m}{X}$は横長か正方行列($n \leq m$)である。
 
-また、$B$を<Q w="matrix-elimination"/>して$\underset{m \times m}{Q}\cdot\underset{m \times n}{B}=\underset{m \times n}{Y}$とする。
-$QB=Y$、両辺に右から$A$を乗じて$Q=YA$となる。$Q$も同様の議論で<Q w="zero"/><Q w="row"/>を含まないので、$\underset{m \times n}{Y}$も含まない。よって、$Y$は横長か<Q w="square-matrix"/>($m \leq n$)である。
+また、$B$を簡約化して$\underset{m \times m}{Q}\cdot\underset{m \times n}{B}=\underset{m \times n}{Y}$とする。
+$QB=Y$、両辺に右から$A$を乗じて$Q=YA$となる。$Q$も同様の議論で零行を含まないので、$\underset{m \times n}{Y}$も含まない。よって、$Y$は横長か正方行列($m \leq n$)である。
 
 よって$n = m$。
 </Prove>
 
-## 系: <Q w="invertible-mat"k/>を<Q w="el-mat"k/>すると<Q w="identity-matrix"k/>となる。
+## 系: 正則行列を基本行列すると単位行列となる。
 
-<Q w="square-matrix"/>かつ<Q w="reduced-row-echelon-form"/>であって、<Q w="zero"/><Q w="row"/>を含まないものは<Q w="identity-matrix"/>のみであるから。
+正方行列かつ行簡約階段形であって、零行を含まないものは単位行列のみであるから。
 
-## 系: 任意の<Q w="invertible-mat"k/>は<Q w="el-mat"k/>の<Q w="mat-mult"/>で表わせる。
+## 系: 任意の正則行列は基本行列の行列の積で表わせる。
 
-$A$を<Q w="invertible-mat"/>とする。
+$A$を正則行列とする。
 
 <Prove>
-$BA=I$なる$B$が存在する。$B$を<Q w="matrix-elimination"/>して$PB=I$となる。両辺に右から$A$をかけると、$P(BA)=A$、よって$P=A$。$A=P_0 P_1 \cdots P_{p-1}$となる。
+$BA=I$なる$B$が存在する。$B$を簡約化して$PB=I$となる。両辺に右から$A$をかけると、$P(BA)=A$、よって$P=A$。$A=P_0 P_1 \cdots P_{p-1}$となる。
 </Prove>
 
-## <Q w="mat" />と<Q w="real" k />の相違
+## 行列と実数の性質の相違
 
-1. 一般に$AB \neq BA$。$AB=BA$なら$A$と$B$は<Q w="commutative" d />である、という。
-  例えば<Q w="symmetrix-matrix"/>同士は常に<Q w="commutative" />である。
-1. $A\neq O, B \neq O$であっても$AB=O$となりうる。このとき、$A$と$B$を<Q w="zero-divisor" />という。例:
+1. 一般に$AB \neq BA$。$AB=BA$なら$A$と$B$は可換である、という。
+  例えば対称行列同士は常に可換である。
+1. $A\neq O, B \neq O$であっても$AB=O$となりうる。このとき、$A$と$B$を零因子という。例:
   ```math
     \begin{pmatrix}
       1 & 1 \\
@@ -1206,52 +1207,52 @@ $BA=I$なる$B$が存在する。$B$を<Q w="matrix-elimination"/>して$PB=I$�
       0 & 0 \\
     \end{pmatrix}
   ```
-1. $A \neq O$であっても$A^{-1}$が存在する(<Q w="invertible-mat"/>である)とは限らない。
+1. $A \neq O$であっても$A^{-1}$が存在する(正則行列である)とは限らない。
 
-## <Q w="mat-rank" k d/>
+## 行列のランク
 
-任意の<Q w="mat"/>$A$に関する<Q w="mat-rank" k d/>を、$A$を<Q w="matrix-elimination"/>して$PA=X$になるとして、$X$の<Q w="leading-entry"/>の数として定義する。
+任意の行列$A$に関する行列のランクを、$A$を簡約化して$PA=X$になるとして、$X$の主成分の数として定義する。
 
-この定義は[TODO](#TODO)によって<Q w="well-def"/>である。($P$のとり方によらない)
+この定義は[TODO](#TODO)によってwell-definedである。($P$のとり方によらない)
 
-<Q w="mat-rank"/>を$\rank A$と書く。
+行列のランクを$\rank A$と書く。
 
-### 定理: $P$が<Q w="el-mat"k/>なら、$\rank PB = \rank B$
+### 定理: $P$が基本行列なら、$\rank PB = \rank B$
 
 <Prove>
-$PB$の<Q w="matrix-elimination"/>$QPB=X$を考えると、$QP$がそのまま$B$の<Q w="matrix-elimination"/>になっている。
-よって、$PB$と$B$の<Q w="mat-rank"/>はどちらも$X$の<Q w="zero"/>でない<Q w="row"/>の個数として一致する。
+$PB$の簡約化$QPB=X$を考えると、$QP$がそのまま$B$の簡約化になっている。
+よって、$PB$と$B$の行列のランクはどちらも$X$の零でない行の個数として一致する。
 </Prove>
 
-### 系: $A$が<Q w="invertible-mat"/>なら、$\rank AB = \rank B$
+### 系: $A$が正則行列なら、$\rank AB = \rank B$
 
 <Prove>
 [TODO](TODO)より$A=P_0 P_1 \cdots P_{p-1}$と表せるから、
 $\rank AB = \rank P_0 P_1 \cdots P_{p-1} B$、[TODO](TODO)を$p$回適用して、$\rank AB = \rank B$
 </Prove>
 
-### 定理: $A \in \R^{n \times n}$について。$A$が<Q w="invertible-mat"/>$\iff \rank A = n$
+### 定理: $A \in \R^{n \times n}$について。$A$が正則行列$\iff \rank A = n$
 
 <Prove>
 $\Longrightarrow$は[TODO](TODO)によりすぐ。
 
 $\Longleftarrow$について。
-$\rank A = n$なので$A$を<Q w="matrix-elimination"/>すると$PA=I$となる。$P$が$A^{-1}$である。
+$\rank A = n$なので$A$を簡約化すると$PA=I$となる。$P$が$A^{-1}$である。
 </Prove>
 
-## 定理: $k$個の<Q w="zero"k/><Q w="row"k/>を含む<Q w="mat"k/>$\underset{n \times m}{A}$について、$\rank A \leq n - k$
+## 定理: $k$個の零行を含む行列$\underset{n \times m}{A}$について、$\rank A \leq n - k$
 
 <Prove>
-<Q w="gauss-elim"/>を考えると、<Q w="zero"k/><Q w="row"k/>はそのまま<Q w="matrix-elimination"/>しても残ることになる。
-よって、<Q w="reduced-row-echelon-form"/>には、$k$個は少なくとも<Q w="zero"/><Q w="row"/>が含まれることになる。
+ガウスの消去法を考えると、零行はそのまま簡約化しても残ることになる。
+よって、行簡約階段形には、$k$個は少なくとも零行が含まれることになる。
 </Prove>
 
-## 定理: $A$が<Q w="invertible-mat"k/>でなければ、$AB$も<Q w="invertible-mat"k/>ではない。
+## 定理: $A$が正則行列でなければ、$AB$も正則行列ではない。
 
-今後に議論するより多くの<Q w="mat-rank"/>の性質からすぐにわかることなのだが、ここでは一応別の方法で示す。
+今後に議論するより多くの行列のランクの性質からすぐにわかることなのだが、ここでは一応別の方法で示す。
 
 <Prove>
-$A$を<Q w="matrix-elimination"/>して$PA=X$とする。$A=P^{-1}X$となる。
+$A$を簡約化して$PA=X$とする。$A=P^{-1}X$となる。
 
 ```math:trans:1
   \rank AB
@@ -1261,17 +1262,17 @@ $A$を<Q w="matrix-elimination"/>して$PA=X$とする。$A=P^{-1}X$となる。
 ? TODOより
 ```
 
-ここで、$A$は<Q w="invertible-mat"/>でないから、$X$は<Q w="zero"/><Q w="row"/>を含む。$XB$も同様に含む。TODOより、$\rank XB < n$。よって、$\rank AB < n$であるが、TODOより$AB$は<Q w="invertible-mat"/>ではない。
+ここで、$A$は正則行列でないから、$X$は零行を含む。$XB$も同様に含む。TODOより、$\rank XB < n$。よって、$\rank AB < n$であるが、TODOより$AB$は正則行列ではない。
 </Prove>
 
-## <Q w="system-of-lin-eq" k d/>の求め方
+## 線形方程式の求め方
 
-<Q w="system-of-lin-eq"/>とは一次の<Q w="system-of-eq"/>のこと。$n$<Q w="variable"/>で$m$連立であるとすると、<Q w="variable"/>を$\mathbf{x}=\begin{pmatrix}x_0 & x_1 & \cdots & x_{n-1}\end{pmatrix}$として、$\underset{n \times m}A \mathbf{x}=\mathbf{b}$と書ける。
+線形方程式とは一次の連立方程式のこと。$n$変数で$m$連立であるとすると、変数を$\mathbf{x}=\begin{pmatrix}x_0 & x_1 & \cdots & x_{n-1}\end{pmatrix}$として、$\underset{n \times m}A \mathbf{x}=\mathbf{b}$と書ける。
 
-$\mathbf b = \mathbf 0$の場合、その<Q w="system-of-lin-eq"/>は<Q w="homo"/>である、という。
+$\mathbf b = \mathbf 0$の場合、その線形方程式は斉次である、という。
 
 
-<Q w="system-of-lin-eq"/>を<Q w="gauss-elim"/>を使って解くことが可能。
+線形方程式をガウスの消去法を使って解くことが可能。
 
 
 ```math:def
@@ -1280,11 +1281,11 @@ $\mathbf b = \mathbf 0$の場合、その<Q w="system-of-lin-eq"/>は<Q w="homo"
 \def\augmatx{\left(\begin{array}{c|c}A' & \mathbf{b}'\end{array}\right)}
 ```
 
-まず、$\left(\begin{array}{c|c}A & \mathbf{b}\end{array}\right)$という<Q w="mat"/>を考える。これを上記の<Q w="system-of-lin-eq"/>に対する<Q w="aug-mat"/>と呼ぶ。
+まず、$\left(\begin{array}{c|c}A & \mathbf{b}\end{array}\right)$という行列を考える。これを上記の線形方程式に対する拡大行列と呼ぶ。
 
-$\augmat$に対する<Q w="el-row-op"/>は、もとの<Q w="system-of-eq"/>への同値変形と<Q w="identify"/>できる。
+$\augmat$に対する行基本変形は、もとの連立方程式への同値変形と同一視できる。
 
-そこで、$\augmat$を<Q w="gauss-elim"/>する。それを、$\augmat \sim \augmatx$とする。たとえば以下のような形をしている。
+そこで、$\augmat$をガウスの消去法する。それを、$\augmat \sim \augmatx$とする。たとえば以下のような形をしている。
 
 ```math
 \left(\begin{array}{cccc|c}
@@ -1295,22 +1296,22 @@ $\augmat$に対する<Q w="el-row-op"/>は、もとの<Q w="system-of-eq"/>へ�
 \end{array}\right)
 ```
 
-ここで、もし最右**だけ**$0$でない<Q w="row"/>、つまり、上の例で言う最後の行のアスタリスクが$0$でない場合は、<Q w="sol"/>がない。
+ここで、もし最右**だけ**$0$でない行、つまり、上の例で言う最後の行のアスタリスクが$0$でない場合は、解がない。
 
-$\rank A < \rank \augmat$なら<Q w="sol"/>なし、ということだ。
-ここから、<Q w="system-of-lin-eq"/>の<Q w="sol"/>の存在の必要十分条件は、$\rank A = \rank \augmat$であることがわかる。
+$\rank A < \rank \augmat$なら解なし、ということだ。
+ここから、線形方程式の解の存在の必要十分条件は、$\rank A = \rank \augmat$であることがわかる。
 
-逆にそうでない場合は<Q w="sol"/>が必ず存在する。
+逆にそうでない場合は解が必ず存在する。
 
-各<Q w="column"/>が一つの<Q w="variable"/>に対応している。
-<Q w="leading-entry"/>がない<Q w="column"/>をそれぞれ自由変数を割り当てて、<Q w="leading-entry"/>がある<Q w="row"/>について、<Q w="leading-entry"/>以外の<Q w="term"/>を移すと一般解が得られる。
+各列が一つの変数に対応している。
+主成分がない列をそれぞれ自由変数を割り当てて、主成分がある行について、主成分以外の項を移すと一般解が得られる。
 
-また、<Q w="homo"/><Q w="system-of-lin-eq"/>の場合は、常に<Q w="sol"/>が存在する。<Q w="homo"/>なら常に$\rank A = \rank \augmat = \rank \augmatz$であるからだ。
+また、斉次線形方程式の場合は、常に解が存在する。斉次なら常に$\rank A = \rank \augmat = \rank \augmatz$であるからだ。
 
-## <Q w="dof"k d/>
+## 自由度
 
-<Q w="sol"/>が存在する<Q w="system-of-lin-eq"/>$\underset{n \times m}{A} \mathbf{x} = \mathbf{b}$の<Q w="dof"/>を、これを解いた際の、一般解の自由変数の(最小)数として定義する。
+解が存在する線形方程式$\underset{n \times m}{A} \mathbf{x} = \mathbf{b}$の自由度を、これを解いた際の、一般解の自由変数の(最小)数として定義する。
 
-イメージとしては、<Q w="dof"/>$0$なら点、$1$なら線、$2$なら平面のようになる。TODO
+イメージとしては、自由度$0$なら点、$1$なら線、$2$なら平面のようになる。TODO
 
-<Q w="dof"/>は、$A$を<Q w="matrix-elimination"/>した際の<Q w="zero"/>でない<Q w="row"/>の数、つまり$m - \rank A$と等しくなる。
+自由度は、$A$を簡約化した際の零でない行の数、つまり$m - \rank A$と等しくなる。

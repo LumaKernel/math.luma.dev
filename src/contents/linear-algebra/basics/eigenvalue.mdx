@@ -1,30 +1,30 @@
-<Config
-  title="固有値"
-  published
-/>
+```toml
+title = "固有値"
+published = true
+```
 
-## <Q w="eigenvalue"k d/>
+## 固有値
 
-<Q w="square-matrix"/>$A \in \Complex^{n \times n}$に対し、$A\mathbf x = \lambda \mathbf x$を$\lambda \in \Complex$、$\mathbf x \in \Complex^n$（ただし$\mathbf x\neq \mathbf 0$）が満たすとき、
+正方行列$A \in \Complex^{n \times n}$に対し、$A\mathbf x = \lambda \mathbf x$を$\lambda \in \Complex$、$\mathbf x \in \Complex^n$（ただし$\mathbf x\neq \mathbf 0$）が満たすとき、
 
-- $\lambda$を<Q w="eigenvalue"/>
-- $\mathbf x$を<Q w="eigenvector"/>
+- $\lambda$を固有値
+- $\mathbf x$を固有値ベクトル
 
 とそれぞれ呼ぶ。
 
-なお、そのような$\mathbf x$は定数倍しても<Q w="eigenvector"/>のままである。
+なお、そのような$\mathbf x$は定数倍しても固有値ベクトルのままである。
 
-<Q w="eigenvalue"/>と<Q w="eigenvector"/>すべてを求める問題を<Q w="eigenvalue"k/>問題という。
+固有値と固有値ベクトルすべてを求める問題を固有値問題という。
 
-## <Q w="eigenvalue"k/>問題の計算方法
+## 固有値問題の計算方法
 
-$A \mathbf x = \lambda I \mathbf x$より$(A - \lambda \idmat) \mathbf x = \mathbf 0$となる。これは<Q w="homo-system"/>だ。
+$A \mathbf x = \lambda I \mathbf x$より$(A - \lambda \idmat) \mathbf x = \mathbf 0$となる。これは斉次方程式だ。
 
-$A - \lambda \idmat$が<Q w="invertible-mat"/>であるなら、$(A - \lambda \idmat)^{-1}$を左から乗じて$\mathbf x = \mathbf 0$となるため、<Q w="invertible-mat"/>ではない。
+$A - \lambda \idmat$が正則行列であるなら、$(A - \lambda \idmat)^{-1}$を左から乗じて$\mathbf x = \mathbf 0$となるため、正則行列ではない。
 
-よって、$\lambda$は$|A - \lambda I| = 0$を満たす。この$\lambda$に関する<Q w="equation"/>を<Q w="eigenvalue-eq"d/>と呼ぶ。
+よって、$\lambda$は$|A - \lambda I| = 0$を満たす。この$\lambda$に関する方程式を固有値方程式と呼ぶ。
 
-逆に、$\lambda$が$|A - \lambda I| = 0$を満たしたのなら$(A-\lambda I) = \mathbf 0$は$\mathbf x \neq 0$以外の<Q w="sol"/>を持つため、<Q w="equation"/>を調べれば、すべての<Q w="eigenvalue"/>を調べたことになる。
+逆に、$\lambda$が$|A - \lambda I| = 0$を満たしたのなら$(A-\lambda I) = \mathbf 0$は$\mathbf x \neq 0$以外の解を持つため、方程式を調べれば、すべての固有値を調べたことになる。
 
 ---
 
