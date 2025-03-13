@@ -1,35 +1,35 @@
-<Config
-  title="線形写像"
-  published
-/>
+```toml
+title = "線形写像"
+published = true
+```
 
-## <Q w="linear-map"k d/>
+## 線型写像
 
-同じ$\K$上の<Q w="lin-sp"/>$V, W$について、$f: V \to W$であって、つぎの性質を満たすものを<Q w="linear-map"/>という。
+同じ$\K$上の線形空間$V, W$について、$f: V \to W$であって、つぎの性質を満たすものを線形空間という。
 
-- <Q w="add"/>を保存: $f(\mathbf a + \mathbf b) = f(\mathbf a) + f(\mathbf b)$
-- <Q w="scaling"/>を保存: $c \cdot f(\mathbf a) = f(c \cdot \mathbf a)$
+- 加算を保存: $f(\mathbf a + \mathbf b) = f(\mathbf a) + f(\mathbf b)$
+- スカラー倍を保存: $c \cdot f(\mathbf a) = f(c \cdot \mathbf a)$
 
-これは$V$から$W$への<Q w="homomorphism"/>$\Hom{V, W}$にほかならない。つまり、$V$の構造を$W$の中にもっていく<Q w="mapping"/>だ。
+これは$V$から$W$への準同型射$\Hom{V, W}$にほかならない。つまり、$V$の構造を$W$の中にもっていく写像だ。
 
-## <Q w="linear-map"/>の性質
+## 線型写像の性質
 
 - $f(\mathbf 0) = \mathbf 0$
 - $f(-\mathbf a) = -f(\mathbf a)$
 
-## <Q w="linear-transform"k d/>
+## 線形変換
 
-$V=W$であるような<Q w="linear-map"/>(つまり<Q w="automorphism"/>$f \in \Aut{V}$)を<Q w="linear-transform"/>と呼ぶ。
+$V=W$であるような線型写像(つまり自己同型射ともいえる)を線形変換と呼ぶ。
 
-## <Q w="transform-matrix"k d/>
+## 表現行列
 
-$V$と$W$を<Q w="fin-dimen"/>の<Q w="lin-sp"/>とする。$n=\dim V, m=\dim W$とする。
-また、$V$の<Q w="base"/>$E^V = \begin{pmatrix}\mathbf e^V_0 & \mathbf e^V_1 & \cdots & \mathbf e^V_{n-1}\end{pmatrix}$と$W$の<Q w="base"/>$E^W = \begin{pmatrix}\mathbf e^W_0 & \mathbf e^W_1 & \cdots & \mathbf e^W_{m-1}\end{pmatrix}$をとる。（任意のどれかをとると考えて良い）
-<Q w="linear-map"/>$f: V \to W$を考える。$\mathbf v \in V$について、$f(\mathbf v) \eqqcolon \mathbf w$とする。
+$V$と$W$を有限次元の線形空間とする。$n=\dim V, m=\dim W$とする。
+また、$V$の基底$E^V = \begin{pmatrix}\mathbf e^V_0 & \mathbf e^V_1 & \cdots & \mathbf e^V_{n-1}\end{pmatrix}$と$W$の基底$E^W = \begin{pmatrix}\mathbf e^W_0 & \mathbf e^W_1 & \cdots & \mathbf e^W_{m-1}\end{pmatrix}$をとる。（任意のどれかをとると考えて良い）
+線型写像$f: V \to W$を考える。$\mathbf v \in V$について、$f(\mathbf v) \eqqcolon \mathbf w$とする。
 
-<Q w="base"/>を用いれば、$\mathbf x \in \K^n$、$\mathbf y \in \K^m$が存在して、$\mathbf v = \t{\mathbf x} \cdot E^V$、$\mathbf w = \t{\mathbf y} \cdot E^W$と書ける。
+基底を用いれば、$\mathbf x \in \K^n$、$\mathbf y \in \K^m$が存在して、$\mathbf v = \t{\mathbf x} \cdot E^V$、$\mathbf w = \t{\mathbf y} \cdot E^W$と書ける。
 
-このとき、$A \in \K^{m \times n}$が存在して、$A \mathbf x = \mathbf y$の形式で表せる。このときの$A$を<Q w="transform-matrix"/>と呼ぶ。
+このとき、$A \in \K^{m \times n}$が存在して、$A \mathbf x = \mathbf y$の形式で表せる。このときの$A$を表現行列と呼ぶ。
 
 まとめると以下のような対比ができる。
 
@@ -41,9 +41,9 @@ f\left(\t{\mathbf x} \cdot E^V\right) = \t{\mathbf y} \cdot E^W
 A \mathbf x = \mathbf y
 ```
 
-<Q w="linear-map"/>$f$は<Q w="mat"/>で表せるということだ。
+線型写像$f$は行列で表せるということだ。
 
-<Q w="transform-matrix"/>で表すことを、行列表現と言ったりするが、英語では普通に _shown in matrix A_ のように書かれる。
+「表現行列で表すこと」を指して、行列表現と言ったりするが、英語では普通に _shown in matrix A_ のように書かれる。
 
 <Save w="1">
 ```math:inline
@@ -61,7 +61,7 @@ A \mathbf x = \mathbf y
 <Prove>
 各$j \in n$について、$\displaystyle f(\mathbf e^V_j) = \sum_{i \in m} a_{i, j} \cdot \mathbf e^W_i$のように表わせる。
 
-$A \coloneqq (a_{i,j})$が<Q w="transform-matrix"/>になる。それを導く。
+$A \coloneqq (a_{i,j})$が表現行列になる。それを導く。
 
 ```math:def
 \gdef\yimat#1{\begin{pmatrix}a_{#1,0} & a_{#1,1} & \cdots & a_{#1,n-1}\end{pmatrix} \cdot \mathbf x}
@@ -114,17 +114,17 @@ $A \coloneqq (a_{i,j})$が<Q w="transform-matrix"/>になる。それを導く�
 ```
 </Prove>
 
-実際には$A$は<Q w="base"/>$E^V$と$E^W$のとり方によって変わってくる。<Q w="base"/>$E^V$と$E^W$を決めて、<Q w="mat"/>の世界に持ち込んだとき、<Q w="linear-map"/>も同様に<Q w="mat"/>の世界に持ち込める。
+実際には$A$は基底$E^V$と$E^W$のとり方によって変わってくる。基底$E^V$と$E^W$を決めて、行列の世界に持ち込んだとき、線型写像も同様に行列の世界に持ち込める。
 
-| <Q w="lin-sp"/>の世界 | <Q w="elem"/>が$K$の<Q w="mat"/>の世界 |
+| 線形空間の世界 | 要素が$K$の行列の世界 |
 |  :---:  |  :---:  |
-|  $n$<Q w="dimen"/>の<Q w="lin-sp"/>$V$  |  $\K^n$  |
-|  <Q w="base"/>$E^V$  |  <Q w="orthonormal-system"/>$U$  |
-|  $E^V$から${E^V}'$への<Q w="transition"/>  |  <Q w="transition-matrix"/>  |
-|  $E^V$から$E^V$自身への<Q w="transition"/>  |  <Q w="identity-matrix"/>$I_n$  |
+|  $n$次元の線形空間$V$  |  $\K^n$  |
+|  基底$E^V$  |  正規直交系$U$  |
+|  $E^V$から${E^V}'$への基底変換  |  基底変換行列  |
+|  $E^V$から$E^V$自身への基底変換  |  単位行列$I_n$  |
 |  $v \in V$  |  $\mathbf x = \t{\begin{pmatrix}x_0 & x_1 & \cdots & x_{n-1}\end{pmatrix}} \in \K^n$  |
-|  $k$個の<Q w="vec"/>の<Q w="seq"/>$A \in V^k$  |  <Q w="mat"/>$A=\begin{pmatrix}\mathbf a_0 & \mathbf a_1 & \cdots & \mathbf a_{k-1}\end{pmatrix} \in \K^{n \times k}$  |
-|  <Q w="vec"/>の<Q w="seq"/>$E^V$  |  <Q w="identity-matrix"/>$I_n$  |
-|  <Q w="linear-map"/>$f \in \Hom{V, W}$  |  <Q w="mat"/>$A \in \K^{m \times n}$  |
+|  $k$個のベクトルのSEQ$A \in V^k$  |  行列$A=\begin{pmatrix}\mathbf a_0 & \mathbf a_1 & \cdots & \mathbf a_{k-1}\end{pmatrix} \in \K^{n \times k}$  |
+|  ベクトルのSEQ$E^V$  |  単位行列$I_n$  |
+|  線型写像$f \in \Hom{V, W}$  |  行列$A \in \K^{m \times n}$  |
 
-なお、$A$の<Q w="base"/>のとり方によるゆらぎは、<Q w="transition-matrix"/>で橋渡しできる。
+なお、$A$の基底のとり方によるゆらぎは、基底変換行列で橋渡しできる。

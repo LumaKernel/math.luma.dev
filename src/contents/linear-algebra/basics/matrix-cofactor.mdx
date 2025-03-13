@@ -1,9 +1,9 @@
-<Config
-  title="余因子"
-  published
-/>
+```toml
+title = "余因子"
+published = true
+```
 
-## <Q w="cofactor"k d/>
+## 余因子
 
 <Save w="1">
   ```math:inline
@@ -29,9 +29,9 @@
   ```
 </Save>
 
-<Load w="1"/>と定義し、これを$(i, j)$<Q w="cofactor"/>と呼ぶ。
+<Load w="1"/>と定義し、これを$(i, j)$余因子と呼ぶ。
 
-### <Q w="mat-det"/>の<Q w="cofactor"/>による展開
+### 行列式の余因子による展開
 
 $i$行目について。
 
@@ -86,21 +86,21 @@ $i$行目について。
 同様にして、$j$列目について、$|A|=\sum_{k \in n}a_{k, j} \tilde a_{k, j}$
 
 $i \neq i'$について、$\sum_{k \in n}a_{i', k} \tilde a_{i, k}$を考える。
-これは、$A$の$i'$行目を$i$行目にコピーして、$i$行目で展開していた<Q w="mat-det"/>になる。よって、同じ<Q w="row"/>を持つ<Q w="mat"/>の<Q w="mat-det"/>なので$0$となる。<Q w="column"/>に対しても同様にすると、
+これは、$A$の$i'$行目を$i$行目にコピーして、$i$行目で展開していた行列式になる。よって、同じ行を持つ行列の行列式なので$0$となる。列に対しても同様にすると、
 
 - $i \neq i'$について、$\sum_{k \in n}a_{i', k} \tilde a_{i, k} = 0$
 - $j \neq j'$について、$\sum_{k \in n}a_{k, j'} \tilde a_{k, j} = 0$
 
-となる。まとめると、<Q w="kronecker-delta"/>を用いて、
+となる。まとめると、クロネッカーのデルタを用いて、
 
 - $\sum_{k \in n}a_{i, k} \tilde a_{j, k} = |A| \delta _{i, j}$
 - $\sum_{k \in n}a_{k, i} \tilde a_{k, j} = |A| \delta _{i, j}$
 
 とかける。
 
-## <Q w="cofactor-matrix"k/>
+## 余因子行列
 
-<Q w="cofactor-matrix"/>$\tilde A$を$\t{(\tilde a_{i, j})_{i,j}}={(\tilde a_{j, i})_{i,j}}$として定義する。
+余因子行列$\tilde A$を$\t{(\tilde a_{i, j})_{i,j}}={(\tilde a_{j, i})_{i,j}}$として定義する。
 
 ## 定理: $A\tilde A = \tilde A A = |A|I$
 

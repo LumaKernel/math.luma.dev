@@ -1,9 +1,9 @@
-<Config
-  title="線形結合"
-  published
-/>
+```toml
+title = "線形結合"
+published = true
+```
 
-## <Q w="lin-combi"k d/>
+## 線形結合
 
 ```math
 c_0 \mathbf a_0
@@ -18,7 +18,7 @@ c_{n-1} \mathbf a_{n-1}
 c_{i} \mathbf a_{i}
 ```
 
-を<Q w="seq"/>$\mathbf a_0, \mathbf a_1, \cdots, \mathbf a_{n-1}$の<Q w="lin-combi"/>という。
+をSEQ$\mathbf a_0, \mathbf a_1, \cdots, \mathbf a_{n-1}$の線形結合という。
 
 <Save w="1">
 ```math:inline
@@ -54,11 +54,11 @@ c_{i} \mathbf a_{i}
 ```
 </Save>
 
-たとえば、<Load w="1"/>は<Load w="2"/>の<Q w="lin-combi"/>である。
+たとえば、<Load w="1"/>は<Load w="2"/>の線形結合である。
 
-## <Q w="lin-indep"k/>
+## 線形独立
 
-次の条件を満たすとき、$\mathbf a_0, \mathbf a_1, \cdots, \mathbf a_{n-1}$が<Q w="lin-indep"d/>であるという。
+次の条件を満たすとき、$\mathbf a_0, \mathbf a_1, \cdots, \mathbf a_{n-1}$が線形独立であるという。
 
 <Save w="1">
 ```math:inline
@@ -77,13 +77,13 @@ c_{i} \mathbf a_{i}
 
 「<Load w="1"/>となるのが$c_0=c_1=\cdots=c_{n-1}=0$のときのみ。」
 
-<Q w="null-seq"/>は<Q w="lin-indep"/>である。
+空列は線形独立である。
 
-## <Q w="lin-dep"k/>
+## 線形従属
 
-$\mathbf a_0, \mathbf a_1, \cdots, \mathbf a_{n-1}$が<Q w="lin-indep"/>でないとき、<Q w="lin-dep"d/>とする。
+$\mathbf a_0, \mathbf a_1, \cdots, \mathbf a_{n-1}$が線形独立でないとき、線形従属とする。
 
-## <Q w="lin-indep"k/>と<Q w="mat-rank"k/>
+## 線形独立と行列のランク
 
 <Save w="1">
 ```math:inline
@@ -97,7 +97,7 @@ A=
 ```
 </Save>
 
-<Q w="lin-sp"/>$\K^n$を考える。<Load w="1"/>とおく。
+線形空間$\K^n$を考える。<Load w="1"/>とおく。
 
 <Save w="1">
 ```math:inline
@@ -107,26 +107,26 @@ A
 \mathbf 0
 ```
 </Save>
-<Q w="homo"/><Q w="system-of-lin-eq"/><Load w="1"/>を考える。
-<Q w="lin-indep"/>の定義は、「$\mathbf x = \mathbf 0$のみが<Q w="sol"/>」と言い換えられる。
+斉次線型方程式<Load w="1"/>を考える。
+線形独立の定義は、「$\mathbf x = \mathbf 0$のみが解」と言い換えられる。
 
-<Q w="homo"/><Q w="system-of-lin-eq"/>の<Q w="sol"/>が唯一であるのは<Q w="dof"/>が$0$であるときであった。
+斉次線型方程式の解が唯一であるのは自由度が$0$であるときであった。
 
-つまり、$\K^n$の<Q w="seq"/>が<Q w="lin-combi"/>かどうかは、<Q w="mat-rank"/>を調べればわかる。
+つまり、$\K^n$のSEQが線形結合かどうかは、行列のランクを調べればわかる。
 
-## <Q w="lin-indep"k/>の性質
+## 線形独立性の性質
 
-1. <Q w="zero"/><Q w="vec"/>を含むなら、<Q w="lin-dep"/>
-2. <Q w="lin-dep"/>な<Q w="seq"/>に<Q w="vec"/>を追加しても<Q w="lin-dep"/>
-3. <Q w="lin-indep"/>な<Q w="seq"/>から<Q w="vec"/>を除いても<Q w="lin-indep"/>
-4. $\K^n$の<Q w="vec"/>は$n+1$本以上なら<Q w="lin-dep"/>
+1. 零ベクトルを含むなら、線形従属
+2. 線形従属なSEQにベクトルを追加しても線形従属
+3. 線形独立なSEQからベクトルを除いても線形独立
+4. $\K^n$のベクトルは$n+1$本以上なら線形従属
 
 <Prove>
 <span>4.</span> について。
 
-条件にあう<Q w="vec"/>を並べると、$m > n$の<Q w="mat"/>$\underset{n \times m}A$ということになる。
-$\rank A < n$より、$m - \rank A > m - n > 0$となる。よって、<Q w="dof"/>は$0$より大きいので<Q w="lin-dep"/>。
+条件にあうベクトルを並べると、$m > n$の行列$\underset{n \times m}A$ということになる。
+$\rank A < n$より、$m - \rank A > m - n > 0$となる。よって、自由度は$0$より大きいので線形従属。
 </Prove>
 
-<Q w="seq"/>でなく<Q w="set"/>でもいいように見えるが、<Q w="seq"/>と<Q w="mat"/>の<Q w="identify"/>をよく行うため、<Q w="seq"/>として定義しておいたほうが都合がよい。
-例えば、$k_i \in \K$による<Q w="scaling"/>の和を$\sum_{i \in n} k_i \cdot \mathbf a_i = \t{\begin{pmatrix}k_0 & k_1 & \cdots & k_{n-1}\end{pmatrix}} \cdot \begin{pmatrix}\mathbf a_0 & \mathbf a_1 & \cdots & \mathbf a_{n-1}\end{pmatrix}$のように記述する。
+SEQでなく集合でもいいように見えるが、SEQと行列の同一視をよく行うため、SEQとして定義しておいたほうが都合がよい。
+例えば、$k_i \in \K$によるスカラー倍の和を$\sum_{i \in n} k_i \cdot \mathbf a_i = \t{\begin{pmatrix}k_0 & k_1 & \cdots & k_{n-1}\end{pmatrix}} \cdot \begin{pmatrix}\mathbf a_0 & \mathbf a_1 & \cdots & \mathbf a_{n-1}\end{pmatrix}$のように記述する。
