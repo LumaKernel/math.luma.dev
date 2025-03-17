@@ -34,13 +34,12 @@ import { makeGeneralAnchor } from "@/components/anchor/makeGeneralAnchor";
 import Series, { makeSeries } from "@/components/series/Series";
 
 export type ArticlePageProps = {
-  readonly params: {
+  readonly params: Promise<{
     readonly slug?: readonly string[];
-  };
+  }>;
 };
-export default async function ArticlePage({
-  params: { slug },
-}: ArticlePageProps) {
+export default async function ArticlePage({ params }: ArticlePageProps) {
+  const { slug } = await params;
   const linkPath = slug?.join("/") ?? "";
   const { index, srcMeta, info } = await getPageInfo(linkPath);
   return (
@@ -63,8 +62,7 @@ export default async function ArticlePage({
               LumaMdxLayout: Fragment,
               LumaKatex,
               Series: makeSeries(linkPath),
-              // C: Counter,
-              C: Debug,
+              LumaCounter: Counter,
               Prove,
               h1: H1,
               h2: H2 as any,

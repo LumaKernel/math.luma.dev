@@ -1,10 +1,14 @@
 ```toml
 title = "行列同士の積の定義"
 published = true
+[import]
+IsRowEchMat = "!"
+IsRedRowEchMat = "!"
+GaussElim = "!"
 ```
 
 
-```math:def
+```math!def
 \def\i{\ci{i}}
 \def\iv{\ci{\text{\textbar}}}
 \def\ih{\ci{\text{\textemdash}}}
@@ -75,23 +79,23 @@ A\mathbf{x}=\mathbf{b}
 
 ## 行列の積の性質
 
-<C w="mat-mult" template="%s. " start={1} />
+<C template="%s. " start={1} />
 
-### <C w="mat-mult"/>結合律: $(AB)C=A(BC)$
+### [#]結合律: $(AB)C=A(BC)$
 
 <Prove>
   TODO
 </Prove>
 
-### <C w="mat-mult"/>行列の和との分配則: $A(B+C)=AB+AC$
+### [#]行列の和との分配則: $A(B+C)=AB+AC$
 
 証明略。
 
-### <C w="mat-mult"/>スカラー倍との結合律: $(kA)B=k(AB)$
+### [#]スカラー倍との結合律: $(kA)B=k(AB)$
 
 証明略。
 
-### <C w="mat-mult"/>$\t{(AB)}=\t{B}\t{A}$
+### [#]$\t{(AB)}=\t{B}\t{A}$
 
 <Prove>
   $X \coloneqq \LHS$とする。$\t{X}= AB$となる。
@@ -182,13 +186,12 @@ $BA=I$に対して同様の議論を行うことで、零列も含まれない�
 
 行階段形とは、以下の条件をすべて満たす行列のこと。
 
-<Graph
-  w="is-row-ech-mat"
+<IsRowEchMat
   init={[[4,3,2,0,2],[0,0,1,2,1],[0,0,0,1,0],[0,0,0,0,0]]}
 >
   <>主成分が右肩下がりである。</>
   <>$0$だけの行より、そうでない行がすべて上にくる</>
-</Graph>
+</IsRowEchMat>
 
 ## 行簡約階段形
 
@@ -196,14 +199,14 @@ $BA=I$に対して同様の議論を行うことで、零列も含まれない�
 
 行標準形とも。
 
-<Graph
+<IsRedRowEchMat
   w="is-red-row-ech-mat"
   init={[[1,4,0,5,0,2],[0,0,1,0,0,2],[0,0,0,0,1,0],[0,0,0,0,0,0]]}
 >
   <>行階段形である</>
   <>すべての主成分は$1$</>
   <>主成分のある列は、主成分以外は$0$</>
-</Graph>
+</IsRedRowEchMat>
 
 ### 解を求めた多変数線形方程式を行列で表現すると行簡約階段形
 
@@ -551,8 +554,7 @@ P_{i,j}(\lambda)^{-1} \defeq P_{i, j} (- \lambda)
 
 行列$A$に行基本変形を何回か行って$B$が得られるとき、$A\sim B$という二項関係を定義すると、これは同値関係になる。
 
-<!-- TODO: 列被り -->
-言い換えると、基本行列のSEQUENCE$(P_0, P_1, \cdots, P_{n-1})$であって、$B=P_0 P_1 \cdots P_{n-1}A$であるものが存在するとき、かつそのときに限り$A \sim B$であると定義する。
+言い換えると、基本行列のSEQ$(P_0, P_1, \cdots, P_{n-1})$であって、$B=P_0 P_1 \cdots P_{n-1}A$であるものが存在するとき、かつそのときに限り$A \sim B$であると定義する。
 
 <Prove>
 a. 反射律: $A \sim A$
@@ -602,7 +604,7 @@ c. 推移律: $A \sim B \wedge B \sim C \Longrightarrow A \sim C$
 
 「$A$を簡約化する」というのを、「基本行列の列$P_0, P_1, \cdots P_{p-1}$であって、$P \coloneqq P_0 P_1 \cdots P_{p-1}$と定義して、$PA=X$なるものを選ぶ」を意味するものとする。変数$P, p$は$Q, q$であったりする場合もある。また、$P_{p-1}^{-1} \cdots P_1 P_0\cdots$を考えると、これは$P^{-1}$である。
 
-$P_i^{-1}$は[TODO](TODO)より常に存在する。
+$P_i^{-1}$はTODOより常に存在する。
 
 また、同様の用語として、上三角行列を目指すことを上三角化と呼ぶことにする。
 
@@ -616,7 +618,7 @@ $P_i^{-1}$は[TODO](TODO)より常に存在する。
 
 {/* TODO: ( るまライブラリ(実装部門)の生まれ変わりの準備ができたらそちらへのリンクを貼る予定。) */}
 
-<Graph w="gauss-elim" init={[[1,2,2,4],[2,3,1,5],[2,0,-5,8]]}/>
+<GaussElim init={[[1,2,2,4],[2,3,1,5],[2,0,-5,8]]}/>
 
 ### 前進消去
 
@@ -1213,7 +1215,7 @@ $BA=I$なる$B$が存在する。$B$を簡約化して$PB=I$となる。両辺�
 
 任意の行列$A$に関する行列のランクを、$A$を簡約化して$PA=X$になるとして、$X$の主成分の数として定義する。
 
-この定義は[TODO](#TODO)によってwell-definedである。($P$のとり方によらない)
+この定義はTODOによってwell-definedである。($P$のとり方によらない)
 
 行列のランクを$\rank A$と書く。
 
@@ -1227,14 +1229,14 @@ $PB$の簡約化$QPB=X$を考えると、$QP$がそのまま$B$の簡約化に�
 ### 系: $A$が正則行列なら、$\rank AB = \rank B$
 
 <Prove>
-[TODO](TODO)より$A=P_0 P_1 \cdots P_{p-1}$と表せるから、
-$\rank AB = \rank P_0 P_1 \cdots P_{p-1} B$、[TODO](TODO)を$p$回適用して、$\rank AB = \rank B$
+TODOより$A=P_0 P_1 \cdots P_{p-1}$と表せるから、
+$\rank AB = \rank P_0 P_1 \cdots P_{p-1} B$、TODOを$p$回適用して、$\rank AB = \rank B$
 </Prove>
 
 ### 定理: $A \in \R^{n \times n}$について。$A$が正則行列$\iff \rank A = n$
 
 <Prove>
-$\Longrightarrow$は[TODO](TODO)によりすぐ。
+$\Longrightarrow$はTODOによりすぐ。
 
 $\Longleftarrow$について。
 $\rank A = n$なので$A$を簡約化すると$PA=I$となる。$P$が$A^{-1}$である。
@@ -1275,7 +1277,7 @@ $\mathbf b = \mathbf 0$の場合、その線形方程式は斉次である、と
 線形方程式をガウスの消去法を使って解くことが可能。
 
 
-```math:def
+```math!def
 \def\augmat{\left(\begin{array}{c|c}A & \mathbf{b}\end{array}\right)}
 \def\augmatz{\left(\begin{array}{c|c}A & \mathbf{0}\end{array}\right)}
 \def\augmatx{\left(\begin{array}{c|c}A' & \mathbf{b}'\end{array}\right)}

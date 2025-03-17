@@ -1,14 +1,13 @@
 import printf from "printf";
 
 export type CounterProps = {
-  readonly w: string;
   readonly template: string;
   readonly start: number;
-  readonly countJson: string;
+  readonly index: number;
+  readonly total: number;
 };
-export default function Counter({ countJson, start, template }: Props) {
-  const count: number = JSON.parse(countJson);
-  const c = start + count;
+export default function Counter({ start, index, template }: CounterProps) {
+  const c = start + index;
   const numStr = c.toString();
   const str = printf(template, numStr);
   return <span>{str}</span>;

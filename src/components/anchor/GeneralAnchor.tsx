@@ -1,5 +1,4 @@
 import Debug from "../Debug";
-import path from "node:path";
 import AnchorInternal from "./internal/AnchorInternal";
 import { resolveLinkPath } from "@/lib/link-path";
 

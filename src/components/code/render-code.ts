@@ -19,6 +19,7 @@ export const renderCode = async (
   ]);
 
   if (stderr.length > 0) {
+    console.log(code);
     console.error(stderr);
   }
 

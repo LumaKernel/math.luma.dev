@@ -35,7 +35,14 @@ const ColumnRect = (props: React.ComponentProps<"rect">) => (
 
 const Gyou = () => (
   <>
-    <text fontSize="60" alignmentBaseline="middle" textAnchor="middle">
+    <text
+      fontSize="60"
+      alignmentBaseline="middle"
+      textAnchor="middle"
+      style={{
+        transform: "translateY(16.2px)",
+      }}
+    >
       行
     </text>
     <RowRect width="32" height="10" x="-6" y="-25" />
@@ -44,7 +51,14 @@ const Gyou = () => (
 
 const Retsu = () => (
   <>
-    <text fontSize="60" alignmentBaseline="middle" textAnchor="middle">
+    <text
+      fontSize="60"
+      alignmentBaseline="middle"
+      textAnchor="middle"
+      style={{
+        transform: "translateY(16.2px)",
+      }}
+    >
       列
     </text>
     <ColumnRect width="6.3" height="40" x="11.4" y="-30" />
@@ -53,7 +67,14 @@ const Retsu = () => (
 
 const Row = () => (
   <>
-    <text fontSize="80" alignmentBaseline="middle" textAnchor="middle">
+    <text
+      fontSize="80"
+      alignmentBaseline="middle"
+      textAnchor="middle"
+      style={{
+        transform: "translateY(24.2px)",
+      }}
+    >
       R
     </text>
     <text
@@ -71,7 +92,14 @@ const Row = () => (
 
 const Column = () => (
   <>
-    <text fontSize="80" alignmentBaseline="middle" textAnchor="middle">
+    <text
+      fontSize="80"
+      alignmentBaseline="middle"
+      textAnchor="middle"
+      style={{
+        transform: "translateY(21.2px)",
+      }}
+    >
       C
     </text>
     <text
