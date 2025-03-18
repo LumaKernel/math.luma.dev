@@ -22,7 +22,7 @@
 総積: product
 体:
   ruby: field
-  jaRuby: たい
+  ja-ruby: たい
 群: group
 可換群:
   ruby: commutative group
