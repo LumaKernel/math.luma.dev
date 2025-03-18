@@ -8,7 +8,7 @@ type RenderCodeResult = Readonly<{
 }>;
 export const renderCode = async (
   langCode0: string,
-  code: string
+  code: string,
 ): Promise<RenderCodeResult> => {
   const { stdout, stderr } = await execFileAsync("blogkit-internal-tool", [
     "lumahl",
@@ -19,7 +19,6 @@ export const renderCode = async (
   ]);
 
   if (stderr.length > 0) {
-    console.log(code);
     console.error(stderr);
   }
 
