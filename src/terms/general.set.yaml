@@ -21,3 +21,47 @@
 不変: invariant
 次数: degree
 次元: dimension
+有限次元: finite dimension
+無限次元: infinite dimension
+領域: domain
+数学的帰納法: mathematical induction
+構造的帰納法: structural induction
+組: tuple
+零: zero
+互換: swap
+置換: permutation
+再帰的: recursive
+偶奇: parity
+単射:
+  ruby: injection
+  alt:
+    - text: 入射
+    - text: 1対1写像
+単射的: injective
+全射:
+  ruby: surjection
+  alt:
+    - text: 上への写像
+  ref:
+    - wikip-ja: 全射
+全射的: surjective
+全単射:
+  ruby: bijection
+  alt:
+    - text: 可逆な写像
+      ruby: invertible mapping
+    - text: 上への1対1写像
+well-defined: well-defined
+同一視: identify
+列: sequence
+空列: 'null sequence'
+無限列: infinite sequence
+有限列: finite sequence
+添字:
+  ruby: index
+  ja-ruby: そえじ
+反転: reverse
+関数: function
+有限: finite
+無限: infinite
+配列: array

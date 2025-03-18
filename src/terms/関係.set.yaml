@@ -5,3 +5,16 @@ equivalence class: 同値類
 reflexivity: 反射律
 transitivity: 推移律
 symmetricity: 対称律
+可換: commutative
+可換則:
+  ruby: commutativity
+  alt:
+    - text: 可換律
+結合則:
+  ruby: associativity
+  alt:
+    - text: 結合律
+分配則:
+  ruby: distributivity
+  alt:
+    - text: 分配律

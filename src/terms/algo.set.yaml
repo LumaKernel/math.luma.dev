@@ -5,3 +5,16 @@
     - text: 計算複雑性
 時間計算量: time complexitiy
 空間計算量: space complexitiy
+動的計画法:
+  ruby: dynamic programming
+  short: DP
+ナップサック問題: knapsack problem
+0-1 ナップサック問題: 0-1 knapsack problem
+決定問題: decision problem
+# https://en.wikipedia.org/wiki/Decision_problem
+巡回セールスマン問題:
+  ruby: traveling salesman problem
+  short: TSP
+貪欲法: greedy
+k-means法: k-means
+ブラックボックス最適化: black-box optimization

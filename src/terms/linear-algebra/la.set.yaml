@@ -1,0 +1,9 @@
+正規直交系: orthonormal system
+# https://encyclopediaofmath.org/wiki/Orthonormal_system#:~:text=An%20orthonormal%20system%20of%20vectors,)%3D1%20(normalization).
+線形空間:
+  ruby: linear space
+  alt:
+    - text: ベクトル空間
+      ruby: vector space
+実数ベクトル空間: real vector space
+虚数ベクトル空間: complex vector space

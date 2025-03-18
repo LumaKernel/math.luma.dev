@@ -42,4 +42,20 @@
 恒等射: identity morphism
 作用: action
 単位元: identity
-
+零因子: zero divisor
+逆元: inverse
+左逆元: left inverse
+右逆元: right inverse
+演算: operation
+演算子: operator
+被演算子:
+  ruby: operand
+  alt:
+    - text: オペランド
+可逆元:
+  ruby: invertible
+  alt:
+    - text: 単元
+巡回: cyclic
+代数的構造: algebraic structure
+代数学の基本定理: fundamental theorem of algebra

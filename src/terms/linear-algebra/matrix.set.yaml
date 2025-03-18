@@ -106,3 +106,47 @@
 線形性: linearity
 線形写像: linear map
 線形変換: linear transformation
+行列の相等: matrix equality
+行列の和:
+  ruby: matrix addition
+  hide_ruby: true
+行列の差:
+  ruby: matrix subtraction
+  hide_ruby: true
+行列の積:
+  ruby: matrix multiplication
+  hide_ruby: true
+行列の符号反転:
+  ruby: matrix negation
+  hide_ruby: true
+行列の階数:
+  ruby: matrix rank
+  alt:
+    - text: ランク
+トレース: trace
+固有値: eigenvalue
+固有方程式: eigenvalue equation
+固有ベクトル: eigenvector
+固有空間: eigenspace
+行列式: determinant
+表現行列: transformation matrix
+スカラー: scalar
+スカラー倍: scaling
+正則行列:
+  ruby: invertible
+  slug: invertible-matrix
+自由度: degree of freedom
+行列の相似:
+  ruby: similar
+  slug: matrix-similar
+相似行列: similar matrix
+転置: transpose
+転置行列: transposed matrix
+逆行列:
+  ruby: inverse
+  slug: matrix-inverse
+ベクトル: vector
+列ベクトル: column vector
+列基本ベクトル: column unit vector
+行ベクトル: row vector
+行基本ベクトル: row unit vector
