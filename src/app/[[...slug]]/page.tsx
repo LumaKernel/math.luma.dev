@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use server";
 import Code from "@/components/code/Code";
 import ArticleLayout from "@/components/layouts/ArticleLayout";
@@ -32,6 +31,8 @@ import { fromAsyncThrowable } from "neverthrow";
 import path from "node:path";
 import { makeGeneralAnchor } from "@/components/anchor/makeGeneralAnchor";
 import Series, { makeSeries } from "@/components/series/Series";
+import Term from "@/components/term/Term";
+import TermServer from "@/components/term/TermServer";
 
 export type ArticlePageProps = {
   readonly params: Promise<{
@@ -61,12 +62,13 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
               LumaToc: Fragment,
               LumaMdxLayout: Fragment,
               LumaKatex,
+              Term: TermServer,
               Series: makeSeries(linkPath),
               LumaCounter: Counter,
               Prove,
               h1: H1,
-              h2: H2 as any,
-              h3: H3 as any,
+              h2: H2,
+              h3: H3,
               Debug,
             }}
             options={{

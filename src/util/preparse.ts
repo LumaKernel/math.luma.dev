@@ -1,6 +1,7 @@
 import { mdxIndex } from "@/contents-index.gen";
+import { TermDict, termDict } from "@/terms-index.gen";
 import { ArticleInfo, SrcMeta } from "@/types/article";
-import { TermDict, TermMapPredefinedPresets } from "@/types/term";
+import { TermMapPredefinedPresets } from "@/types/term";
 import { fromAsyncThrowable } from "neverthrow";
 import { execFile } from "node:child_process";
 import fs from "node:fs/promises";
@@ -30,8 +31,6 @@ export const preparse = async (input: PreparseParams) => {
 
 // TODO
 const presets: TermMapPredefinedPresets = {};
-// TODO
-const termDict: TermDict = [];
 
 export const getPageInfo = async (linkPath: string) => {
   const index = Object.hasOwn(mdxIndex, linkPath) ? mdxIndex[linkPath] : null;
