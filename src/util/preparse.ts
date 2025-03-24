@@ -1,13 +1,11 @@
-import { mdxIndex } from "@/contents-index.gen";
-import { TermDict, termDict } from "@/terms-index.gen";
-import { ArticleInfo, SrcMeta } from "@/types/article";
-import { TermMapPredefinedPresets } from "@/types/term";
+import { mdxIndex } from "@/contents-index.gen.ts";
+import { TermDict, termDict } from "@/terms-index.gen.ts";
+import { ArticleInfo, SrcMeta } from "@/types/article.ts";
+import { TermMapPredefinedPresets } from "@/types/term.ts";
 import { fromAsyncThrowable } from "neverthrow";
-import { execFile } from "node:child_process";
+import { spawn } from "node:child_process";
 import fs from "node:fs/promises";
 import path from "node:path";
-import util from "node:util";
-const execFileAsync = util.promisify(execFile);
 
 export type PreparseParams = {
   readonly mdx: string;
@@ -17,14 +15,18 @@ export type PreparseParams = {
 };
 
 export const preparse = async (input: PreparseParams) => {
-  const { stdout, stderr } = await execFileAsync(
+  const p = spawn(
     "blogkit-internal-tool",
     ["preparse", "--input-json", JSON.stringify(input)],
-    { encoding: "utf8" }
+    {
+      stdio: "pipe",
+      timeout: 0.5,
+    },
   );
   if (stderr.length > 0) {
     console.error(stderr);
   }
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const info: ArticleInfo = JSON.parse(stdout);
   return info;
 };
@@ -38,8 +40,9 @@ export const getPageInfo = async (linkPath: string) => {
     throw new Error(`No index found for ${JSON.stringify(linkPath)}`);
   }
 
-  const filePathCands =
-    linkPath === "" ? ["_.mdx"] : [`${linkPath}.mdx`, `${linkPath}/_.mdx`];
+  const filePathCands = linkPath === ""
+    ? ["_.mdx"]
+    : [`${linkPath}.mdx`, `${linkPath}/_.mdx`];
   const fileContents = (
     await Promise.all(
       filePathCands.map(async (p) => {
@@ -48,7 +51,7 @@ export const getPageInfo = async (linkPath: string) => {
         )()
           .map((e) => [p, e] as const)
           .unwrapOr(null);
-      })
+      }),
     )
   ).filter((x) => x != null);
   const [fileContent, fileContent1] = fileContents;

@@ -1,6 +1,6 @@
 "use client";
 import type { FC } from "react";
-import { range } from "@/lib/number";
+import { range } from "@/lib/number.ts";
 
 export const COLOR = {
   a: "#3eeeae",

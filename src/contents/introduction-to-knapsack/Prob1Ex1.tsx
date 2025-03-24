@@ -1,8 +1,8 @@
 "use client";
 import type { FC } from "react";
-import GraphSvg from "@/components/svg/GraphSvg";
-import SvgNg from "@/components/util/svg/SvgNg";
-import { Knapsack, Prob1 } from "./_parts";
+import GraphSvg from "@/components/svg/GraphSvg.tsx";
+import SvgNg from "@/components/util/svg/SvgNg.tsx";
+import { Knapsack, Prob1 } from "./_parts.tsx";
 
 const Prob1Ex1: FC = () => {
   const X0 = -75;

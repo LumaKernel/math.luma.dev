@@ -1,7 +1,8 @@
 "use client";
+import React from "react";
 import Link from "next/link";
-import { cssColors } from "@/lib/colors";
-import { TermDef } from "@/terms-index.gen";
+import { cssColors } from "@/lib/colors.ts";
+import { TermDef } from "@/terms-index.gen.ts";
 import { Option } from "@luma-dev/option-ts";
 
 const thickness = "1.2px";
@@ -9,41 +10,48 @@ const thickness = "1.2px";
 const Ruby = (props: React.ComponentProps<"ruby">) => (
   <>
     <ruby {...props} />
-    <style jsx>{`
+    <style jsx>
+      {`
       ruby {
         padding-left: 0.2em;
         padding-right: 0.2em;
       }
-    `}</style>
+    `}
+    </style>
   </>
 );
 
 const PlainAnchor = (props: React.ComponentProps<"a">) => (
   <>
     <a {...props} />
-    <style jsx>{`
+    <style jsx>
+      {`
       a {
         text-decoration: none;
       }
-    `}</style>
+    `}
+    </style>
   </>
 );
 
 const TextWrapper = (props: React.ComponentProps<"span">) => (
   <>
     <span {...props} />
-    <style jsx>{`
+    <style jsx>
+      {`
       span {
         position: relative;
       }
-    `}</style>
+    `}
+    </style>
   </>
 );
 
 const Svg = (props: React.ComponentProps<"svg">) => (
   <>
     <svg {...props} />
-    <style jsx>{`
+    <style jsx>
+      {`
       svg {
         display: inline;
         width: 100%;
@@ -51,43 +59,50 @@ const Svg = (props: React.ComponentProps<"svg">) => (
         bottom: 0.06em;
         left: 0;
       }
-    `}</style>
+    `}
+    </style>
   </>
 );
 
 const Text = (props: React.ComponentProps<"span">) => (
   <>
     <span {...props} />
-    <style jsx>{`
+    <style jsx>
+      {`
       span {
         display: inline-block;
         text-align: center;
       }
-    `}</style>
+    `}
+    </style>
   </>
 );
 
 const Rt = (props: React.ComponentProps<"rt">) => (
   <>
     <rt {...props} />
-    <style jsx>{`
+    <style jsx>
+      {`
       rt {
         font-size: 0.8em;
         font-weight: 400;
         transform: translateY(0.2em);
       }
-    `}</style>
+    `}
+    </style>
   </>
 );
 
 const Line = (props: React.ComponentProps<"line">) => (
   <>
     <line {...props} />
-    <style jsx>{`
+    <style jsx>
+      {`
       line {
         stroke: ${cssColors.decorationPrimary};
       }
-    `}</style>
+    `}
+    </style>
   </>
 );
 
@@ -119,13 +134,13 @@ export default function TermClient({
     );
     // return <span title={title}>{text}</span>;
   })();
-  const c = slug ? (
-    <Link href={`/terms/${slug}`} passHref legacyBehavior>
-      <PlainAnchor>{textInner}</PlainAnchor>
-    </Link>
-  ) : (
-    textInner
-  );
+  const c = slug
+    ? (
+      <Link href={`/terms/${slug}`} passHref legacyBehavior>
+        <PlainAnchor>{textInner}</PlainAnchor>
+      </Link>
+    )
+    : textInner;
   if (typeof main.ruby === "string") {
     return (
       <>

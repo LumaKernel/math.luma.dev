@@ -1,6 +1,6 @@
 "use server";
-import { termDictMap } from "@/terms-index.gen";
-import TermClient from "./TermClient";
+import { termDictMap } from "@/terms-index.gen.ts";
+import TermClient from "./TermClient.tsx";
 
 type TermProps = {
   readonly text: string;

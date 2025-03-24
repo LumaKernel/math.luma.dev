@@ -1,4 +1,4 @@
-import {SrcMeta} from "./article";
+import { SrcMeta } from "./article.ts";
 
 export type TermReading = Readonly<{
   text: string;

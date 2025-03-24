@@ -1,6 +1,7 @@
 "use client";
+import React from "react";
 import type { FC } from "react";
-import SvgGrid from "@/components/util/svg/SvgGrid";
+import SvgGrid from "@/components/util/svg/SvgGrid.tsx";
 
 type GraphSvgProps = Readonly<
   React.PropsWithChildren<
@@ -15,14 +16,16 @@ const GraphSvg: FC<GraphSvgProps> = ({ children, grid, ...props }) => (
       {grid && <SvgGrid grid={grid} />}
       {children}
     </svg>
-    <style jsx>{`
+    <style jsx>
+      {`
       svg {
         width: 100%;
         height: auto;
         font-family: "Noto Sans JP", "Inconsolata";
         font-weight: 400;
       }
-    `}</style>
+    `}
+    </style>
   </>
 );
 export default GraphSvg;
