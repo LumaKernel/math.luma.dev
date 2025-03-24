@@ -1,3 +1,4 @@
+import React from "react";
 export type DebugProps = Record<string, unknown>;
 export default function Debug(props: DebugProps) {
   return (

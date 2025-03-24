@@ -1,9 +1,9 @@
 "use client";
 
 import type { FC } from "react";
-import { cssColors } from "./lib/colors";
+import { cssColors } from "./lib/colors.ts";
 import React from "react";
-import Qed from "./Qed";
+import Qed from "./Qed.tsx";
 
 const thickness = "0.5px";
 const size = "6px";

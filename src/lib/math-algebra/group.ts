@@ -1,5 +1,5 @@
-import type { Prove } from './base';
-import { asProved } from './base';
+import type { Prove } from './base.ts';
+import { asProved } from './base.ts';
 
 // 群 (group)
 export interface GroupProtocol<T> {

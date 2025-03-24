@@ -1,4 +1,4 @@
-import type { PageSymbol } from '@blogkit/react-component-ssr';
+import type { PageSymbol } from "@/types/index.ts";
 
 declare const pageKeySymbol: unique symbol;
 type PageKey<T> = { [pageKeySymbol]: T };

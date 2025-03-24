@@ -1,6 +1,7 @@
+import React from "react";
 import type { FC } from 'react';
-import Button from './button';
-import type { ParsedPage } from './types';
+import Button from './button.ts';
+import type { ParsedPage } from './types.ts';
 
 const Wrapper: FC<any> = (props) => (
   <>

@@ -1,10 +1,11 @@
 "use client";
+import React from "react";
 import React, { useMemo, useCallback } from "react";
-import { matShape, range } from "@/components/lib/number";
-import { cssColors } from "@/components/lib/colors";
-import MatElemInput from "./MatElemInput";
-import type { CreateEelem } from "./MatViewer";
-import MatViewer from "./MatViewer";
+import { matShape, range } from "@/components/lib/number.ts";
+import { cssColors } from "@/components/lib/colors.ts";
+import MatElemInput from "./MatElemInput.tsx";
+import type { CreateEelem } from "./MatViewer.tsx";
+import MatViewer from "./MatViewer.tsx";
 
 export type MatWithPivot1Props = {
   readonly mat: number[][];

@@ -1,6 +1,7 @@
+import React from "react";
 "use server";
-import { mdxIndex } from "@/contents-index.gen";
-import { getPageInfo } from "@/util/preparse";
+import { mdxIndex } from "@/contents-index.gen.ts";
+import { getPageInfo } from "@/util/preparse.ts";
 import { stringTrimEnd, stringTrimStart } from "@luma-dev/string-util-ts";
 import Link from "next/link";
 

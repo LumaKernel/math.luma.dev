@@ -1,14 +1,15 @@
 "use client";
-import Button from "@/components/button";
-import MatWithPivot1 from "./MatWithPivot1";
+import React from "react";
+import Button from "@/components/button.tsx";
+import MatWithPivot1 from "./MatWithPivot1.tsx";
 import {
   isAllPivotsAre1,
   isOthersAre0InPivotColumn,
   isRowEchelonMatrix,
 } from "@/components/lib/la";
-import { essentialOfChildren } from "@/components/lib/react";
-import Ng from "@/components/ng";
-import Ok from "@/components/ok";
+import { essentialOfChildren } from "@/components/lib/react.ts";
+import Ng from "@/components/ng.tsx";
+import Ok from "@/components/ok.tsx";
 import React, { useCallback, useMemo, useState } from "react";
 
 const ResetOuter = (props: React.ComponentProps<"div">) => (

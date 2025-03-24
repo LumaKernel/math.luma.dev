@@ -1,4 +1,5 @@
-import { isTheme, useThemeContext } from "./contexts/theme";
+import React from "react";
+import { isTheme, useThemeContext } from "./contexts/theme.ts";
 import type { ChangeEventHandler } from "react";
 import { useCallback } from "react";
 

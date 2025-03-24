@@ -1,8 +1,10 @@
+import React from "react";
 import type { FC } from 'react';
-import PathBreadcrumbs from '@blogkit/blog-components/src/path-breadcrumbs';
-import ShowError from '@blogkit/blog-components/src/show-error';
-import pagesMetaData from '@blogkit/blog-components/pages-metadata.json';
-import type { Subdomain } from '@blogkit/next-config/src/main/processor-option';
+import PathBreadcrumbs from "@/components/path-breadcrumbs.ts";
+import ShowError from "@/components/show-error.ts";
+// import pagesMetaData from '@blogkit/blog-components/pages-metadata.json' - Commented for Deno compatibility
+const pagesMetaData: any[] = [];
+import type { Subdomain } from "@/types/index.ts";
 
 type Props = {
   href?: string;

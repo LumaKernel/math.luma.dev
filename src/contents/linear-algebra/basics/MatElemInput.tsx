@@ -1,7 +1,8 @@
 "use client";
-import { clampInAbs100Number } from "@/components/lib/number";
+import React from "react";
+import { clampInAbs100Number } from "@/components/lib/number.ts";
 import type { FormEvent } from "react";
-import { cssColors } from "@/components/lib/colors";
+import { cssColors } from "@/components/lib/colors.ts";
 
 const Input = (props: React.ComponentProps<"input">) => {
   <>

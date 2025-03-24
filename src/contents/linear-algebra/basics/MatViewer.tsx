@@ -1,8 +1,8 @@
 "use client";
 import React from "react";
-import { cssColors } from "@/components/lib/colors";
-import { range } from "@/components/lib/number";
-import { usePrefixedFlipped } from "@/components/graphs/prefixed-flipped";
+import { cssColors } from "@/components/lib/colors.ts";
+import { range } from "@/components/lib/number.ts";
+import { usePrefixedFlipped } from "@/components/graphs/prefixed-flipped.tsx";
 
 const Wrapper = (props: React.ComponentProps<"div">) => (
   <>

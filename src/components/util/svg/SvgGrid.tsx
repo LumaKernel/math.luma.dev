@@ -1,6 +1,7 @@
 "use client";
+import React from "react";
 import type { FC } from "react";
-import { range } from "@/lib/number";
+import { range } from "@/lib/number.ts";
 
 export interface Props {
   grid: [number, number];

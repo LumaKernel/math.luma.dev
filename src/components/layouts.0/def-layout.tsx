@@ -1,18 +1,28 @@
-import H1 from '@blogkit/blog-components/src/h1';
-import type { QuickTermDefinition } from '@blogkit/blog-components/src/lib/quick-term-dict';
-import { quickTerms } from '@blogkit/blog-components/src/lib/quick-term-dict';
-import type { PageConfig, PageLocation } from '@blogkit/blog-components/src/util/pages';
-import { locEq } from '@blogkit/blog-components/src/util/pages';
-import QuickTerm from '@blogkit/blog-components/src/quick-term';
-import ShowError from '@blogkit/blog-components/src/show-error';
-import { NextSeo } from 'next-seo';
-import type { FC } from 'react';
-import MainLayout from '@blogkit/blog-components/src/layouts/main-layout';
-import pagesMetaData from '@blogkit/blog-components/pages-metadata.json';
-import H2 from '@blogkit/blog-components/src/h2';
-import PathBreadcrumbs from '@blogkit/blog-components/src/path-breadcrumbs';
-import Link from 'next/link';
-import { hostOf } from '@blogkit/blog-components/src/util';
+import React from "react";
+import H1 from "@/components/heading/H1.tsx";
+// import type { QuickTermDefinition } from "@/lib/quick-term-dict.ts"; // Commented for Deno compatibility
+// import { quickTerms } from "@/lib/quick-term-dict.ts"; // Commented for Deno compatibility
+import type { PageConfig, PageLocation } from "@/components/util/pages.ts";
+import { locEq } from "@/components/util/pages.ts";
+import QuickTerm from "@/components/quick-term.tsx";
+import ShowError from "@/components/show-error.tsx";
+// import { NextSeo } from 'next-seo'; // Commented for Deno compatibility
+import type { FC } from "react";
+import MainLayout from "@/components/layouts.0/main-layout.tsx";
+// import pagesMetaData from '@blogkit/blog-components/pages-metadata.json' - Commented for Deno compatibility
+const pagesMetaData: any[] = [];
+import H2 from "@/components/heading/H2.tsx";
+import PathBreadcrumbs from "@/components/src/path-breadcrumbs.tsx";
+// import Link from 'next/link'; // Commented for Deno compatibility
+import { hostOf } from "@/components/util/index.ts";
+
+// Mock definitions for Deno compatibility
+type QuickTermDefinition = {
+  text: string;
+  jaRuby?: string;
+  slug?: string;
+};
+const quickTerms: Record<string, QuickTermDefinition> = {};
 
 interface Placement {
   loc: PageLocation;
@@ -20,13 +30,15 @@ interface Placement {
   slug?: string | null;
 }
 
-const quickTermBySlug = Object.fromEntries<[string, QuickTermDefinition] | undefined>(
+const quickTermBySlug = Object.fromEntries<
+  [string, QuickTermDefinition] | undefined
+>(
   Object.entries(quickTerms).map(([key, v]) => {
-    if (typeof v?.slug === 'string') {
+    if (typeof v?.slug === "string") {
       return [v.slug, [key, v]];
     }
     return [key, [key, v]];
-  }) as any,
+  }) as any
 );
 
 interface Props2 {
@@ -61,9 +73,12 @@ const TermUsageListInPage: FC<Props2> = ({ usage }) => {
           .filter((e) => e)
           .map((e) => (
             <li key={e}>
+              {/* Link component commented out for Deno compatibility
               <Link href={`${hostOf(subdomain)}/${linkPath}#${e}`} passHref>
                 <a>#{e}</a>
               </Link>
+              */}
+              <a href={`${hostOf(subdomain)}/${linkPath}#${e}`}>#{e}</a>
             </li>
           ))}
       </ul>
@@ -158,11 +173,13 @@ const DefLayout: FC<Props> = ({ children, subdomain, name }) => {
 
   return (
     <MainLayout>
+      {/* NextSeo component commented out for Deno compatibility
       <NextSeo
         title={`${titleText} - ${subdomain}.luma.dev`}
         description={term.text}
         canonical={`${hostOf(subdomain)}/terms/${name}`}
       />
+      */}
       <H1>
         <QuickTerm w={w} o />
       </H1>
@@ -174,7 +191,7 @@ const DefLayout: FC<Props> = ({ children, subdomain, name }) => {
       <TermUsageList usage={defined} />
       <H2 slug="使用箇所">使用箇所</H2>
       <TermUsageList usage={used} />
-      {process.env.NODE_ENV === 'development' && (
+      {process.env.NODE_ENV === "development" && (
         <div>
           <h2>デバッグ情報</h2>
           <ul>

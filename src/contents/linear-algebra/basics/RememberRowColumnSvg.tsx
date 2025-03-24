@@ -1,5 +1,6 @@
 "use client";
-import GraphSvg from "@/components/svg/GraphSvg";
+import React from "react";
+import GraphSvg from "@/components/svg/GraphSvg.tsx";
 
 const RowRect = (props: React.ComponentProps<"rect">) => (
   <>

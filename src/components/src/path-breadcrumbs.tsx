@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { FC } from "react";
 import React from "react";
-import { cssColors } from "@blogkit/blog-components/src/lib/colors";
+import { cssColors } from "@/lib/colors.ts";
 
 const Flex = (props: React.ComponentProps<"div">) => (
   <>

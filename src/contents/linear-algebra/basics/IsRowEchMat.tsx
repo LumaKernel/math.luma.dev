@@ -1,10 +1,11 @@
 "use client";
-import Button from "@/components/button";
-import MatWithPivot from "./MatWithPivot";
-import { isPivotDescending, isZerosBelowNonZeros } from "@/components/lib/la";
-import { essentialOfChildren } from "@/components/lib/react";
-import Ng from "@/components/ng";
-import Ok from "@/components/ok";
+import React from "react";
+import Button from "@/components/button.tsx";
+import MatWithPivot from "./MatWithPivot.tsx";
+import { isPivotDescending, isZerosBelowNonZeros } from "@/components/lib/la.ts";
+import { essentialOfChildren } from "@/components/lib/react.ts";
+import Ng from "@/components/ng.tsx";
+import Ok from "@/components/ok.tsx";
 import type { FC } from "react";
 import React, { useCallback, useMemo, useState } from "react";
 

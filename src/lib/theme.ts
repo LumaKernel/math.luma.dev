@@ -1,5 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { rootClass } from '@blogkit/blog-components/src/root';
+import { rootClass } from "@/components/root.ts";
 
 // TODO: not working
 

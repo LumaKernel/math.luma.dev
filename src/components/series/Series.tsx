@@ -1,9 +1,10 @@
+import React from "react";
 "use server";
-import PathBreadcrumbs from "@/components/PathBreadcrumbs";
-import { getSeriesConfig } from "@/util/parse-series-config";
-import { getPageInfo } from "@/util/preparse";
-import { makeMake } from "../make-make";
-import { resolveLinkPath } from "@/lib/link-path";
+import PathBreadcrumbs from "@/components/PathBreadcrumbs.tsx";
+import { getSeriesConfig } from "@/util/parse-series-config.ts";
+import { getPageInfo } from "@/util/preparse.ts";
+import { makeMake } from "../make-make.tsx";
+import { resolveLinkPath } from "@/lib/link-path.ts";
 import { Option } from "@luma-dev/option-ts";
 
 const renderChapter = (t: string, i: number) => {

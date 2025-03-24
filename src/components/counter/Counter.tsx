@@ -1,3 +1,4 @@
+import React from "react";
 import printf from "printf";
 
 export type CounterProps = {

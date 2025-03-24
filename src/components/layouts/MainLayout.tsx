@@ -1,4 +1,5 @@
 "use client";
+import React from "react";
 
 const Main = (props: React.ComponentProps<"main">) => (
   <>

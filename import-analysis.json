@@ -1,0 +1,445 @@
+{
+  "needsExtension": [
+    {
+      "file": "src/contents/introduction-to-knapsack/Prob1Illust2.tsx",
+      "imports": [
+        "import GraphSvg from \"@/components/svg/GraphSvg\";",
+        "import { Knapsack, Prob1 } from \"./_parts\";"
+      ]
+    },
+    {
+      "file": "src/contents/introduction-to-knapsack/Prob1StmtTable.tsx",
+      "imports": [
+        "import GraphSvg from \"@/components/svg/GraphSvg\";",
+        "import { range } from \"@/lib/number\";",
+        "import { Knapsack, Prob1 } from \"./_parts\";"
+      ]
+    },
+    {
+      "file": "src/contents/introduction-to-knapsack/Prob1Illust1.tsx",
+      "imports": [
+        "import GraphSvg from \"@/components/svg/GraphSvg\";",
+        "import { Knapsack, Prob1 } from \"./_parts\";"
+      ]
+    },
+    {
+      "file": "src/contents/introduction-to-knapsack/Prob1Stmt.tsx",
+      "imports": [
+        "import GraphSvg from \"@/components/svg/GraphSvg\";",
+        "import { Knapsack, Prob1 } from \"./_parts\";"
+      ]
+    },
+    {
+      "file": "src/contents/linear-algebra/basics/MatWithPivot.tsx",
+      "imports": [
+        "import { matShape, range } from \"@/components/lib/number\";",
+        "import { cssColors } from \"@/components/lib/colors\";",
+        "import MatElemInput from \"./MatElemInput\";",
+        "import type { CreateEelem } from \"./MatViewer\";",
+        "import MatViewer from \"./MatViewer\";"
+      ]
+    },
+    {
+      "file": "src/contents/linear-algebra/basics/RememberRowColumnSvg.tsx",
+      "imports": [
+        "import GraphSvg from \"@/components/svg/GraphSvg\";"
+      ]
+    },
+    {
+      "file": "src/contents/linear-algebra/basics/IsRowEchMat.tsx",
+      "imports": [
+        "import Button from \"@/components/button\";",
+        "import MatWithPivot from \"./MatWithPivot\";",
+        "import { isPivotDescending, isZerosBelowNonZeros } from \"@/components/lib/la\";",
+        "import { essentialOfChildren } from \"@/components/lib/react\";",
+        "import Ng from \"@/components/ng\";",
+        "import Ok from \"@/components/ok\";"
+      ]
+    },
+    {
+      "file": "src/contents/linear-algebra/basics/MatViewer.tsx",
+      "imports": [
+        "import { cssColors } from \"@/components/lib/colors\";",
+        "import { range } from \"@/components/lib/number\";",
+        "import { usePrefixedFlipped } from \"@/components/graphs/prefixed-flipped\";"
+      ]
+    },
+    {
+      "file": "src/contents/linear-algebra/basics/MatElemInput.tsx",
+      "imports": [
+        "import { clampInAbs100Number } from \"@/components/lib/number\";",
+        "import { cssColors } from \"@/components/lib/colors\";"
+      ]
+    },
+    {
+      "file": "src/contents/linear-algebra/basics/MatWithPivot1.tsx",
+      "imports": [
+        "import { matShape, range } from \"@/components/lib/number\";",
+        "import { cssColors } from \"@/components/lib/colors\";",
+        "import MatElemInput from \"./MatElemInput\";",
+        "import type { CreateEelem } from \"./MatViewer\";",
+        "import MatViewer from \"./MatViewer\";"
+      ]
+    },
+    {
+      "file": "src/contents/linear-algebra/basics/MatIndexIndicator.tsx",
+      "imports": [
+        "import { cssFonts } from \"@/components/lib/fonts\";"
+      ]
+    },
+    {
+      "file": "src/contents/linear-algebra/basics/GaussElim.tsx",
+      "imports": [
+        "import type { NumberRational } from \"@/lib/math-algebra/rational\";",
+        "import type { FieldProtocol } from \"@/components/lib/math-algebra/field\";",
+        "import { fieldUtil } from \"@/components/lib/math-algebra/field\";",
+        "import type { Matrix } from \"@/components/lib/math-algebra/linear-algebra\";",
+        "import { gcdNumber, matShape, range } from \"@/components/lib/number\";",
+        "import MatViewer from \"./MatViewer\";",
+        "import MatElemInput from \"./MatElemInput\";",
+        "import { cssColors } from \"@/components/lib/colors\";",
+        "import MatIndexIndicator from \"./MatIndexIndicator\";"
+      ]
+    },
+    {
+      "file": "src/contents/linear-algebra/basics/IsRedRowEchMat.tsx",
+      "imports": [
+        "import Button from \"@/components/button\";",
+        "import MatWithPivot1 from \"./MatWithPivot1\";",
+        "import { essentialOfChildren } from \"@/components/lib/react\";",
+        "import Ng from \"@/components/ng\";",
+        "import Ok from \"@/components/ok\";"
+      ]
+    },
+    {
+      "file": "src/app/[[...slug]]/page.tsx",
+      "imports": [
+        "import Code from \"@/components/code/Code\";",
+        "import ArticleLayout from \"@/components/layouts/ArticleLayout\";",
+        "import SharedApp from \"@/components/SharedApp\";",
+        "import { SrcMeta } from \"@/types/article\";",
+        "import Debug from \"@/components/Debug\";",
+        "import H1 from \"@/components/heading/H1\";",
+        "import H2 from \"@/components/heading/H2\";",
+        "import H3 from \"@/components/heading/H3\";",
+        "import LumaKatex from \"@/components/luma-katex/LumaKatex\";",
+        "import Counter from \"@/components/counter/Counter\";",
+        "import Prove from \"@/components/Prove\";",
+        "import { mdxIndex, tsExports } from \"@/contents-index.gen\";",
+        "import { TermDict, TermMapPredefinedPresets } from \"@/types/term\";",
+        "import { getPageInfo, preparse } from \"@/util/preparse\";",
+        "import { makeGeneralAnchor } from \"@/components/anchor/makeGeneralAnchor\";",
+        "import Series, { makeSeries } from \"@/components/series/Series\";",
+        "import Term from \"@/components/term/Term\";",
+        "import TermServer from \"@/components/term/TermServer\";"
+      ]
+    },
+    {
+      "file": "src/components/luma-katex/LumaKatexClient.tsx",
+      "imports": [
+        "import { DisplayMode } from \"./type\";"
+      ]
+    },
+    {
+      "file": "src/components/luma-katex/LumaKatex.tsx",
+      "imports": [
+        "import { DisplayMode } from \"./type\";",
+        "import LumaKatexClient from \"./LumaKatexClient\";",
+        "import Debug from \"../Debug\";"
+      ]
+    },
+    {
+      "file": "src/components/series/Series.tsx",
+      "imports": [
+        "import PathBreadcrumbs from \"@/components/PathBreadcrumbs\";",
+        "import { getSeriesConfig } from \"@/util/parse-series-config\";",
+        "import { getPageInfo } from \"@/util/preparse\";",
+        "import { makeMake } from \"../make-make\";",
+        "import { resolveLinkPath } from \"@/lib/link-path\";"
+      ]
+    },
+    {
+      "file": "src/components/series/SeriesNav.tsx",
+      "imports": [
+        "import SeriesNavButton from \"./series-nav-button\";"
+      ]
+    },
+    {
+      "file": "src/components/series/series-nav-button.tsx",
+      "imports": [
+        "import Button from './button';",
+        "import type { ParsedPage } from './types';"
+      ]
+    },
+    {
+      "file": "src/components/SharedApp.tsx",
+      "imports": [
+        "import { ThemeContext, useTheme } from \"./contexts/theme\";",
+        "import GlobalStyle from \"./global-style\";",
+        "import Header from \"./header\";"
+      ]
+    },
+    {
+      "file": "src/components/util/svg/SvgGrid.tsx",
+      "imports": [
+        "import { range } from \"@/lib/number\";"
+      ]
+    },
+    {
+      "file": "src/components/heading/H2.tsx",
+      "imports": [
+        "import { cssColors } from \"../lib/colors\";",
+        "import SlugLink from \"./SlugLink\";"
+      ]
+    },
+    {
+      "file": "src/components/heading/H3.tsx",
+      "imports": [
+        "import { cssColors } from \"../lib/colors\";",
+        "import SlugLink from \"./SlugLink\";"
+      ]
+    },
+    {
+      "file": "src/components/heading/H1.tsx",
+      "imports": [
+        "import { cssColors } from \"../lib/colors\";",
+        "import SlugLink from \"./SlugLink\";"
+      ]
+    },
+    {
+      "file": "src/components/code/Code.tsx",
+      "imports": [
+        "import Highlighted from \"./hl/Highlighted\";",
+        "import PreForCode from \"./hl/PreForCode\";",
+        "import Span from \"./hl/Span\";",
+        "import { renderCode } from \"./render-code\";"
+      ]
+    },
+    {
+      "file": "src/components/wikipedia.tsx",
+      "imports": [
+        "import { cssColors } from './lib/colors';"
+      ]
+    },
+    {
+      "file": "src/components/global-style.tsx",
+      "imports": [
+        "import { cssColorProperties, cssColors } from \"./lib/colors\";",
+        "import { cssFonts } from \"./lib/fonts\";"
+      ]
+    },
+    {
+      "file": "src/components/Prove.tsx",
+      "imports": [
+        "import { cssColors } from \"./lib/colors\";",
+        "import Qed from \"./Qed\";"
+      ]
+    },
+    {
+      "file": "src/components/layouts/ArticleLayout.tsx",
+      "imports": [
+        "import MainLayout from \"./MainLayout\";",
+        "import PathBreadcrumbs from \"../PathBreadcrumbs\";",
+        "import { SrcMeta } from \"@/types/article\";"
+      ]
+    },
+    {
+      "file": "src/components/Qed.tsx",
+      "imports": [
+        "import { cssFonts } from \"./lib/fonts\";"
+      ]
+    },
+    {
+      "file": "src/components/lib/math-algebra/group.ts",
+      "imports": [
+        "import type { Prove } from './base';",
+        "import { asProved } from './base';"
+      ]
+    },
+    {
+      "file": "src/components/lib/math-algebra/rational.ts",
+      "imports": [
+        "import { asProved } from './base';",
+        "import type { FieldProtocol } from './field';",
+        "import { numberField, fieldUtil } from './field';"
+      ]
+    },
+    {
+      "file": "src/components/lib/math-algebra/field.ts",
+      "imports": [
+        "import type { Prove } from './base';",
+        "import { asProved } from './base';",
+        "import type { GroupProtocol } from './group';",
+        "import { numberGroup, numberMultGroup } from './group';"
+      ]
+    },
+    {
+      "file": "src/components/lib/__tests__/parse-code-class.spec.ts",
+      "imports": [
+        "import parseCodeClass from '../parse-code-class';"
+      ]
+    },
+    {
+      "file": "src/components/lib/la.ts",
+      "imports": [
+        "import { matShape, range } from \"@/components/lib/number\";"
+      ]
+    },
+    {
+      "file": "src/components/md-graph.tsx",
+      "imports": [
+        "import ShowError from './show-error';",
+        "import RememberRowColumnSvg from './graphs/linear-algebra/remember-row-column-svg';",
+        "import IsRowEchMat from './graphs/linear-algebra/is-row-ech-mat';",
+        "import IsRedRowEchMat from './graphs/linear-algebra/is-red-row-ech-mat';",
+        "import GaussElim from './graphs/linear-algebra/gauss-elim';"
+      ]
+    },
+    {
+      "file": "src/components/header.tsx",
+      "imports": [
+        "import { isTheme, useThemeContext } from \"./contexts/theme\";"
+      ]
+    },
+    {
+      "file": "src/components/anchor/internal/AnchorInternal.tsx",
+      "imports": [
+        "import { mdxIndex } from \"@/contents-index.gen\";",
+        "import { getPageInfo } from \"@/util/preparse\";"
+      ]
+    },
+    {
+      "file": "src/components/anchor/GeneralAnchor.tsx",
+      "imports": [
+        "import Debug from \"../Debug\";",
+        "import AnchorInternal from \"./internal/AnchorInternal\";",
+        "import { resolveLinkPath } from \"@/lib/link-path\";"
+      ]
+    },
+    {
+      "file": "src/components/anchor/makeGeneralAnchor.tsx",
+      "imports": [
+        "import { makeMake } from \"../make-make\";",
+        "import GeneralAnchor from \"./GeneralAnchor\";"
+      ]
+    },
+    {
+      "file": "src/components/encyclopedia-of-math.tsx",
+      "imports": [
+        "import { cssColors } from './lib/colors';"
+      ]
+    },
+    {
+      "file": "src/components/button.tsx",
+      "imports": [
+        "import { cssColors } from \"@/components/lib/colors\";",
+        "import { rootClass } from \"@/components/root\";"
+      ]
+    },
+    {
+      "file": "src/components/PathBreadcrumbs.tsx",
+      "imports": [
+        "import { cssColors } from \"./lib/colors\";"
+      ]
+    },
+    {
+      "file": "src/lib/math-algebra/group.ts",
+      "imports": [
+        "import type { Prove } from './base';",
+        "import { asProved } from './base';"
+      ]
+    },
+    {
+      "file": "src/lib/math-algebra/rational.ts",
+      "imports": [
+        "import { asProved } from './base';",
+        "import type { FieldProtocol } from './field';",
+        "import { numberField, fieldUtil } from './field';"
+      ]
+    },
+    {
+      "file": "src/lib/math-algebra/field.ts",
+      "imports": [
+        "import type { Prove } from './base';",
+        "import { asProved } from './base';",
+        "import type { GroupProtocol } from './group';",
+        "import { numberGroup, numberMultGroup } from './group';"
+      ]
+    },
+    {
+      "file": "src/lib/__tests__/parse-code-class.spec.ts",
+      "imports": [
+        "import parseCodeClass from '../parse-code-class';"
+      ]
+    },
+    {
+      "file": "src/lib/la.ts",
+      "imports": [
+        "import { matShape, range } from \"@/components/lib/number\";"
+      ]
+    }
+  ],
+  "needsReactImport": [
+    "src/contents/introduction-to-knapsack/Prob1Ex1.tsx",
+    "src/contents/introduction-to-knapsack/_parts.tsx",
+    "src/contents/introduction-to-knapsack/Prob1Illust2.tsx",
+    "src/contents/introduction-to-knapsack/Prob1StmtTable.tsx",
+    "src/contents/introduction-to-knapsack/Prob1Illust1.tsx",
+    "src/contents/introduction-to-knapsack/Prob1Stmt.tsx",
+    "src/contents/linear-algebra/basics/MatWithPivot.tsx",
+    "src/contents/linear-algebra/basics/RememberRowColumnSvg.tsx",
+    "src/contents/linear-algebra/basics/IsRowEchMat.tsx",
+    "src/contents/linear-algebra/basics/MatElemInput.tsx",
+    "src/contents/linear-algebra/basics/MatWithPivot1.tsx",
+    "src/contents/linear-algebra/basics/MatIndexIndicator.tsx",
+    "src/contents/linear-algebra/basics/GaussElim.tsx",
+    "src/contents/linear-algebra/basics/IsRedRowEchMat.tsx",
+    "src/app/[[...slug]]/page.tsx",
+    "src/app/layout.tsx",
+    "src/components/show-error.tsx",
+    "src/components/luma-katex/LumaKatexClient.tsx",
+    "src/components/luma-katex/LumaKatex.tsx",
+    "src/components/series/Series.tsx",
+    "src/components/series/SeriesNav.tsx",
+    "src/components/series/series-nav-button.tsx",
+    "src/components/SharedApp.tsx",
+    "src/components/layouts.0/main-layout.tsx",
+    "src/components/layouts.0/def-layout.tsx",
+    "src/components/make-make.tsx",
+    "src/components/util/svg/SvgNg.tsx",
+    "src/components/util/svg/SvgGrid.tsx",
+    "src/components/code.tsx",
+    "src/components/ipynb-raw.tsx",
+    "src/components/LinkToPath.tsx",
+    "src/components/config.tsx",
+    "src/components/heading/H2.tsx",
+    "src/components/heading/H3.tsx",
+    "src/components/heading/H1.tsx",
+    "src/components/heading/SlugLink.tsx",
+    "src/components/term/TermServer.tsx",
+    "src/components/Debug.tsx",
+    "src/components/code/hl/Span.tsx",
+    "src/components/code/hl/PreForCode.tsx",
+    "src/components/code/hl/Highlighted.tsx",
+    "src/components/code/Code.tsx",
+    "src/components/wikipedia.tsx",
+    "src/components/single-full-width-term.tsx",
+    "src/components/global-style.tsx",
+    "src/components/wolfram-notebook.tsx",
+    "src/components/layouts/MainLayout.tsx",
+    "src/components/Qed.tsx",
+    "src/components/md-graph.tsx",
+    "src/components/header.tsx",
+    "src/components/quick-term.tsx",
+    "src/components/anchor/internal/AnchorInternal.tsx",
+    "src/components/anchor/GeneralAnchor.tsx",
+    "src/components/anchor/makeGeneralAnchor.tsx",
+    "src/components/pre-for-code.tsx",
+    "src/components/counter/Counter.tsx",
+    "src/components/encyclopedia-of-math.tsx",
+    "src/components/md-table.tsx",
+    "src/components/button.tsx",
+    "src/components/image.tsx",
+    "src/components/EverythingSpan.tsx"
+  ]
+}

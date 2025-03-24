@@ -1,4 +1,5 @@
 "use client";
+import React from "react";
 import type { FC } from "react";
 import GraphSvg from "@/components/svg/GraphSvg.tsx";
 import SvgNg from "@/components/util/svg/SvgNg.tsx";

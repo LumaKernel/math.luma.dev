@@ -1,5 +1,6 @@
 "use client";
-import { DisplayMode } from "./type";
+import React from "react";
+import { DisplayMode } from "./type.ts";
 
 const InlineWrapper = (props: React.ComponentProps<"span">) => (
   <>

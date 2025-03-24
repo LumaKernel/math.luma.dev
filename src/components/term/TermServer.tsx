@@ -1,3 +1,4 @@
+import React from "react";
 "use server";
 import { termDictMap } from "@/terms-index.gen.ts";
 import TermClient from "./TermClient.tsx";

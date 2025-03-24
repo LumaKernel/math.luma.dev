@@ -1,5 +1,6 @@
+import React from "react";
 import type { FC } from "react";
-import SeriesNavButton from "./series-nav-button";
+import SeriesNavButton from "./series-nav-button.tsx";
 
 const Flex: FC<any> = (props) => (
   <>

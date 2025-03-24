@@ -1,4 +1,5 @@
 "use client";
+import React from "react";
 
 type PreForCodeProps = React.ComponentProps<"pre">;
 

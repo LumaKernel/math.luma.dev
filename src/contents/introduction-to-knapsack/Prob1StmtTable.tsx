@@ -1,9 +1,10 @@
 "use client";
+import React from "react";
 import type { FC } from "react";
 import { Fragment, useState } from "react";
-import GraphSvg from "@/components/svg/GraphSvg";
-import { range } from "@/lib/number";
-import { Knapsack, Prob1 } from "./_parts";
+import GraphSvg from "@/components/svg/GraphSvg.tsx";
+import { range } from "@/lib/number.ts";
+import { Knapsack, Prob1 } from "./_parts.tsx";
 
 const ansTable = range(Prob1.N + 1).map(() => range(Prob1.S + 1).map(() => 0));
 range(1, Prob1.N + 1).forEach((n) => {

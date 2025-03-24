@@ -1,4 +1,4 @@
-import type { PageLocation, ParsedPage } from '@blogkit/blog-components/src/types';
+import type { PageLocation, ParsedPage } from "@/components/types.ts";
 import { createContext, useContext } from 'react';
 
 const themes = ['system', 'light', 'dark'] as const;

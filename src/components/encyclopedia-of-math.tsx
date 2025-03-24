@@ -1,6 +1,7 @@
+import React from "react";
 import Link from 'next/link';
 import type { FC } from 'react';
-import { cssColors } from './lib/colors';
+import { cssColors } from './lib/colors.ts';
 
 const Badge: FC<any> = (props) => (
   <>

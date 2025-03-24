@@ -1,6 +1,6 @@
-import { asProved } from './base';
-import type { FieldProtocol } from './field';
-import { numberField, fieldUtil } from './field';
+import { asProved } from './base.ts';
+import type { FieldProtocol } from './field.ts';
+import { numberField, fieldUtil } from './field.ts';
 
 export interface Rational<T> {
   // 分子

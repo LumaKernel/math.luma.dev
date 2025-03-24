@@ -1,5 +1,6 @@
 "use client";
-import { cssFonts } from "@/components/lib/fonts";
+import React from "react";
+import { cssFonts } from "@/components/lib/fonts.ts";
 
 const Indicator = (props: React.ComponentProps<"div">) => (
   <>

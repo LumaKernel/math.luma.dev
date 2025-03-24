@@ -1,6 +1,7 @@
-import Debug from "../Debug";
-import AnchorInternal from "./internal/AnchorInternal";
-import { resolveLinkPath } from "@/lib/link-path";
+import React from "react";
+import Debug from "../Debug.tsx";
+import AnchorInternal from "./internal/AnchorInternal.tsx";
+import { resolveLinkPath } from "@/lib/link-path.ts";
 
 export type GeneralAnchorProps = {
   readonly currentLinkPath: string;

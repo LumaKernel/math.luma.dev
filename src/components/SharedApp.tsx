@@ -1,8 +1,9 @@
 "use client";
+import React from "react";
 
-import { ThemeContext, useTheme } from "./contexts/theme";
-import GlobalStyle from "./global-style";
-import Header from "./header";
+import { ThemeContext, useTheme } from "./contexts/theme.ts";
+import GlobalStyle from "./global-style.tsx";
+import Header from "./header.tsx";
 import "katex/dist/katex.css";
 
 type Props = Readonly<React.PropsWithChildren>;

@@ -1,6 +1,7 @@
+import React from "react";
 import type { FC } from 'react';
-import type { QuickTermSingle } from '@blogkit/blog-components/src/lib/quick-term-dict';
-import Term from '@blogkit/blog-components/src/term';
+import type { QuickTermSingle } from "@/lib/quick-term-dict.ts";
+import Term from "@/components/term.ts";
 
 type Props = {
   def: QuickTermSingle;

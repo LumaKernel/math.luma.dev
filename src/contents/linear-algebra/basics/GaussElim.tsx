@@ -1,25 +1,26 @@
 "use client";
+import React from "react";
 import type { FlippedProps } from "flip-toolkit/lib/types";
 import React, { useCallback, useMemo, useState } from "react";
 import { Flipper, Flipped, spring } from "react-flip-toolkit";
-import type { NumberRational } from "@/lib/math-algebra/rational";
+import type { NumberRational } from "@/lib/math-algebra/rational.ts";
 import {
   numberToRational,
   numberRational,
 } from "@/components/lib/math-algebra/rational";
-import type { FieldProtocol } from "@/components/lib/math-algebra/field";
-import { fieldUtil } from "@/components/lib/math-algebra/field";
-import type { Matrix } from "@/components/lib/math-algebra/linear-algebra";
+import type { FieldProtocol } from "@/components/lib/math-algebra/field.ts";
+import { fieldUtil } from "@/components/lib/math-algebra/field.ts";
+import type { Matrix } from "@/components/lib/math-algebra/linear-algebra.ts";
 import {
   matSet,
   matRow,
   matMap,
 } from "@/components/lib/math-algebra/linear-algebra";
-import { gcdNumber, matShape, range } from "@/components/lib/number";
-import MatViewer from "./MatViewer";
-import MatElemInput from "./MatElemInput";
-import { cssColors } from "@/components/lib/colors";
-import MatIndexIndicator from "./MatIndexIndicator";
+import { gcdNumber, matShape, range } from "@/components/lib/number.ts";
+import MatViewer from "./MatViewer.tsx";
+import MatElemInput from "./MatElemInput.tsx";
+import { cssColors } from "@/components/lib/colors.ts";
+import MatIndexIndicator from "./MatIndexIndicator.tsx";
 
 const OuterWrapper = (props: React.ComponentProps<"div">) => (
   <>

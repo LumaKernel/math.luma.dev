@@ -1,5 +1,6 @@
-import { cssColorProperties, cssColors } from "./lib/colors";
-import { cssFonts } from "./lib/fonts";
+import React from "react";
+import { cssColorProperties, cssColors } from "./lib/colors.ts";
+import { cssFonts } from "./lib/fonts.ts";
 
 const darkColors = `
   --color-code-bg: #101010;

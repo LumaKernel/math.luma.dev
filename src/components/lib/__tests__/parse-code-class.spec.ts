@@ -1,4 +1,4 @@
-import parseCodeClass from '../parse-code-class';
+import parseCodeClass from '../parse-code-class.ts';
 
 describe('parseCodeClass', () => {
   it('parse code class', () => {

@@ -1,8 +1,9 @@
+import React from "react";
 "use server";
 import { katexLumaRenderToString } from "@luma-dev/katex-luma";
-import { DisplayMode } from "./type";
-import LumaKatexClient from "./LumaKatexClient";
-import Debug from "../Debug";
+import { DisplayMode } from "./type.ts";
+import LumaKatexClient from "./LumaKatexClient.tsx";
+import Debug from "../Debug.tsx";
 
 export type LumaKatexProps = {
   readonly options: unknown;

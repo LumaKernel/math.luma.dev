@@ -1,11 +1,12 @@
+import React from "react";
 "use server";
 import { stringTrimStart } from "@luma-dev/string-util-ts";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { Fragment } from "react";
-import Highlighted from "./hl/Highlighted";
-import PreForCode from "./hl/PreForCode";
-import Span from "./hl/Span";
-import { renderCode } from "./render-code";
+import Highlighted from "./hl/Highlighted.tsx";
+import PreForCode from "./hl/PreForCode.tsx";
+import Span from "./hl/Span.tsx";
+import { renderCode } from "./render-code.ts";
 
 const parseClassName = (className: string) => {
   const langCode = stringTrimStart(className.trim(), "language-");

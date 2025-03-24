@@ -1,7 +1,7 @@
-import type { Prove } from './base';
-import { asProved } from './base';
-import type { GroupProtocol } from './group';
-import { numberGroup, numberMultGroup } from './group';
+import type { Prove } from './base.ts';
+import { asProved } from './base.ts';
+import type { GroupProtocol } from './group.ts';
+import { numberGroup, numberMultGroup } from './group.ts';
 
 // 体 (field)
 export interface FieldProtocol<T, U> {

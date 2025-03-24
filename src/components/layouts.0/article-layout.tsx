@@ -1,9 +1,9 @@
-import H1 from '@blogkit/blog-components/src/h1';
-import PathBreadcrumbs from '@blogkit/blog-components/src/path-breadcrumbs';
-import SeriesNav from '@blogkit/blog-components/src/series-nav';
-import type { AllMetaData } from '@blogkit/blog-components/src/types';
+import H1 from "@/components/h1.ts";
+import PathBreadcrumbs from "@/components/path-breadcrumbs.ts";
+import SeriesNav from "@/components/series-nav.ts";
+import type { AllMetaData } from "@/components/types.ts";
 import type { FC } from 'react';
-import MainLayout from '@blogkit/blog-components/src/layouts/main-layout';
+import MainLayout from "@/components/layouts/main-layout.ts";
 import React from 'react';
 import Link from 'next/link';
 
