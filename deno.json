@@ -2,7 +2,8 @@
   "imports": {
     "@/": "./src/",
     "@std/assert": "jsr:@std/assert@0.220.1",
-    "@std/path": "jsr:@std/path@0.220.1"
+    "@std/path": "jsr:@std/path@0.220.1",
+    "next/link": "./src/types/next-link-patch.ts"
   },
   "compilerOptions": {
     "lib": [

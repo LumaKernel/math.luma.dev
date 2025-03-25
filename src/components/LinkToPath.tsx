@@ -1,7 +1,7 @@
 import React from "react";
 import type { FC } from "react";
-import PathBreadcrumbs from "@/components/path-breadcrumbs.ts";
-import ShowError from "@/components/show-error.ts";
+import PathBreadcrumbs from "@/components/PathBreadcrumbs.tsx";
+import ShowError from "@/components/show-error.tsx";
 // import pagesMetaData from '@blogkit/blog-components/pages-metadata.json' - Commented for Deno compatibility
 const pagesMetaData: any[] = [];
 import type { Subdomain } from "@/types/index.ts";

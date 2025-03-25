@@ -1,0 +1,14 @@
+We'll see following errors for deno check.
+
+TS2604 [ERROR]: JSX element type 'Link' does not have any construct or call signatures.
+    <Link key="en" href={`https://en.wikipedia.org/wiki/${en}`} passHref>
+     ~~~~
+    at file:///Users/luma/ghq/github.com/LumaKernel/blogkit-next/src/components/wikipedia.tsx:68:6
+
+
+Let's just resolve this problem by following approach. Please stop and report if it's not possible, instead of doing another approach.
+
+1. Define LinkPatched type for the component, which is valid and compatible.
+2. Add import map for next/link for the file for patch.
+3. Re-export with patched typed version just by `as any as T`.
+

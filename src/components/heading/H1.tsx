@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 
-import { cssColors } from "../lib/colors.ts";
+import { cssColors } from "@/lib/colors.ts";
 import SlugLink from "./SlugLink.tsx";
 
 const size = "0.24em";

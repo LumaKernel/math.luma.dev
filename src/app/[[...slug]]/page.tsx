@@ -32,7 +32,7 @@ import { fromAsyncThrowable } from "neverthrow";
 import path from "node:path";
 import { makeGeneralAnchor } from "@/components/anchor/makeGeneralAnchor.tsx";
 import Series, { makeSeries } from "@/components/series/Series.tsx";
-import Term from "@/components/term/Term.ts";
+import Term from "@/components/term/TermServer.tsx";
 import TermServer from "@/components/term/TermServer.tsx";
 
 export type ArticlePageProps = {

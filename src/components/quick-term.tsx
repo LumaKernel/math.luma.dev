@@ -1,8 +1,8 @@
 import React from "react";
 import type { FC } from "react";
-import ShowError from "@/components/show-error.ts";
+import ShowError from "@/components/show-error.tsx";
 import { quickTerms } from "@/lib/quick-term-dict.ts";
-import Term from "@/components/term.ts";
+import Term from "@/components/term/TermServer.tsx";
 
 type Props = {
   w: string;
