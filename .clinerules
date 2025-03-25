@@ -1,6 +1,7 @@
 ## Write one-off scripts in Deno.
 
 Use deno for one-off scripts. Don't use Node.js.
+And you should prefix cline- for all such scripts.
 
 ## Write tests in the one-off scripts.
 
