@@ -1,11 +1,13 @@
-import { mdxIndex } from "@/contents-index.gen.ts";
-import { TermDict, termDict } from "@/terms-index.gen.ts";
-import { ArticleInfo, SrcMeta } from "@/types/article.ts";
-import { TermMapPredefinedPresets } from "@/types/term.ts";
+import { mdxIndex } from "@/contents-index.gen";
+import { TermDict, termDict } from "@/terms-index.gen";
+import { ArticleInfo, SrcMeta } from "@/types/article";
+import { TermMapPredefinedPresets } from "@/types/term";
 import { fromAsyncThrowable } from "neverthrow";
-import { spawn } from "node:child_process";
+import { execFile } from "node:child_process";
 import fs from "node:fs/promises";
 import path from "node:path";
+import util from "node:util";
+const execFileAsync = util.promisify(execFile);
 
 export type PreparseParams = {
   readonly mdx: string;
@@ -15,18 +17,14 @@ export type PreparseParams = {
 };
 
 export const preparse = async (input: PreparseParams) => {
-  const p = spawn(
+  const { stdout, stderr } = await execFileAsync(
     "blogkit-internal-tool",
     ["preparse", "--input-json", JSON.stringify(input)],
-    {
-      stdio: "pipe",
-      timeout: 0.5,
-    },
+    { encoding: "utf8" },
   );
   if (stderr.length > 0) {
     console.error(stderr);
   }
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const info: ArticleInfo = JSON.parse(stdout);
   return info;
 };
