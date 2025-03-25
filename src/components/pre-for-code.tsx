@@ -1,7 +1,7 @@
 import React from "react";
 import type { FC } from "react";
 
-const Pre = (props: React.ComponentProps<"div">) => (
+const Pre = (props: React.ComponentProps<"pre">) => (
   <>
     <pre {...props} />
     <style jsx>

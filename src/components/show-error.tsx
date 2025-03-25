@@ -1,7 +1,7 @@
 import React from "react";
 import type { FC } from "react";
 
-const ErrorText = (props: React.ComponentProps<"div">) => (
+const ErrorText = (props: React.ComponentProps<"span">) => (
   <>
     <span {...props} />
     <style jsx>

@@ -3,7 +3,7 @@ import Link from "next/link";
 import type { FC } from "react";
 import { cssColors } from "./lib/colors.ts";
 
-const Badge = (props: React.ComponentProps<"div">) => (
+const Badge = (props: React.ComponentProps<"span">) => (
   <>
     <span {...props} />
     <style jsx>

@@ -118,7 +118,7 @@ const TermUsageListInPage: FC<Props2> = ({ usage }) => {
   );
 };
 
-const Li = (props: React.ComponentProps<"div">) => (
+const Li = (props: React.ComponentProps<"li">) => (
   <>
     <li {...props} />
     <style jsx>

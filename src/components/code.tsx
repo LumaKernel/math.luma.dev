@@ -1,7 +1,7 @@
 import React from "react";
 import type { FC } from "react";
 
-const Code = (props: React.ComponentProps<"div">) => (
+const Code = (props: React.ComponentProps<"code">) => (
   <>
     <code {...props} />
     <style jsx>
