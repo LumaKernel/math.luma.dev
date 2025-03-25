@@ -43,7 +43,8 @@ const darkColors = `
 
 const GlobalStyle = () => {
   return (
-    <style jsx global>{`
+    <style jsx global>
+      {`
       @import url("https://fonts.googleapis.com/css2?family=Inconsolata&family=Noto+Sans+JP&family=Roboto&display=swap");
 
       html {
@@ -194,7 +195,8 @@ const GlobalStyle = () => {
         background-color: var(${cssColorProperties.em1}) !important;
         color: var(${cssColorProperties.revertedText}) !important;
       }
-    `}</style>
+    `}
+    </style>
   );
 };
 

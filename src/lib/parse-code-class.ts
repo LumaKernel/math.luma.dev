@@ -1,4 +1,4 @@
-import { posix as posixPath } from "node:path";
+import * as posixPath from "@std/path/posix";
 
 export interface CodeClass {
   language: string | null;

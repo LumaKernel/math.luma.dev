@@ -1,4 +1,4 @@
-import { matShape, range } from "@/components/lib/number.ts";
+import { matShape, range } from "@/lib/number.ts";
 
 export type Mat = readonly (readonly number[])[];
 
@@ -10,7 +10,7 @@ interface PivotInMat {
 export const extractPivots = (mat: Mat): PivotInMat[] => {
   const res: PivotInMat[] = [];
   const [n, m] = matShape(mat);
-  for (const i of range(n))
+  for (const i of range(n)) {
     for (const j of range(m)) {
       if (mat[i][j] !== 0) {
         res.push({
@@ -21,6 +21,7 @@ export const extractPivots = (mat: Mat): PivotInMat[] => {
         break;
       }
     }
+  }
   return res;
 };
 
@@ -28,7 +29,7 @@ export const extractPivots = (mat: Mat): PivotInMat[] => {
 export const isPivotDescending = (mat: Mat): boolean => {
   const [n, m] = matShape(mat);
   let last = -1;
-  for (const i of range(n))
+  for (const i of range(n)) {
     for (const j of range(m)) {
       if (mat[i][j] !== 0) {
         if (last >= j) return false;
@@ -36,6 +37,7 @@ export const isPivotDescending = (mat: Mat): boolean => {
         break;
       }
     }
+  }
   return true;
 };
 
@@ -47,7 +49,7 @@ export const isZerosBelowNonZeros = (mat: Mat): boolean => {
   for (const i of range(n)) {
     const isZero = range(m).reduce(
       (accum, j) => accum && mat[i][j] === 0,
-      true
+      true,
     );
     if (isZero) firstZero = Math.min(firstZero, i);
     if (!isZero) lastNonZero = Math.max(lastNonZero, i);
@@ -61,7 +63,7 @@ export const isRowEchelonMatrix = (mat: Mat): boolean =>
 export const isAllPivotsAre1 = (mat: Mat): boolean => {
   return extractPivots(mat).reduce<boolean>(
     (accum, { v }) => accum && v === 1,
-    true
+    true,
   );
 };
 
@@ -72,8 +74,8 @@ export const isOthersAre0InPivotColumn = (mat: Mat): boolean => {
       accum &&
       range(n).reduce<boolean>(
         (accum, i) => accum && (mat[i][j] === 0 || i === pivotI),
-        true
+        true,
       ),
-    true
+    true,
   );
 };

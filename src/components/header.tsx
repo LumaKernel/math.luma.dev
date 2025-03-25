@@ -6,7 +6,8 @@ import { useCallback } from "react";
 const Wrapper = (props: React.ComponentProps<"div">) => (
   <>
     <div {...props} />
-    <style jsx>{`
+    <style jsx>
+      {`
       div {
         display: flex;
         justify-content: center;
@@ -14,18 +15,21 @@ const Wrapper = (props: React.ComponentProps<"div">) => (
         padding: 1rem;
         background-color: #789d98;
       }
-    `}</style>
+    `}
+    </style>
   </>
 );
 
 const Spacer = (props: React.ComponentProps<"div">) => (
   <>
     <div {...props} />
-    <style jsx>{`
+    <style jsx>
+      {`
       div {
         flex: 1 0 0;
       }
-    `}</style>
+    `}
+    </style>
   </>
 );
 
@@ -38,7 +42,7 @@ export default function Header() {
       if (!isTheme(value)) throw new Error(`Invalid theme: ${value}`);
       setTheme(value);
     },
-    [setTheme]
+    [setTheme],
   );
 
   return (

@@ -2,26 +2,30 @@ import React from "react";
 import type { FC } from "react";
 import SeriesNavButton from "./series-nav-button.tsx";
 
-const Flex: FC<any> = (props) => (
+const Flex = (props: React.ComponentProps<"div">) => (
   <>
     <div {...props} />
-    <style jsx>{`
+    <style jsx>
+      {`
       div {
         display: flex;
         margin-top: 40px;
       }
-    `}</style>
+    `}
+    </style>
   </>
 );
 
-const Spacer: FC<any> = (props) => (
+const Spacer = (props: React.ComponentProps<"div">) => (
   <>
     <div {...props} />
-    <style jsx>{`
+    <style jsx>
+      {`
       div {
         flex-grow: 1;
       }
-    `}</style>
+    `}
+    </style>
   </>
 );
 
@@ -32,18 +36,19 @@ const SeriesNav = ({
   allMetaData: { folderLink, metaDataDict, seriesData },
 }) => {
   if (seriesData?.config?.order == null) return <></>;
-  const prevData =
-    metaDataDict[
-      `${folderLink}/${seriesData.config.order[seriesData.index - 1]}`
-    ];
-  const nextData =
-    metaDataDict[
-      `${folderLink}/${seriesData.config.order[seriesData.index + 1]}`
-    ];
+  const prevData = metaDataDict[
+    `${folderLink}/${seriesData.config.order[seriesData.index - 1]}`
+  ];
+  const nextData = metaDataDict[
+    `${folderLink}/${seriesData.config.order[seriesData.index + 1]}`
+  ];
   return (
     <Flex>
       {prevData && (
-        <SeriesNavButton num={seriesData.index} navData={prevData} />
+        <SeriesNavButton
+          num={seriesData.index}
+          navData={prevData}
+        />
       )}
       <Spacer />
       {nextData && (

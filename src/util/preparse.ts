@@ -1,7 +1,7 @@
-import { mdxIndex } from "@/contents-index.gen";
-import { TermDict, termDict } from "@/terms-index.gen";
-import { ArticleInfo, SrcMeta } from "@/types/article";
-import { TermMapPredefinedPresets } from "@/types/term";
+import { mdxIndex } from "@/contents-index.gen.ts";
+import { TermDict, termDict } from "@/terms-index.gen.ts";
+import { ArticleInfo, SrcMeta } from "@/types/article.ts";
+import { TermMapPredefinedPresets } from "@/types/term.ts";
 import { fromAsyncThrowable } from "neverthrow";
 import { execFile } from "node:child_process";
 import fs from "node:fs/promises";

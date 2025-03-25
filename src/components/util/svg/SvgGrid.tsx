@@ -47,14 +47,16 @@ const SvgGrid: FC<Props> = ({ grid }) => {
           width="100%"
         />
       ))}
-      <style jsx>{`
+      <style jsx>
+        {`
         rect.vert {
           fill: url(#debugGradiantVert) !important;
         }
         rect.horiz {
           fill: url(#debugGradiantHoriz) !important;
         }
-      `}</style>
+      `}
+      </style>
     </>
   );
 };

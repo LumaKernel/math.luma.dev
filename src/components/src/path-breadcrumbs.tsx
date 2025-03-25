@@ -6,23 +6,27 @@ import { cssColors } from "@/lib/colors.ts";
 const Flex = (props: React.ComponentProps<"div">) => (
   <>
     <div {...props} />
-    <style jsx>{`
+    <style jsx>
+      {`
       div {
         display: flex;
         gap: 0.3em;
       }
-    `}</style>
+    `}
+    </style>
   </>
 );
 
 const A: FC = (props: React.ComponentProps<"a">) => (
   <>
     <a {...props} />
-    <style jsx>{`
+    <style jsx>
+      {`
       a {
         color: ${cssColors.text};
       }
-    `}</style>
+    `}
+    </style>
   </>
 );
 
@@ -50,7 +54,7 @@ export default function PathBreadcrumbs({ path }: Props) {
           name: p,
         },
       ],
-      [] as Part[]
+      [] as Part[],
     )
     .reverse();
 

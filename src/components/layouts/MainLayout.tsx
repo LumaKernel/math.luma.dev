@@ -4,24 +4,28 @@ import React from "react";
 const Main = (props: React.ComponentProps<"main">) => (
   <>
     <main {...props} />
-    <style jsx>{`
+    <style jsx>
+      {`
       main {
         width: 100%;
         max-width: 900px;
         margin: 0 auto;
       }
-    `}</style>
+    `}
+    </style>
   </>
 );
 
 const Wrapper = (props: React.ComponentProps<"div">) => (
   <>
     <div {...props} />
-    <style jsx>{`
+    <style jsx>
+      {`
       div {
         padding: 0 1.2rem 0 1.8rem;
       }
-    `}</style>
+    `}
+    </style>
   </>
 );
 

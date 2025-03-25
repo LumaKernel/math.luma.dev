@@ -40,7 +40,7 @@ const eslintConfig = tseslint.config(
       ],
       "object-shorthand": "error",
     },
-  }
+  },
 );
 
 export default eslintConfig;

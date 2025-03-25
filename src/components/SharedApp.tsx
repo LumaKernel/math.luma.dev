@@ -17,13 +17,15 @@ const SharedApp = ({ children }: Props) => {
         {children}
       </div>
       <GlobalStyle />
-      <style jsx>{`
+      <style jsx>
+        {`
         .root {
           padding-bottom: 4rem;
           min-height: 100vh;
           overflow-x: auto;
         }
-      `}</style>
+      `}
+      </style>
     </ThemeContext.Provider>
   );
 };

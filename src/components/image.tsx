@@ -1,5 +1,5 @@
 import React from "react";
-import type { FC } from 'react';
+import type { FC } from "react";
 
 interface Props {
   [rest: string]: string;
@@ -11,12 +11,14 @@ const Image: FC<Props> = ({ ...props }) => (
         <img {...props} />
       </div>
     </div>
-    <style jsx>{`
+    <style jsx>
+      {`
       .image-wrapper-wrapper {
         display: flex;
         justify-content: center;
       }
-    `}</style>
+    `}
+    </style>
   </>
 );
 

@@ -5,7 +5,8 @@ import GraphSvg from "@/components/svg/GraphSvg.tsx";
 const RowRect = (props: React.ComponentProps<"rect">) => (
   <>
     <rect {...props} />
-    <style jsx>{`
+    <style jsx>
+      {`
       rect {
         fill: hsl(200deg 100% 90%);
         stroke: hsl(200deg 83% 51%);
@@ -14,14 +15,16 @@ const RowRect = (props: React.ComponentProps<"rect">) => (
       rect:hover {
         fill: hsl(200deg 100% 80%);
       }
-    `}</style>
+    `}
+    </style>
   </>
 );
 
 const ColumnRect = (props: React.ComponentProps<"rect">) => (
   <>
     <rect {...props} />
-    <style jsx>{`
+    <style jsx>
+      {`
       rect {
         fill: hsl(30deg 100% 90%);
         stroke: hsl(30deg 83% 51%);
@@ -30,7 +33,8 @@ const ColumnRect = (props: React.ComponentProps<"rect">) => (
       rect:hover {
         fill: hsl(30deg 100% 80%);
       }
-    `}</style>
+    `}
+    </style>
   </>
 );
 

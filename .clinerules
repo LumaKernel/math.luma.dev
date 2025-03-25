@@ -1,0 +1,14 @@
+## Write one-off scripts in Deno.
+
+Use deno for one-off scripts. Don't use Node.js.
+
+## Write tests in the one-off scripts.
+
+It's ok either to use in-source testing, and if necessary, also just put assertion lines before actual run of main task of script.
+You should split pure logics clearly, then you can easily write the tests.
+
+For file-system related actions, you can add quick assertions to check some files are included exactly.
+
+## Don't just fix, but fix the script you used.
+
+When I give you the false negative cases, don't update directly these files. But you should add in-source tests for scripts. What is the current (occasionaly, just minify the situation for test) and expected.

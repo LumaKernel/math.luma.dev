@@ -6,7 +6,8 @@ import { HiLink } from "react-icons/hi";
 const MouseLayer = (props: React.ComponentProps<"div">) => (
   <>
     <div {...props} />
-    <style jsx>{`
+    <style jsx>
+      {`
       div {
         position: absolute;
         left: -1.1em;
@@ -16,7 +17,8 @@ const MouseLayer = (props: React.ComponentProps<"div">) => (
         width: 1.2rem;
         height: 2.8em;
       }
-    `}</style>
+    `}
+    </style>
   </>
 );
 
@@ -36,16 +38,17 @@ export default function SlugLink({ Heading, slug, children }: SlugLinkProps) {
     <>
       <Heading className="heading" id={slug}>
         <MouseLayer />
-        {slug ? (
-          <a href={`#${slug}`} aria-hidden="true" tabIndex={-1}>
-            <HiLink />
-          </a>
-        ) : (
-          <></>
-        )}
+        {slug
+          ? (
+            <a href={`#${slug}`} aria-hidden="true" tabIndex={-1}>
+              <HiLink />
+            </a>
+          )
+          : <></>}
         {children}
       </Heading>
-      <style jsx>{`
+      <style jsx>
+        {`
         a {
           position: absolute;
           left: -1.16em;
@@ -64,7 +67,8 @@ export default function SlugLink({ Heading, slug, children }: SlugLinkProps) {
         .heading:hover a {
           display: inline-block;
         }
-      `}</style>
+      `}
+      </style>
     </>
   );
 }

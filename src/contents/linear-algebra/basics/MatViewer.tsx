@@ -1,30 +1,34 @@
 "use client";
 import React from "react";
-import { cssColors } from "@/components/lib/colors.ts";
-import { range } from "@/components/lib/number.ts";
+import { cssColors } from "@/lib/colors.ts";
+import { range } from "@/lib/number.ts";
 import { usePrefixedFlipped } from "@/components/graphs/prefixed-flipped.tsx";
 
 const Wrapper = (props: React.ComponentProps<"div">) => (
   <>
     <div {...props} />
-    <style jsx>{`
+    <style jsx>
+      {`
       div {
         display: inline-block;
         position: relative;
         padding: 10px 10px;
       }
-    `}</style>
+    `}
+    </style>
   </>
 );
 
 const Grid = (props: React.ComponentProps<"div">) => (
   <>
     <div {...props} />
-    <style jsx>{`
+    <style jsx>
+      {`
       div {
         display: grid;
       }
-    `}</style>
+    `}
+    </style>
   </>
 );
 
@@ -43,24 +47,28 @@ const squareBraketWrapperStyle = `
 const SquareBraWrapper = (props: React.ComponentProps<"div">) => (
   <>
     <div {...props} />
-    <style jsx>{`
+    <style jsx>
+      {`
       div {
         ${squareBraketWrapperStyle}
         left: 2px;
       }
-    `}</style>
+    `}
+    </style>
   </>
 );
 
 const SquareKetWrapper = (props: React.ComponentProps<"div">) => (
   <>
     <div {...props} />
-    <style jsx>{`
+    <style jsx>
+      {`
       div {
         ${squareBraketWrapperStyle}
         right: 6px;
       }
-    `}</style>
+    `}
+    </style>
   </>
 );
 
@@ -74,24 +82,28 @@ const squareBraketStyle = `
 const SquareBra = (props: React.ComponentProps<"div">) => (
   <>
     <div {...props} />
-    <style jsx>{`
+    <style jsx>
+      {`
       div {
         ${squareBraketStyle}
         border-left: ${bracketBorder};
       }
-    `}</style>
+    `}
+    </style>
   </>
 );
 
 const SquareKet = (props: React.ComponentProps<"div">) => (
   <>
     <div {...props} />
-    <style jsx>{`
+    <style jsx>
+      {`
       div {
         ${squareBraketStyle}
         border-right: ${bracketBorder};
       }
-    `}</style>
+    `}
+    </style>
   </>
 );
 

@@ -1,5 +1,5 @@
 import React from "react";
-import type { FC } from 'react';
+import type { FC } from "react";
 import ShowError from "@/components/show-error.ts";
 import { quickTerms } from "@/lib/quick-term-dict.ts";
 import Term from "@/components/term.ts";
@@ -22,23 +22,34 @@ const QuickTerm: FC<Props> = ({ w, s, k, o, isFirst }) => {
   }
   const slug = def.slug || w;
   if (!s && isFirst && !k && def.ruby) {
-    const text = typeof def.short === 'string' ? `${def.text} (${def.short})` : def.text;
+    const text = typeof def.short === "string"
+      ? `${def.text} (${def.short})`
+      : def.text;
     if (o || !def.others || def.others.length === 0) {
-      return <Term ruby={def.ruby} jaRuby={def.jaRuby} children={text} slug={slug} />;
+      return (
+        <Term ruby={def.ruby} jaRuby={def.jaRuby} children={text} slug={slug} />
+      );
     }
 
     return (
       <>
-        <Term ruby={def.ruby} jaRuby={def.jaRuby} children={text} slug={slug} />（
+        <Term
+          ruby={def.ruby}
+          jaRuby={def.jaRuby}
+          children={text}
+          slug={slug}
+        />（
         {def.others
-          .map((oth) => <Term ruby={oth.ruby} jaRuby={oth.jaRuby} children={oth.text} />)
-          .flatMap((e) => [e, '、'])
+          .map((oth) => (
+            <Term ruby={oth.ruby} jaRuby={oth.jaRuby} children={oth.text} />
+          ))
+          .flatMap((e) => [e, "、"])
           .slice(0, -1)}
         ）
       </>
     );
   }
-  if (typeof def.short === 'string') {
+  if (typeof def.short === "string") {
     return <Term children={def.short} title={def.text} slug={slug} />;
   }
   return <Term children={def.text} slug={slug} />;

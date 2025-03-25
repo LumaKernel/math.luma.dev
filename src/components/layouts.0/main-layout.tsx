@@ -1,27 +1,31 @@
 import React from "react";
-import type { FC } from 'react';
+import type { FC } from "react";
 
-const Main: FC<any> = (props) => (
+const Main = (props: React.ComponentProps<"div">) => (
   <>
     <main {...props} />
-    <style jsx>{`
+    <style jsx>
+      {`
       main {
         width: 100%;
         max-width: 900px;
         margin: 0 auto;
       }
-    `}</style>
+    `}
+    </style>
   </>
 );
 
-const Wrapper: FC<any> = (props) => (
+const Wrapper = (props: React.ComponentProps<"div">) => (
   <>
     <div {...props} />
-    <style jsx>{`
+    <style jsx>
+      {`
       div {
         padding: 0 1.2rem 0 1.8rem;
       }
-    `}</style>
+    `}
+    </style>
   </>
 );
 

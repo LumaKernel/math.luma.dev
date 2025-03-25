@@ -2,10 +2,10 @@ import H1 from "@/components/h1.ts";
 import PathBreadcrumbs from "@/components/path-breadcrumbs.ts";
 import SeriesNav from "@/components/series-nav.ts";
 import type { AllMetaData } from "@/components/types.ts";
-import type { FC } from 'react';
+import type { FC } from "react";
 import MainLayout from "@/components/layouts/main-layout.ts";
-import React from 'react';
-import Link from 'next/link';
+import React from "react";
+import Link from "next/link";
 
 interface Props {
   children: React.ReactNode;
@@ -19,7 +19,8 @@ const ArticleLayout: FC<Props> = ({ children, allMetaData }) => {
   const IpynbInfo: FC = () => {
     const pc = currentMetaData.pageConfig;
     if (!pc || !pc.isIpynb || !pc.ipynbRelPath) return <></>;
-    const href = `https://github.com/LumaKernel/luma-notebooks/blob/main/${pc.ipynbRelPath}`;
+    const href =
+      `https://github.com/LumaKernel/luma-notebooks/blob/main/${pc.ipynbRelPath}`;
     return (
       <Link href={href} passHref>
         <a target="_blank">source</a>

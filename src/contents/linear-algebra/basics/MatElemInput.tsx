@@ -1,22 +1,26 @@
 "use client";
 import React from "react";
-import { clampInAbs100Number } from "@/components/lib/number.ts";
+import { clampInAbs100Number } from "@/lib/number.ts";
 import type { FormEvent } from "react";
-import { cssColors } from "@/components/lib/colors.ts";
+import { cssColors } from "@/lib/colors.ts";
 
 const Input = (props: React.ComponentProps<"input">) => {
-  <>
-    <input {...props} />
-    <style jsx>{`
-      input {
-        width: 4em;
-        background-color: ${cssColors.bgPrimary};
-        color: ${cssColors.text};
-        border: none;
-        border: 1px solid ${cssColors.decorationPrimary};
-      }
-    `}</style>
-  </>;
+  return (
+    <>
+      <input {...props} />
+      <style jsx>
+        {`
+        input {
+          width: 4em;
+          background-color: ${cssColors.bgPrimary};
+          color: ${cssColors.text};
+          border: none;
+          border: 1px solid ${cssColors.decorationPrimary};
+        }
+      `}
+      </style>
+    </>
+  );
 };
 
 const emphasizedStyle = `
@@ -50,7 +54,8 @@ export default function MatElemInput({
           onInput={(ev: FormEvent<HTMLInputElement>) => inputHandler(ev)}
         />
       </div>
-      <style jsx>{`
+      <style jsx>
+        {`
         .wrapper {
           display: flex;
           justify-content: center;
@@ -59,7 +64,8 @@ export default function MatElemInput({
         .wrapper.emphasized {
           ${emphasizedStyle}
         }
-      `}</style>
+      `}
+      </style>
     </>
   );
 }

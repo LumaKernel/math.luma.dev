@@ -1,8 +1,7 @@
 "use client";
-import React from "react";
-import React, { useMemo, useCallback } from "react";
-import { matShape, range } from "@/components/lib/number.ts";
-import { cssColors } from "@/components/lib/colors.ts";
+import React, { useCallback, useMemo } from "react";
+import { matShape, range } from "@/lib/number.ts";
+import { cssColors } from "@/lib/colors.ts";
 import MatElemInput from "./MatElemInput.tsx";
 import type { CreateEelem } from "./MatViewer.tsx";
 import MatViewer from "./MatViewer.tsx";
@@ -46,7 +45,7 @@ export default function MatWithPivot1({ mat, onInput }: MatWithPivot1Props) {
         />
       );
     },
-    [mat]
+    [mat],
   );
 
   const [n, m] = useMemo(() => matShape(mat), [mat]);

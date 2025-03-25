@@ -5,7 +5,8 @@ import { DisplayMode } from "./type.ts";
 const InlineWrapper = (props: React.ComponentProps<"span">) => (
   <>
     <span {...props} />
-    <style jsx>{`
+    <style jsx>
+      {`
       span {
         margin-left: 0.4em;
         margin-right: 0.4em;
@@ -13,18 +14,21 @@ const InlineWrapper = (props: React.ComponentProps<"span">) => (
       span :global(.base) {
         margin-top: 0.6em;
       }
-    `}</style>
+    `}
+    </style>
   </>
 );
 
 const DisplayWrapper = (props: React.ComponentProps<"div">) => (
   <>
     <div {...props} />
-    <style jsx>{`
+    <style jsx>
+      {`
       div {
         margin-top: 2em;
       }
-    `}</style>
+    `}
+    </style>
   </>
 );
 

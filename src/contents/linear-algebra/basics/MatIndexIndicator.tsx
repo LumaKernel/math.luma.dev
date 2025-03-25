@@ -1,11 +1,12 @@
 "use client";
 import React from "react";
-import { cssFonts } from "@/components/lib/fonts.ts";
+import { cssFonts } from "@/lib/fonts.ts";
 
 const Indicator = (props: React.ComponentProps<"div">) => (
   <>
     <div {...props} />
-    <style jsx>{`
+    <style jsx>
+      {`
       div {
         border-radius: 1.1rem;
         width: 1.1rem;
@@ -15,7 +16,8 @@ const Indicator = (props: React.ComponentProps<"div">) => (
         align-items: center;
         font-family: ${cssFonts.monospace};
       }
-    `}</style>
+    `}
+    </style>
   </>
 );
 

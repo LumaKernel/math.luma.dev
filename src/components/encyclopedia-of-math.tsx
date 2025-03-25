@@ -1,12 +1,13 @@
 import React from "react";
-import Link from 'next/link';
-import type { FC } from 'react';
-import { cssColors } from './lib/colors.ts';
+import Link from "next/link";
+import type { FC } from "react";
+import { cssColors } from "./lib/colors.ts";
 
-const Badge: FC<any> = (props) => (
+const Badge = (props: React.ComponentProps<"div">) => (
   <>
     <span {...props} />
-    <style jsx>{`
+    <style jsx>
+      {`
       span {
         border-style: solid;
         border-radius: 0.4em;
@@ -19,7 +20,8 @@ const Badge: FC<any> = (props) => (
 
         border-color: ${cssColors.brandEncyclopediaOfMath};
       }
-    `}</style>
+    `}
+    </style>
   </>
 );
 

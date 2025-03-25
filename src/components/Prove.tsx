@@ -13,56 +13,65 @@ const gap = "2px";
 const Wrapper = (props: React.ComponentProps<"div">) => (
   <>
     <div {...props} />
-    <style jsx>{`
+    <style jsx>
+      {`
       div {
         position: relative;
         padding: 14px 8px;
         margin-top: 0.8em;
       }
-    `}</style>
+    `}
+    </style>
   </>
 );
 
 const LastLine = (props: React.ComponentProps<"div">) => (
   <>
     <div {...props} />
-    <style jsx>{`
+    <style jsx>
+      {`
       div {
         text-align: right;
       }
-    `}</style>
+    `}
+    </style>
   </>
 );
 
 const H4 = (props: React.ComponentProps<"h4">) => (
   <>
     <h4 {...props} />
-    <style jsx>{`
+    <style jsx>
+      {`
       h4 {
         margin: 0;
       }
-    `}</style>
+    `}
+    </style>
   </>
 );
 
 const HorizontalLine = (props: React.ComponentProps<"div">) => (
   <>
     <div {...props} />
-    <style jsx>{`
+    <style jsx>
+      {`
       div {
         flex-grow: 1;
         border-bottom: ${thickness} solid ${cssColors.decorationPrimary};
         background-color: ${cssColors.decorationPrimary};
         border-radius: ${size};
       }
-    `}</style>
+    `}
+    </style>
   </>
 );
 
 const VerticalLine = (props: React.ComponentProps<"div">) => (
   <>
     <div {...props} />
-    <style jsx>{`
+    <style jsx>
+      {`
       div {
         flex-grow: 1;
         width: 0;
@@ -70,7 +79,8 @@ const VerticalLine = (props: React.ComponentProps<"div">) => (
         background-color: ${cssColors.decorationPrimary};
         border-radius: ${size};
       }
-    `}</style>
+    `}
+    </style>
   </>
 );
 
@@ -86,26 +96,30 @@ const horizontalWrapperStyle = `
 const UpperLine = (props: React.ComponentProps<"div">) => (
   <>
     <div {...props} />
-    <style jsx>{`
+    <style jsx>
+      {`
       div {
         ${horizontalWrapperStyle}
         top: 0;
         transform: translateY(-50%);
       }
-    `}</style>
+    `}
+    </style>
   </>
 );
 
 const LowerLine = (props: React.ComponentProps<"div">) => (
   <>
     <div {...props} />
-    <style jsx>{`
+    <style jsx>
+      {`
       div {
         ${horizontalWrapperStyle}
         bottom: 0;
         transform: translateY(50%);
       }
-    `}</style>
+    `}
+    </style>
   </>
 );
 
@@ -122,26 +136,30 @@ const verticalWrapperStyle = `
 const LeftLine = (props: React.ComponentProps<"div">) => (
   <>
     <div {...props} />
-    <style jsx>{`
+    <style jsx>
+      {`
       div {
         ${verticalWrapperStyle}
         left: 0;
         transform: translateX(-50%);
       }
-    `}</style>
+    `}
+    </style>
   </>
 );
 
 const RightLine = (props: React.ComponentProps<"div">) => (
   <>
     <div {...props} />
-    <style jsx>{`
+    <style jsx>
+      {`
       div {
         ${verticalWrapperStyle}
         right: 0;
         transform: translateX(50%);
       }
-    `}</style>
+    `}
+    </style>
   </>
 );
 
@@ -154,52 +172,60 @@ const filledCircleStyle = `
 const FilledCircle = (props: React.ComponentProps<"div">) => (
   <>
     <div {...props} />
-    <style jsx>{`
+    <style jsx>
+      {`
       div {
         ${filledCircleStyle}
       }
-    `}</style>
+    `}
+    </style>
   </>
 );
 
 const EmptyCircle = (props: React.ComponentProps<"div">) => (
   <>
     <div {...props} />
-    <style jsx>{`
+    <style jsx>
+      {`
       div {
         ${filledCircleStyle}
         width: ${halfSize};
         height: ${halfSize};
         border-radius: ${size};
       }
-    `}</style>
+    `}
+    </style>
   </>
 );
 
 const FilledCircleLeft = (props: React.ComponentProps<"div">) => (
   <>
     <div {...props} />
-    <style jsx>{`
+    <style jsx>
+      {`
       div {
         ${filledCircleStyle}
         position: absolute;
         left: 0;
         transform: translateX(-50%);
       }
-    `}</style>
+    `}
+    </style>
   </>
 );
 
 const FilledCircleRight = (props: React.ComponentProps<"div">) => (
   <>
     <div {...props} />
-    <style jsx>{`
+    <style jsx>
+      {`
       div {
         position: absolute;
         right: 0;
         transform: translateX(50%);
       }
-    `}</style>
+    `}
+    </style>
   </>
 );
 

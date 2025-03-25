@@ -17,8 +17,9 @@ export type CodeProps = React.PropsWithChildren<{
   readonly className: string;
 }>;
 export default async function Code({ children, className }: CodeProps) {
-  if (typeof children !== "string")
+  if (typeof children !== "string") {
     throw new Error("children must be a string");
+  }
   const langCode = parseClassName(className);
   const { mdx } = await renderCode(langCode, children);
 
@@ -33,7 +34,8 @@ export default async function Code({ children, className }: CodeProps) {
               Span,
               NewLine: () => <span>{"\n"}</span>,
             }}
-          ></MDXRemote>
+          >
+          </MDXRemote>
         </Highlighted>
       </PreForCode>
     </>

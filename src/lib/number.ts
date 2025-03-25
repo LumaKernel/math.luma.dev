@@ -24,7 +24,9 @@ export const range = (n: number, m?: number): number[] => {
     .map((_, i) => n + i);
 };
 
-export const matShape = (mat: readonly (readonly unknown[])[]): [number, number] => {
+export const matShape = (
+  mat: readonly (readonly unknown[])[],
+): [number, number] => {
   return [mat.length, mat[0].length];
 };
 

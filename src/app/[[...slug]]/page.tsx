@@ -47,64 +47,66 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
   return (
     <SharedApp>
       <ArticleLayout meta={srcMeta}>
-        {0 ? (
-          <pre>
+        {0
+          ? (
+            <pre>
             <code>{info.contents}</code>
-          </pre>
-        ) : (
-          <MDXRemote
-            source={info.contents}
-            components={{
-              ...tsExports,
-              a: makeGeneralAnchor(linkPath),
-              p: Fragment,
-              pre: Fragment,
-              code: Code,
-              LumaToc: Fragment,
-              LumaMdxLayout: Fragment,
-              LumaKatex,
-              Term: TermServer,
-              Series: makeSeries(linkPath),
-              LumaCounter: Counter,
-              Prove,
-              h1: H1,
-              h2: H2,
-              h3: H3,
-              Debug,
-            }}
-            options={{
-              mdxOptions: {
-                remarkRehypeOptions: {
-                  allowDangerousHtml: true,
-                },
-                rehypePlugins: [
-                  rehypeReplaceText,
-                  // rehypeKatex,
-                  [
-                    rehypeKatex,
-                    {
-                      context: index.texContext,
-                    } satisfies RehypeKatexPluginParameters,
+            </pre>
+          )
+          : (
+            <MDXRemote
+              source={info.contents}
+              components={{
+                ...tsExports,
+                a: makeGeneralAnchor(linkPath),
+                p: Fragment,
+                pre: Fragment,
+                code: Code,
+                LumaToc: Fragment,
+                LumaMdxLayout: Fragment,
+                LumaKatex,
+                Term: TermServer,
+                Series: makeSeries(linkPath),
+                LumaCounter: Counter,
+                Prove,
+                h1: H1,
+                h2: H2,
+                h3: H3,
+                Debug,
+              }}
+              options={{
+                mdxOptions: {
+                  remarkRehypeOptions: {
+                    allowDangerousHtml: true,
+                  },
+                  rehypePlugins: [
+                    rehypeReplaceText,
+                    // rehypeKatex,
+                    [
+                      rehypeKatex,
+                      {
+                        context: index.texContext,
+                      } satisfies RehypeKatexPluginParameters,
+                    ],
+                    rehypeSave,
+                    rehypeCounter,
+                    rehypeCodeMeta,
+
+                    rehypeAddSlug,
+                    rehypeWrap,
+
+                    rehypeCleanInternal,
                   ],
-                  rehypeSave,
-                  rehypeCounter,
-                  rehypeCodeMeta,
-
-                  rehypeAddSlug,
-                  rehypeWrap,
-
-                  rehypeCleanInternal,
-                ],
-                remarkPlugins: [
-                  // remarkFrontmatter,
-                  remarkMath,
-                  // remarkTerm,
-                  // remarkMeta,
-                ],
-              },
-            }}
-          />
-        )}
+                  remarkPlugins: [
+                    // remarkFrontmatter,
+                    remarkMath,
+                    // remarkTerm,
+                    // remarkMeta,
+                  ],
+                },
+              }}
+            />
+          )}
       </ArticleLayout>
     </SharedApp>
   );

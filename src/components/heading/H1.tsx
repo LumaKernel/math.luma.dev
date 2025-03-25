@@ -10,53 +10,61 @@ const gap = "0.2em";
 const StyledH1 = (props: React.ComponentProps<"h1">) => (
   <>
     <h1 {...props} />
-    <style jsx>{`
+    <style jsx>
+      {`
       h1 {
         margin: 0;
         margin-top: 0.7em;
       }
-    `}</style>
+    `}
+    </style>
   </>
 );
 
 const Circle = (props: React.ComponentProps<"div">) => (
   <>
     <div {...props} />
-    <style jsx>{`
+    <style jsx>
+      {`
       div {
         background-color: ${cssColors.decorationPrimary};
         width: ${size};
         height: ${size};
         border-radius: ${size};
       }
-    `}</style>
+    `}
+    </style>
   </>
 );
 
 const Pole = (props: React.ComponentProps<"div">) => (
   <>
     <div {...props} />
-    <style jsx>{`
+    <style jsx>
+      {`
       div {
         background-color: ${cssColors.decorationPrimary};
         width: 100%;
         height: ${size};
         border-radius: ${size};
       }
-    `}</style>
+    `}
+    </style>
   </>
 );
 
 const Column = (props: React.ComponentProps<"div">) => (
   <>
     <div {...props} />
-    <style jsx>{`
+    <style jsx>
+      {`
       div {
         display: flex;
         gap: ${gap};
         align-items: center;
       }
-    `}</style>
+    `}
+    </style>
   </>
 );
 

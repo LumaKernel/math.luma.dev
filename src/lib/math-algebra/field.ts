@@ -1,18 +1,18 @@
-import type { Prove } from './base.ts';
-import { asProved } from './base.ts';
-import type { GroupProtocol } from './group.ts';
-import { numberGroup, numberMultGroup } from './group.ts';
+import type { Prove } from "./base.ts";
+import { asProved } from "./base.ts";
+import type { GroupProtocol } from "./group.ts";
+import { numberGroup, numberMultGroup } from "./group.ts";
 
 // 体 (field)
 export interface FieldProtocol<T, U> {
-  readonly '@isAddAssociative': Prove;
-  readonly '@isAddCommutative': Prove;
+  readonly "@isAddAssociative": Prove;
+  readonly "@isAddCommutative": Prove;
   Add(t1: T, t2: T): T;
   AddInverse(t: T): T;
-  readonly '@isMultDistributive': Prove;
+  readonly "@isMultDistributive": Prove;
   Mult(t: T, u: U): T;
-  readonly '@isMultAssociative': Prove;
-  readonly '@isMultCommutative': Prove;
+  readonly "@isMultAssociative": Prove;
+  readonly "@isMultCommutative": Prove;
   MultAdd(u1: U, u2: U): U;
   MultInverse(u: U): U;
   Zero(): T;
@@ -25,7 +25,9 @@ export interface FieldUtil<T, U> {
   IsOne(u: U): boolean;
 }
 
-export const fieldUtil = <T, U>(field: FieldProtocol<T, U>): FieldUtil<T, U> => {
+export const fieldUtil = <T, U>(
+  field: FieldProtocol<T, U>,
+): FieldUtil<T, U> => {
   return {
     IsZero(t): boolean {
       return field.AddEq(field.Zero(), t);
@@ -39,18 +41,18 @@ export const fieldUtil = <T, U>(field: FieldProtocol<T, U>): FieldUtil<T, U> => 
 export const createField = <T, U>(
   mod: GroupProtocol<T>,
   mult: GroupProtocol<U>,
-  act: FieldProtocol<T, U>['Mult'],
+  act: FieldProtocol<T, U>["Mult"],
   actIsDistributive: Prove,
 ): FieldProtocol<T, U> => {
   return {
-    '@isAddAssociative': mod['@isAssociative'],
-    '@isAddCommutative': mod['@isCommutative'],
+    "@isAddAssociative": mod["@isAssociative"],
+    "@isAddCommutative": mod["@isCommutative"],
     Add: mod.Add,
     AddInverse: mod.Inverse,
-    '@isMultDistributive': actIsDistributive,
+    "@isMultDistributive": actIsDistributive,
     Mult: act,
-    '@isMultAssociative': mult['@isAssociative'],
-    '@isMultCommutative': mult['@isCommutative'],
+    "@isMultAssociative": mult["@isAssociative"],
+    "@isMultCommutative": mult["@isCommutative"],
     MultAdd: mult.Add,
     MultInverse: mult.Inverse,
     Zero: mod.Zero,
@@ -61,4 +63,9 @@ export const createField = <T, U>(
 };
 
 export const numberField = () =>
-  createField<number, number>(numberGroup(), numberMultGroup(), (t, u) => t * u, asProved(/**/));
+  createField<number, number>(
+    numberGroup(),
+    numberMultGroup(),
+    (t, u) => t * u,
+    asProved(/**/),
+  );

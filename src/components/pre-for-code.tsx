@@ -1,15 +1,17 @@
 import React from "react";
-import type { FC } from 'react';
+import type { FC } from "react";
 
-const Pre: FC<any> = (props) => (
+const Pre = (props: React.ComponentProps<"div">) => (
   <>
     <pre {...props} />
-    <style jsx>{`
+    <style jsx>
+      {`
       pre :global(code) {
         padding: 0.4em;
         display: block;
       }
-    `}</style>
+    `}
+    </style>
   </>
 );
 

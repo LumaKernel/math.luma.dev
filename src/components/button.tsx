@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 import type { FC, MouseEventHandler } from "react";
 import { useRef, useState } from "react";
-import { cssColors } from "@/components/lib/colors.ts";
+import { cssColors } from "@/lib/colors.ts";
 import { rootClass } from "@/components/root.ts";
 
 const thickness = "0.5px";
@@ -16,10 +16,16 @@ const backCircleM = 4;
 const svg1 = (isLight: boolean) => `
   <svg xmlns='http://www.w3.org/2000/svg' width='100%' height='100%'>
     <defs>
-      <pattern id='bg' patternUnits='userSpaceOnUse' width='${backCircleM * 2}' height='${backCircleM * 2}'>
+      <pattern id='bg' patternUnits='userSpaceOnUse' width='${
+  backCircleM * 2
+}' height='${backCircleM * 2}'>
         <g transform="translate(${backCircleR} ${backCircleR})">
-          <circle cx="0" cy="0" r="${backCircleR}" fill="${isLight ? "black" : "white"}" />
-          <circle cx="${backCircleM}" cy="${backCircleM}" r="${backCircleR}" fill="${isLight ? "black" : "white"}" />
+          <circle cx="0" cy="0" r="${backCircleR}" fill="${
+  isLight ? "black" : "white"
+}" />
+          <circle cx="${backCircleM}" cy="${backCircleM}" r="${backCircleR}" fill="${
+  isLight ? "black" : "white"
+}" />
         </g>
       </pattern>
     </defs>
@@ -53,22 +59,25 @@ const wrapperStyle = `
   text-decoration: none;
 `;
 
-const HorizontalLine: FC<any> = (props) => (
+const HorizontalLine = (props: React.ComponentProps<"div">) => (
   <>
     <div {...props} />
-    <style jsx>{`
+    <style jsx>
+      {`
       div {
         flex-grow: 1;
         border-bottom: ${thickness} solid ${cssColors.decorationPrimary};
       }
-    `}</style>
+    `}
+    </style>
   </>
 );
 
-const UpperLine: FC<any> = (props) => (
+const UpperLine = (props: React.ComponentProps<"div">) => (
   <>
     <div {...props} />
-    <style jsx>{`
+    <style jsx>
+      {`
       div {
         display: flex;
         align-items: center;
@@ -78,14 +87,16 @@ const UpperLine: FC<any> = (props) => (
         top: 0;
         transform: translateY(-50%);
       }
-    `}</style>
+    `}
+    </style>
   </>
 );
 
-const LowerLine: FC<any> = (props) => (
+const LowerLine = (props: React.ComponentProps<"div">) => (
   <>
     <div {...props} />
-    <style jsx>{`
+    <style jsx>
+      {`
       div {
         display: flex;
         align-items: center;
@@ -95,7 +106,8 @@ const LowerLine: FC<any> = (props) => (
         bottom: 0;
         transform: translateY(50%);
       }
-    `}</style>
+    `}
+    </style>
   </>
 );
 
@@ -105,7 +117,7 @@ const filledCircleStyle = `
   height: ${size};
   border-radius: ${size};
 `;
-// const FilledCircle: FC<any> = (props) => (
+// const FilledCircle = (props: React.ComponentProps<"div">) => (
 //   <>
 //     <div {...props} />
 //     <style jsx>{`
@@ -116,36 +128,41 @@ const filledCircleStyle = `
 //   </>
 // );
 
-const FilledCircleLeft: FC<any> = (props) => (
+const FilledCircleLeft = (props: React.ComponentProps<"div">) => (
   <>
     <div {...props} />
-    <style jsx>{`
+    <style jsx>
+      {`
       div {
         ${filledCircleStyle}
         position: absolute;
         left: 0;
       }
-    `}</style>
+    `}
+    </style>
   </>
 );
 
-const FilledCircleRight: FC<any> = (props) => (
+const FilledCircleRight = (props: React.ComponentProps<"div">) => (
   <>
     <div {...props} />
-    <style jsx>{`
+    <style jsx>
+      {`
       div {
         ${filledCircleStyle}
         position: absolute;
         right: 0;
       }
-    `}</style>
+    `}
+    </style>
   </>
 );
 
-const Background: FC<any> = (props) => (
+const Background = (props: React.ComponentProps<"div">) => (
   <>
     <div {...props} />
-    <style jsx>{`
+    <style jsx>
+      {`
       div {
         position: absolute;
         left: 0;
@@ -169,7 +186,8 @@ const Background: FC<any> = (props) => (
       :global(.${rootClass}).dark div {
         background-image: url(${svgToCssUrl(svg1(false))});
       }
-    `}</style>
+    `}
+    </style>
   </>
 );
 
@@ -182,38 +200,44 @@ const outlinedCircleStyle = `
   margin-left: ${gap};
   margin-right: ${gap};
 `;
-const OutlinedCircle: FC<any> = (props) => (
+const OutlinedCircle = (props: React.ComponentProps<"div">) => (
   <>
     <div {...props} />
-    <style jsx>{`
+    <style jsx>
+      {`
       div {
         ${outlinedCircleStyle}
       }
-    `}</style>
+    `}
+    </style>
   </>
 );
 
-const OutlinedCircleRightMost: FC<any> = (props) => (
+const OutlinedCircleRightMost = (props: React.ComponentProps<"div">) => (
   <>
     <div {...props} />
-    <style jsx>{`
+    <style jsx>
+      {`
       div {
         ${outlinedCircleStyle}
         margin-right: 0;
       }
-    `}</style>
+    `}
+    </style>
   </>
 );
 
-const OutlinedCircleLeftMost: FC<any> = (props) => (
+const OutlinedCircleLeftMost = (props: React.ComponentProps<"div">) => (
   <>
     <div {...props} />
-    <style jsx>{`
+    <style jsx>
+      {`
       div {
         ${outlinedCircleStyle}
         margin-left: 0;
       }
-    `}</style>
+    `}
+    </style>
   </>
 );
 
@@ -228,7 +252,7 @@ const Button: FC<ButtonProps> = ({ children, onClick, href }) => {
   const rootRef = useRef<HTMLAnchorElement & HTMLButtonElement>(null);
   const [mouseInside, setMouseInside] = useState(false);
   const [mousePos, setMousePos] = useState<{ x: number; y: number } | null>(
-    null
+    null,
   );
   const mouseMoveHandler: MouseEventHandler<
     HTMLAnchorElement | HTMLButtonElement
@@ -256,8 +280,12 @@ const Button: FC<ButtonProps> = ({ children, onClick, href }) => {
         style={{
           opacity: mouseInside ? 0.6 : 0,
           ...(mousePos && {
-            maskPosition: `${mousePos.x - hoverCircleSizePx / 2}px ${mousePos.y - hoverCircleSizePx / 2}px`,
-            WebkitMaskPosition: `${mousePos.x - hoverCircleSizePx / 2}px ${mousePos.y - hoverCircleSizePx / 2}px`,
+            maskPosition: `${mousePos.x - hoverCircleSizePx / 2}px ${
+              mousePos.y - hoverCircleSizePx / 2
+            }px`,
+            WebkitMaskPosition: `${mousePos.x - hoverCircleSizePx / 2}px ${
+              mousePos.y - hoverCircleSizePx / 2
+            }px`,
           }),
         }}
       />
@@ -283,18 +311,20 @@ const Button: FC<ButtonProps> = ({ children, onClick, href }) => {
   } as const;
   return (
     <>
-      {typeof href === "string" ? (
-        <Link href={href} passHref>
-          <a {...params} />
-        </Link>
-      ) : (
-        <button {...params} />
-      )}
-      <style jsx>{`
+      {typeof href === "string"
+        ? (
+          <Link href={href} passHref>
+            <a {...params} />
+          </Link>
+        )
+        : <button {...params} />}
+      <style jsx>
+        {`
         .wrapper {
           ${wrapperStyle}
         }
-      `}</style>
+      `}
+      </style>
     </>
   );
 };

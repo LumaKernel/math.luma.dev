@@ -1,9 +1,9 @@
 export interface Prove {
-  readonly '@proved': true;
+  readonly "@proved": true;
 }
 
 export const asProved = (..._proves: Prove[]): Prove => {
   return {
-    '@proved': true,
+    "@proved": true,
   };
 };

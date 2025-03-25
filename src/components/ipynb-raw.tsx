@@ -1,5 +1,5 @@
 import React from "react";
-import type { FC } from 'react';
+import type { FC } from "react";
 
 interface Props {
   lang?: string;
@@ -10,7 +10,8 @@ const IpynbRaw: FC<Props> = ({ children }) => {
   return (
     <>
       <div>{children}</div>
-      <style jsx>{`
+      <style jsx>
+        {`
         @media (prefers-color-scheme: dark) {
           :global(.root:not(.light)) div :global(.image-wrapper) {
             display: inline-flex;
@@ -50,7 +51,8 @@ const IpynbRaw: FC<Props> = ({ children }) => {
           height: 100%;
           pointer-events: none;
         }
-      `}</style>
+      `}
+      </style>
     </>
   );
 };

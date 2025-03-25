@@ -2,8 +2,33 @@ import React from "react";
 import H1 from "@/components/heading/H1.tsx";
 // import type { QuickTermDefinition } from "@/lib/quick-term-dict.ts"; // Commented for Deno compatibility
 // import { quickTerms } from "@/lib/quick-term-dict.ts"; // Commented for Deno compatibility
-import type { PageConfig, PageLocation } from "@/components/util/pages.ts";
-import { locEq } from "@/components/util/pages.ts";
+// import type { PageConfig, PageLocation } from "@/components/util/pages.ts"; // Commented for Deno compatibility
+// import { locEq } from "@/components/util/pages.ts"; // Commented for Deno compatibility
+
+// Mock types for Deno compatibility
+interface PageConfig {
+  title?: string;
+  termUsage: {
+    defined: Array<{
+      termName: string;
+      placeSlug?: string | null;
+    }>;
+    used: Array<{
+      termName: string;
+      placeSlug?: string | null;
+    }>;
+  };
+}
+
+interface PageLocation {
+  linkPath: string;
+  subdomain: string;
+}
+
+// Simple implementation for Deno compatibility
+const locEq = (loc1: PageLocation, loc2: PageLocation): boolean => {
+  return loc1.linkPath === loc2.linkPath;
+};
 import QuickTerm from "@/components/quick-term.tsx";
 import ShowError from "@/components/show-error.tsx";
 // import { NextSeo } from 'next-seo'; // Commented for Deno compatibility
@@ -38,7 +63,7 @@ const quickTermBySlug = Object.fromEntries<
       return [v.slug, [key, v]];
     }
     return [key, [key, v]];
-  }) as any
+  }) as any,
 );
 
 interface Props2 {
@@ -64,20 +89,27 @@ const TermUsageListInPage: FC<Props2> = ({ usage }) => {
     <>
       <span>{title}</span>
       <br />
+      {
+        /* PathBreadcrumbs commented out for Deno compatibility
       <span>
         <PathBreadcrumbs path={linkPath} subdomain={subdomain} />
       </span>
+      */
+      }
+      <span>Path: {linkPath}</span>
       <br />
       <ul>
         {list
           .filter((e) => e)
           .map((e) => (
             <li key={e}>
-              {/* Link component commented out for Deno compatibility
+              {
+                /* Link component commented out for Deno compatibility
               <Link href={`${hostOf(subdomain)}/${linkPath}#${e}`} passHref>
                 <a>#{e}</a>
               </Link>
-              */}
+              */
+              }
               <a href={`${hostOf(subdomain)}/${linkPath}#${e}`}>#{e}</a>
             </li>
           ))}
@@ -86,14 +118,16 @@ const TermUsageListInPage: FC<Props2> = ({ usage }) => {
   );
 };
 
-const Li: FC<any> = (props) => (
+const Li = (props: React.ComponentProps<"div">) => (
   <>
     <li {...props} />
-    <style jsx>{`
+    <style jsx>
+      {`
       li {
         margin-top: 0.6em;
       }
-    `}</style>
+    `}
+    </style>
   </>
 );
 
@@ -116,9 +150,7 @@ const TermUsageList: FC<Props1> = ({ usage }) => {
   if (tmp.length) list.push(<TermUsageListInPage usage={tmp} />);
   return (
     <ul>
-      {list.map((e, i) => (
-        <Li key={i}>{e}</Li>
-      ))}
+      {list.map((e, i) => <Li key={i}>{e}</Li>)}
     </ul>
   );
 };
@@ -173,13 +205,15 @@ const DefLayout: FC<Props> = ({ children, subdomain, name }) => {
 
   return (
     <MainLayout>
-      {/* NextSeo component commented out for Deno compatibility
+      {
+        /* NextSeo component commented out for Deno compatibility
       <NextSeo
         title={`${titleText} - ${subdomain}.luma.dev`}
         description={term.text}
         canonical={`${hostOf(subdomain)}/terms/${name}`}
       />
-      */}
+      */
+      }
       <H1>
         <QuickTerm w={w} o />
       </H1>
@@ -187,9 +221,9 @@ const DefLayout: FC<Props> = ({ children, subdomain, name }) => {
         <QuickTerm w={w} isFirst />
       </p>
       {children}
-      <H2 slug="定義箇所">定義箇所</H2>
+      <H2 slug="定義箇所" lastH1Slug="definitions">定義箇所</H2>
       <TermUsageList usage={defined} />
-      <H2 slug="使用箇所">使用箇所</H2>
+      <H2 slug="使用箇所" lastH1Slug="usages">使用箇所</H2>
       <TermUsageList usage={used} />
       {process.env.NODE_ENV === "development" && (
         <div>

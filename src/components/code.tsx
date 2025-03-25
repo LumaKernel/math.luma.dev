@@ -1,10 +1,11 @@
 import React from "react";
-import type { FC } from 'react';
+import type { FC } from "react";
 
-const Code: FC<any> = (props) => (
+const Code = (props: React.ComponentProps<"div">) => (
   <>
     <code {...props} />
-    <style jsx>{`
+    <style jsx>
+      {`
       code {
         background: var(--color-code-bg);
         color: var(--color-code-default);
@@ -86,7 +87,8 @@ const Code: FC<any> = (props) => (
       code :global(.tag) {
         color: var(--color-tag);
       }
-    `}</style>
+    `}
+    </style>
   </>
 );
 

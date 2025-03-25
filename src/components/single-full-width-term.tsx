@@ -1,5 +1,5 @@
 import React from "react";
-import type { FC } from 'react';
+import type { FC } from "react";
 import type { QuickTermSingle } from "@/lib/quick-term-dict.ts";
 import Term from "@/components/term.ts";
 

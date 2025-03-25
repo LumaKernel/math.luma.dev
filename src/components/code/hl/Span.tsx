@@ -14,14 +14,16 @@ const ReferenceAnchor: FC<React.HTMLProps<HTMLAnchorElement>> = (props) => {
   return (
     <>
       <a {...props} />
-      <style jsx>{`
+      <style jsx>
+        {`
         a {
           text-decoration: none;
         }
         a:hover {
           text-decoration: underline;
         }
-      `}</style>
+      `}
+      </style>
     </>
   );
 };
@@ -131,9 +133,7 @@ const EverythingSpan: FC<Props> = ({
       return (
         <ReferenceAnchor
           {...rest}
-          href={
-            "https://reference.wolfram.com/language/ref/Prefix.html#793473401"
-          }
+          href={"https://reference.wolfram.com/language/ref/Prefix.html#793473401"}
           target="_blank"
         />
       );
@@ -169,9 +169,7 @@ const EverythingSpan: FC<Props> = ({
       return (
         <ReferenceAnchor
           {...rest}
-          href={
-            "https://reference.wolfram.com/language/ref/CompoundExpression.html"
-          }
+          href={"https://reference.wolfram.com/language/ref/CompoundExpression.html"}
           target="_blank"
         />
       );

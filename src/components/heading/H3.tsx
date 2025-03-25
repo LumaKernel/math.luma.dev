@@ -11,12 +11,14 @@ const thickness = "0.6px";
 const StyledH3 = (props: React.ComponentProps<"div">) => (
   <>
     <div {...props} />
-    <style jsx>{`
+    <style jsx>
+      {`
       h3 {
         margin: 0;
         margin-top: 1.2em;
       }
-    `}</style>
+    `}
+    </style>
   </>
 );
 
@@ -31,47 +33,55 @@ const circleStyle = `
 const Circle = (props: React.ComponentProps<"div">) => (
   <>
     <div {...props} />
-    <style jsx>{`
+    <style jsx>
+      {`
       div {
         ${circleStyle}
       }
-    `}</style>
+    `}
+    </style>
   </>
 );
 
 const CircleLast = (props: React.ComponentProps<"div">) => (
   <>
     <div {...props} />
-    <style jsx>{`
+    <style jsx>
+      {`
       div {
         ${circleStyle}
         margin-right: 0;
       }
-    `}</style>
+    `}
+    </style>
   </>
 );
 
 const Pole = (props: React.ComponentProps<"div">) => (
   <>
     <div {...props} />
-    <style jsx>{`
+    <style jsx>
+      {`
       div {
         width: 100%;
         border-bottom: ${thickness} solid ${cssColors.decorationPrimary};
       }
-    `}</style>
+    `}
+    </style>
   </>
 );
 
 const Column = (props: React.ComponentProps<"div">) => (
   <>
     <div {...props} />
-    <style jsx>{`
+    <style jsx>
+      {`
       div {
         display: flex;
         align-items: center;
       }
-    `}</style>
+    `}
+    </style>
   </>
 );
 

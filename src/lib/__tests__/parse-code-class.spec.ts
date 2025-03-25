@@ -1,25 +1,31 @@
-import parseCodeClass from '../parse-code-class.ts';
+import { assertEquals } from "@std/assert";
+import parseCodeClass from "../parse-code-class.ts";
 
-describe('parseCodeClass', () => {
-  it('parse code class', () => {
-    expect(parseCodeClass()).toEqual({
-      language: null,
-      file: null,
-    });
-    expect(parseCodeClass('language-js')).toEqual({
-      language: 'js',
-      file: null,
-    });
-    expect(parseCodeClass('language-js:a.js')).toEqual({
-      language: 'js',
-      file: {
-        root: '',
-        path: 'a.js',
-        dir: '',
-        base: 'a.js',
-        ext: '.js',
-        name: 'a',
-      },
-    });
+Deno.test("parseCodeClass - empty input", () => {
+  assertEquals(parseCodeClass(), {
+    language: null,
+    file: null,
+  });
+});
+
+Deno.test("parseCodeClass - language only", () => {
+  assertEquals(parseCodeClass("language-js"), {
+    language: "js",
+    file: null,
+  });
+});
+
+Deno.test("parseCodeClass - language with file", () => {
+  assertEquals(parseCodeClass("language-js:a.js"), {
+    language: "js",
+    file: {
+      path: "a.js",
+      search: "",
+      searchParams: {},
+      dir: "/",
+      base: "a.js",
+      ext: ".js",
+      name: "a",
+    },
   });
 });

@@ -1,6 +1,6 @@
-import { asProved } from './base.ts';
-import type { FieldProtocol } from './field.ts';
-import { numberField, fieldUtil } from './field.ts';
+import { asProved } from "./base.ts";
+import type { FieldProtocol } from "./field.ts";
+import { fieldUtil, numberField } from "./field.ts";
 
 export interface Rational<T> {
   // 分子
@@ -9,25 +9,34 @@ export interface Rational<T> {
   readonly denom: T;
 }
 
-export interface RationalField<T> extends FieldProtocol<Rational<T>, Rational<T>> {}
+export interface RationalField<T>
+  extends FieldProtocol<Rational<T>, Rational<T>> {}
 
-export const createRationalField = <T>(field: FieldProtocol<T, T>): RationalField<T> => {
+export const createRationalField = <T>(
+  field: FieldProtocol<T, T>,
+): RationalField<T> => {
   const Eq = (op1: Rational<T>, op2: Rational<T>): boolean => {
     // a/b = c/d <=> ad = bc
-    return field.AddEq(field.Mult(op1.numer, op2.denom), field.Mult(op1.denom, op2.numer));
+    return field.AddEq(
+      field.Mult(op1.numer, op2.denom),
+      field.Mult(op1.denom, op2.numer),
+    );
   };
   const isAddAssociative = asProved();
   const isAddCommutative = asProved();
   const Add = (op1: Rational<T>, op2: Rational<T>): Rational<T> => {
     // a/b + c/d = (ad+bc)/bd
     return {
-      numer: field.Add(field.Mult(op1.numer, op2.denom), field.Mult(op1.denom, op2.numer)),
+      numer: field.Add(
+        field.Mult(op1.numer, op2.denom),
+        field.Mult(op1.denom, op2.numer),
+      ),
       denom: field.Mult(op1.denom, op2.denom),
     };
   };
   return {
-    '@isAddAssociative': isAddAssociative,
-    '@isAddCommutative': isAddCommutative,
+    "@isAddAssociative": isAddAssociative,
+    "@isAddCommutative": isAddCommutative,
     Add,
     AddInverse: (op1: Rational<T>): Rational<T> => {
       return {
@@ -35,7 +44,7 @@ export const createRationalField = <T>(field: FieldProtocol<T, T>): RationalFiel
         denom: op1.denom,
       };
     },
-    '@isMultDistributive': asProved(),
+    "@isMultDistributive": asProved(),
     Mult: (op1: Rational<T>, op2: Rational<T>): Rational<T> => {
       // a/b * c/d = ac/bd
       return {
@@ -43,11 +52,13 @@ export const createRationalField = <T>(field: FieldProtocol<T, T>): RationalFiel
         denom: field.Mult(op1.denom, op2.denom),
       };
     },
-    '@isMultAssociative': isAddAssociative,
-    '@isMultCommutative': isAddCommutative,
+    "@isMultAssociative": isAddAssociative,
+    "@isMultCommutative": isAddCommutative,
     MultAdd: Add,
     MultInverse: (op1: Rational<T>): Rational<T> => {
-      if (fieldUtil(field).IsZero(op1.denom)) throw new Error('no inverse of zero');
+      if (fieldUtil(field).IsZero(op1.denom)) {
+        throw new Error("no inverse of zero");
+      }
       // a/b^-1 = b/a
       return {
         numer: op1.denom,
@@ -73,4 +84,7 @@ export const createRationalField = <T>(field: FieldProtocol<T, T>): RationalFiel
 
 export type NumberRational = Rational<number>;
 export const numberRational = () => createRationalField(numberField());
-export const numberToRational = (n: number): NumberRational => ({ numer: n, denom: 1 });
+export const numberToRational = (n: number): NumberRational => ({
+  numer: n,
+  denom: 1,
+});

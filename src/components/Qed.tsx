@@ -6,11 +6,13 @@ import { cssFonts } from "./lib/fonts.ts";
 const Text = (props: React.ComponentProps<"span">) => (
   <>
     <span {...props} />
-    <style jsx>{`
+    <style jsx>
+      {`
       span {
         font-family: ${cssFonts.monospace};
       }
-    `}</style>
+    `}
+    </style>
   </>
 );
 

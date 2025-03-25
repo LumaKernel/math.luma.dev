@@ -1,33 +1,39 @@
 "use client";
-import React from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import Button from "@/components/button.tsx";
 import MatWithPivot from "./MatWithPivot.tsx";
-import { isPivotDescending, isZerosBelowNonZeros } from "@/components/lib/la.ts";
-import { essentialOfChildren } from "@/components/lib/react.ts";
+import {
+  isPivotDescending,
+  isZerosBelowNonZeros,
+} from "@/lib/la.ts";
+import { essentialOfChildren } from "@/lib/react.ts";
 import Ng from "@/components/ng.tsx";
 import Ok from "@/components/ok.tsx";
 import type { FC } from "react";
-import React, { useCallback, useMemo, useState } from "react";
 
-const ResetOuter: FC<any> = (props) => (
+const ResetOuter = (props: React.ComponentProps<"div">) => (
   <>
     <div {...props} />
-    <style jsx>{`
+    <style jsx>
+      {`
       div {
         margin: 8px 8px;
       }
-    `}</style>
+    `}
+    </style>
   </>
 );
 
-const ResetInner: FC<any> = (props) => (
+const ResetInner = (props: React.ComponentProps<"div">) => (
   <>
     <div {...props} />
-    <style jsx>{`
+    <style jsx>
+      {`
       div {
         padding: 2px 8px;
       }
-    `}</style>
+    `}
+    </style>
   </>
 );
 

@@ -10,7 +10,8 @@ export default function PlainCode(props: Props) {
   return (
     <>
       <code {...props} />
-      <style jsx>{`
+      <style jsx>
+        {`
         code {
           background: var(--color-code-bg);
           color: var(--color-code-default);
@@ -92,7 +93,8 @@ export default function PlainCode(props: Props) {
         code :global(.tag) {
           color: var(--color-tag);
         }
-      `}</style>
+      `}
+      </style>
     </>
   );
 }

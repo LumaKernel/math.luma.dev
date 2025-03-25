@@ -7,12 +7,14 @@ export default function PreForCode(props: PreForCodeProps) {
   return (
     <>
       <pre {...props} />
-      <style jsx>{`
+      <style jsx>
+        {`
         pre :global(code) {
           padding: 0.4em;
           display: block;
         }
-      `}</style>
+      `}
+      </style>
     </>
   );
 }

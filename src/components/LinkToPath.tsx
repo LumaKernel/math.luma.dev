@@ -1,5 +1,5 @@
 import React from "react";
-import type { FC } from 'react';
+import type { FC } from "react";
 import PathBreadcrumbs from "@/components/path-breadcrumbs.ts";
 import ShowError from "@/components/show-error.ts";
 // import pagesMetaData from '@blogkit/blog-components/pages-metadata.json' - Commented for Deno compatibility
@@ -12,9 +12,11 @@ type Props = {
 };
 
 const LinkToPath: FC<Props> = ({ href, subdomain }) => {
-  if (!href) return <ShowError error={'Href not set'} />;
+  if (!href) return <ShowError error={"Href not set"} />;
   try {
-    const pageMetaData = pagesMetaData.find((m) => m.loc.subdomain === subdomain && m.loc.linkPath === href)!;
+    const pageMetaData = pagesMetaData.find((m) =>
+      m.loc.subdomain === subdomain && m.loc.linkPath === href
+    )!;
     const title = pageMetaData.pageConfig?.title;
     return (
       <div>

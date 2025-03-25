@@ -1,5 +1,5 @@
 import React from "react";
-import type { FC } from 'react';
+import type { FC } from "react";
 
 export interface Props {
   x: number;
@@ -18,11 +18,13 @@ const SvgNg: FC<Props> = ({ x, y, size }) => {
           <rect width={w} height={size} rx={w} />
         </g>
       </g>
-      <style jsx>{`
+      <style jsx>
+        {`
         rect {
           fill: red;
         }
-      `}</style>
+      `}
+      </style>
     </>
   );
 };

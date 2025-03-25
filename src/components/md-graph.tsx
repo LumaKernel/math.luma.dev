@@ -1,16 +1,16 @@
 import React from "react";
-import type { FC } from 'react';
-import ShowError from './show-error.tsx';
-import RememberRowColumnSvg from './graphs/linear-algebra/remember-row-column-svg.ts';
-import IsRowEchMat from './graphs/linear-algebra/is-row-ech-mat.ts';
-import IsRedRowEchMat from './graphs/linear-algebra/is-red-row-ech-mat.ts';
-import GaussElim from './graphs/linear-algebra/gauss-elim.ts';
+import type { FC } from "react";
+import ShowError from "./show-error.tsx";
+import RememberRowColumnSvg from "./graphs/linear-algebra/remember-row-column-svg.ts";
+import IsRowEchMat from "./graphs/linear-algebra/is-row-ech-mat.ts";
+import IsRedRowEchMat from "./graphs/linear-algebra/is-red-row-ech-mat.ts";
+import GaussElim from "./graphs/linear-algebra/gauss-elim.ts";
 
 const graphs: Record<string, FC<any> | undefined> = {
-  'row-column': RememberRowColumnSvg,
-  'is-row-ech-mat': IsRowEchMat,
-  'is-red-row-ech-mat': IsRedRowEchMat,
-  'gauss-elim': GaussElim,
+  "row-column": RememberRowColumnSvg,
+  "is-row-ech-mat": IsRowEchMat,
+  "is-red-row-ech-mat": IsRedRowEchMat,
+  "gauss-elim": GaussElim,
 };
 
 type Props = {

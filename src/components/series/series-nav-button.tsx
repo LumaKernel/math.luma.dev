@@ -1,29 +1,33 @@
 import React from "react";
-import type { FC } from 'react';
-import Button from './button.ts';
-import type { ParsedPage } from './types.ts';
+import type { FC } from "react";
+import Button from "./button.ts";
+import type { ParsedPage } from "./types.ts";
 
-const Wrapper: FC<any> = (props) => (
+const Wrapper = (props: React.ComponentProps<"div">) => (
   <>
     <div {...props} />
-    <style jsx>{`
+    <style jsx>
+      {`
       div {
         min-width: 260px;
         padding: 14px 8px;
       }
-    `}</style>
+    `}
+    </style>
   </>
 );
 
-const LinkPath: FC<any> = (props) => (
+const LinkPath = (props: React.ComponentProps<"div">) => (
   <>
     <div {...props} />
-    <style jsx>{`
+    <style jsx>
+      {`
       div {
         font-size: 0.8em;
         color: grey;
       }
-    `}</style>
+    `}
+    </style>
   </>
 );
 

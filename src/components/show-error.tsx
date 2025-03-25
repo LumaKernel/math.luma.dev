@@ -1,14 +1,16 @@
 import React from "react";
-import type { FC } from 'react';
+import type { FC } from "react";
 
-const ErrorText: FC<any> = (props) => (
+const ErrorText = (props: React.ComponentProps<"div">) => (
   <>
     <span {...props} />
-    <style jsx>{`
+    <style jsx>
+      {`
       span {
         color: red;
       }
-    `}</style>
+    `}
+    </style>
   </>
 );
 
