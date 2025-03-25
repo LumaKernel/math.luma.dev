@@ -1,0 +1,5 @@
+Former programmer is doing wrong as in fix-fc-any-components.js.
+
+It's replacing well, but to another component tag name like React.ComponentProps<"div"> even if it's not div.
+
+Please just fix this problem (if you wanna create one-off script, make new one).
