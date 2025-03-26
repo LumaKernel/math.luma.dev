@@ -4,7 +4,7 @@ import PathBreadcrumbs from "@/components/PathBreadcrumbs.tsx";
 import ShowError from "@/components/show-error.tsx";
 // import pagesMetaData from '@blogkit/blog-components/pages-metadata.json' - Commented for Deno compatibility
 const pagesMetaData: any[] = [];
-import type { Subdomain } from "@/types/index.ts";
+import type { Subdomain } from "@/types/article.ts";
 
 type Props = {
   href?: string;

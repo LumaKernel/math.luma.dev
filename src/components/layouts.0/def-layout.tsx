@@ -37,7 +37,7 @@ import MainLayout from "@/components/layouts.0/main-layout.tsx";
 // import pagesMetaData from '@blogkit/blog-components/pages-metadata.json' - Commented for Deno compatibility
 const pagesMetaData: any[] = [];
 import H2 from "@/components/heading/H2.tsx";
-import PathBreadcrumbs from "@/components/src/path-breadcrumbs.tsx";
+import PathBreadcrumbs from "@/components/PathBreadcrumbs.tsx";
 // import Link from 'next/link'; // Commented for Deno compatibility
 import { hostOf } from "@/components/util/index.ts";
 

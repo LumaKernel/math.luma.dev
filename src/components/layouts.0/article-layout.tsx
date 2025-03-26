@@ -1,7 +1,7 @@
 import H1 from "@/components/heading/H1.tsx";
 import PathBreadcrumbs from "@/components/PathBreadcrumbs.tsx";
 import SeriesNav from "@/components/series/SeriesNav.tsx";
-import type { AllMetaData } from "@/components/types.ts";
+import type { AllMetaData } from "@/types/article.ts";
 import type { FC } from "react";
 import MainLayout from "@/components/layouts/MainLayout.tsx";
 import React from "react";

@@ -1,10 +1,10 @@
 import React from "react";
 import type { FC } from "react";
 import ShowError from "./show-error.tsx";
-import RememberRowColumnSvg from "./graphs/linear-algebra/remember-row-column-svg.ts";
-import IsRowEchMat from "./graphs/linear-algebra/is-row-ech-mat.ts";
-import IsRedRowEchMat from "./graphs/linear-algebra/is-red-row-ech-mat.ts";
-import GaussElim from "./graphs/linear-algebra/gauss-elim.ts";
+import RememberRowColumnSvg from "@/contents/linear-algebra/basics/RememberRowColumnSvg.tsx";
+import IsRowEchMat from "@/contents/linear-algebra/basics/IsRowEchMat.tsx";
+import IsRedRowEchMat from "@/contents/linear-algebra/basics/IsRedRowEchMat.tsx";
+import GaussElim from "@/contents/linear-algebra/basics/GaussElim.tsx";
 
 const graphs: Record<string, FC<any> | undefined> = {
   "row-column": RememberRowColumnSvg,

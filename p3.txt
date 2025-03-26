@@ -1,0 +1,41 @@
+TS2307 [ERROR]: Cannot find module 'file:///Users/luma/ghq/github.com/LumaKernel/blogkit-next/src/components/lib/colors.ts'.
+    at file:///Users/luma/ghq/github.com/LumaKernel/blogkit-next/src/components/encyclopedia-of-math.tsx:4:27
+
+TS2307 [ERROR]: Cannot find module 'file:///Users/luma/ghq/github.com/LumaKernel/blogkit-next/src/components/lib/fonts.ts'.
+    at file:///Users/luma/ghq/github.com/LumaKernel/blogkit-next/src/components/Qed.tsx:4:26
+
+TS2307 [ERROR]: Cannot find module 'file:///Users/luma/ghq/github.com/LumaKernel/blogkit-next/src/components/types.ts'.
+    at file:///Users/luma/ghq/github.com/LumaKernel/blogkit-next/src/components/layouts.0/article-layout.tsx:4:34
+
+TS2307 [ERROR]: Cannot find module 'file:///Users/luma/ghq/github.com/LumaKernel/blogkit-next/src/components/series/button.ts'.
+    at file:///Users/luma/ghq/github.com/LumaKernel/blogkit-next/src/components/series/series-nav-button.tsx:3:20
+
+TS2307 [ERROR]: Cannot find module 'file:///Users/luma/ghq/github.com/LumaKernel/blogkit-next/src/components/series/types.ts'.
+    at file:///Users/luma/ghq/github.com/LumaKernel/blogkit-next/src/components/series/series-nav-button.tsx:4:33
+
+TS2307 [ERROR]: Cannot find module 'file:///Users/luma/ghq/github.com/LumaKernel/blogkit-next/src/components/src/path-breadcrumbs.tsx'.
+    at file:///Users/luma/ghq/github.com/LumaKernel/blogkit-next/src/components/layouts.0/def-layout.tsx:40:29
+
+TS2307 [ERROR]: Cannot find module 'file:///Users/luma/ghq/github.com/LumaKernel/blogkit-next/src/types/index.ts'.
+    at file:///Users/luma/ghq/github.com/LumaKernel/blogkit-next/src/components/LinkToPath.tsx:7:32
+
+TS2307 [ERROR]: Cannot find module 'file:///Users/luma/ghq/github.com/LumaKernel/blogkit-next/src/components/graphs/linear-algebra/remember-row-column-svg.ts'.
+    at file:///Users/luma/ghq/github.com/LumaKernel/blogkit-next/src/components/md-graph.tsx:4:34
+
+TS2307 [ERROR]: Cannot find module 'file:///Users/luma/ghq/github.com/LumaKernel/blogkit-next/src/components/graphs/linear-algebra/is-row-ech-mat.ts'.
+    at file:///Users/luma/ghq/github.com/LumaKernel/blogkit-next/src/components/md-graph.tsx:5:25
+
+TS2307 [ERROR]: Cannot find module 'file:///Users/luma/ghq/github.com/LumaKernel/blogkit-next/src/components/graphs/linear-algebra/is-red-row-ech-mat.ts'.
+    at file:///Users/luma/ghq/github.com/LumaKernel/blogkit-next/src/components/md-graph.tsx:6:28
+
+TS2307 [ERROR]: Cannot find module 'file:///Users/luma/ghq/github.com/LumaKernel/blogkit-next/src/components/graphs/linear-algebra/gauss-elim.ts'.
+    at file:///Users/luma/ghq/github.com/LumaKernel/blogkit-next/src/components/md-graph.tsx:7:23
+
+
+Following above errors, just fix import path.
+Hints:
+- Some should be .ts -> .tsx
+- Some should omit /components/ part.
+- Files like "./graphs/linear-algebra/remember-row-column-svg.ts"; is moved to src/contents/linear-algebra/basics/*
+
+Don't do anything else.
