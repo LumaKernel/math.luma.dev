@@ -15,7 +15,7 @@ const Prob1Ex1: FC = () => {
       height={35}
       viewBox="-140 -70 280 140"
       xmlns="http://www.w3.org/2000/svg"
-      grid0={[5, 5]}
+      // grid={[5, 5]}
     >
       <Knapsack x={X0} y={-40} size={8} sum={5} />
       <Prob1.Load0 x={X0} y={10} put />

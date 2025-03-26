@@ -1,4 +1,4 @@
-import { matShape, range } from "@/components/lib/number";
+import { matShape, range } from "@/lib/number";
 
 export type Mat = readonly (readonly number[])[];
 

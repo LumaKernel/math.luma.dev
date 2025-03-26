@@ -10,7 +10,7 @@ const Prob1Illust1: FC = () => {
       height={25}
       viewBox="-90 -50 180 100"
       xmlns="http://www.w3.org/2000/svg"
-      grid0={[5, 5]}
+      // grid={[5, 5]}
     >
       <Prob1.Load0 x={-70} y={-45} />
       <Prob1.Load1 x={-70} y={5} />
