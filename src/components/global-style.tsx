@@ -1,5 +1,5 @@
-import { cssColorProperties, cssColors } from "./lib/colors";
-import { cssFonts } from "./lib/fonts";
+import { cssColorProperties, cssColors } from "@/lib/colors";
+import { cssFonts } from "@/lib/fonts";
 
 const darkColors = `
   --color-code-bg: #101010;

@@ -1,21 +1,23 @@
 "use client";
-import { clampInAbs100Number } from "@/components/lib/number";
-import type { FormEvent } from "react";
-import { cssColors } from "@/components/lib/colors";
+import { clampInAbs100Number } from "@/lib/number";
+import type { ChangeEventHandler } from "react";
+import { cssColors } from "@/lib/colors";
 
 const Input = (props: React.ComponentProps<"input">) => {
-  <>
-    <input {...props} />
-    <style jsx>{`
-      input {
-        width: 4em;
-        background-color: ${cssColors.bgPrimary};
-        color: ${cssColors.text};
-        border: none;
-        border: 1px solid ${cssColors.decorationPrimary};
-      }
-    `}</style>
-  </>;
+  return (
+    <>
+      <input {...props} />
+      <style jsx>{`
+        input {
+          width: 4em;
+          background-color: ${cssColors.bgPrimary};
+          color: ${cssColors.text};
+          border: none;
+          border: 1px solid ${cssColors.decorationPrimary};
+        }
+      `}</style>
+    </>
+  );
 };
 
 const emphasizedStyle = `
@@ -33,9 +35,8 @@ export default function MatElemInput({
   emphasis,
   onInput,
 }: MatElemInputProps) {
-  const inputHandler = (ev: FormEvent<HTMLInputElement>) => {
-    const { value } = ev.target as any;
-    onInput?.(clampInAbs100Number(value));
+  const changeHandler: ChangeEventHandler<HTMLInputElement> = (ev) => {
+    onInput?.(clampInAbs100Number(ev.target.value));
   };
   return (
     <>
@@ -43,11 +44,7 @@ export default function MatElemInput({
         className={`wrapper ${emphasis ? "emphasized" : ""}`}
         style={{ borderColor: emphasis }}
       >
-        <Input
-          type="number"
-          value={value}
-          onInput={(ev: FormEvent<HTMLInputElement>) => inputHandler(ev)}
-        />
+        <Input type="number" value={value} onChange={changeHandler} />
       </div>
       <style jsx>{`
         .wrapper {

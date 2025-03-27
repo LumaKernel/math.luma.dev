@@ -1,7 +1,7 @@
 "use client";
 import React, { useMemo, useCallback } from "react";
-import { matShape, range } from "@/components/lib/number";
-import { cssColors } from "@/components/lib/colors";
+import { matShape, range } from "@/lib/number";
+import { cssColors } from "@/lib/colors";
 import MatElemInput from "./MatElemInput";
 import type { CreateEelem } from "./MatViewer";
 import MatViewer from "./MatViewer";

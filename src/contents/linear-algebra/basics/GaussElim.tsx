@@ -3,22 +3,15 @@ import type { FlippedProps } from "flip-toolkit/lib/types";
 import React, { useCallback, useMemo, useState } from "react";
 import { Flipper, Flipped, spring } from "react-flip-toolkit";
 import type { NumberRational } from "@/lib/math-algebra/rational";
-import {
-  numberToRational,
-  numberRational,
-} from "@/components/lib/math-algebra/rational";
-import type { FieldProtocol } from "@/components/lib/math-algebra/field";
-import { fieldUtil } from "@/components/lib/math-algebra/field";
-import type { Matrix } from "@/components/lib/math-algebra/linear-algebra";
-import {
-  matSet,
-  matRow,
-  matMap,
-} from "@/components/lib/math-algebra/linear-algebra";
-import { gcdNumber, matShape, range } from "@/components/lib/number";
+import { numberToRational, numberRational } from "@/lib/math-algebra/rational";
+import type { FieldProtocol } from "@/lib/math-algebra/field";
+import { fieldUtil } from "@/lib/math-algebra/field";
+import type { Matrix } from "@/lib/math-algebra/linear-algebra";
+import { matSet, matRow, matMap } from "@/lib/math-algebra/linear-algebra";
+import { gcdNumber, matShape, range } from "@/lib/number";
 import MatViewer from "./MatViewer";
 import MatElemInput from "./MatElemInput";
-import { cssColors } from "@/components/lib/colors";
+import { cssColors } from "@/lib/colors";
 import MatIndexIndicator from "./MatIndexIndicator";
 
 const OuterWrapper = (props: React.ComponentProps<"div">) => (
@@ -197,8 +190,9 @@ const ElemWrapper = ({ y, x, copied, children, i, j, k }: ElemWrapperProps) => {
                   vertical={false}
                   fgColor={cssColors.revertedText}
                   bgColor={cssColors.em1}
-                  children={"k"}
-                />
+                >
+                  k
+                </MatIndexIndicator>
               </InlineBlock>
             </F>
           )}
@@ -209,8 +203,9 @@ const ElemWrapper = ({ y, x, copied, children, i, j, k }: ElemWrapperProps) => {
                   vertical={false}
                   fgColor={cssColors.revertedText}
                   bgColor={cssColors.em3}
-                  children={"i"}
-                />
+                >
+                  i
+                </MatIndexIndicator>
               </InlineBlock>
             </F>
           )}
@@ -228,8 +223,9 @@ const ElemWrapper = ({ y, x, copied, children, i, j, k }: ElemWrapperProps) => {
                   vertical={false}
                   fgColor={cssColors.revertedText}
                   bgColor={cssColors.em2}
-                  children={"j"}
-                />
+                >
+                  j
+                </MatIndexIndicator>
               </div>
             </F>
           )}
@@ -308,7 +304,6 @@ export const renderElementaryMatrix: <T>(
   );
 };
 
-/* eslint-disable no-loop-func */
 function* gaussElimIllust<T>(
   mat: Matrix<T>,
   field: FieldProtocol<T, T>,
@@ -350,14 +345,13 @@ function* gaussElimIllust<T>(
           flipIdPrefix="mat"
           createElem={(y, x) => (
             <ElemWrapper y={y} x={x} i={i} j={j} k={k}>
-              <F
-                flipId={flippedMatElem(y, x)}
-                children={renderElem(mat[y][x], cssColors.text)}
-              />
+              <F flipId={flippedMatElem(y, x)}>
+                {renderElem(mat[y][x], cssColors.text)}
+              </F>
             </ElemWrapper>
           )}
         />
-        <Message children={text} />
+        <Message>{text}</Message>
         <ShowPs />
       </>
     ))(mat);
@@ -456,15 +450,11 @@ function* gaussElimIllust<T>(
                       {y === i &&
                         j === x &&
                         range(j, m).map((jj) => (
-                          <F
-                            key={jj}
-                            flipId={flippedWith("p", y, jj)}
-                            children={
-                              <Copied>
-                                {renderElem(mat[i][x], cssColors.em1)}
-                              </Copied>
-                            }
-                          />
+                          <F key={jj} flipId={flippedWith("p", y, jj)}>
+                            <Copied>
+                              {renderElem(mat[i][x], cssColors.em1)}
+                            </Copied>
+                          </F>
                         ))}
                       <F
                         flipId={flippedMatElem(y, x)}
@@ -841,7 +831,6 @@ function* gaussElimIllust<T>(
   }
   yield basic("完了");
 }
-/* eslint-enable no-loop-func */
 
 export const signNumber = (x: number) => {
   if (x < 0) return -1;

@@ -1,23 +1,21 @@
-import type { FC } from 'react';
-import PathBreadcrumbs from '@blogkit/blog-components/src/path-breadcrumbs';
-import ShowError from '@blogkit/blog-components/src/show-error';
-import pagesMetaData from '@blogkit/blog-components/pages-metadata.json';
-import type { Subdomain } from '@blogkit/next-config/src/main/processor-option';
+import type { FC } from "react";
+import PathBreadcrumbs from "@/components/PathBreadcrumbs";
+import ShowError from "@/components/show-error";
 
 type Props = {
   href?: string;
-  subdomain: Subdomain;
 };
 
-const LinkToPath: FC<Props> = ({ href, subdomain }) => {
-  if (!href) return <ShowError error={'Href not set'} />;
+const LinkToPath: FC<Props> = ({ href }) => {
+  if (!href) return <ShowError error={"Href not set"} />;
   try {
-    const pageMetaData = pagesMetaData.find((m) => m.loc.subdomain === subdomain && m.loc.linkPath === href)!;
-    const title = pageMetaData.pageConfig?.title;
+    //const pageMetaData = pagesMetaData.find((m) => m.loc.subdomain === subdomain && m.loc.linkPath === href)!;
+    //const title = pageMetaData.pageConfig?.title;
+    const title = "TODO";
     return (
       <div>
         <span>{title}</span>
-        <PathBreadcrumbs path={href} subdomain={subdomain} />
+        <PathBreadcrumbs path={href} />
       </div>
     );
   } catch (e: unknown) {
@@ -25,7 +23,6 @@ const LinkToPath: FC<Props> = ({ href, subdomain }) => {
       <div>
         <ul>
           <li>href: {href}</li>
-          <li>subdomain: {subdomain}</li>
         </ul>
         <ShowError error={e} />
       </div>

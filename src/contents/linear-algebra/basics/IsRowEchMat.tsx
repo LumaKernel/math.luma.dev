@@ -1,8 +1,8 @@
 "use client";
 import Button from "@/components/button";
 import MatWithPivot from "./MatWithPivot";
-import { isPivotDescending, isZerosBelowNonZeros } from "@/components/lib/la";
-import { essentialOfChildren } from "@/components/lib/react";
+import { isPivotDescending, isZerosBelowNonZeros } from "@/lib/la";
+import { essentialOfChildren } from "@/lib/react";
 import Ng from "@/components/ng";
 import Ok from "@/components/ok";
 import type { FC } from "react";

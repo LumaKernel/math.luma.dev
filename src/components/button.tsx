@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { FC, MouseEventHandler } from "react";
 import { useRef, useState } from "react";
-import { cssColors } from "@/components/lib/colors";
+import { cssColors } from "@/lib/colors";
 import { rootClass } from "@/components/root";
 
 const thickness = "0.5px";

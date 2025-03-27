@@ -5,8 +5,8 @@ import {
   isAllPivotsAre1,
   isOthersAre0InPivotColumn,
   isRowEchelonMatrix,
-} from "@/components/lib/la";
-import { essentialOfChildren } from "@/components/lib/react";
+} from "@/lib/la";
+import { essentialOfChildren } from "@/lib/react";
 import Ng from "@/components/ng";
 import Ok from "@/components/ok";
 import React, { useCallback, useMemo, useState } from "react";

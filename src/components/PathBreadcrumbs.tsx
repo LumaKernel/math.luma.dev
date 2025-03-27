@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import React from "react";
-import { cssColors } from "./lib/colors";
+import { cssColors } from "@/lib/colors";
 
 const Flex = (props: React.ComponentProps<"div">) => (
   <>

@@ -1,6 +1,6 @@
 "use client";
 
-import { cssColors } from "../lib/colors";
+import { cssColors } from "@/lib/colors";
 import SlugLink from "./SlugLink";
 
 const size = "0.24em";

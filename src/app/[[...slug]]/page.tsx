@@ -31,7 +31,7 @@ import { fromAsyncThrowable } from "neverthrow";
 import path from "node:path";
 import { makeGeneralAnchor } from "@/components/anchor/makeGeneralAnchor";
 import Series, { makeSeries } from "@/components/series/Series";
-import Term from "@/components/term/Term";
+import Term from "@/components/term/TermClient";
 import TermServer from "@/components/term/TermServer";
 
 export type ArticlePageProps = {
