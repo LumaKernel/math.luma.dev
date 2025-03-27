@@ -60,12 +60,10 @@ const Column = (props: React.ComponentProps<"div">) => (
   </>
 );
 
-export type H2Props = Readonly<
-  React.PropsWithChildren<{
-    lastH1Slug: string;
-    slug?: string;
-  }>
->;
+export type H2Props = React.PropsWithChildren<{
+  lastH1Slug?: string;
+  slug?: string;
+}>;
 
 export default function H2({ children, slug }: H2Props) {
   return (

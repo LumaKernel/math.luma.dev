@@ -5,7 +5,7 @@ interface Props {
 }
 
 const MdTable: FC<Props> = ({ children }) => {
-  return <table cellSpacing="0" children={children} />;
+  return <table cellSpacing="0">{children}</table>;
 };
 
 export default MdTable;

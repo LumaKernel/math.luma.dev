@@ -7,7 +7,7 @@ type Props = {
 };
 
 const SingleFullWidthTerm: FC<Props> = ({ def }) => {
-  return <Term ruby={def.ruby} children={def.text} />;
+  return <Term ruby={def.ruby}>{def.text}</Term>;
 };
 
 export default SingleFullWidthTerm;

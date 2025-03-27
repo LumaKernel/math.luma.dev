@@ -456,15 +456,14 @@ function* gaussElimIllust<T>(
                             </Copied>
                           </F>
                         ))}
-                      <F
-                        flipId={flippedMatElem(y, x)}
-                        children={renderElem(mat[y][x], cssColors.text)}
-                      />
+                      <F flipId={flippedMatElem(y, x)}>
+                        {renderElem(mat[y][x], cssColors.text)}
+                      </F>
                     </ElemWrapper>
                   );
                 }}
               />
-              <Message children={`${what0}${what1}`} />
+              <Message>{`${what0}${what1}`}</Message>
               <ShowPs />
             </>
           );
@@ -485,10 +484,9 @@ function* gaussElimIllust<T>(
                   createElem={(y, x) => {
                     return (
                       <ElemWrapper y={y} x={x} i={i} j={j}>
-                        <F
-                          flipId={flippedMatElem(y, x)}
-                          children={renderElem(mat[y][x], cssColors.text)}
-                        />
+                        <F flipId={flippedMatElem(y, x)}>
+                          {renderElem(mat[y][x], cssColors.text)}
+                        </F>
                         {y === i && j <= x && (
                           <>
                             <F flipId={flippedWith("p", y, x)}>
@@ -501,13 +499,12 @@ function* gaussElimIllust<T>(
                                 <F flipId={flippedEq(y, x)}>
                                   <InlineBlock>＝</InlineBlock>
                                 </F>
-                                <F
-                                  flipId={flippedMatElem(y, x, newMatKeys)}
-                                  children={renderElem(
+                                <F flipId={flippedMatElem(y, x, newMatKeys)}>
+                                  {renderElem(
                                     field.Mult(mat[y][x], pivotInv),
                                     cssColors.text
                                   )}
-                                />
+                                </F>
                               </>
                             )}
                           </>
@@ -516,7 +513,7 @@ function* gaussElimIllust<T>(
                     );
                   }}
                 />
-                <Message children={`${what0}${what1}`} />
+                <Message>{`${what0}${what1}`}</Message>
                 <ShowPs />
               </>
             );
@@ -562,14 +559,11 @@ function* gaussElimIllust<T>(
                   return (
                     <ElemWrapper y={y} x={x} i={i} j={j} k={k} copied>
                       {y === i && j <= x && (
-                        <F
-                          flipId={flippedWith("m", k, x)}
-                          children={
-                            <Copied>
-                              {renderElem(mat[y][x], cssColors.em2)}
-                            </Copied>
-                          }
-                        />
+                        <F flipId={flippedWith("m", k, x)}>
+                          <Copied>
+                            {renderElem(mat[y][x], cssColors.em2)}
+                          </Copied>
+                        </F>
                       )}
                       {y === k &&
                         x === j &&
@@ -577,22 +571,20 @@ function* gaussElimIllust<T>(
                           <F
                             key={jj}
                             flipId={flippedWith("a", k, jj)}
-                            children={
-                              <Copied>
-                                {renderElem(mat[y][x], cssColors.em1)}
-                              </Copied>
-                            }
-                          />
+                          >
+                            <Copied>
+                              {renderElem(mat[y][x], cssColors.em1)}
+                            </Copied>
+                          </F>
                         ))}
-                      <F
-                        flipId={flippedMatElem(y, x)}
-                        children={renderElem(mat[y][x], cssColors.text)}
-                      />
+                        <F flipId={flippedMatElem(y, x)}>
+                          {renderElem(mat[y][x], cssColors.text)}
+                        </F>
                     </ElemWrapper>
                   );
                 }}
               />
-              <Message children={`${what0}${what1}${what2}`} />
+              <Message>{`${what0}${what1}${what2}`}</Message>
               <ShowPs />
             </>
           );
@@ -614,10 +606,9 @@ function* gaussElimIllust<T>(
                   createElem={(y, x) => {
                     return (
                       <ElemWrapper y={y} x={x} i={i} j={j} k={k}>
-                        <F
-                          flipId={flippedMatElem(y, x)}
-                          children={renderElem(mat[y][x], cssColors.text)}
-                        />
+                        <F flipId={flippedMatElem(y, x)}>
+                          {renderElem(mat[y][x], cssColors.text)}
+                        </F>
                         {y === k && j <= x && (
                           <>
                             <F flipId={flippedWith("a", y, x)}>
@@ -655,7 +646,7 @@ function* gaussElimIllust<T>(
                     );
                   }}
                 />
-                <Message children={`${what0}${what1}${what2}`} />
+                <Message>{`${what0}${what1}${what2}`}</Message>
                 <ShowPs />
               </>
             );
@@ -719,12 +710,11 @@ function* gaussElimIllust<T>(
                         (j === x || !columnPivotExists[x]) && (
                           <F
                             flipId={flippedWith("m", k, x)}
-                            children={
-                              <Copied>
-                                {renderElem(mat[y][x], cssColors.em2)}
-                              </Copied>
-                            }
-                          />
+                          >
+                            <Copied>
+                              {renderElem(mat[y][x], cssColors.em2)}
+                            </Copied>
+                          </F>
                         )}
                       {y === k &&
                         x === j &&
@@ -733,22 +723,20 @@ function* gaussElimIllust<T>(
                           <F
                             key={jj}
                             flipId={flippedWith("a", k, jj)}
-                            children={
-                              <Copied>
-                                {renderElem(mat[y][x], cssColors.em1)}
-                              </Copied>
-                            }
-                          />
+                          >
+                            <Copied>
+                              {renderElem(mat[y][x], cssColors.em1)}
+                            </Copied>
+                          </F>
                         ))}
-                      <F
-                        flipId={flippedMatElem(y, x)}
-                        children={renderElem(mat[y][x], cssColors.text)}
-                      />
+                        <F flipId={flippedMatElem(y, x)}>
+                          {renderElem(mat[y][x], cssColors.text)}
+                        </F>
                     </ElemWrapper>
                   );
                 }}
               />
-              <Message children={`${what0}${what1}${what2}`} />
+              <Message>{`${what0}${what1}${what2}`}</Message>
               <ShowPs />
             </>
           );
@@ -769,10 +757,9 @@ function* gaussElimIllust<T>(
                   createElem={(y, x) => {
                     return (
                       <ElemWrapper y={y} x={x} i={i} j={j} k={k}>
-                        <F
-                          flipId={flippedMatElem(y, x)}
-                          children={renderElem(mat[y][x], cssColors.text)}
-                        />
+                        <F flipId={flippedMatElem(y, x)}>
+                          {renderElem(mat[y][x], cssColors.text)}
+                        </F>
                         {y === k &&
                           j <= x &&
                           (j === x || !columnPivotExists[x]) && (
@@ -807,7 +794,7 @@ function* gaussElimIllust<T>(
                     );
                   }}
                 />
-                <Message children={`${what0}${what1}${what2}`} />
+                <Message>{`${what0}${what1}${what2}`}</Message>
                 <ShowPs />
               </>
             );

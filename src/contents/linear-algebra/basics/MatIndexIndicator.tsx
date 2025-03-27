@@ -35,7 +35,8 @@ export default function MatIndexIndicator({
         backgroundColor: bgColor,
         color: fgColor,
       }}
-      children={children}
-    />
+    >
+      {children}
+    </Indicator>
   );
 }

@@ -96,7 +96,7 @@ type Props = {
 };
 
 const PlainCode: FC<Props> = ({ children, lang }) => {
-  return <Code data-code-lang={lang} children={children} />;
+  return <Code data-code-lang={lang}>{children}</Code>;
 };
 
 export default PlainCode;
