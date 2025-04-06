@@ -13,13 +13,13 @@ export interface RationalField<T>
   extends FieldProtocol<Rational<T>, Rational<T>> {}
 
 export const createRationalField = <T>(
-  field: FieldProtocol<T, T>,
+  field: FieldProtocol<T, T>
 ): RationalField<T> => {
   const Eq = (op1: Rational<T>, op2: Rational<T>): boolean => {
     // a/b = c/d <=> ad = bc
     return field.AddEq(
       field.Mult(op1.numer, op2.denom),
-      field.Mult(op1.denom, op2.numer),
+      field.Mult(op1.denom, op2.numer)
     );
   };
   const isAddAssociative = asProved();
@@ -29,7 +29,7 @@ export const createRationalField = <T>(
     return {
       numer: field.Add(
         field.Mult(op1.numer, op2.denom),
-        field.Mult(op1.denom, op2.numer),
+        field.Mult(op1.denom, op2.numer)
       ),
       denom: field.Mult(op1.denom, op2.denom),
     };

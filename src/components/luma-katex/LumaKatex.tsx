@@ -6,7 +6,6 @@ import { MDXRemote } from "next-mdx-remote/rsc";
 import { htmlToMdx } from "@/util/html-to-mdx";
 import { Fragment } from "react";
 import Debug from "../Debug";
-import { createPassThrough } from "../html-hack/pass-through";
 import KatexGeneralSpan from "./KatexGeneralSpan";
 
 export type LumaKatexProps = {
@@ -43,11 +42,9 @@ export default async function LumaKatex({
         source={mdx}
         components={{
           Wrapper: Fragment,
-          div: createPassThrough("div"),
           Span: KatexGeneralSpan,
-          svg: createPassThrough("svg"),
-          path: createPassThrough("path"),
           Load: Debug,
+          NewLine: () => <br />,
         }}
       />
     </LumaKatexClient>

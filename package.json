@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack --port 4030",
-    "build": "next build",
+    "build": "next build --no-lint",
     "start": "next start",
     "lint": "eslint && prettier --check --list-different .",
     "lint-fix": "eslint --fix && prettier --write .",
@@ -32,7 +32,8 @@
     "react-flip-toolkit": "^7.2.4",
     "react-icons": "^5.5.0",
     "remark-frontmatter": "^5.0.0",
-    "remark-math": "^6.0.0"
+    "remark-math": "^6.0.0",
+    "wolfram-notebook-embedder": "^0.3.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

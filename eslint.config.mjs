@@ -33,6 +33,9 @@ const eslintConfig = tseslint.config(
         },
       ],
       "@typescript-eslint/require-await": "off",
+
+      // TODO: とりあえず RationalField とかで利用するため
+      "@typescript-eslint/no-empty-object-type": "off",
     },
   },
 

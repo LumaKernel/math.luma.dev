@@ -7,9 +7,9 @@ const size = "0.19em";
 const gap = "0.12em";
 const thickness = "0.6px";
 
-const StyledH3 = (props: React.ComponentProps<"div">) => (
+const StyledH3 = (props: React.ComponentProps<"h3">) => (
   <>
-    <div {...props} />
+    <h3 {...props} />
     <style jsx>{`
       h3 {
         margin: 0;

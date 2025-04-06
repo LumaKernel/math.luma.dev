@@ -30,6 +30,7 @@ export default async function Code({ children, className }: CodeProps) {
             components={{
               Wrapper: Fragment,
               Span,
+              NewLine: () => <br />,
             }}
           />
         </Highlighted>

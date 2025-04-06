@@ -5,23 +5,31 @@ published = true
 
 ## 余因子
 
-<Save w="1">
-  ```math:inline A= \left( \begin{array}
-  {c | c | c}B & * & C \\ \hline * & a_{(i, j)} & * \\ \hline B & * & E \\ \end
-  {array}
-  \right) ```
+<Save>
+  ```math:inline
+    A=
+    \left(
+      \begin{array}{c|c|c}
+        B & * & C \\ \hline
+        * & a_{i,j} & * \\ \hline
+        B & * & E \\
+      \end{array}
+    \right)
+  ```
 </Save>
 
-<Load w="1" />
-について、
+[$]について、
 
-<Save w="1">
-  ```math:inline \tilde a_{(i, j)} \defeq (-1)^{i + j} \left|\begin{array}
-  {c | c}B & C \\ \hline D & E \\ \end{array}\right| ```
+<Save>
+  ```math:inline
+    \tilde a_{i,j} \defeq (-1)^{i+j} \left|\begin{array}{c|c}
+      B & C \\ \hline
+      D & E \\
+    \end{array}\right|
+  ```
 </Save>
 
-<Load w="1" />
-と定義し、これを$(i, j)$余因子と呼ぶ。
+[$]と定義し、これを$(i, j)$余因子と呼ぶ。
 
 ### 行列式の余因子による展開
 
@@ -102,12 +110,16 @@ $\tilde AA = (\sum_{k \in n} \tilde a_{k,i} a_{k,j})_{i,j} = (|A| \delta _{i,j})
 
 ## 系: $A^{-1}=|A|^{-1}\tilde A$
 
-<Save w="1">
-  ```math:inline A = \begin{pmatrix}a & b \\ c & d \\ \end{pmatrix}
+<Save>
+  ```math:inline
+    A = \begin{pmatrix}
+      a & b \\
+      c & d \\
+    \end{pmatrix}
   ```
 </Save>
 
-例えば、<Load w="1"/>の場合を考える。
+例えば、[$]の場合を考える。
 
 ```math
   \tilde A = \begin{pmatrix}

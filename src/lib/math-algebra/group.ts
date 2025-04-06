@@ -5,13 +5,13 @@ import { asProved } from "./base";
 export interface GroupProtocol<T> {
   readonly "@isAssociative": Prove;
   readonly "@isCommutative": Prove;
-  Add(t1: T, t2: T): T;
-  Inverse(t: T): T;
-  Zero(): T;
-  Eq(t1: T, t2: T): boolean;
+  Add(this: void, t1: T, t2: T): T;
+  Inverse(this: void, t: T): T;
+  Zero(this: void): T;
+  Eq(this: void, t1: T, t2: T): boolean;
 }
 export interface GroupUtil<T> {
-  IsZero(t: T): boolean;
+  IsZero(this: void, t: T): boolean;
 }
 
 export const groupUtil = <T>(group: GroupProtocol<T>): GroupUtil<T> => {

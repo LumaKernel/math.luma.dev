@@ -1,4 +1,3 @@
-import type { FC } from "react";
 import SeriesNavButton from "./series-nav-button";
 
 const Flex = (props: React.ComponentProps<"div">) => (
@@ -24,21 +23,9 @@ const Spacer = (props: React.ComponentProps<"div">) => (
   </>
 );
 
-interface Props {
-  readonly allMetaData: AllMetaData;
-}
 const SeriesNav = ({
   allMetaData: { folderLink, metaDataDict, seriesData },
 }) => {
-  if (seriesData?.config?.order == null) return <></>;
-  const prevData =
-    metaDataDict[
-      `${folderLink}/${seriesData.config.order[seriesData.index - 1]}`
-    ];
-  const nextData =
-    metaDataDict[
-      `${folderLink}/${seriesData.config.order[seriesData.index + 1]}`
-    ];
   return (
     <Flex>
       {prevData && (

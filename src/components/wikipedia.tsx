@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { FC } from "react";
-import { cssColors } from "./lib/colors";
+import { cssColors } from "@/lib/colors";
 
 const Badge = (props: React.ComponentProps<"span">) => (
   <>

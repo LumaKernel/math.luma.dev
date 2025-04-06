@@ -1,4 +1,3 @@
-"use server";
 import Code from "@/components/code/Code";
 import ArticleLayout from "@/components/layouts/ArticleLayout";
 import SharedApp from "@/components/SharedApp";
@@ -12,7 +11,7 @@ import H3 from "@/components/heading/H3";
 import LumaKatex from "@/components/luma-katex/LumaKatex";
 import Counter from "@/components/counter/Counter";
 import Prove from "@/components/Prove";
-import { tsExports } from "@/contents-index.gen";
+import { mdxIndex, tsExports } from "@/contents-index.gen";
 import { getPageInfo } from "@/util/preparse";
 import rehypeAddSlug from "@luma-dev/my-unified/rehype-add-slug";
 import rehypeCleanInternal from "@luma-dev/my-unified/rehype-clean-internal";
@@ -64,6 +63,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
             Term: TermServer,
             Series: makeSeries(linkPath),
             LumaCounter: Counter,
+            LumaLoaded: Fragment,
             Prove,
             h1: H1,
             h2: H2,
@@ -111,4 +111,14 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
       </ArticleLayout>
     </SharedApp>
   );
+}
+
+//export const revalidate = 60
+export const dynamicParams = false;
+export async function generateStaticParams() {
+  return Object.entries(mdxIndex).map(([linkPath]) => {
+    return {
+      slug: linkPath === "" ? [] : linkPath.split("/"),
+    };
+  });
 }

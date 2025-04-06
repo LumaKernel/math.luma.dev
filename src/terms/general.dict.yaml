@@ -1,7 +1,11 @@
 変数: variable
 多変数: multiple variable
 項: term
-解: solution
+解:
+  ruby: solution
+  prevent:
+    - 解説
+    - 解法
 多項式: polynomial
 係数: coefficient
 方程式: equation

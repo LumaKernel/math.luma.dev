@@ -9,11 +9,12 @@ export const parseSeriesConfig = async (inputToml: string) => {
   const { stdout, stderr } = await execFileAsync(
     "blogkit-internal-tool",
     ["parse-series-config", "--input-toml", inputToml],
-    { encoding: "utf8" },
+    { encoding: "utf8" }
   );
   if (stderr.length > 0) {
     console.error(stderr);
   }
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const seriesConfig: SeriesConfig = JSON.parse(stdout);
   return seriesConfig;
 };
@@ -21,7 +22,7 @@ export const parseSeriesConfig = async (inputToml: string) => {
 export const getSeriesConfig = async (linkPath: string) => {
   const inputToml = await fs.readFile(
     path.resolve(process.cwd(), "src/contents", linkPath, "_series.toml"),
-    "utf-8",
+    "utf-8"
   );
   const seriesConfig = parseSeriesConfig(inputToml);
   return seriesConfig;
