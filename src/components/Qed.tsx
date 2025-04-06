@@ -1,6 +1,6 @@
 "use client";
 
-import { cssFonts } from "./lib/fonts";
+import { cssFonts } from "@/lib/fonts";
 
 const Text = (props: React.ComponentProps<"span">) => (
   <>

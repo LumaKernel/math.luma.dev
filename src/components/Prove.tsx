@@ -1,7 +1,7 @@
 "use client";
 
 import type { FC } from "react";
-import { cssColors } from "./lib/colors";
+import { cssColors } from "@/lib/colors";
 import React from "react";
 import Qed from "./Qed";
 

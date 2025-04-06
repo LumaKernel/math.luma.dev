@@ -95,11 +95,13 @@ type TermClientProps = {
   readonly text: string;
   readonly reference: string;
   readonly term: TermDef;
+  readonly showRuby: boolean;
 };
 
 export default function TermClient({
   text,
   term: { main, slug },
+  showRuby,
 }: TermClientProps): React.ReactElement {
   const textInner = (() => {
     return (
@@ -126,7 +128,7 @@ export default function TermClient({
   ) : (
     textInner
   );
-  if (typeof main.ruby === "string") {
+  if (showRuby && typeof main.ruby === "string") {
     return (
       <>
         <Ruby>

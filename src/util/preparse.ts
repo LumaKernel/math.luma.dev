@@ -3,11 +3,14 @@ import { TermDict, termDict } from "@/terms-index.gen";
 import { ArticleInfo, SrcMeta } from "@/types/article";
 import { TermMapPredefinedPresets } from "@/types/term";
 import { fromAsyncThrowable } from "neverthrow";
-import { execFile } from "node:child_process";
+import { spawn } from "node:child_process";
 import fs from "node:fs/promises";
 import path from "node:path";
-import util from "node:util";
-const execFileAsync = util.promisify(execFile);
+import {
+  TextProcessed,
+  type TermProcessorProtocol,
+} from "@luma-dev/my-unified/rehype-proc-term";
+import { ProcessInteractor } from "./process-interactor";
 
 export type PreparseParams = {
   readonly mdx: string;
@@ -16,17 +19,45 @@ export type PreparseParams = {
   readonly srcMeta: SrcMeta;
 };
 
+class TermProcessor implements TermProcessorProtocol {
+  #pi: ProcessInteractor;
+  readonly info: ArticleInfo;
+  constructor(pi: ProcessInteractor, info: ArticleInfo) {
+    this.#pi = pi;
+    this.info = info;
+  }
+  async processText(text: string): Promise<TextProcessed> {
+    const data = JSON.stringify(text) + "\n";
+    const { stdout, stderr } = await this.#pi.sendAndWaitLine(data);
+    if (stderr.length > 0) {
+      console.error(stderr);
+    }
+    return JSON.parse(stdout) as TextProcessed;
+  }
+  [Symbol.dispose]() {
+    this.#pi[Symbol.dispose]();
+  }
+}
+
 export const preparse = async (input: PreparseParams) => {
-  const { stdout, stderr } = await execFileAsync(
-    "blogkit-internal-tool",
-    ["preparse", "--input-json", JSON.stringify(input)],
-    { encoding: "utf8" }
+  const termProcessor = await preparseThenUsingTermProcessor(input);
+  termProcessor[Symbol.dispose]();
+  return termProcessor.info;
+};
+
+export const preparseThenUsingTermProcessor = async (input: PreparseParams) => {
+  const p = spawn("blogkit-internal-tool", ["preparse"], { stdio: "pipe" });
+  const pi = new ProcessInteractor(p);
+  const { stdout, stderr } = await pi.sendAndWaitLine(
+    JSON.stringify(input) + "\n"
   );
   if (stderr.length > 0) {
     console.error(stderr);
   }
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const info: ArticleInfo = JSON.parse(stdout);
-  return info;
+  const termProcessor = new TermProcessor(pi, info);
+  return termProcessor;
 };
 
 // TODO
@@ -72,5 +103,5 @@ export const getPageInfo = async (linkPath: string) => {
     srcMeta,
   });
 
-  return { index, srcMeta, info };
+  return { mdx, index, srcMeta, info };
 };
