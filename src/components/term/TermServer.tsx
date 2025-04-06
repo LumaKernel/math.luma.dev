@@ -5,10 +5,9 @@ import TermClient from "./TermClient";
 type TermProps = {
   readonly text: string;
   readonly reference: string;
-  readonly refIndex: number;
+  readonly refIndex?: number;
 };
 
-// eslint-disable-next-line @typescript-eslint/require-await
 export default async function TermServer({
   text,
   reference,

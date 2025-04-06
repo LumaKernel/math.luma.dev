@@ -14,14 +14,9 @@ export type PreparseParams = {
 export const preparse = async (input: PreparseParams) => {
   const p = spawn("blogkit-internal-tool", ["preparse"], { stdio: "pipe" });
   const pi = new ProcessInteractor(p);
-  const { stdout, stderr } = await pi.sendAndWaitLine(
-    JSON.stringify(input) + "\n"
-  );
-  if (stderr.length > 0) {
-    console.error(stderr);
-  }
+  const response = await pi.sendAndWaitLine(JSON.stringify(input) + "\n");
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  const info: ArticleInfo = JSON.parse(stdout);
+  const info: ArticleInfo = JSON.parse(response);
   pi[Symbol.dispose]();
   return info;
 };

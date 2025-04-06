@@ -23,6 +23,8 @@
 体:
   ruby: field
   ja-ruby: たい
+  prevent:
+    - 全体
 群: group
 可換群:
   ruby: commutative group

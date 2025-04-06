@@ -15,11 +15,8 @@ class TermServer implements TermProcessorProtocol {
   }
   async processText(text: string): Promise<TextProcessed> {
     const data = JSON.stringify(text) + "\n";
-    const { stdout, stderr } = await this.#pi.sendAndWaitLine(data);
-    if (stderr.length > 0) {
-      console.error(stderr);
-    }
-    return JSON.parse(stdout) as TextProcessed;
+    const response = await this.#pi.sendAndWaitLine(data);
+    return JSON.parse(response) as TextProcessed;
   }
   [Symbol.dispose]() {
     this.#pi[Symbol.dispose]();

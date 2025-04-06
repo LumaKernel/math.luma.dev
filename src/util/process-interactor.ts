@@ -7,6 +7,11 @@ export class ProcessInteractor {
     this.#p = p;
     p.stdout.setEncoding("utf-8");
     p.stderr.setEncoding("utf-8");
+
+    const stderrDataHandler = (data: string) => {
+      process.stderr.write(data);
+    };
+    this.#p.stderr.on("data", stderrDataHandler);
   }
 
   async send(message: string): Promise<void> {
@@ -15,13 +20,10 @@ export class ProcessInteractor {
     )();
   }
 
-  async sendAndWaitLine(
-    message: string
-  ): Promise<{ stdout: string; stderr: string }> {
+  async sendAndWaitLine(message: string): Promise<string> {
     // TODO: lock is necessary
 
     let stdout = "";
-    let stderr = "";
 
     let resolve: () => void;
     let prom = new Promise<void>((r) => {
@@ -35,13 +37,8 @@ export class ProcessInteractor {
       });
     };
     this.#p.stdout.on("data", stdoutDataHandler);
-    const stderrDataHandler = (data: string) => {
-      stderr += data;
-    };
-    this.#p.stderr.on("data", stderrDataHandler);
     const closeHandler = () => {
       this.#p.stdout.off("data", stdoutDataHandler);
-      this.#p.stderr.off("data", stderrDataHandler);
       this.#p.off("close", closeHandler);
     };
     this.#p.on("close", closeHandler);
@@ -50,11 +47,8 @@ export class ProcessInteractor {
     while (stdout.at(-1) !== "\n") {
       await prom;
     }
-    if (stderr.length > 0) {
-      console.error(stderr);
-    }
     closeHandler();
-    return { stdout, stderr };
+    return stdout;
   }
   [Symbol.dispose]() {
     this.#p.kill();

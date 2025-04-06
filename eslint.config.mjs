@@ -32,6 +32,7 @@ const eslintConfig = tseslint.config(
           fixStyle: "separate-type-imports",
         },
       ],
+      "@typescript-eslint/require-await": "off",
     },
   },
 
@@ -44,7 +45,7 @@ const eslintConfig = tseslint.config(
 
   {
     ignores: [".next/*", "**/*.gen.ts"],
-  },
+  }
 );
 
 export default eslintConfig;

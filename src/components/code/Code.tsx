@@ -30,9 +30,8 @@ export default async function Code({ children, className }: CodeProps) {
             components={{
               Wrapper: Fragment,
               Span,
-              NewLine: () => <span>{"\n"}</span>,
             }}
-          ></MDXRemote>
+          />
         </Highlighted>
       </PreForCode>
     </>

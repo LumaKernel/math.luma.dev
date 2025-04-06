@@ -1,10 +1,12 @@
 "use client";
 
+import { hackStyle } from "@/lib/inline-style-to-object";
 import type { FC } from "react";
 
 type Props = Readonly<
   React.PropsWithChildren<{
     "data-blogkit-code-highlight-lang"?: string;
+    style: unknown;
     className?: string;
   }>
 >;
@@ -27,6 +29,7 @@ const ReferenceAnchor: FC<React.HTMLProps<HTMLAnchorElement>> = (props) => {
 
 const EverythingSpan: FC<Props> = ({
   "data-blogkit-code-highlight-lang": codeHlLang,
+  style,
   ...rest
 }) => {
   const className = rest.className ?? "";
@@ -214,7 +217,7 @@ const EverythingSpan: FC<Props> = ({
       );
     }
   }
-  return <span {...rest} />;
+  return <span style={hackStyle(style)} {...rest} />;
 };
 
 export default EverythingSpan;
