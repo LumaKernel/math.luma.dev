@@ -1,15 +1,14 @@
 import { mdxIndex } from "@/contents-index.gen";
-import { TermDict, termDict } from "@/terms-index.gen";
-import { ArticleInfo, SrcMeta } from "@/types/article";
-import { TermMapPredefinedPresets } from "@/types/term";
+import type { TermDict } from "@/terms-index.gen";
+import { termDict } from "@/terms-index.gen";
+import type { ArticleInfo, SrcMeta } from "@/types/article";
+import type { TermMapPredefinedPresets } from "@/types/term";
 import { fromAsyncThrowable } from "neverthrow";
 import { spawn } from "node:child_process";
 import fs from "node:fs/promises";
 import path from "node:path";
-import {
-  TextProcessed,
-  type TermProcessorProtocol,
-} from "@luma-dev/my-unified/rehype-proc-term";
+import type { TextProcessed } from "@luma-dev/my-unified/rehype-proc-term";
+import type { TermProcessorProtocol } from "@luma-dev/my-unified/rehype-proc-term";
 import { ProcessInteractor } from "./process-interactor";
 
 export type PreparseParams = {

@@ -2,9 +2,7 @@
 import Code from "@/components/code/Code";
 import ArticleLayout from "@/components/layouts/ArticleLayout";
 import SharedApp from "@/components/SharedApp";
-import { SrcMeta } from "@/types/article";
 import { MDXRemote } from "next-mdx-remote/rsc";
-import fs from "node:fs/promises";
 import { Fragment } from "react";
 import remarkMath from "remark-math";
 import Debug from "@/components/Debug";
@@ -14,32 +12,24 @@ import H3 from "@/components/heading/H3";
 import LumaKatex from "@/components/luma-katex/LumaKatex";
 import Counter from "@/components/counter/Counter";
 import Prove from "@/components/Prove";
-import { mdxIndex, tsExports } from "@/contents-index.gen";
-import { TermDict, TermMapPredefinedPresets } from "@/types/term";
-import {
-  getPageInfo,
-  preparse,
-  preparseThenUsingTermProcessor,
-} from "@/util/preparse";
+import { tsExports } from "@/contents-index.gen";
+import { getPageInfo, preparseThenUsingTermProcessor } from "@/util/preparse";
 import rehypeAddSlug from "@luma-dev/my-unified/rehype-add-slug";
 import rehypeCleanInternal from "@luma-dev/my-unified/rehype-clean-internal";
 import rehypeCodeMeta from "@luma-dev/my-unified/rehype-code-meta";
 import rehypeCounter from "@luma-dev/my-unified/rehype-counter";
-import rehypeKatex, {
-  RehypeKatexPluginParameters,
-} from "@luma-dev/my-unified/rehype-katex";
+import type { RehypeKatexPluginParameters } from "@luma-dev/my-unified/rehype-katex";
+import rehypeKatex from "@luma-dev/my-unified/rehype-katex";
 import rehypeReplaceText from "@luma-dev/my-unified/rehype-replace-text";
 import rehypeProcTerm, {
   type RehypeProcTermPluginParams,
 } from "@luma-dev/my-unified/rehype-proc-term";
 import rehypeSave from "@luma-dev/my-unified/rehype-save";
 import rehypeWrap from "@luma-dev/my-unified/rehype-wrap";
-import { fromAsyncThrowable } from "neverthrow";
-import path from "node:path";
 import { makeGeneralAnchor } from "@/components/anchor/makeGeneralAnchor";
-import Series, { makeSeries } from "@/components/series/Series";
+import { makeSeries } from "@/components/series/Series";
 import TermServer from "@/components/term/TermServer";
-import { termDict } from "@/terms-index.gen";
+import { presets, termDict } from "@/terms-index.gen";
 
 export type ArticlePageProps = {
   readonly params: Promise<{
@@ -52,10 +42,9 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
   const { mdx, index, srcMeta, info } = await getPageInfo(linkPath);
   const termProcessor = await preparseThenUsingTermProcessor({
     mdx,
-    // TODO
-    presets: {},
+    presets,
     srcMeta,
-    termDict: termDict,
+    termDict,
   });
   return (
     <SharedApp>

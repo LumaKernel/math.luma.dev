@@ -14,23 +14,17 @@ const compat = new FlatCompat({
 });
 
 const eslintConfig = tseslint.config(
-  //...compat.extends("next/core-web-vitals", "next/typescript"),
   ...compat.extends("next/core-web-vitals", "next/typescript"),
   eslint.configs.recommended,
-  tseslint.configs.recommendedTypeChecked,
   {
+    files: ["**/*.ts", "**/*.tsx"],
+    extends: [tseslint.configs.recommendedTypeChecked],
     languageOptions: {
       parserOptions: {
         projectService: true,
         tsconfigRootDir: import.meta.dirname,
       },
     },
-  },
-  {
-    ignores: [".next/*"],
-  },
-  {
-    files: ["*.ts", "*.tsx"],
     rules: {
       "@typescript-eslint/consistent-type-imports": [
         "error",
@@ -38,8 +32,18 @@ const eslintConfig = tseslint.config(
           fixStyle: "separate-type-imports",
         },
       ],
+    },
+  },
+
+  {
+    files: ["**/*.js", "**/*.mjs", "**/*.ts", "**/*.tsx"],
+    rules: {
       "object-shorthand": "error",
     },
+  },
+
+  {
+    ignores: [".next/*", "**/*.gen.ts"],
   }
 );
 

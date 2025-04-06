@@ -1,6 +1,6 @@
 "use server";
 import { katexLumaRenderToString } from "@luma-dev/katex-luma";
-import { DisplayMode } from "./type";
+import type { DisplayMode } from "./type";
 import LumaKatexClient from "./LumaKatexClient";
 import Debug from "../Debug";
 

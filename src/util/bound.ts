@@ -6,6 +6,6 @@ export const bound = <
   key: K
 ): T[K] => {
   const method = v[key];
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-return,@typescript-eslint/no-explicit-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-return
   return method.bind(v) as any;
 };

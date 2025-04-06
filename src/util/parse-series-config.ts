@@ -1,4 +1,4 @@
-import { SeriesConfig } from "@/contents-index.gen";
+import type { SeriesConfig } from "@/contents-index.gen";
 import { execFile } from "node:child_process";
 import fs from "node:fs/promises";
 import path from "node:path";

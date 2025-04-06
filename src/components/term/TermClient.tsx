@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { cssColors } from "@/lib/colors";
-import { TermDef } from "@/terms-index.gen";
+import type { TermDef } from "@/terms-index.gen";
 import { Option } from "@luma-dev/option-ts";
 
 const thickness = "1.2px";
