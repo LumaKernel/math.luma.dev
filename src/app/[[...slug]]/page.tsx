@@ -13,7 +13,7 @@ import LumaKatex from "@/components/luma-katex/LumaKatex";
 import Counter from "@/components/counter/Counter";
 import Prove from "@/components/Prove";
 import { tsExports } from "@/contents-index.gen";
-import { getPageInfo, preparseThenUsingTermProcessor } from "@/util/preparse";
+import { getPageInfo } from "@/util/preparse";
 import rehypeAddSlug from "@luma-dev/my-unified/rehype-add-slug";
 import rehypeCleanInternal from "@luma-dev/my-unified/rehype-clean-internal";
 import rehypeCodeMeta from "@luma-dev/my-unified/rehype-code-meta";
@@ -30,6 +30,7 @@ import { makeGeneralAnchor } from "@/components/anchor/makeGeneralAnchor";
 import { makeSeries } from "@/components/series/Series";
 import TermServer from "@/components/term/TermServer";
 import { presets, termDict } from "@/terms-index.gen";
+import { createTermServer } from "@/util/term-server";
 
 export type ArticlePageProps = {
   readonly params: Promise<{
@@ -40,10 +41,10 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
   const { slug } = await params;
   const linkPath = slug?.join("/") ?? "";
   const { mdx, index, srcMeta, info } = await getPageInfo(linkPath);
-  const termProcessor = await preparseThenUsingTermProcessor({
+  const termServer = await createTermServer({
     mdx,
+    meta: info.meta,
     presets,
-    srcMeta,
     termDict,
   });
   return (
@@ -86,7 +87,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                 [
                   rehypeProcTerm,
                   {
-                    termProcessor,
+                    termProcessor: termServer,
                   } satisfies RehypeProcTermPluginParams,
                 ],
                 rehypeSave,

@@ -9,8 +9,14 @@ export class ProcessInteractor {
     p.stderr.setEncoding("utf-8");
   }
 
+  async send(message: string): Promise<void> {
+    await util.promisify((cb: () => void) =>
+      this.#p.stdin.write(message, cb)
+    )();
+  }
+
   async sendAndWaitLine(
-    message: string,
+    message: string
   ): Promise<{ stdout: string; stderr: string }> {
     // TODO: lock is necessary
 
@@ -40,9 +46,7 @@ export class ProcessInteractor {
     };
     this.#p.on("close", closeHandler);
 
-    await util.promisify((cb: () => void) =>
-      this.#p.stdin.write(message, cb),
-    )();
+    await this.send(message);
     while (stdout.at(-1) !== "\n") {
       await prom;
     }
