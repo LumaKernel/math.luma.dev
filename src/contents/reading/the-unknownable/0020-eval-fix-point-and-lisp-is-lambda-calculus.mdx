@@ -1,4 +1,5 @@
 {/* generated from notebook */}
+
 <Config
   isIpynb
   ipynbLang="common-lisp"
@@ -20,63 +21,39 @@ p.55 からは実装だ。まさかの実装オンリーだ。実装してみよ
 
 LISPでは、quoteを使えば評価を止められて、「文字通りこのまま」を表し、`eval`でその評価を実行できるのだった。
 
-
-
 ```plain
 '(+ 1 1)
 ```
 
-
-
 ```plain
 (+ 1 1)
 ```
-
-
-
-
 
 ```plain
 (eval '(+ 1 1))
 ```
 
-
-
 ```plain
 2
 ```
 
-
-
 以下を見れば、`(quote (+ 1 1))` が `(list (quote +) (quote 1) (quote 1))` と等価ということがわかる。
-
-
 
 ```plain
 (list '+ '1 '1)
 ```
 
-
-
 ```plain
 (+ 1 1)
 ```
-
-
-
-
 
 ```plain
 (eval (list '+ '1 '1))
 ```
 
-
-
 ```plain
 2
 ```
-
-
 
 通常であれば、その言語自体の式をデータとして扱う場合には、文字列などを使うしかない。（当然再び式に戻すにはパースが必要だ）
 LISPでは、式自体をデータとして扱う方法が、言語機能として備わっているわけだ。単なる遅延評価とか、そういった話に止まらない魅力がある。
@@ -87,52 +64,32 @@ LISPでは、式自体をデータとして扱う方法が、言語機能とし�
 
 ChaitinのLISP(Chaitin Lispと今後書く)と比べて、CommonLispには注意すべき違いがある。LISPにおける`lambda`は`quote`をしても変数は束縛されたままになる。比べて、CommonLispは束縛されない。
 
-
-
 ```plain
 ((lambda (x) (quote (+ x x))) 1)
 ```
-
-
 
 ```plain
 (+ X X)
 ```
 
-
-
-
-
 ```plain
 SB-INT:SIMPLE-STYLE-WARNING: The variable X is defined but never used.
 ```
 
-
-
 上記のようにすると、`(+ 1 1)`を意味するのではなく、`(+ x x)`というこれ自体を意味する。`x`はグローバル(もしくは外側のスコープ配下の変数)な`x`を探すと考えれば良い。
-
-
 
 ```plain
 (let ((y ((lambda (x) (quote (+ x x))) 1)))
   (equalp y '(+ x x)))
 ```
 
-
-
 ```plain
 T
 ```
 
-
-
-
-
 ```plain
 SB-INT:SIMPLE-STYLE-WARNING: The variable X is defined but never used.
 ```
-
-
 
 `equalp`はリストの中身も再起的に同値チェックをする。
 CommonLispにおける等価性に関する術語は[Equality in Lisp](https://eli.thegreenplace.net/2004/08/08/equality-in-lisp)を参照されたい。
@@ -142,151 +99,89 @@ CommonLispにおける等価性に関する術語は[Equality in Lisp](https://e
 Chaitin LISPの`define`はCommonLispの`defmacro`が対応する。
 マクロについては[Macros - The Common Lisp Cookbook](https://lispcookbook.github.io/cl-cookbook/macros.html)がわかりやすい。
 
-
-
 ```plain
 (defmacro a (x) `'(+ ,x ,x))
 ```
-
-
 
 ```plain
 A
 ```
 
-
-
-
-
 ```plain
 SB-KERNEL:REDEFINITION-WITH-DEFMACRO: redefining COMMON-LISP-USER::A in DEFMACRO
 ```
 
-
-
 上記の読み方は、`` `(...) ``(backquoteと括弧)によって埋め込みモードのようなものが開始する。その中で、`,x`のように書くと、変数が評価されてから`quote`の中に埋め込まれる。
-
-
 
 ```plain
 (a 1)
 ```
 
-
-
 ```plain
 (+ 1 1)
 ```
-
-
-
-
 
 ```plain
 (eval (a 1))
 ```
 
-
-
 ```plain
 2
 ```
-
-
-
-
 
 ```plain
 (equalp (a 1) '(+ 1 1))
 ```
 
-
-
 ```plain
 T
 ```
 
-
-
 ### 不動点を作る
-
-
 
 ```plain
 (defmacro f (x) `'(,x ,x))
 ```
 
-
-
 ```plain
 F
 ```
-
-
-
-
 
 ```plain
 SB-KERNEL:REDEFINITION-WITH-DEFMACRO: redefining COMMON-LISP-USER::F in DEFMACRO
 ```
 
-
-
-
-
 ```plain
 (f f)
 ```
 
-
-
 ```plain
 (F F)
 ```
-
-
-
-
 
 ```plain
 (eval (f f))
 ```
 
-
-
 ```plain
 (F F)
 ```
-
-
-
-
 
 ```plain
 (equalp (f f) (eval (f f)))
 ```
 
-
-
 ```plain
 T
 ```
-
-
-
-
 
 ```plain
 (equalp (f f) (eval (eval (eval (eval (eval (f f)))))))
 ```
 
-
-
 ```plain
 T
 ```
-
-
 
 こうして自分自身を出力するLISPプログラム`(f f)`ができた。 不動点がどのように関連してくるのかというのは、`eval`関数の不動点が`(f f)`として得られたということだろう。
 
@@ -297,14 +192,10 @@ T
 CommonLispにおいて、`quote`/`eval`と同じような関係性の、関数版である`function`/`funcall`がある。
 `function`は`#'`という糖衣構文がある。
 
-
-
 ```plain
 (let ((g #'(lambda (x) #'(lambda () (funcall x x)))))
   g)
 ```
-
-
 
 ```plain
 #<FUNCTION (LAMBDA (X)
@@ -312,18 +203,12 @@ CommonLispにおいて、`quote`/`eval`と同じような関係性の、関数�
              "/tmp/2B613657BFC147000C6C6B0091E81BD1-4008633754.lisp") {5311278B}>
 ```
 
-
-
 この時、`g`はこの姿でデータの状態であり、`funcall`がつくことで、生きた値となる。
-
-
 
 ```plain
 (let ((g #'(lambda (x) #'(lambda () (funcall x x)))))
   (funcall g g))
 ```
-
-
 
 ```plain
 #<CLOSURE (LAMBDA ()
@@ -331,17 +216,11 @@ CommonLispにおいて、`quote`/`eval`と同じような関係性の、関数�
             "/tmp/2B613657BFC147000C6C6B0091E81BD1-4248110762.lisp") {1003D4A68B}>
 ```
 
-
-
-
-
 ```plain
 (let ((g #'(lambda (x) #'(lambda () (funcall x x)))))
 (let ((h (funcall g g)))
   (funcall h)))
 ```
-
-
 
 ```plain
 #<CLOSURE (LAMBDA ()
@@ -349,17 +228,11 @@ CommonLispにおいて、`quote`/`eval`と同じような関係性の、関数�
             "/tmp/2B613657BFC147000C6C6B0091E81BD1-3645711644.lisp") {1003EC360B}>
 ```
 
-
-
-
-
 ```plain
 (let ((g #'(lambda (x) #'(lambda () (funcall x x)))))
 (let ((h (funcall g g)))
   (funcall (funcall h))))
 ```
-
-
 
 ```plain
 #<CLOSURE (LAMBDA ()
@@ -367,11 +240,7 @@ CommonLispにおいて、`quote`/`eval`と同じような関係性の、関数�
             "/tmp/2B613657BFC147000C6C6B0091E81BD1-3581957640.lisp") {1004015FCB}>
 ```
 
-
-
 こうしてfuncallをしても自分自身と同じ実装のラムダ式を返す関数が作られた。これはほとんど`funcall`の不動点といえるが、関数として等価比較(すべての入力に対して同じ出力をする)する方法はLISP内にはない。我々は、メタな視点で、これらが等しいと、ただわかるだけに終わる。そういう意味では、LISPの、プログラム自体がデータであるといういのを理解するためには、`defmacro`は必須だろう。
-
-
 
 ```plain
 (let ((g #'(lambda (x) #'(lambda () (funcall x x)))))
@@ -379,13 +248,9 @@ CommonLispにおいて、`quote`/`eval`と同じような関係性の、関数�
   (equalp h (funcall h))))
 ```
 
-
-
 ```plain
 NIL
 ```
-
-
 
 このように`equalp`による比較は成功しない。関数ポインタのようなものがあり、それが一致していないと考えると良い。関数としては等しくとも、オブジェクトしては異なってしまう。
 

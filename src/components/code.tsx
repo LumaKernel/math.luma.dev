@@ -1,6 +1,6 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
-const Code: FC<any> = (props) => (
+const Code = (props: React.ComponentProps<"code">) => (
   <>
     <code {...props} />
     <style jsx>{`

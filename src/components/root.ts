@@ -1,1 +1,1 @@
-export const rootClass = 'root';
+export const rootClass = "root";

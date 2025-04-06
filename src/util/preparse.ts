@@ -48,7 +48,7 @@ export const preparseThenUsingTermProcessor = async (input: PreparseParams) => {
   const p = spawn("blogkit-internal-tool", ["preparse"], { stdio: "pipe" });
   const pi = new ProcessInteractor(p);
   const { stdout, stderr } = await pi.sendAndWaitLine(
-    JSON.stringify(input) + "\n"
+    JSON.stringify(input) + "\n",
   );
   if (stderr.length > 0) {
     console.error(stderr);
@@ -74,11 +74,11 @@ export const getPageInfo = async (linkPath: string) => {
     await Promise.all(
       filePathCands.map(async (p) => {
         return fromAsyncThrowable(() =>
-          fs.readFile(path.resolve(process.cwd(), "src/contents", p), "utf-8")
+          fs.readFile(path.resolve(process.cwd(), "src/contents", p), "utf-8"),
         )()
           .map((e) => [p, e] as const)
           .unwrapOr(null);
-      })
+      }),
     )
   ).filter((x) => x != null);
   const [fileContent, fileContent1] = fileContents;

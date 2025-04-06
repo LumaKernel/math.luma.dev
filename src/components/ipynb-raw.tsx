@@ -1,4 +1,4 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
 interface Props {
   lang?: string;
@@ -20,7 +20,7 @@ const IpynbRaw: FC<Props> = ({ children }) => {
             opacity: 0.8;
           }
           :global(.root:not(.light)) div :global(.image-wrapper::after) {
-            content: '';
+            content: "";
             position: absolute;
             top: 0;
             left: 0;
@@ -39,7 +39,7 @@ const IpynbRaw: FC<Props> = ({ children }) => {
           opacity: 0.8;
         }
         :global(.root.dark) div :global(.image-wrapper::after) {
-          content: '';
+          content: "";
           position: absolute;
           top: 0;
           left: 0;

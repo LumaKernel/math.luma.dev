@@ -1,16 +1,8 @@
 {/* generated from notebook */}
-<Config
-  isIpynb
-  ipynbLang="rust"
-  ipynbRelPath="reading/tapl/chap4-in-rust"
-/>
 
-<Config
-  title="第四章をRustで実装する"
-  published
-  />
+<Config isIpynb ipynbLang="rust" ipynbRelPath="reading/tapl/chap4-in-rust" />
 
-
+<Config title="第四章をRustで実装する" published />
 
 ```rust
 #[derive(Debug, Clone, PartialEq)]
@@ -26,11 +18,7 @@ enum BTerm {
 }
 ```
 
-
-
 ## 数値判定 `is_numeric_val` の定義
-
-
 
 ```rust
 fn is_numeric_val(t: &BTerm) -> bool {
@@ -42,11 +30,7 @@ fn is_numeric_val(t: &BTerm) -> bool {
 }
 ```
 
-
-
 ## `is_numeric_val` の挙動確認
-
-
 
 ```rust
 // is_numeric_val(true)
@@ -56,10 +40,6 @@ assert_eq!(
 );
 ```
 
-
-
-
-
 ```rust
 // is_numeric_val(0)
 assert_eq!(
@@ -67,10 +47,6 @@ assert_eq!(
   true,
 );
 ```
-
-
-
-
 
 ```rust
 // is_numeric_val(1)
@@ -80,10 +56,6 @@ assert_eq!(
 );
 ```
 
-
-
-
-
 ```rust
 // is_numeric_val(succ(true))
 assert_eq!(
@@ -92,11 +64,7 @@ assert_eq!(
 );
 ```
 
-
-
 ## 値の定義
-
-
 
 ```rust
 fn is_val(t: &BTerm) -> bool {
@@ -108,35 +76,21 @@ fn is_val(t: &BTerm) -> bool {
 }
 ```
 
-
-
-
-
 ```rust
 is_val(&BTerm::True)
 ```
-
-
 
 ```rust
 true
 ```
 
-
-
-
-
 ```rust
 is_val(&BTerm::If(BTerm::True.into(), BTerm::True.into(), BTerm::True.into()))
 ```
 
-
-
 ```rust
 false
 ```
-
-
 
 ### 単一ステップの評価器
 
@@ -150,8 +104,6 @@ fn panic_no_rule_applies() -> T {
 ```
 
 追記: と思ったが、 [`std::panic::catch_unwind`](https://doc.rust-lang.org/std/panic/fn.catch_unwind.html) と組み合わせてもエラー表示をsuppressできなさそうなので `Wrong` を項に追加する方法をとってみた。
-
-
 
 ```rust
 fn eval1(t: &BTerm) -> Option<BTerm> {
@@ -191,26 +143,16 @@ fn eval1(t: &BTerm) -> Option<BTerm> {
 }
 ```
 
-
-
 ### `eval1` の動作確認
-
-
 
 ```rust
 // pred(succ(0)) --(eval1)--> 0
 eval1(&BTerm::Pred(BTerm::Zero.into()))
 ```
 
-
-
 ```rust
 Some(Zero)
 ```
-
-
-
-
 
 ```rust
 // if(true, 1, 0) --(eval1)--> 1
@@ -221,15 +163,9 @@ eval1(&BTerm::If(
 ))
 ```
 
-
-
 ```rust
 Some(Succ(Zero))
 ```
-
-
-
-
 
 ```rust
 // if(if(false, false, true), 1, 0) --(eval1)--> if(true, succ(0), 0)
@@ -244,66 +180,42 @@ eval1(&BTerm::If(
 ))
 ```
 
-
-
 ```rust
 Some(If(True, Succ(Zero), Zero))
 ```
-
-
-
-
 
 ```rust
 // succ(true)
 eval1(&BTerm::Succ(BTerm::True.into()))
 ```
 
-
-
 ```rust
 Some(Wrong)
 ```
 
-
-
 マッチする評価規則が存在しない場合(正規形)は `None` を返す。
-
-
 
 ```rust
 // wrong
 eval1(&BTerm::Wrong)
 ```
 
-
-
 ```rust
 None
 ```
-
-
-
-
 
 ```rust
 // true
 eval1(&BTerm::True)
 ```
 
-
-
 ```rust
 None
 ```
 
-
-
 ### 小ステップ評価器を完成させる
 
 1ステップ評価器を利用して、正規形まですすめる評価器を作成する。
-
-
 
 ```rust
 fn eval (t: &BTerm) -> BTerm {
@@ -317,11 +229,7 @@ fn eval (t: &BTerm) -> BTerm {
 }
 ```
 
-
-
 ### 小ステップ評価器 `eval` の動作確認
-
-
 
 ```rust
 // if(if(false, false, true), 1, 0)
@@ -336,15 +244,9 @@ eval(&BTerm::If(
 ))
 ```
 
-
-
 ```rust
 Succ(Zero)
 ```
-
-
-
-
 
 ```rust
 // s(p(s(p(true))))
@@ -359,9 +261,6 @@ eval(&BTerm::Succ(
 ))
 ```
 
-
-
 ```rust
 Wrong
 ```
-

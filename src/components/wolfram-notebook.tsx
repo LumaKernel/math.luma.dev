@@ -1,7 +1,7 @@
-import type { FC } from 'react';
-import { useEffect, useRef } from 'react';
-import * as WolframNotebookEmbedder from 'wolfram-notebook-embedder';
-import type { GetStaticProps } from '@blogkit/react-component-ssr';
+import type { FC } from "react";
+import { useEffect, useRef } from "react";
+import * as WolframNotebookEmbedder from "wolfram-notebook-embedder";
+import type { GetStaticProps } from "@blogkit/react-component-ssr";
 
 interface Props {
   path: string;
@@ -16,20 +16,27 @@ const WolframNotebook: FC<Props & StaticProps> = ({ path, preRendered }) => {
   useEffect(() => {
     void (async () => {
       if (el.current) {
-        await WolframNotebookEmbedder.embed(`https://www.wolframcloud.com/obj/${path}`, el.current);
+        await WolframNotebookEmbedder.embed(
+          `https://www.wolframcloud.com/obj/${path}`,
+          el.current,
+        );
       }
     })();
   }, [el, path]);
   if (preRendered) {
-    return <div ref={el} dangerouslySetInnerHTML={{ __html: preRendered }}></div>;
+    return (
+      <div ref={el} dangerouslySetInnerHTML={{ __html: preRendered }}></div>
+    );
   }
   return <div ref={el} />;
 };
 
 export const getStaticProps: GetStaticProps<Props, StaticProps> | false =
-  typeof window === 'undefined' &&
+  typeof window === "undefined" &&
   (async ({ props }) => {
-    const preRendered: string = await (await fetch(`https://www.wolframcloud.com/statichtml/${props.path}`)).text();
+    const preRendered: string = await (
+      await fetch(`https://www.wolframcloud.com/statichtml/${props.path}`)
+    ).text();
     return {
       props: {
         preRendered,

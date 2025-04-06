@@ -10,7 +10,7 @@ export class ProcessInteractor {
   }
 
   async sendAndWaitLine(
-    message: string
+    message: string,
   ): Promise<{ stdout: string; stderr: string }> {
     // TODO: lock is necessary
 
@@ -41,7 +41,7 @@ export class ProcessInteractor {
     this.#p.on("close", closeHandler);
 
     await util.promisify((cb: () => void) =>
-      this.#p.stdin.write(message, cb)
+      this.#p.stdin.write(message, cb),
     )();
     while (stdout.at(-1) !== "\n") {
       await prom;

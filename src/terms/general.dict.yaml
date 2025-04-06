@@ -54,7 +54,7 @@
 well-defined: well-defined
 同一視: identify
 列: sequence
-空列: 'null sequence'
+空列: "null sequence"
 無限列: infinite sequence
 有限列: finite sequence
 添字:

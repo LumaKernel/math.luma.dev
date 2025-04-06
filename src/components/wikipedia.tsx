@@ -1,8 +1,8 @@
-import Link from 'next/link';
-import type { FC } from 'react';
-import { cssColors } from './lib/colors';
+import Link from "next/link";
+import type { FC } from "react";
+import { cssColors } from "./lib/colors";
 
-const Badge: FC<any> = (props) => (
+const Badge = (props: React.ComponentProps<"span">) => (
   <>
     <span {...props} />
     <style jsx>{`
@@ -22,7 +22,7 @@ const Badge: FC<any> = (props) => (
   </>
 );
 
-const Svg: FC<any> = (props) => (
+const Svg = (props: React.ComponentProps<"svg">) => (
   <>
     <svg {...props} />
     <style jsx>{`
@@ -60,7 +60,7 @@ const Wikipedia: FC<Props> = ({ ja, en, main }) => {
       <a target="_blank">{en}</a>
     </Link>
   );
-  const list = { ja: [Ja, En], en: [En, Ja] }[main ?? 'ja'];
+  const list = { ja: [Ja, En], en: [En, Ja] }[main ?? "ja"];
   return (
     <Badge>
       <C /> {list}

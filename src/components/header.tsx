@@ -37,7 +37,7 @@ export default function Header() {
       if (!isTheme(value)) throw new Error(`Invalid theme: ${value}`);
       setTheme(value);
     },
-    [setTheme]
+    [setTheme],
   );
 
   return (

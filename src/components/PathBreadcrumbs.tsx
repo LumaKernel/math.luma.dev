@@ -49,7 +49,7 @@ export default function PathBreadcrumbs({ path }: PathBreadcrumbsProps) {
           name: p,
         },
       ],
-      [] as Part[]
+      [] as Part[],
     )
     .reverse();
 

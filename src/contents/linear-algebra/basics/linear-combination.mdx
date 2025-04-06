@@ -21,37 +21,15 @@ c_{i} \mathbf a_{i}
 をSEQ$\mathbf a_0, \mathbf a_1, \cdots, \mathbf a_{n-1}$の線形結合という。
 
 <Save w="1">
-```math:inline
-  \begin{pmatrix}
-    1 \\
-    5 \\
-  \end{pmatrix}
-  =
-  -1 \cdot
-  \begin{pmatrix}
-    1 \\
-    1 \\
-  \end{pmatrix}
-  +
-  2 \cdot
-  \begin{pmatrix}
-    1 \\
-    3 \\
-  \end{pmatrix}
-```
+  ```math:inline \begin{pmatrix}1 \\ 5 \\ \end{pmatrix}= -1 \cdot \begin
+  {pmatrix}1 \\ 1 \\ \end{pmatrix}+ 2 \cdot \begin{pmatrix}1 \\ 3 \\ \end
+  {pmatrix}
+  ```
 </Save>
 <Save w="2">
-```math:inline
-  \begin{pmatrix}
-    1 \\
-    1 \\
-  \end{pmatrix}
-  ,
-  \begin{pmatrix}
-    1 \\
-    3 \\
-  \end{pmatrix}
-```
+  ```math:inline \begin{pmatrix}1 \\ 1 \\ \end{pmatrix}, \begin{pmatrix}1 \\ 3
+  \\ \end{pmatrix}
+  ```
 </Save>
 
 たとえば、<Load w="1"/>は<Load w="2"/>の線形結合である。
@@ -86,29 +64,18 @@ $\mathbf a_0, \mathbf a_1, \cdots, \mathbf a_{n-1}$が線形独立でないと�
 ## 線形独立と行列のランク
 
 <Save w="1">
-```math:inline
-A=
-\begin{pmatrix}
-\mathbf a_0 &
-\mathbf a_1 &
-\cdots &
-\mathbf a_{n-1} \\
-\end{pmatrix}
-```
+  ```math:inline A= \begin{pmatrix}
+  \mathbf a_0 & \mathbf a_1 & \cdots & \mathbf a_{n - 1} \\ \end{pmatrix}
+  ```
 </Save>
 
 線形空間$\K^n$を考える。<Load w="1"/>とおく。
 
-<Save w="1">
-```math:inline
-A
-\mathbf x
-=
-\mathbf 0
-```
-</Save>
-斉次線型方程式<Load w="1"/>を考える。
-線形独立の定義は、「$\mathbf x = \mathbf 0$のみが解」と言い換えられる。
+<Save w="1">```math:inline A \mathbf x = \mathbf 0 ```</Save>
+斉次線型方程式
+<Load w="1" />
+を考える。 線形独立の定義は、「$\mathbf x = \mathbf
+0$のみが解」と言い換えられる。
 
 斉次線型方程式の解が唯一であるのは自由度が$0$であるときであった。
 
@@ -126,6 +93,7 @@ A
 
 条件にあうベクトルを並べると、$m > n$の行列$\underset{n \times m}A$ということになる。
 $\rank A < n$より、$m - \rank A > m - n > 0$となる。よって、自由度は$0$より大きいので線形従属。
+
 </Prove>
 
 SEQでなく集合でもいいように見えるが、SEQと行列の同一視をよく行うため、SEQとして定義しておいたほうが都合がよい。

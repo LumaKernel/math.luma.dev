@@ -27,7 +27,7 @@ export default async function Series({ currentLinkPath, link }: SeriesProps) {
       const chapterLinkPath = resolveLinkPath(linkPath, chapter);
       const pageInfo = await getPageInfo(chapterLinkPath);
       return pageInfo;
-    })
+    }),
   );
   const pages = chapters.map((p, i) => {
     return (

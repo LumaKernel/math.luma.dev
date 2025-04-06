@@ -1,4 +1,5 @@
 {/* generated from notebook */}
+
 <Config
   isIpynb
   ipynbLang="common-lisp"
@@ -9,21 +10,13 @@
 
 [SBCLのマニュアル](http://www.sbcl.org/manual/)
 
-
-
 ```plain
 (+ (* 3 4) (* 5 6))
 ```
 
-
-
 ```plain
 42
 ```
-
-
-
-
 
 ```plain
 (
@@ -35,145 +28,89 @@
 )
 ```
 
-
-
 ```plain
 FACT
 ```
-
-
-
-
 
 ```plain
 (fact 3)
 ```
 
-
-
 ```plain
 6
 ```
-
-
-
-
 
 ```plain
 (car (list 1 2 3))
 ```
 
-
-
 ```plain
 1
 ```
-
-
-
-
 
 ```plain
 (cdr (list 1 2 3))
 ```
 
-
-
 ```plain
 (2 3)
 ```
-
-
-
-
 
 ```plain
 (cons 1 (list 4 5))
 ```
 
-
-
 ```plain
 (1 4 5)
 ```
-
-
-
-
 
 ```plain
 nil
 ```
 
-
-
 ```plain
 NIL
 ```
-
-
-
-
 
 ```plain
 (cons 1 nil)
 ```
 
-
-
 ```plain
 (1)
 ```
-
-
-
-
 
 ```plain
 (cons 1 (cons 2 (cons 3 nil)))
 ```
 
-
-
 ```plain
 (1 2 3)
 ```
-
-
 
 ## Quote
 
 `quote` は引数が評価されない。「文字通りこのまま」を表す。同様に、 `if` は片方の引数が評価されることはなく、伏せて特別な意味を持つ。`'a` = `(quote a)`
 1引数関数。
 
-
-
 ```plain
 (quote a)
 ```
-
-
 
 ```plain
 A
 ```
 
-
-
-
-
 ```plain
 (quote 1 2)
 ```
-
-
 
 ```plain
 
 ; file: /tmp/78437C3CF345408D7DB8389C7786FEC9-3966124.lisp
 ; in: QUOTE 1
 ;     (QUOTE 1 2)
-; 
+;
 ; caught ERROR:
 ;   Error while parsing arguments to special operator QUOTE:
 ;     too many elements in
@@ -181,7 +118,7 @@ A
 ;     to satisfy lambda list
 ;       (SB-C::THING):
 ;     exactly 1 expected, but got 2
-; 
+;
 ; compilation unit finished
 ;   caught 1 ERROR condition
 COMPILED-PROGRAM-ERROR: Execution of a form compiled with errors.
@@ -196,107 +133,61 @@ Compile-time error:
   exactly 1 expected, but got 2
 ```
 
-
-
-
-
-
-
 ```plain
 (list (quote a) 'b 'c)
 ```
-
-
 
 ```plain
 (A B C)
 ```
 
-
-
-
-
 ```plain
 (eq 'a 'a)
 ```
-
-
 
 ```plain
 T
 ```
 
-
-
-
-
 ```plain
 (eq 'a 'b)
 ```
-
-
 
 ```plain
 NIL
 ```
 
-
-
-
-
 ```plain
 'abc-def
 ```
-
-
 
 ```plain
 ABC-DEF
 ```
 
-
-
-
-
 ```plain
 '(1 2 3)
 ```
-
-
 
 ```plain
 (1 2 3)
 ```
 
-
-
-
-
 ```plain
 (car '(1 2 3))
 ```
 
-
-
 ```plain
 1
 ```
-
-
-
-
 
 ```plain
 (car (quote (1 2 3)))
 ```
 
-
-
 ```plain
 1
 ```
-
-
 
 `(((X)))` は `X` とは違う（括弧の数は意味がある）という説明があった(p.36)が、`nil`は問題なくて`(nil)`は問題があるのもこの辺が起因しているのだろうか。 `(())` は無効ということだ。同様に `(1)` なども無効。
 `'(1 2 3)` は `(list 1 2 3)` と等価だが、 `quote` とは別ルールかとも思ったが、 `list` や `cons` のほうが `quote` の仕組みを利用しているということなのだろう。
@@ -304,19 +195,13 @@ ABC-DEF
 
 追記。`(...)`は(LISPでどうだったかは知らないが)CommonLispでは関数適用を意味する。つまり、`((x))`はJSなどで言う`x()()`と言うことになる。どこかで返って来た値が関数でない場合、illegal function callとしてエラーになる。
 
-
-
 ```plain
 ()
 ```
 
-
-
 ```plain
 NIL
 ```
-
-
 
 `nil` は `()` の糖衣構文。
 
@@ -324,43 +209,26 @@ LispによってはM式(M Expression)([wikipedia](https://en.wikipedia.org/wiki/
 M ExpressionとS Expressionは式の書き方の流派みたいなもののようだ。ポーランドvs逆ポーランドのような。
 そして、LisperにはS Expressionが人気だからなのか、CommonLispにはS Expressionのみがあるよう？
 
-
-
 ```plain
 ' ( 1 2 3 )
 ```
-
-
 
 ```plain
 (1 2 3)
 ```
 
-
-
-
-
 ```plain
 ' (a)
 ```
-
-
 
 ```plain
 (A)
 ```
 
-
-
-
-
 ```plain
 ' (' a)
 ```
 
-
-
 ```plain
 ('A)
 ```
-

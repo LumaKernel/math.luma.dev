@@ -21,7 +21,7 @@ const quickTermBySlug = Object.fromEntries<
       return [v.slug, [key, v]];
     }
     return [key, [key, v]];
-  }) as any
+  }) as any,
 );
 
 interface Props2 {
@@ -66,7 +66,7 @@ const TermUsageListInPage: FC<Props2> = ({ usage }) => {
   );
 };
 
-const Li: FC<any> = (props) => (
+const Li = (props: React.ComponentProps<"li">) => (
   <>
     <li {...props} />
     <style jsx>{`

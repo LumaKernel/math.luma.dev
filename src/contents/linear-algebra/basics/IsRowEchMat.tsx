@@ -8,7 +8,7 @@ import Ok from "@/components/ok";
 import type { FC } from "react";
 import React, { useCallback, useMemo, useState } from "react";
 
-const ResetOuter: FC<any> = (props) => (
+const ResetOuter = (props: React.ComponentProps<"div">) => (
   <>
     <div {...props} />
     <style jsx>{`
@@ -19,7 +19,7 @@ const ResetOuter: FC<any> = (props) => (
   </>
 );
 
-const ResetInner: FC<any> = (props) => (
+const ResetInner = (props: React.ComponentProps<"div">) => (
   <>
     <div {...props} />
     <style jsx>{`

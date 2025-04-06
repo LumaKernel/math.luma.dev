@@ -1,14 +1,12 @@
 {/* generated from notebook */}
+
 <Config
   isIpynb
   ipynbLang="rust"
   ipynbRelPath="reading/プログラム意味論/lambda-combinator-in-rust"
 />
 
-<Config
-  title="ラムダ計算とコンビネータ理論"
-  published
-  />
+<Config title="ラムダ計算とコンビネータ理論" published />
 
 ラムダ計算とコンビネータの相互変換に関する話が p.38 2.6 コンビネータ理論より続く。
 
@@ -16,21 +14,15 @@
 
 ## 準備
 
-
-
 ```rust
 use std::collections::HashSet;
 ```
-
-
 
 ## コンビネータ理論の実装
 
 Combinatory Theory
 
 ### コンビネータ理論の項の定義
-
-
 
 ```rust
 #[derive(Debug, Clone)]
@@ -43,11 +35,7 @@ enum Combinatory {
 }
 ```
 
-
-
 以下のように項を用意しておく。
-
-
 
 ```rust
 let comb_term_1 = Combinatory::Apply(
@@ -62,13 +50,9 @@ let comb_term_1 = Combinatory::Apply(
 );
 ```
 
-
-
 ### コンビネータ理論のプリント
 
 文字列と $\LaTeX$ への変換を用意しておく。なお、左結合のため、右側が _apply_ だった場合のみ、右側に括弧をつける。
-
-
 
 ```rust
 impl Combinatory {
@@ -106,39 +90,23 @@ impl Combinatory {
 }
 ```
 
-
-
 ### コンビネータ理論のプリントを試す
-
-
 
 ```rust
 comb_term_1
 ```
 
-
-
 ```rust
 Apply(Apply(K, Variable("a")), Apply(Apply(I, Variable("b")), Variable("a")))
 ```
-
-
-
-
 
 ```rust
 println!("{}", comb_term_1.to_string());
 ```
 
-
-
 ```rust
 Ka(Iba)
 ```
-
-
-
-
 
 ```rust
 println!("${}$", comb_term_1.to_latex());
@@ -146,24 +114,15 @@ println!("${}$", comb_term_1.to_latex());
 
 $\mathbf{K}a(\mathbf{I}ba)$
 
-
-
-
 ```rust
 comb_term_1.free_variables()
 ```
-
-
 
 ```rust
 {"a", "b"}
 ```
 
-
-
 ## ラムダ計算
-
-
 
 ```rust
 #[derive(Debug, Clone)]
@@ -174,10 +133,6 @@ enum Lambda {
 }
 ```
 
-
-
-
-
 ```rust
 let lambda_term_1 = Lambda::Apply(
   Lambda::Apply(
@@ -185,9 +140,9 @@ let lambda_term_1 = Lambda::Apply(
     Lambda::Abstract("x".into(), Lambda::Variable("x".into()).into()).into(),
   ).into(),
   Lambda::Abstract(
-    "y".into(), 
+    "y".into(),
     Lambda::Abstract(
-      "y".into(), 
+      "y".into(),
       Lambda::Apply(
         Lambda::Variable("y".into()).into(),
         Lambda::Apply(
@@ -199,10 +154,6 @@ let lambda_term_1 = Lambda::Apply(
   ).into(),
 );
 ```
-
-
-
-
 
 ```rust
 impl Lambda {
@@ -240,37 +191,21 @@ impl Lambda {
 }
 ```
 
-
-
-
-
 ```rust
 lambda_term_1
 ```
-
-
 
 ```rust
 Apply(Apply(Abstract("x", Variable("x")), Abstract("x", Variable("x"))), Abstract("y", Abstract("y", Apply(Variable("y"), Apply(Variable("y"), Variable("a"))))))
 ```
 
-
-
-
-
 ```rust
 println!("{}", lambda_term_1.to_string());
 ```
 
-
-
 ```rust
 (\x.x)(\x.x)(\y.(\y.y(ya)))
 ```
-
-
-
-
 
 ```rust
 println!("${}$", lambda_term_1.to_latex());
@@ -278,26 +213,17 @@ println!("${}$", lambda_term_1.to_latex());
 
 $(\lambda x.x)(\lambda x.x)(\lambda y.(\lambda y.y(ya)))$
 
-
-
-
 ```rust
 lambda_term_1.free_variables()
 ```
-
-
 
 ```rust
 {"a"}
 ```
 
-
-
 ## ラムダ計算からコンビネータ理論
 
 p.40 付近。
-
-
 
 ```rust
 fn lambda_ast_of(v: &String, t: &Combinatory) -> Combinatory {
@@ -315,19 +241,11 @@ fn lambda_ast_of(v: &String, t: &Combinatory) -> Combinatory {
 }
 ```
 
-
-
-
-
 ```rust
 fn print_lambda_ast_of(v: &String, t: &Combinatory) {
   println!("$\\lambda^\\ast {}.{} \\equiv {}$", v, t.to_latex(), lambda_ast_of(v, t).to_latex());
 }
 ```
-
-
-
-
 
 ```rust
 print_lambda_ast_of(&"x".to_string(), &comb_term_1);
@@ -335,17 +253,11 @@ print_lambda_ast_of(&"x".to_string(), &comb_term_1);
 
 $\lambda^\ast x.\mathbf{K}a(\mathbf{I}ba) \equiv \mathbf{K}(\mathbf{K}a(\mathbf{I}ba))$
 
-
-
-
 ```rust
 print_lambda_ast_of(&"a".to_string(), &comb_term_1);
 ```
 
 $\lambda^\ast a.\mathbf{K}a(\mathbf{I}ba) \equiv \mathbf{S}(\mathbf{S}(\mathbf{K}\mathbf{K})\mathbf{I})(\mathbf{S}(\mathbf{K}(\mathbf{I}b))\mathbf{I})$
-
-
-
 
 ```rust
 fn lambda2combinatory(t: &Lambda) -> Combinatory {
@@ -360,19 +272,11 @@ fn lambda2combinatory(t: &Lambda) -> Combinatory {
 }
 ```
 
-
-
-
-
 ```rust
 fn print_lambda2combinatory(t: &Lambda) {
   println!("$\\left({}\\right)_{} \\equiv {}$", t.to_latex(), "{\\mathrm{CL}}", lambda2combinatory(&t).to_latex());
 }
 ```
-
-
-
-
 
 ```rust
 print_lambda2combinatory(&lambda_term_1);
@@ -380,10 +284,7 @@ print_lambda2combinatory(&lambda_term_1);
 
 $\left((\lambda x.x)(\lambda x.x)(\lambda y.(\lambda y.y(ya)))\right)_{\mathrm{CL}} \equiv \mathbf{I}\mathbf{I}(\mathbf{K}(\mathbf{S}\mathbf{I}(\mathbf{S}\mathbf{I}(\mathbf{K}a))))$
 
-
 ## コンビネータ理論からラムダ計算
-
-
 
 ```rust
 fn combinatory2lambda(t: &Combinatory) -> Lambda {
@@ -429,19 +330,11 @@ fn combinatory2lambda(t: &Combinatory) -> Lambda {
 }
 ```
 
-
-
-
-
 ```rust
 fn print_combinatory2lambda(t: &Combinatory) {
   println!("$\\left({}\\right)_{} \\equiv {}$", t.to_latex(), "\\lambda", combinatory2lambda(&t).to_latex());
 }
 ```
-
-
-
-
 
 ```rust
 print_combinatory2lambda(&comb_term_1);

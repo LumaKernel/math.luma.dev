@@ -1,8 +1,8 @@
-import type { FC } from 'react';
-import Button from './button';
-import type { ParsedPage } from './types';
+import type { FC } from "react";
+import Button from "./button";
+import type { ParsedPage } from "./types";
 
-const Wrapper: FC<any> = (props) => (
+const Wrapper = (props: React.ComponentProps<"div">) => (
   <>
     <div {...props} />
     <style jsx>{`
@@ -14,7 +14,7 @@ const Wrapper: FC<any> = (props) => (
   </>
 );
 
-const LinkPath: FC<any> = (props) => (
+const LinkPath = (props: React.ComponentProps<"div">) => (
   <>
     <div {...props} />
     <style jsx>{`

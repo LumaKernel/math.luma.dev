@@ -1,7 +1,7 @@
 import type { FC } from "react";
 import SeriesNavButton from "./series-nav-button";
 
-const Flex: FC<any> = (props) => (
+const Flex = (props: React.ComponentProps<"div">) => (
   <>
     <div {...props} />
     <style jsx>{`
@@ -13,7 +13,7 @@ const Flex: FC<any> = (props) => (
   </>
 );
 
-const Spacer: FC<any> = (props) => (
+const Spacer = (props: React.ComponentProps<"div">) => (
   <>
     <div {...props} />
     <style jsx>{`

@@ -1,8 +1,8 @@
-import Link from 'next/link';
-import type { FC } from 'react';
-import { cssColors } from '@/lib/colors';
+import Link from "next/link";
+import type { FC } from "react";
+import { cssColors } from "@/lib/colors";
 
-const Badge: FC<any> = (props) => (
+const Badge = (props: React.ComponentProps<"span">) => (
   <>
     <span {...props} />
     <style jsx>{`

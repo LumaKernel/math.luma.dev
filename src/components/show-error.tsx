@@ -1,6 +1,6 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
-const ErrorText: FC<any> = (props) => (
+const ErrorText = (props: React.ComponentProps<"span">) => (
   <>
     <span {...props} />
     <style jsx>{`

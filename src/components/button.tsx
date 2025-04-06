@@ -52,7 +52,7 @@ const wrapperStyle = `
   text-decoration: none;
 `;
 
-const HorizontalLine: FC<any> = (props) => (
+const HorizontalLine = (props: React.ComponentProps<"div">) => (
   <>
     <div {...props} />
     <style jsx>{`
@@ -64,7 +64,7 @@ const HorizontalLine: FC<any> = (props) => (
   </>
 );
 
-const UpperLine: FC<any> = (props) => (
+const UpperLine = (props: React.ComponentProps<"div">) => (
   <>
     <div {...props} />
     <style jsx>{`
@@ -81,7 +81,7 @@ const UpperLine: FC<any> = (props) => (
   </>
 );
 
-const LowerLine: FC<any> = (props) => (
+const LowerLine = (props: React.ComponentProps<"div">) => (
   <>
     <div {...props} />
     <style jsx>{`
@@ -115,7 +115,7 @@ const filledCircleStyle = `
 //   </>
 // );
 
-const FilledCircleLeft: FC<any> = (props) => (
+const FilledCircleLeft = (props: React.ComponentProps<"div">) => (
   <>
     <div {...props} />
     <style jsx>{`
@@ -128,7 +128,7 @@ const FilledCircleLeft: FC<any> = (props) => (
   </>
 );
 
-const FilledCircleRight: FC<any> = (props) => (
+const FilledCircleRight = (props: React.ComponentProps<"div">) => (
   <>
     <div {...props} />
     <style jsx>{`
@@ -141,7 +141,7 @@ const FilledCircleRight: FC<any> = (props) => (
   </>
 );
 
-const Background: FC<any> = (props) => (
+const Background = (props: React.ComponentProps<"div">) => (
   <>
     <div {...props} />
     <style jsx>{`
@@ -181,7 +181,7 @@ const outlinedCircleStyle = `
   margin-left: ${gap};
   margin-right: ${gap};
 `;
-const OutlinedCircle: FC<any> = (props) => (
+const OutlinedCircle = (props: React.ComponentProps<"div">) => (
   <>
     <div {...props} />
     <style jsx>{`
@@ -192,7 +192,7 @@ const OutlinedCircle: FC<any> = (props) => (
   </>
 );
 
-const OutlinedCircleRightMost: FC<any> = (props) => (
+const OutlinedCircleRightMost = (props: React.ComponentProps<"div">) => (
   <>
     <div {...props} />
     <style jsx>{`
@@ -204,7 +204,7 @@ const OutlinedCircleRightMost: FC<any> = (props) => (
   </>
 );
 
-const OutlinedCircleLeftMost: FC<any> = (props) => (
+const OutlinedCircleLeftMost = (props: React.ComponentProps<"div">) => (
   <>
     <div {...props} />
     <style jsx>{`
@@ -227,7 +227,7 @@ const Button: FC<ButtonProps> = ({ children, onClick, href }) => {
   const rootRef = useRef<HTMLAnchorElement & HTMLButtonElement>(null);
   const [mouseInside, setMouseInside] = useState(false);
   const [mousePos, setMousePos] = useState<{ x: number; y: number } | null>(
-    null
+    null,
   );
   const mouseMoveHandler: MouseEventHandler<
     HTMLAnchorElement | HTMLButtonElement

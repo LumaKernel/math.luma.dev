@@ -47,7 +47,7 @@ export const isZerosBelowNonZeros = (mat: Mat): boolean => {
   for (const i of range(n)) {
     const isZero = range(m).reduce(
       (accum, j) => accum && mat[i][j] === 0,
-      true
+      true,
     );
     if (isZero) firstZero = Math.min(firstZero, i);
     if (!isZero) lastNonZero = Math.max(lastNonZero, i);
@@ -61,7 +61,7 @@ export const isRowEchelonMatrix = (mat: Mat): boolean =>
 export const isAllPivotsAre1 = (mat: Mat): boolean => {
   return extractPivots(mat).reduce<boolean>(
     (accum, { v }) => accum && v === 1,
-    true
+    true,
   );
 };
 
@@ -72,8 +72,8 @@ export const isOthersAre0InPivotColumn = (mat: Mat): boolean => {
       accum &&
       range(n).reduce<boolean>(
         (accum, i) => accum && (mat[i][j] === 0 || i === pivotI),
-        true
+        true,
       ),
-    true
+    true,
   );
 };

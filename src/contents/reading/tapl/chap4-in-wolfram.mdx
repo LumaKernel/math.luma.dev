@@ -1,26 +1,18 @@
 {/* generated from notebook */}
+
 <Config
   isIpynb
   ipynbLang="Wolfram Language"
   ipynbRelPath="reading/tapl/chap4-in-wolfram"
 />
 
-<Config
-  title="第四章をWolframで実装する"
-  published
-  />
-
-
+<Config title="第四章をWolframで実装する" published />
 
 ```wolfram
 SetOptions[$Output, FormatType -> TeXForm];
 ```
 
-
-
 ## 項の定義
-
-
 
 ```wolfram
 ClearAll[zero, succ, pred, true, false, iszero, if];
@@ -35,11 +27,7 @@ if = Symbol["if"];
 noRuleApplies = Symbol["noRuleApplies"];
 ```
 
-
-
 ## 数値の定義
-
-
 
 ```wolfram
 ClearAll[isnumericval];
@@ -48,11 +36,7 @@ isnumericval[succ[t_]] := isnumericval[t];
 isnumericval[_] := False;
 ```
 
-
-
 ## `isnumerical`の動作確認
-
-
 
 ```wolfram
 isnumericval[zero]
@@ -60,23 +44,17 @@ isnumericval[zero]
 
 $$\text{True}$$
 
-
-
 ```wolfram
 isnumericval[succ[succ[zero]]]
 ```
 
 $$\text{True}$$
 
-
-
 ```wolfram
 isnumericval[true]
 ```
 
 $$\text{False}$$
-
-
 
 ```wolfram
 isnumericval[pred[succ[true]]]
@@ -86,8 +64,6 @@ $$\text{False}$$
 
 ## 値の定義
 
-
-
 ```wolfram
 clearAll[isval];
 isval[true] := True;
@@ -95,11 +71,7 @@ isval[false] := True;
 isval[t_] := isnumericval[t];
 ```
 
-
-
 ## `isval`の動作確認
-
-
 
 ```wolfram
 isval[true]
@@ -107,23 +79,17 @@ isval[true]
 
 $$\text{True}$$
 
-
-
 ```wolfram
 isval[false]
 ```
 
 $$\text{True}$$
 
-
-
 ```wolfram
 isval[succ[succ[zero]]]
 ```
 
 $$\text{True}$$
-
-
 
 ```wolfram
 isval[pred[succ[true]]]
@@ -132,8 +98,6 @@ isval[pred[succ[true]]]
 $$\text{False}$$
 
 ## 1ステップ評価器の定義
-
-
 
 ```wolfram
 ClearAll[eval1];
@@ -158,11 +122,7 @@ eval1[iszero[t1_]] := iszero[eval1[t1]];
 eval1[_] := Throw[noRuleApplies]
 ```
 
-
-
 ## `eval1`の動作確認
-
-
 
 ```wolfram
 eval1[pred[zero]]
@@ -170,15 +130,11 @@ eval1[pred[zero]]
 
 $$\text{zero}$$
 
-
-
 ```wolfram
 eval1[if[true, succ[zero], zero]]
 ```
 
 $$\text{succ}(\text{zero})$$
-
-
 
 ```wolfram
 eval1[if[if[false, false, true], succ[zero], zero]]
@@ -186,15 +142,11 @@ eval1[if[if[false, false, true], succ[zero], zero]]
 
 $$\text{if}(\text{true},\text{succ}(\text{zero}),\text{zero})$$
 
-
-
 ```wolfram
 Catch[eval1[succ[true]]]
 ```
 
 $$\text{noRuleApplies}$$
-
-
 
 ```wolfram
 Catch[eval1[true]]
@@ -203,8 +155,6 @@ Catch[eval1[true]]
 $$\text{noRuleApplies}$$
 
 ## 評価器の定義
-
-
 
 ```wolfram
 ClearAll[eval];
@@ -218,11 +168,7 @@ eval[t_] := Block[
 ];
 ```
 
-
-
 ## `eval`の動作確認
-
-
 
 ```wolfram
 eval[if[if[false, false, true], succ[zero], zero]]

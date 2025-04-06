@@ -1,14 +1,12 @@
 {/* generated from notebook */}
+
 <Config
   isIpynb
   ipynbLang="rust"
   ipynbRelPath="reading/プログラム意味論/00520-lambda-combinator-de-bruijn-index"
 />
 
-<Config
-  title="ラムダ計算とコンビネータ理論"
-  published
-  />
+<Config title="ラムダ計算とコンビネータ理論" published />
 
 ラムダ計算とコンビネータの相互変換に関する話が p.38 2.6 コンビネータ理論より続く。
 
@@ -16,13 +14,9 @@
 
 ## 準備
 
-
-
 ```rust
 use std::collections::HashSet;
 ```
-
-
 
 ## De Bruijnインデックスの準備
 
@@ -32,8 +26,6 @@ use std::collections::HashSet;
 以下に変換を実装した。ただし、De Bruijnインデックスと変数は見た目通り一対一に対応するわけではなく、ラムダを飛び越えるたびにベースが1ずつカウントアップされると考える。
 
 詳しくはTaPLを参照。TODO: 定義を書き下す。
-
-
 
 ```rust
 fn de_bruijn_index_to_string (index: u32, base: u32) -> String {
@@ -79,15 +71,11 @@ fn de_bruijn_index_to_latex (index: u32, base: u32) -> String {
 }
 ```
 
-
-
 ## コンビネータ理論の実装
 
 Combinatory Theory
 
 ### コンビネータ理論の項の定義
-
-
 
 ```rust
 #[derive(Debug, Clone)]
@@ -100,11 +88,7 @@ enum Combinatory {
 }
 ```
 
-
-
 以下のように項を用意しておく。
-
-
 
 ```rust
 let comb_term_1 = Combinatory::Apply(
@@ -119,13 +103,9 @@ let comb_term_1 = Combinatory::Apply(
 );
 ```
 
-
-
 ### コンビネータ理論のプリント
 
 文字列と $\LaTeX$ への変換を用意しておく。なお、左結合のため、右側が _apply_ だった場合のみ、右側に括弧をつける。
-
-
 
 ```rust
 impl Combinatory {
@@ -163,39 +143,23 @@ impl Combinatory {
 }
 ```
 
-
-
 ### コンビネータ理論のプリントを試す
-
-
 
 ```rust
 comb_term_1
 ```
 
-
-
 ```rust
 Apply(Apply(K, Variable(0)), Apply(Apply(I, Variable(1)), Variable(0)))
 ```
-
-
-
-
 
 ```rust
 println!("{}", comb_term_1.to_string());
 ```
 
-
-
 ```rust
 Ka(Iba)
 ```
-
-
-
-
 
 ```rust
 println!("${}$", comb_term_1.to_latex());
@@ -203,24 +167,15 @@ println!("${}$", comb_term_1.to_latex());
 
 $\mathbf{K}a(\mathbf{I}ba)$
 
-
-
-
 ```rust
 comb_term_1.free_variables()
 ```
-
-
 
 ```rust
 {1, 0}
 ```
 
-
-
 ## ラムダ計算
-
-
 
 ```rust
 #[derive(Debug, Clone)]
@@ -230,10 +185,6 @@ enum Lambda {
   Apply(Box<Lambda>, Box<Lambda>),
 }
 ```
-
-
-
-
 
 ```rust
 let lambda_term_1 = Lambda::Apply(
@@ -254,10 +205,6 @@ let lambda_term_1 = Lambda::Apply(
   ).into(),
 );
 ```
-
-
-
-
 
 ```rust
 impl Lambda {
@@ -301,37 +248,21 @@ impl Lambda {
 }
 ```
 
-
-
-
-
 ```rust
 lambda_term_1
 ```
-
-
 
 ```rust
 Apply(Apply(Abstract(Variable(0)), Abstract(Variable(0))), Abstract(Abstract(Apply(Variable(1), Apply(Variable(1), Variable(4))))))
 ```
 
-
-
-
-
 ```rust
 println!("{}", lambda_term_1.to_string());
 ```
 
-
-
 ```rust
 (\x.x)(\x.x)(\x.(\y.z(zc)))
 ```
-
-
-
-
 
 ```rust
 println!("${}$", lambda_term_1.to_latex());
@@ -339,26 +270,17 @@ println!("${}$", lambda_term_1.to_latex());
 
 $(\lambda x.x)(\lambda x.x)(\lambda x.(\lambda y.z(zc)))$
 
-
-
-
 ```rust
 lambda_term_1.free_variables()
 ```
-
-
 
 ```rust
 {2}
 ```
 
-
-
 ## ラムダ計算からコンビネータ理論
 
 p.40 付近。
-
-
 
 ```rust
 fn lambda2combinatory(t: &Lambda) -> Combinatory {
@@ -373,7 +295,7 @@ fn _lambda2combinatory(t: &Lambda, base: u32) -> Combinatory {
       match c {
         Combinatory::Variable(u) if *u == 0 => Combinatory::I,
         _ => if (*t1).free_variables().contains(&v) {
-          
+
         }
       }
     },
@@ -385,15 +307,7 @@ fn _lambda2combinatory(t: &Lambda, base: u32) -> Combinatory {
 }
 ```
 
-
-
-
-
-
-
 ## コンビネータ理論からラムダ計算
-
-
 
 ```rust
 fn combinatory2lambda(t: &Combinatory) -> Lambda {
@@ -401,4 +315,3 @@ fn combinatory2lambda(t: &Combinatory) -> Lambda {
   }
 }
 ```
-

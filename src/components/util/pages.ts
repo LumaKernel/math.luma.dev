@@ -1,4 +1,4 @@
-import type { Props as PageConfig } from '@/components/config';
+import type { Props as PageConfig } from "@/components/config";
 
 export const locEq = (loc1: PageLocation, loc2: PageLocation): boolean => {
   return loc1.filePath === loc2.filePath;

@@ -3,7 +3,7 @@ export const bound = <
   T extends Record<K, (...args: readonly never[]) => unknown>,
 >(
   v: T,
-  key: K
+  key: K,
 ): T[K] => {
   const method = v[key];
   // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-return

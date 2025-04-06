@@ -127,7 +127,7 @@ export default function MatViewer({
             <React.Fragment key={`${y},${x}`}>
               {createElem(y, x)}
             </React.Fragment>
-          ))
+          )),
         )}
       </Grid>
     </Wrapper>

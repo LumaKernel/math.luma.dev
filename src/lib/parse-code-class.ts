@@ -1,4 +1,4 @@
-import { posix as posixPath } from 'path';
+import { posix as posixPath } from "path";
 
 export interface CodeClass {
   language: string | null;
@@ -15,7 +15,7 @@ export interface CodeClass {
 
 const parseCodeClass = (codeClass?: string): CodeClass => {
   let language: string | null = null;
-  let file: CodeClass['file'] | null = null;
+  let file: CodeClass["file"] | null = null;
   if (codeClass) {
     const groups = codeClass.match(/^language-([^:]*)(?::(.*))?/);
     if (groups) {
