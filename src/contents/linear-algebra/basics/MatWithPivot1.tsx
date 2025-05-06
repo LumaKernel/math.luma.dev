@@ -15,7 +15,7 @@ export default function MatWithPivot1({ mat, onInput }: MatWithPivot1Props) {
   const colorsMat = useMemo(() => {
     const [n, m] = matShape(mat);
     const tmp = mat.map((row) =>
-      row.map(() => undefined as undefined | string),
+      row.map(() => undefined as undefined | string)
     );
     for (const y of range(n)) {
       for (const x of range(m)) {
@@ -45,7 +45,7 @@ export default function MatWithPivot1({ mat, onInput }: MatWithPivot1Props) {
         />
       );
     },
-    [mat],
+    [colorsMat, mat, onInput]
   );
 
   const [n, m] = useMemo(() => matShape(mat), [mat]);

@@ -36,12 +36,21 @@ const eslintConfig = tseslint.config(
 
       // TODO: とりあえず RationalField とかで利用するため
       "@typescript-eslint/no-empty-object-type": "off",
+
+      "@typescript-eslint/no-unused-vars": [
+        "error",
+        {
+          argsIgnorePattern: "^_",
+          varsIgnorePattern: "^_",
+        },
+      ],
     },
   },
 
   {
     files: ["**/*.js", "**/*.mjs", "**/*.ts", "**/*.tsx"],
     rules: {
+      "react-hooks/exhaustive-deps": "error",
       "object-shorthand": "error",
     },
   },

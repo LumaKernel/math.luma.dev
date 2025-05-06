@@ -293,7 +293,7 @@ export interface ElementaryMatrixProtocol<T> {
 
 export const renderElementaryMatrix: <T>(
   p: ElementaryMatrixProtocol<T>,
-  renderElem: RenderElem<T>,
+  renderElem: RenderElem<T>
 ) => React.ReactNode = (p, renderElem) => {
   return (
     <InlineBlock>
@@ -307,7 +307,7 @@ export const renderElementaryMatrix: <T>(
 function* gaussElimIllust<T>(
   mat: Matrix<T>,
   field: FieldProtocol<T, T>,
-  renderElem: RenderElem<T>,
+  renderElem: RenderElem<T>
 ) {
   const key = (() => {
     let tmp = 0;
@@ -321,7 +321,7 @@ function* gaussElimIllust<T>(
   const flippedMatElem = (
     y: number,
     x: number,
-    nextMatKeys: Matrix<number> | null = null,
+    nextMatKeys: Matrix<number> | null = null
   ) => `(${(nextMatKeys ?? matKeys)[y][x]})`;
   const flippedWith = (prefix: string, y: number, x: number) =>
     `${prefix}(${y},${x},${matKeys[y][x]})`;
@@ -369,7 +369,7 @@ function* gaussElimIllust<T>(
       yield basic(
         `${what0}${i === 0 ? "i := 1, j := 1 で初期化" : "j := j + 1 に更新"}`,
         i,
-        j,
+        j
       );
       {
         let k = i;
@@ -383,7 +383,7 @@ function* gaussElimIllust<T>(
                 : `${what0}${what1}k := k + 1 に更新`,
               i,
               j,
-              k,
+              k
             );
             if (fieldUtil(field).IsZero(mat[k][j])) {
               const what2 = "0 なので該当せず。";
@@ -396,7 +396,7 @@ function* gaussElimIllust<T>(
                   `${what0}${what1}見つかりました。i ≠ k なので入れ替えます。`,
                   i,
                   j,
-                  k,
+                  k
                 );
                 // 入れ替えが必要 (swap(mat[i], mat[k]))
                 const newMatKeys = matMap(matKeys, (y, x, v) => {
@@ -502,7 +502,7 @@ function* gaussElimIllust<T>(
                                 <F flipId={flippedMatElem(y, x, newMatKeys)}>
                                   {renderElem(
                                     field.Mult(mat[y][x], pivotInv),
-                                    cssColors.text,
+                                    cssColors.text
                                   )}
                                 </F>
                               </>
@@ -541,7 +541,7 @@ function* gaussElimIllust<T>(
           `${what0}${what1}${k === i + 1 ? "k := i + 1 で初期化" : "k := k + 1 に更新"}`,
           i,
           j,
-          k,
+          k
         );
 
         if (fieldUtil(field).IsZero(mat[k][j])) {
@@ -613,7 +613,7 @@ function* gaussElimIllust<T>(
                                 ＋
                                 {renderElem(
                                   field.AddInverse(mat[y][j]),
-                                  cssColors.em1,
+                                  cssColors.em1
                                 )}
                                 ×
                               </InlineBlock>
@@ -630,9 +630,9 @@ function* gaussElimIllust<T>(
                                   {renderElem(
                                     field.Add(
                                       mat[y][x],
-                                      field.Mult(mat[y][j], inverses[x]),
+                                      field.Mult(mat[y][j], inverses[x])
                                     ),
-                                    cssColors.text,
+                                    cssColors.text
                                   )}
                                 </InlineBlock>
                               </F>
@@ -672,7 +672,7 @@ function* gaussElimIllust<T>(
   {
     const what0 = "後退代入: ";
     yield basic(
-      `${what0}後退代入を開始します。すべてのピボットを見ていきます。`,
+      `${what0}後退代入を開始します。すべてのピボットを見ていきます。`
     );
     // O(min{n, m})
     for (const [i, j] of pivotIndices.reverse()) {
@@ -686,7 +686,7 @@ function* gaussElimIllust<T>(
           `${what0}${what1}${k === 0 ? "k := 0 で初期化" : "k := k + 1 を代入"}`,
           i,
           j,
-          k,
+          k
         );
         if (fieldUtil(field).IsZero(mat[k][j])) {
           const what2 = "すでに mat[k, j] ＝ 0 なので次へ。";
@@ -773,9 +773,9 @@ function* gaussElimIllust<T>(
                                     {renderElem(
                                       field.Add(
                                         mat[y][x],
-                                        field.Mult(mat[y][j], inverses[x]),
+                                        field.Mult(mat[y][j], inverses[x])
                                       ),
-                                      cssColors.text,
+                                      cssColors.text
                                     )}
                                   </InlineBlock>
                                 </F>
@@ -869,14 +869,15 @@ export default function GaussElim({ init }: GaussElimProps) {
   const [mat, setMat] = useState<NumMat>(init);
   const numRatMat = useMemo<NumRatMat>(
     () => mat.map((row) => row.map(numberToRational)),
-    [mat],
+    [mat]
   );
   const [step, setStep] = useState(0);
   const [started, setStarted] = useState(false);
-  const createGenerator: () => Generator<React.ReactElement> = useCallback(
-    () => gaussElimIllust<NumberRational>(numRatMat, numRat, renderElem),
-    [numRatMat],
-  );
+  const createGenerator: () => Generator<React.ReactElement, void, unknown> =
+    useCallback(
+      () => gaussElimIllust<NumberRational>(numRatMat, numRat, renderElem),
+      [numRatMat]
+    );
   const createHistoryPoint = useCallback(
     (step: number) => {
       if (!started) return <></>;
@@ -887,9 +888,11 @@ export default function GaussElim({ init }: GaussElimProps) {
         i += 1;
         last = g.next();
       }
-      return last.value;
+      const lastValue = last.value;
+      if (lastValue === undefined) throw new Error("lastValue is undefined");
+      return lastValue;
     },
-    [started, createGenerator],
+    [started, createGenerator]
   );
   const historyLength = useMemo(() => {
     if (!started) return 0;
@@ -904,7 +907,7 @@ export default function GaussElim({ init }: GaussElimProps) {
   const isFirst = useMemo(() => step === 0, [step]);
   const isLast = useMemo(
     () => step + 1 === historyLength,
-    [step, historyLength],
+    [step, historyLength]
   );
   const [n, m] = useMemo(() => matShape(mat), [mat]);
   const start = useCallback(() => {

@@ -6,7 +6,7 @@
     "dev": "next dev --turbopack --port 4030",
     "build": "next build --no-lint",
     "start": "next start",
-    "lint": "eslint && prettier --check --list-different .",
+    "lint": "eslint && prettier --list-different .",
     "lint-fix": "eslint --fix && prettier --write .",
     "typecheck": "tsc --noEmit",
     "typecheck-watch": "tsc --noEmit --watch",

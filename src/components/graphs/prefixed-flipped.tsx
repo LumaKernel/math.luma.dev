@@ -18,6 +18,7 @@ const PrefixedFlipped: FC<Props> = (props) => {
         {...rest}
       />
     );
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Hack
   return <React.Fragment {...(rest as any)} />;
 };
 

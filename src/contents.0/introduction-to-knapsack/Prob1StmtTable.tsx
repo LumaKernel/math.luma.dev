@@ -11,7 +11,7 @@ range(1, Prob1.N + 1).forEach((n) => {
     const r = s - Prob1.x[n - 1];
     ansTable[n][s] = Math.max(
       r >= 0 ? ansTable[n - 1][r] + Prob1.v[n - 1] : -Infinity,
-      ansTable[n - 1][s],
+      ansTable[n - 1][s]
     );
   });
 });
@@ -74,16 +74,22 @@ const Prob1StmtTable: FC = () => {
         xmlns="http://www.w3.org/2000/svg"
         // grid={[5, 5]}
       >
-        {[
-          <Prob1.Load0 x={-70} y={-45} />,
-          <Prob1.Load1 x={-70} y={5} />,
-          <Prob1.Load2 x={-40} y={-40} />,
-          <Prob1.Load3 x={-10} y={-45} />,
-          <Prob1.Load4 x={-10} y={15} />,
-          <Prob1.Load5 x={20} y={-45} />,
-          <Prob1.Load6 x={20} y={25} />,
-        ]
-          .map((p, i) => <Fragment key={i}>{p}</Fragment>)
+        {(
+          [
+            [Prob1.Load0, -70, -45],
+            [Prob1.Load1, -70, 5],
+            [Prob1.Load2, -40, -40],
+            [Prob1.Load3, -10, -45],
+            [Prob1.Load4, -10, 15],
+            [Prob1.Load5, 20, -45],
+            [Prob1.Load6, 20, 25],
+          ] as const
+        )
+          .map(([Comp, x, y], i) => (
+            <Fragment key={i}>
+              <Comp x={x} y={y} />
+            </Fragment>
+          ))
           .slice(0, curN)}
         <Knapsack x={50} y={-40} size={curS} />
       </GraphSvg>

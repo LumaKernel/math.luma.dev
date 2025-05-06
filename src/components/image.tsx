@@ -1,22 +1,21 @@
-import type { FC } from "react";
+import NextImage from "next/image";
 
-interface Props {
-  [rest: string]: string;
-}
-const Image: FC<Props> = ({ ...props }) => (
-  <>
-    <div className="image-wrapper-wrapper">
-      <div className="image-wrapper">
-        <img {...props} />
+export default function Image({
+  ...props
+}: React.ComponentProps<typeof NextImage>) {
+  return (
+    <>
+      <div className="image-wrapper-wrapper">
+        <div className="image-wrapper">
+          <NextImage {...props} />
+        </div>
       </div>
-    </div>
-    <style jsx>{`
-      .image-wrapper-wrapper {
-        display: flex;
-        justify-content: center;
-      }
-    `}</style>
-  </>
-);
-
-export default Image;
+      <style jsx>{`
+        .image-wrapper-wrapper {
+          display: flex;
+          justify-content: center;
+        }
+      `}</style>
+    </>
+  );
+}

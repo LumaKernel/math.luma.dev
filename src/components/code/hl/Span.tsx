@@ -33,12 +33,18 @@ const EverythingSpan: FC<Props> = ({
   ...rest
 }) => {
   const className = rest.className ?? "";
+
+  const refName = () => {
+    const refName = rest.children;
+    if (typeof refName !== "string") throw new Error("refName is not a string");
+    return refName;
+  };
   if (codeHlLang === "wolfram") {
     if (/\bconstant--builtin--builtin_symbol\b/.test(className ?? "")) {
       return (
         <ReferenceAnchor
           {...rest}
-          href={`https://reference.wolfram.com/language/ref/${rest.children}.html`}
+          href={`https://reference.wolfram.com/language/ref/${refName()}.html`}
           target="_blank"
         />
       );
@@ -47,7 +53,7 @@ const EverythingSpan: FC<Props> = ({
       return (
         <ReferenceAnchor
           {...rest}
-          href={`https://reference.wolfram.com/language/ref/character/${rest.children}.html`}
+          href={`https://reference.wolfram.com/language/ref/character/${refName()}.html`}
           target="_blank"
         />
       );
@@ -211,7 +217,7 @@ const EverythingSpan: FC<Props> = ({
       return (
         <ReferenceAnchor
           {...rest}
-          href={`https://docs.python.org/3/library/functions.html#${rest.children}`}
+          href={`https://docs.python.org/3/library/functions.html#${refName()}`}
           target="_blank"
         />
       );
