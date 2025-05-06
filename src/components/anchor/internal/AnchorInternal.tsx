@@ -1,5 +1,4 @@
 "use server";
-import { mdxIndex } from "@/contents-index.gen";
 import { getPageInfo } from "@/util/preparse";
 import { stringTrimEnd, stringTrimStart } from "@luma-dev/string-util-ts";
 import Link from "next/link";

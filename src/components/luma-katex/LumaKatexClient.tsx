@@ -1,5 +1,6 @@
 "use client";
-import type { DisplayMode } from "./type";
+
+import type { KatexShowMode } from "@luma-dev/my-unified/katex-ex";
 
 const InlineWrapper = (props: React.ComponentProps<"span">) => (
   <>
@@ -16,11 +17,12 @@ const InlineWrapper = (props: React.ComponentProps<"span">) => (
   </>
 );
 
-const DisplayWrapper = (props: React.ComponentProps<"div">) => (
+const DisplayWrapper = (props: React.ComponentProps<"span">) => (
   <>
-    <div {...props} />
+    <span {...props} />
     <style jsx>{`
-      div {
+      span {
+        display: block;
         margin-top: 2em;
       }
     `}</style>
@@ -28,7 +30,7 @@ const DisplayWrapper = (props: React.ComponentProps<"div">) => (
 );
 
 export type LumaKatexClientProps = React.PropsWithChildren<{
-  readonly displayMode: DisplayMode;
+  readonly displayMode: KatexShowMode;
 }>;
 
 export default function LumaKatexClient({
@@ -38,12 +40,14 @@ export default function LumaKatexClient({
   switch (displayMode) {
     case "inline":
       return <InlineWrapper>{children}</InlineWrapper>;
-    case "block-display":
-      return <DisplayWrapper>{children}</DisplayWrapper>;
-    case "inline-display":
+    case "inline-block":
       return <InlineWrapper>{children}</InlineWrapper>;
+    case "display":
+      return <DisplayWrapper>{children}</DisplayWrapper>;
     default: {
-      throw new Error(`Unknown display mode: ${displayMode satisfies never}`);
+      throw new Error(
+        `Unknown display mode: ${displayMode satisfies never as 0}`
+      );
     }
   }
 }

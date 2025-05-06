@@ -1,6 +1,9 @@
 ```toml
 title = "行列式の定義と性質"
 published = true
+use_preset = [
+    "la",
+]
 ```
 
 ## 行列式
@@ -77,7 +80,7 @@ $\det A_i$が定義されているので、
 
 上記の左側の行列式と、右の今見ている要素を掛け合わせ、そしてそれらを、プラス、マイナス、プラス、…と交互に足し合わせる。$k$によってはマイナスから始まる。
 
-```math:trans:1
+```math trans1
     \underset{n \times n}{
       \left|\begin{matrix}
         a_{0,0} & a_{0,1} & \cdots & a_{0,m-2} & \ci{a_{0,m-1}}\\
@@ -103,7 +106,7 @@ $\det A_i$が定義されているので、
 ---
 
 $n=1$の場合。
-```math:trans:1
+```math trans1
     \left|\begin{matrix}
       \ci{a_{0, 0}}
     \end{matrix}\right|
@@ -119,7 +122,7 @@ $n=1$の場合。
 
 $n = 2$の場合。
 
-```math:trans:1
+```math trans1
     \left|\begin{matrix}
       a_{0, 0} & \ci{a_{0, 1}} \\
       a_{1, 0} & \ci{a_{1, 1}} \\
@@ -178,7 +181,7 @@ P(n) \coloneqq \\ \left[ \sum_{i \in n} (-1)^{(k+i)}\det A_i \cdot a_{i,k} \\ = 
 
 帰納法による。$P(0)$は明らか。$n = k + 1$とおいて、$P(k)\Longrightarrow P(n)$を示す。
 
-```math:def
+```math def
 \def\sfix{\mathfrak{S}_\mathrm{FIX}(n)}
 \def\smov{\mathfrak{S}_\mathrm{MOV}(n)}
 \def\swi{\sigma \cdot \swap{i}{k}}
@@ -191,7 +194,7 @@ P(n) \coloneqq \\ \left[ \sum_{i \in n} (-1)^{(k+i)}\det A_i \cdot a_{i,k} \\ = 
 
 とする。すると、$\mathfrak{S}(n) = \sfix \cup \smov$であり、$\sfix \cap \smov = \emptyset$である。
 
-```math:trans:1
+```math trans1
   \sum_{i \in n} (-1)^{(k+i)}\det A_i \cdot a_{i,k}
 =
   \sum_{i \in n} (-1)^{(k+i)} \left(
@@ -206,7 +209,7 @@ P(n) \coloneqq \\ \left[ \sum_{i \in n} (-1)^{(k+i)}\det A_i \cdot a_{i,k} \\ = 
   \sum_{i \in n} \sum_{\sigma \in \sfix} \left( (-1)^{(k+i)}
     \sgn(\sigma) \left( \prod_{i \in k} a_{\sigma(i), i} \right)
   \cdot a_{i,k} \right)
-?\load{qk:distributivity}
+?\termx{分配則}
 =
   \sum_{i \in n} \sum_{\sigma \in \sfix} \left(
     \ci{\sgn(\swi)} \left( \prod_{i \in k} a_{\ci{(\swi)(i)}, i} \right)
@@ -234,7 +237,7 @@ P(n) \coloneqq \\ \left[ \sum_{i \in n} (-1)^{(k+i)}\det A_i \cdot a_{i,k} \\ = 
 $\sigma$は全単射なので$\sigma^{-1}$を考えて、
 
 
-```math:trans:1
+```math trans1
 \det \underset{n \times n}{A}
 =
 \sum_{\sigma \in \mathfrak{S}(n)} \sgn(\sigma) \prod_{i \in n} a_{\sigma(i), i}
@@ -246,7 +249,7 @@ $\sigma$は全単射なので$\sigma^{-1}$を考えて、
 
 そのため、
 
-```math:trans:1
+```math trans1
 \det \underset{n \times n}{A}
 =
 \sum_{\sigma \in \mathfrak{S}(n)} \sgn(\sigma) \prod_{i \in n} a_{i, \sigma(i)}
@@ -261,7 +264,7 @@ $\sigma$は全単射なので$\sigma^{-1}$を考えて、
 
 ### 列の定数倍
 
-```math:trans:1
+```math trans1
     \left|\begin{matrix}
       \cdots &
       c\cdot\mathbf{a}_k &
@@ -278,11 +281,11 @@ $\sigma$は全単射なので$\sigma^{-1}$を考えて、
 
 <Prove>
 
-```math:trans:1
+```math trans1
 \LHS
 =
 \sum_{\sigma} \sgn(\sigma) \cdot a_{\overline{\sigma(0),0}} \cdots (c \cdot a_{\overline{\sigma(k),k}}) \cdots a_{\overline{\sigma(n-1),n-1}}
-?\load{qk:mat-det}の定義
+?\termx{行列式}の定義
 =
 c\cdot\sum_{\sigma} \sgn(\sigma) \cdot a_{\overline{\sigma(0),0}} \cdots a_{\overline{\sigma(k),k}} \cdots a_{\overline{\sigma(n-1),n-1}}
 =
@@ -293,7 +296,7 @@ c\cdot\sum_{\sigma} \sgn(\sigma) \cdot a_{\overline{\sigma(0),0}} \cdots a_{\ove
 
 ### 列の定数倍
 
-```math:trans:1
+```math trans1
     \left|\begin{matrix}
       &
       \cdots &
@@ -322,7 +325,7 @@ c\cdot\sum_{\sigma} \sgn(\sigma) \cdot a_{\overline{\sigma(0),0}} \cdots a_{\ove
 ### 列の交代性
 
 
-```math:trans:1
+```math trans1
     \left|\begin{matrix}
       &
       \cdots &
@@ -360,16 +363,16 @@ c\cdot\sum_{\sigma} \sgn(\sigma) \cdot a_{\overline{\sigma(0),0}} \cdots a_{\ove
 
 となる。
 
-```math:trans:1
+```math trans1
 \LHS
 = \sum_{\sigma} \sgn(\sigma) \prod_{k \in n} a_{\overline{\sigma(k),k}}
-$\load{qk:mat-det}\text{の定義}
+$\termx{行列式}\text{の定義}
 = \sum_{\sigma} \sgn(\sigma) \left(\prod_{k \in n \setminus\{i,j\}} a_{\overline{\sigma(k),k}}\right) a_{\overline{\sigma(i),i}} a_{\overline{\sigma(j),j}}
 $i\text{と}j\text{は分ける}
 = \sum_{\sigma} \ci{(-\sgn(\sigma \cdot \swap{i}{j}))} \left(\prod_{k \in n \setminus\{i,j\}} a_{\overline{\sigma(k),k}}\right) a_{\overline{\sigma(i),i}} a_{\overline{\sigma(j),j}}
-$ i\text{と}j\text{の\load{qk:swap}を考える}
+$ i\text{と}j\text{の\termx{互換}を考える}
 = \ci{-}\sum_{\sigma} \ci{\sgn(\sigma \cdot \swap{i}{j})} \left(\prod_{k \in n \setminus\{i,j\}} a_{\overline{\sigma(k),k}}\right) a_{\overline{\sigma(i),i}} a_{\overline{\sigma(j),j}}
-?\load{qk:field}に関する\load{qk:distributivity}
+?\termx{体}に関する\termx{分配則}
 = -\sum_{\sigma} \sgn(\sigma \cdot \swap{i}{j}) \left(\prod_{k \in n \setminus\{i,j\}} a_{\overline{(\ci{\sigma\cdot \swap{i}{j}}) (k),k}}\right) a_{\overline{((\ci{\sigma \cdot \swap{i}{j}})(j),i}} a_{\overline{(\ci{(\ci{\sigma \cdot \swap{i}{j}}})(i),j}}
 ?先述の定義より
 = -\sum_{\sigma} \sgn(\ci{\sigma^\prime}) \left(\prod_{k \in n \setminus\{i,j\}} a_{\overline{\ci{\sigma^\prime} (k),k}}\right) a_{\overline{\ci{\sigma^\prime}(j),i}} a_{\overline{\ci{\sigma^\prime}(i),j}}
@@ -387,7 +390,7 @@ $ \sigma^\prime \coloneqq \sigma \cdot \swap{i}{j} \text{とした}
 ### 同じ値を持つ列がある場合、行列式は零
 
 
-```math:trans:1
+```math trans1
   \left|\begin{matrix}
     &
     \cdots &
@@ -415,7 +418,7 @@ $ \sigma^\prime \coloneqq \sigma \cdot \swap{i}{j} \text{とした}
 
 $0 \cdot \mathbf{0} = \mathbf{0}$であるので、
 
-```math:trans:1
+```math trans1
     \left|\begin{matrix}
       &
       \cdots &
@@ -444,7 +447,7 @@ $0 \cdot \mathbf{0} = \mathbf{0}$であるので、
 
 ### ある列の定数倍を、異なる列に加えても行列式は変化しない
 
-```math:trans:1
+```math trans1
     \left|\begin{matrix}
       &
       \cdots &
@@ -498,7 +501,7 @@ $0 \cdot \mathbf{0} = \mathbf{0}$であるので、
 
 他の性質から、交換を$2$回以下行うことで、（符号の変化を除いて）以下のような形のみ考えれば良いことになる。
 
-```math:trans:1
+```math trans1
     \left|\begin{matrix}
       a_{0,0} & 0 & \cdots & 0\\
       a_{1,0} & a_{1,1} & \cdots & a_{0,m-1}\\
@@ -553,18 +556,18 @@ $0 \cdot \mathbf{0} = \mathbf{0}$であるので、
 
 ### 系: 基本行列の行列式は$0$ではない
 
-## 定理: 正方行列$A$について。$A \text{が\load{qk:invertible-mat}} \iff |A|\neq 0$
+## 定理: 正方行列$A$について。$A \text{が\termx{正則行列}} \iff |A|\neq 0$
 
 <Prove>
 $\Longrightarrow$について。
 
 正則行列$A$について、簡約化を考える。
 
-```math:trans:1
+```math trans1
   P_0 P_1 \cdots P_{p-1} A=I
 >
   |P_0 P_1 \cdots P_{p-1} A|=|I|
-? 両辺の\load{qk:mat-det}を考える
+? 両辺の\termx{行列式}を考える
 -
   |P_0| \cdot |P_1| \cdots |P_{p-1}| \cdot |A|=|I|
 ? TODO を$p$回適用
@@ -572,13 +575,14 @@ $\Longrightarrow$について。
 
 となるが、$|I|=1$であるため、$|A| \neq 0$。
 
+
 $\Longleftarrow$については、対偶を考える。正則行列でない正方行列$A$について、簡約化を考える。
 
-```math:trans
+```math trans2
   PA=X
 >
   |PA|=|X|
-? 両辺の\load{q:mat-det}
+? 両辺の\termx{行列式}
 -
   |P|\cdot|A|=|X|
 ? 上記の議論より
@@ -608,11 +612,11 @@ $A$が正則行列でない場合について。TODOより、$AB$も正則行列
 
 <Prove>
 
-```math:trans:1
+```math trans1
   AA^{-1}=I
 >
   |AA^{-1}|=|I|
-? 両辺の\load{qk:mat-det}
+? 両辺の\termx{行列式}
 -
   |A|\cdot |A^{-1}|=1
 ? TODO

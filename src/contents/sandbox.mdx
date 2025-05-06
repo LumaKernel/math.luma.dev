@@ -1,0 +1,39 @@
+```toml
+title = "sandbox"
+```
+
+<Prove>
+<p>
+$\Longrightarrow$について。
+
+正則行列$A$について、簡約化を考える。
+
+```math trans1
+  P_0 P_1 \cdots P_{p-1} A=I
+>
+  |P_0 P_1 \cdots P_{p-1} A|=|I|
+? 両辺の\termx{行列式}を考える
+-
+  |P_0| \cdot |P_1| \cdots |P_{p-1}| \cdot |A|=|I|
+? TODO を$p$回適用
+```
+
+となるが、$|I|=1$であるため、$|A| \neq 0$。
+</p>
+
+<p>
+$\Longleftarrow$については、対偶を考える。正則行列でない正方行列$A$について、簡約化を考える。
+
+```math trans2
+  PA=X
+>
+  |PA|=|X|
+? 両辺の\termx{行列式}
+-
+  |P|\cdot|A|=|X|
+? 上記の議論より
+```
+
+</p>
+
+</Prove>

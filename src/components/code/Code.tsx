@@ -6,6 +6,7 @@ import Highlighted from "./hl/Highlighted";
 import PreForCode from "./hl/PreForCode";
 import Span from "./hl/Span";
 import { renderCode } from "./render-code";
+import ShowError from "../show-error";
 
 const parseClassName = (className: string) => {
   const langCode = stringTrimStart(className.trim(), "language-");
@@ -16,9 +17,11 @@ export type CodeProps = React.PropsWithChildren<{
   readonly className: string;
 }>;
 export default async function Code({ children, className }: CodeProps) {
+  if (typeof children === "undefined") return <ShowError error="Empty code!" />;
   if (typeof children !== "string")
     throw new Error("children must be a string");
-  const langCode = parseClassName(className);
+  const langCode =
+    typeof className === "string" ? parseClassName(className) : "plaintext";
   const { mdx } = await renderCode(langCode, children);
 
   return (

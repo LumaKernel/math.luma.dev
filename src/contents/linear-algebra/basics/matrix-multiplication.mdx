@@ -8,7 +8,7 @@ GaussElim = "!"
 ```
 
 
-```math!def
+```math def
 \def\i{\ci{i}}
 \def\iv{\ci{\text{\textbar}}}
 \def\ih{\ci{\text{\textemdash}}}
@@ -100,7 +100,7 @@ A\mathbf{x}=\mathbf{b}
 <Prove>
   $X \coloneqq \LHS$とする。$\t{X}= AB$となる。
 
-  ```math:trans
+  ```math trans2
   \t{x}_{i,k}
   = \sum_{1 \leq j \leq m}{a_{i, j} \times b_{j, k}}
   ?\load{qk:mat-mult}
@@ -108,14 +108,14 @@ A\mathbf{x}=\mathbf{b}
 
   上記の$i$と$k$を入れ替えることで転置となる。
 
-  ```math:trans
+  ```math trans2
   x_{i,k}
   = \sum_{1 \leq j \leq m}{a_{k, j} \times b_{j, i}}
   ```
 
   $Y\coloneqq\RHS$とする。
 
-  ```math:trans
+  ```math trans2
   y_{i,j}
   = \sum_{1 \leq j \leq m}{\t{b}_{i, j} \times \t{a}_{j, k}}
   ?\load{qk:mat-mult}
@@ -145,7 +145,7 @@ A\mathbf{x}=\mathbf{b}
 <Prove>
 $B$と$C$を正則行列$A$の逆行列とする。
 
-```math:trans
+```math trans2
 AB=I
 >
 CAB=C
@@ -212,7 +212,7 @@ $BA=I$に対して同様の議論を行うことで、零列も含まれない�
 
 詳しい求め方は、後述する(TODO)で説明する。
 
-```math:trans:1
+```math trans1
 \begin{cases}
    x + 2y + 3z = 4 \\
    x +  y + 2z = 3 \\
@@ -584,7 +584,7 @@ c. 推移律: $A \sim B \wedge B \sim C \Longrightarrow A \sim C$
 
   としたとき、
 
-  ```math:trans
+  ```math trans2
   C
   =
     Q_0 Q_1 \cdots Q_{q-1} (P_0 P_1 \cdots P_{p-1} A)
@@ -653,7 +653,7 @@ A=
 
 上記の行列に対してガウスの消去法を行う、以下の例を見る。
 
-```math:trans:1
+```math trans1
 \begin{pmatrix}
        1 &     2 &     2 &     4 \\
        2 &     3 &     1 &     5 \\
@@ -1255,7 +1255,7 @@ $\rank A = n$なので$A$を簡約化すると$PA=I$となる。$P$が$A^{-1}$�
 <Prove>
 $A$を簡約化して$PA=X$とする。$A=P^{-1}X$となる。
 
-```math:trans:1
+```math trans1
   \rank AB
 = \rank P^{-1}XB
 ? $A=P^{-1}X$を代入
@@ -1276,7 +1276,7 @@ $\mathbf b = \mathbf 0$の場合、その線形方程式は斉次である、と
 線形方程式をガウスの消去法を使って解くことが可能。
 
 
-```math!def
+```math def
 \def\augmat{\left(\begin{array}{c|c}A & \mathbf{b}\end{array}\right)}
 \def\augmatz{\left(\begin{array}{c|c}A & \mathbf{0}\end{array}\right)}
 \def\augmatx{\left(\begin{array}{c|c}A' & \mathbf{b}'\end{array}\right)}

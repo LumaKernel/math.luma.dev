@@ -176,18 +176,18 @@ $n \times m$ の行列同士の差を $n \times m$ の行列になるものと�
 
 <Prove>
 
-```math trans
+```math trans1
 (a_{i, j}) - (b_{i, j})
 = (a_{i, j}) + (-(b_{i, j}))
-?\load{q:mat-subt}
+$\termx{行列の差}
 = (a_{i, j}) + (-1) \cdot (b_{i, j})
-?\load{q:mat-negation}
+$\termx{行列の符号反転}
 = (a_{i, j}) + ((-1) \cdot b_{i, j})
-?\load{q:scaling}
+$\termx{スカラー倍}
 = \left(a_{i, j} + (-1) \cdot b_{i, j}\right)
-?\load{q:mat-add}
+$\termx{行列の和}
 = (a_{i, j} - b_{i, j})
-?\load{qk:field}に関する式変形
+$\termx{体}に関する式変形
 ```
 
 </Prove>

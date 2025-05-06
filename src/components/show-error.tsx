@@ -1,3 +1,4 @@
+"use client";
 import type { FC } from "react";
 
 const ErrorText = (props: React.ComponentProps<"span">) => (
@@ -16,7 +17,11 @@ type Props = {
 };
 const ShowError: FC<Props> = ({ error }) => (
   <ErrorText>
-    エラー: {String(error)}: {(error as any)?.message}
+    エラー: {String(error)}:{" "}
+    {(typeof error === "object" && error !== null && "message" in error) ||
+    (typeof error === "string" && error.length > 0)
+      ? (error as { message: string }).message
+      : "<no .message>"}
   </ErrorText>
 );
 

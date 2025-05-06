@@ -9,11 +9,13 @@
     "lint": "eslint && prettier --check --list-different .",
     "lint-fix": "eslint --fix && prettier --write .",
     "typecheck": "tsc --noEmit",
-    "typecheck-watch": "tsc --noEmit --watch"
+    "typecheck-watch": "tsc --noEmit --watch",
+    "index": "blogkit-internal-tool index",
+    "index-watch": "watchexec -e .mdx -- npm run index"
   },
   "dependencies": {
     "@luma-dev/katex-luma": "npm:@jsr/luma-dev__katex-luma@^0.2.0",
-    "@luma-dev/my-unified": "^1.9.0",
+    "@luma-dev/my-unified": "^1.12.0",
     "@luma-dev/option-ts": "npm:@jsr/luma-dev__option-ts@^1.1.0",
     "@luma-dev/string-util-ts": "npm:@jsr/luma-dev__string-util-ts@^1.0.0",
     "@mdx-js/loader": "^3.1.0",
