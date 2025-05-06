@@ -5,7 +5,7 @@ import { MDXRemote } from "next-mdx-remote/rsc";
 import { htmlToMdx } from "@/util/html-to-mdx";
 import { Fragment } from "react";
 import Debug from "../Debug";
-import KatexGeneralSpan from "./KatexGeneralSpan";
+import KatexGeneralHackTag from "./KatexGeneralHackTag";
 import {
   makeMathTransform1Column,
   makeMathTransform2Column,
@@ -54,7 +54,7 @@ export default async function LumaKatex({
         source={mdx}
         components={{
           Wrapper: Fragment,
-          Span: KatexGeneralSpan,
+          HackTag: KatexGeneralHackTag,
           Load: Debug,
           NewLine: () => <br />,
         }}

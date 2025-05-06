@@ -20,7 +20,7 @@ const SharedApp = ({ children }: Props) => {
         .root {
           padding-bottom: 4rem;
           min-height: 100vh;
-          overflow-x: auto;
+          overflow-x: unset;
         }
       `}</style>
     </ThemeContext.Provider>

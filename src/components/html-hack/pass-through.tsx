@@ -17,3 +17,7 @@ const createPassThrough = (Tag: string) => {
 export async function PassThroughSpan(props: any) {
   return createPassThrough("span")(props);
 }
+
+export async function PassThroughSvg(props: any) {
+  return createPassThrough("svg")(props);
+}

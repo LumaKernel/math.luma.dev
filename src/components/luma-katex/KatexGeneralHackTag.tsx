@@ -1,18 +1,18 @@
 "use server";
-import { PassThroughSpan } from "../html-hack/pass-through";
-import TermServer from "../term/TermServer";
+import HackTag from "@/components/html-hack/HackTag";
+import TermServer from "@/components/term/TermServer";
 
-export type KatexGeneralSpanProps = {
+export type KatexGeneralTagProps = {
   readonly "data-term"?: string;
   readonly "data-reference"?: string;
 };
-export default async function KatexGeneralSpan({
+export default async function KatexGeneralTag({
   "data-term": term,
   "data-reference": reference,
   ...props
-}: KatexGeneralSpanProps) {
+}: KatexGeneralTagProps) {
   if (typeof term === "string" && typeof reference === "string") {
     return <TermServer text={term} reference={reference} />;
   }
-  return <PassThroughSpan {...props} />;
+  return <HackTag {...props} />;
 }
