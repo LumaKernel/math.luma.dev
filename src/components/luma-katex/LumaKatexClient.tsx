@@ -46,7 +46,7 @@ export default function LumaKatexClient({
       return <DisplayWrapper>{children}</DisplayWrapper>;
     default: {
       throw new Error(
-        `Unknown display mode: ${displayMode satisfies never as 0}`
+        `Unknown display mode: ${displayMode satisfies never as 0}`,
       );
     }
   }

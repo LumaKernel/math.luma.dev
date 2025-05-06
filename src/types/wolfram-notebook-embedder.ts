@@ -53,7 +53,7 @@ declare module "wolfram-notebook-embedder" {
      * @throws "GroupNotFound" — The group specified by groupId was not found.
      */
     getElements(
-      parameters: NotebookGetElementParameters
+      parameters: NotebookGetElementParameters,
     ): NotebookGetElementResponse;
     /* TODO: ... */
     /**
@@ -106,6 +106,6 @@ declare module "wolfram-notebook-embedder" {
   export function embed(
     notebookURL: string,
     domNode: Node,
-    attributes?: EmbedAttributes
+    attributes?: EmbedAttributes,
   ): Promise<Notebook>;
 }

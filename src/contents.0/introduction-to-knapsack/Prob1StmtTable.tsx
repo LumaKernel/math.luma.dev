@@ -11,7 +11,7 @@ range(1, Prob1.N + 1).forEach((n) => {
     const r = s - Prob1.x[n - 1];
     ansTable[n][s] = Math.max(
       r >= 0 ? ansTable[n - 1][r] + Prob1.v[n - 1] : -Infinity,
-      ansTable[n - 1][s]
+      ansTable[n - 1][s],
     );
   });
 });

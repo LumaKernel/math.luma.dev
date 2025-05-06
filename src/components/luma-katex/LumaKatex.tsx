@@ -36,7 +36,7 @@ export default async function LumaKatex({
         return makeMathTransform2Column(parseMathTransform(contentOriginal));
       default:
         throw new Error(
-          `Unknown subCategory: ${meta.subCategory satisfies never as 0}`
+          `Unknown subCategory: ${meta.subCategory satisfies never as 0}`,
         );
     }
   })();

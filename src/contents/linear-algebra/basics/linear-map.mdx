@@ -49,15 +49,10 @@ A \mathbf x = \mathbf y
 「表現行列で表すこと」を指して、行列表現と言ったりするが、英語では普通に _shown in matrix A_ のように書かれる。
 
 <Save>
-```math:inline
-  A=
-  \begin{pmatrix}
-    f\left(\mathbf e^V_0\right) &
-    f\left(\mathbf e^V_1\right) &
-    \cdots &
-    f\left(\mathbf e^V_{n-1}\right) \\
-  \end{pmatrix}
-```
+  ```math:inline A= \begin{pmatrix}
+  f\left(\mathbf e^V_0\right) & f\left(\mathbf e^V_1\right) & \cdots &
+  f\left(\mathbf e^V_{n - 1}\right) \\ \end{pmatrix}
+  ```
 </Save>
 簡単に直感的な定義を与えると、[$]となる。
 
@@ -115,19 +110,20 @@ $A \coloneqq (a_{i,j})$が表現行列になる。それを導く。
 =
   A \cdot \mathbf x
 ```
+
 </Prove>
 
 実際には$A$は基底$E^V$と$E^W$のとり方によって変わってくる。基底$E^V$と$E^W$を決めて、行列の世界に持ち込んだとき、線型写像も同様に行列の世界に持ち込める。
 
-| 線形空間の世界 | 要素が$K$の行列の世界 |
-|  :---:  |  :---:  |
-|  $n$次元の線形空間$V$  |  $\K^n$  |
-|  基底$E^V$  |  正規直交系$U$  |
-|  $E^V$から${E^V}'$への基底変換  |  基底変換行列  |
-|  $E^V$から$E^V$自身への基底変換  |  単位行列$I_n$  |
-|  $v \in V$  |  $\mathbf x = \t{\begin{pmatrix}x_0 & x_1 & \cdots & x_{n-1}\end{pmatrix}} \in \K^n$  |
-|  $k$個のベクトルのSEQ$A \in V^k$  |  行列$A=\begin{pmatrix}\mathbf a_0 & \mathbf a_1 & \cdots & \mathbf a_{k-1}\end{pmatrix} \in \K^{n \times k}$  |
-|  ベクトルのSEQ$E^V$  |  単位行列$I_n$  |
-|  線型写像$f \in \Hom{V, W}$  |  行列$A \in \K^{m \times n}$  |
+|         線形空間の世界          |                                            要素が$K$の行列の世界                                             |
+| :-----------------------------: | :----------------------------------------------------------------------------------------------------------: |
+|      $n$次元の線形空間$V$       |                                                    $\K^n$                                                    |
+|            基底$E^V$            |                                                正規直交系$U$                                                 |
+|  $E^V$から${E^V}'$への基底変換  |                                                 基底変換行列                                                 |
+| $E^V$から$E^V$自身への基底変換  |                                                単位行列$I_n$                                                 |
+|            $v \in V$            |             $\mathbf x = \t{\begin{pmatrix}x_0 & x_1 & \cdots & x_{n-1}\end{pmatrix}} \in \K^n$              |
+| $k$個のベクトルのSEQ$A \in V^k$ | 行列$A=\begin{pmatrix}\mathbf a_0 & \mathbf a_1 & \cdots & \mathbf a_{k-1}\end{pmatrix} \in \K^{n \times k}$ |
+|       ベクトルのSEQ$E^V$        |                                                単位行列$I_n$                                                 |
+|   線型写像$f \in \Hom{V, W}$    |                                         行列$A \in \K^{m \times n}$                                          |
 
 なお、$A$の基底のとり方によるゆらぎは、基底変換行列で橋渡しできる。

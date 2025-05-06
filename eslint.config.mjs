@@ -57,7 +57,7 @@ const eslintConfig = tseslint.config(
 
   {
     ignores: [".next/*", "**/*.gen.ts"],
-  }
+  },
 );
 
 export default eslintConfig;

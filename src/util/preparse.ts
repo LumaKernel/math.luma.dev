@@ -33,11 +33,11 @@ export const getPageInfo = async (linkPath: string) => {
     await Promise.all(
       filePathCands.map(async (p) => {
         return fromAsyncThrowable(() =>
-          fs.readFile(path.resolve(process.cwd(), "src/contents", p), "utf-8")
+          fs.readFile(path.resolve(process.cwd(), "src/contents", p), "utf-8"),
         )()
           .map((e) => [p, e] as const)
           .unwrapOr(null);
-      })
+      }),
     )
   ).filter((x) => x != null);
   const [fileContent, fileContent1] = fileContents;

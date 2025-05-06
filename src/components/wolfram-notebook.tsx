@@ -17,7 +17,7 @@ const WolframNotebook: FC<Props & StaticProps> = ({ path, preRendered }) => {
       if (el.current) {
         await WolframNotebookEmbedder.embed(
           `https://www.wolframcloud.com/obj/${path}`,
-          el.current
+          el.current,
         );
       }
     })();

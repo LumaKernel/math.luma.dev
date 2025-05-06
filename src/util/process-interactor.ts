@@ -16,7 +16,7 @@ export class ProcessInteractor {
 
   async send(message: string): Promise<void> {
     await util.promisify((cb: () => void) =>
-      this.#p.stdin.write(message, cb)
+      this.#p.stdin.write(message, cb),
     )();
   }
 
