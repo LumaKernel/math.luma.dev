@@ -106,7 +106,7 @@ A\mathbf{x}=\mathbf{b}
   ```math trans2
   \t{x}_{i,k}
   = \sum_{1 \leq j \leq m}{a_{i, j} \times b_{j, k}}
-  ?\load{qk:mat-mult}
+  ?\termx{行列の積}
   ```
 
   上記の$i$と$k$を入れ替えることで転置となる。
@@ -121,11 +121,11 @@ A\mathbf{x}=\mathbf{b}
   ```math trans2
   y_{i,j}
   = \sum_{1 \leq j \leq m}{\t{b}_{i, j} \times \t{a}_{j, k}}
-  ?\load{qk:mat-mult}
+  ?\termx{行列の積}
   = \sum_{1 \leq j \leq m}{b_{j, i} \times a_{k, j}}
-  ?\load{qk:transpose}の定義より、それぞれの添字を入れ替える
+  ?\termx{転置}の定義より、それぞれの添字を入れ替える
   = \sum_{1 \leq j \leq m}{a_{k, j} \times b_{j, i}}
-  ?\load{qk:field}の\load{qk:mult}に関する\load{qk:commutativity}
+  ?\termx{体}の\termx{乗算}に関する\termx{可換則}
   ```
 
   以上より$\forall~i,j~[x_{i,j}=y_{i,j}]$であることがわかった。つまり、$X=Y$となる。
@@ -155,13 +155,13 @@ CAB=C
 $ \text{左から}C\text{を乗じた}
 -
 (CA)B=C
-? \load{qk:mat-mult}の\load{qk:commutative}
+? \termx{行列の積}の\termx{可換則}
 -
 IB=C
-$ \load{qk:inv-mat}\text{の定義より}CA=I
+$ \termx{逆行列}\text{の定義より}CA=I
 -
 B=C
-? \load{qk:identity-matrix}の性質より
+? \termx{単位行列}の性質より
 ```
 </Prove>
 
@@ -594,7 +594,7 @@ c. 推移律: $A \sim B \wedge B \sim C \Longrightarrow A \sim C$
   =
     (Q_0 Q_1 \cdots Q_{q-1} P_0 P_1 \cdots P_{p-1}) A
   ?
-     \load{qk:mat-mult}の\load{qk:associativity}
+     \termx{行列の積}の\termx{結合則}
   ```
 
   $(Q_0, Q_1, \cdots, Q_{q-1}, P_0, P_1, \cdots, P_{p-1})$ は基本行列の列であるから、$A \sim C$
