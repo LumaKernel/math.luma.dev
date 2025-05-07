@@ -1,5 +1,5 @@
 "use server";
-import PathBreadcrumbs from "@/components/PathBreadcrumbs";
+import PathBreadcrumbs from "@/components/bread-crumbs/PathBreadcrumbs";
 import { getSeriesConfig } from "@/util/parse-series-config";
 import { getPageInfo } from "@/util/preparse";
 import { makeMake } from "../make-make";
@@ -27,7 +27,7 @@ export default async function Series({ currentLinkPath, link }: SeriesProps) {
       const chapterLinkPath = resolveLinkPath(linkPath, chapter);
       const pageInfo = await getPageInfo(chapterLinkPath);
       return pageInfo;
-    }),
+    })
   );
   const pages = chapters.map((p, i) => {
     return (

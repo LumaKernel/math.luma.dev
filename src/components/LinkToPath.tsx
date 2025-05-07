@@ -1,5 +1,5 @@
 import type { FC } from "react";
-import PathBreadcrumbs from "@/components/PathBreadcrumbs";
+import PathBreadcrumbs from "@/components/bread-crumbs/PathBreadcrumbs";
 import ShowError from "@/components/show-error";
 
 type Props = {

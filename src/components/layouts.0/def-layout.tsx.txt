@@ -4,7 +4,7 @@ import { NextSeo } from "next-seo";
 import type { FC } from "react";
 import MainLayout from "@/components/layouts/MainLayout";
 import H2 from "@/components/heading/H2";
-import PathBreadcrumbs from "@/components/PathBreadcrumbs";
+import PathBreadcrumbs from "@/components/bread-crumbs/PathBreadcrumbs";
 import Link from "next/link";
 
 interface Placement {
