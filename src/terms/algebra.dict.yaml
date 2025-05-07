@@ -25,6 +25,9 @@
   ja-ruby: たい
   prevent:
     - 全体
+    - 具体
+    - 正体
+    - 自体
 群: group
 可換群:
   ruby: commutative group

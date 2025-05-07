@@ -1,6 +1,6 @@
 "use client";
 import type { FlippedProps } from "flip-toolkit/lib/types";
-import React, { useCallback, useMemo, useState } from "react";
+import React, { Fragment, useCallback, useMemo, useState } from "react";
 import { Flipper, Flipped, spring } from "react-flip-toolkit";
 import type { NumberRational } from "@/lib/math-algebra/rational";
 import { numberToRational, numberRational } from "@/lib/math-algebra/rational";
@@ -331,7 +331,12 @@ function* gaussElimIllust<T>(
   const ShowPs = () => {
     return (
       <div>
-        {ps.reverse().map((p) => renderElementaryMatrix(p, renderElem))}
+        {ps
+          .reverse()
+          .map((p) => renderElementaryMatrix(p, renderElem))
+          .map((p, i) => (
+            <Fragment key={i}>{p}</Fragment>
+          ))}
       </div>
     );
   };

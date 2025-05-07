@@ -4,9 +4,9 @@ import { MDXRemote } from "next-mdx-remote/rsc";
 import { Fragment } from "react";
 import Highlighted from "./hl/Highlighted";
 import PreForCode from "./hl/PreForCode";
-import Span from "./hl/Span";
 import { renderCode } from "./render-code";
 import ShowError from "../show-error";
+import HackTag from "../html-hack/HackTag";
 
 const parseClassName = (className: string) => {
   const langCode = stringTrimStart(className.trim(), "language-");
@@ -32,7 +32,7 @@ export default async function Code({ children, className }: CodeProps) {
             source={mdx}
             components={{
               Wrapper: Fragment,
-              Span,
+              HackTag,
               NewLine: () => <br />,
             }}
           />

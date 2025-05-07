@@ -30,6 +30,7 @@ import { makeSeries } from "@/components/series/Series";
 import TermServer from "@/components/term/TermServer";
 import { presets, termDict } from "@/terms-index.gen";
 import { createTermServer } from "@/util/term-server";
+import remarkBreaks from "remark-breaks";
 
 export type ArticlePageProps = {
   readonly params: Promise<{
@@ -54,7 +55,6 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
           components={{
             ...tsExports,
             a: makeGeneralAnchor(linkPath),
-            p: Fragment,
             pre: Fragment,
             code: Code,
             LumaToc: Fragment,
@@ -101,6 +101,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
               ],
               remarkPlugins: [
                 // remarkFrontmatter,
+                remarkBreaks,
                 remarkMath,
                 // remarkTerm,
                 // remarkMeta,
