@@ -30,8 +30,8 @@ interface Props {
 
 const EncyclopediaOfMath: FC<Props> = ({ en }) => {
   const En = en && (
-    <Link href={`https://encyclopediaofmath.org/wiki/${en}`} passHref>
-      <a target="_blank">{en}</a>
+    <Link href={`https://encyclopediaofmath.org/wiki/${en}`} target="_blank">
+      {en}
     </Link>
   );
   return <Badge>Encyclopedia Of Math | {En}</Badge>;

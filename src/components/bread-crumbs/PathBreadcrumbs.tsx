@@ -15,17 +15,6 @@ const Flex = (props: React.ComponentProps<"div">) => (
   </>
 );
 
-const A = (props: React.ComponentProps<"a">) => (
-  <>
-    <a {...props} />
-    <style jsx>{`
-      a {
-        color: ${cssColors.text};
-      }
-    `}</style>
-  </>
-);
-
 interface Part {
   href: string;
   name: string;
@@ -55,17 +44,18 @@ export default function PathBreadcrumbs({ path }: PathBreadcrumbsProps) {
 
   return (
     <Flex>
-      <Link href="/" passHref legacyBehavior>
-        <A>math.luma.dev</A>
-      </Link>
+      <Link href="/">math.luma.dev</Link>
       {parts.map((p, i) => (
         <React.Fragment key={i}>
           <span>/</span>
-          <Link href={p.href} passHref legacyBehavior>
-            <A>{p.name}</A>
-          </Link>
+          <Link href={p.href}>{p.name}</Link>
         </React.Fragment>
       ))}
+      <style jsx>{`
+        a {
+          color: ${cssColors.text};
+        }
+      `}</style>
     </Flex>
   );
 }

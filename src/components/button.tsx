@@ -283,9 +283,7 @@ const Button: FC<ButtonProps> = ({ children, onClick, href }) => {
   return (
     <>
       {typeof href === "string" ? (
-        <Link href={href} passHref>
-          <a {...params} />
-        </Link>
+        <Link href={href} {...params} />
       ) : (
         <button {...params} />
       )}

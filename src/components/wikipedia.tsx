@@ -51,13 +51,13 @@ const C = () =>
 
 const Wikipedia: FC<Props> = ({ ja, en, main }) => {
   const Ja = ja && (
-    <Link key="ja" href={`https://ja.wikipedia.org/wiki/${ja}`} passHref>
-      <a target="_blank">{ja}</a>
+    <Link key="ja" href={`https://ja.wikipedia.org/wiki/${ja}`} target="_blank">
+      {ja}
     </Link>
   );
   const En = en && (
-    <Link key="en" href={`https://en.wikipedia.org/wiki/${en}`} passHref>
-      <a target="_blank">{en}</a>
+    <Link key="en" href={`https://en.wikipedia.org/wiki/${en}`} target="_blank">
+      {en}
     </Link>
   );
   const list = { ja: [Ja, En], en: [En, Ja] }[main ?? "ja"];

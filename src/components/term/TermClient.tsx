@@ -18,9 +18,9 @@ const Ruby = (props: React.ComponentProps<"ruby">) => (
   </>
 );
 
-const PlainAnchor = (props: React.ComponentProps<"a">) => (
+const PlainAnchor = (props: React.ComponentProps<typeof Link>) => (
   <>
-    <a {...props} />
+    <Link {...props} />
     <style jsx>{`
       a {
         text-decoration: none;
@@ -122,9 +122,7 @@ export default function TermClient({
     // return <span title={title}>{text}</span>;
   })();
   const c = slug ? (
-    <Link href={`/terms/${slug}`} passHref legacyBehavior>
-      <PlainAnchor>{textInner}</PlainAnchor>
-    </Link>
+    <PlainAnchor href={`/terms/${slug}`}>{textInner}</PlainAnchor>
   ) : (
     textInner
   );
@@ -139,7 +137,7 @@ export default function TermClient({
         </Ruby>
         {Option.fromNullish(main.jaRuby)
           .map((e) => <>（{e}）</>)
-          .toNullable()}
+          .unwrapOrNull()}
       </>
     );
   }
