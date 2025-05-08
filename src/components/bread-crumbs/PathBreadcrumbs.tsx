@@ -1,34 +1,21 @@
-"use client";
-import Link from "next/link";
-import React from "react";
-import { cssColors } from "@/lib/colors";
+"use server";
+import PathBreadcrumbsClient from "./PathBreadcrumbsClient";
 
-const Flex = (props: React.ComponentProps<"div">) => (
-  <>
-    <div {...props} />
-    <style jsx>{`
-      div {
-        display: flex;
-        gap: 0.3em;
-      }
-    `}</style>
-  </>
-);
+export type PathBreadcrumbsPart = {
+  readonly href: string;
+  readonly name: string;
+};
+export type PathBreadcrumbsParts = readonly PathBreadcrumbsPart[];
 
-interface Part {
-  href: string;
-  name: string;
-}
-
-type PathBreadcrumbsProps = Readonly<{
-  path: string;
-}>;
-export default function PathBreadcrumbs({ path }: PathBreadcrumbsProps) {
+export type PathBreadcrumbsProps = {
+  readonly path: string;
+};
+export default async function PathBreadcrumbs({ path }: PathBreadcrumbsProps) {
   const parts = path
     .split("/")
-    .reverse()
+    .toReversed()
     .reduce(
-      (arr, p) => [
+      (arr: PathBreadcrumbsParts, p) => [
         ...arr.map((e) => ({
           ...e,
           href: `/${p}${e.href}`,
@@ -38,24 +25,9 @@ export default function PathBreadcrumbs({ path }: PathBreadcrumbsProps) {
           name: p,
         },
       ],
-      [] as Part[],
+      [],
     )
-    .reverse();
+    .toReversed();
 
-  return (
-    <Flex>
-      <Link href="/">math.luma.dev</Link>
-      {parts.map((p, i) => (
-        <React.Fragment key={i}>
-          <span>/</span>
-          <Link href={p.href}>{p.name}</Link>
-        </React.Fragment>
-      ))}
-      <style jsx>{`
-        a {
-          color: ${cssColors.text};
-        }
-      `}</style>
-    </Flex>
-  );
+  return <PathBreadcrumbsClient parts={parts} />;
 }

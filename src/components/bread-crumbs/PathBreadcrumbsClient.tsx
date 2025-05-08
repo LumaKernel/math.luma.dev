@@ -1,0 +1,41 @@
+"use client";
+import Link from "next/link";
+import React from "react";
+import { cssColors } from "@/lib/colors";
+import type { PathBreadcrumbsParts } from "./PathBreadcrumbs";
+
+const Flex = (props: React.ComponentProps<"div">) => (
+  <>
+    <div {...props} />
+    <style jsx>{`
+      div {
+        display: flex;
+        gap: 0.3em;
+      }
+    `}</style>
+  </>
+);
+
+export type PathBreadcrumbsClientProps = {
+  readonly parts: PathBreadcrumbsParts;
+};
+export default function PathBreadcrumbsClient({
+  parts,
+}: PathBreadcrumbsClientProps) {
+  return (
+    <Flex>
+      <Link href="/">math.luma.dev</Link>
+      {parts.map((p, i) => (
+        <React.Fragment key={i}>
+          <span>/</span>
+          <Link href={p.href}>{p.name}</Link>
+        </React.Fragment>
+      ))}
+      <style jsx>{`
+        a {
+          color: ${cssColors.text};
+        }
+      `}</style>
+    </Flex>
+  );
+}
