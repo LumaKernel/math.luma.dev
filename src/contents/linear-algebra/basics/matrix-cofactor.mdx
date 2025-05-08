@@ -9,17 +9,27 @@ use_preset = [
 ## 余因子
 
 <Save>
-  ```math:inline A= \left( \begin{array}
-  {c | c | c}B & * & C \\ \hline * & a_{(i, j)} & * \\ \hline B & * & E \\ \end
-  {array}
-  \right) ```
+  ```math:inline
+    A=
+    \left(
+      \begin{array}{c|c|c}
+        B & * & C \\ \hline
+        * & a_{i,j} & * \\ \hline
+        B & * & E \\
+      \end{array}
+    \right)
+  ```
 </Save>
 
 [$]について、
 
 <Save>
-  ```math:inline \tilde a_{(i, j)} \defeq (-1)^{i + j} \left|\begin{array}
-  {c | c}B & C \\ \hline D & E \\ \end{array}\right| ```
+  ```math:inline
+    \tilde a_{i,j} \defeq (-1)^{i+j} \left|\begin{array}{c|c}
+      B & C \\ \hline
+      D & E \\
+    \end{array}\right|
+  ```
 </Save>
 
 [$]と定義し、これを$(i, j)$余因子と呼ぶ。
@@ -104,7 +114,11 @@ $\tilde AA = (\sum_{k \in n} \tilde a_{k,i} a_{k,j})_{i,j} = (|A| \delta _{i,j})
 ## 系: $A^{-1}=|A|^{-1}\tilde A$
 
 <Save>
-  ```math:inline A = \begin{pmatrix}a & b \\ c & d \\ \end{pmatrix}
+  ```math:inline
+    A = \begin{pmatrix}
+      a & b \\
+      c & d \\
+    \end{pmatrix}
   ```
 </Save>
 

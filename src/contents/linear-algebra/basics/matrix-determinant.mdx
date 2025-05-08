@@ -106,7 +106,6 @@ $\det A_i$が定義されているので、
 ---
 
 $n=1$の場合。
-
 ```math trans1
     \left|\begin{matrix}
       \ci{a_{0, 0}}
@@ -171,6 +170,7 @@ TODO: 以下は別の場所に定義
 全単射$\sigma: \{0, 1, \cdots, n-1\} \rightarrow \{0, 1, \cdots, n - 1\}$を
 長さ$n$の置換という。$\sigma$全体の集合はこの置換は、その不変量として偶奇を考えることができる。置換$\sigma$の偶奇$\sgn \sigma \in \N$を、$\sigma$の
 
+
 <Prove>
 
 それぞれの定義が等価であることを証明する。
@@ -226,13 +226,16 @@ P(n) \coloneqq \\ \left[ \sum_{i \in n} (-1)^{(k+i)}\det A_i \cdot a_{i,k} \\ = 
 
 最後、$\sum_{i \in n} \sum_{\sigma \in \sfix}$は$(\swi)(i)$を介して$\mathfrak{S}(n)$全体をイテレートすることを用いた。これは、もとのシグマ2つは、$k$の移動先$i$で分岐していると考えるとよい。
 
+
 </Prove>
+
 
 ## 行列式の性質
 
 ### 行と列は対称的
 
 $\sigma$は全単射なので$\sigma^{-1}$を考えて、
+
 
 ```math trans1
 \det \underset{n \times n}{A}
@@ -257,6 +260,7 @@ $\sigma$は全単射なので$\sigma^{-1}$を考えて、
 以下で述べる列に対する性質は、行に対しても成り立つことになる。
 
 これは、$|A|=|\t{A}|$であるということに他ならない。
+
 
 ### 列の定数倍
 
@@ -320,6 +324,7 @@ c\cdot\sum_{\sigma} \sgn(\sigma) \cdot a_{\overline{\sigma(0),0}} \cdots a_{\ove
 
 ### 列の交代性
 
+
 ```math trans1
     \left|\begin{matrix}
       &
@@ -380,10 +385,10 @@ $ \sigma^\prime \coloneqq \sigma \cdot \swap{i}{j} \text{とした}
 最後は、$\mathfrak{S}(n)\cdot \swap{i}{j}=\{\sigma \cdot \swap{i}{j}; \sigma \in \mathfrak{S}(n)\} = \mathfrak{S}(n)$であるから、$\sigma^\prime$はすべての$\mathfrak{S}(n)$の要素をイテレートする。
 
 注目すべきは、最後の行の$i$と$j$が互いに逆になっている点だ。
-
 </Prove>
 
 ### 同じ値を持つ列がある場合、行列式は零
+
 
 ```math trans1
   \left|\begin{matrix}
@@ -489,6 +494,7 @@ $0 \cdot \mathbf{0} = \mathbf{0}$であるので、
     \end{matrix}\right|
 ```
 
+
 ### 次数の低下
 
 ある列が、ひとつの要素を除いて$0$である場合、次のように、より小さな行列の行列式のみを考えれば良くなる。
@@ -512,6 +518,7 @@ $0 \cdot \mathbf{0} = \mathbf{0}$であるので、
 ```
 
 定義[TODO]()を用いるとすぐにわかる。
+
 
 ### 系: 上三角行列の行列式は対角成分の総積
 
@@ -568,6 +575,7 @@ $\Longrightarrow$について。
 
 となるが、$|I|=1$であるため、$|A| \neq 0$。
 
+
 $\Longleftarrow$については、対偶を考える。正則行列でない正方行列$A$について、簡約化を考える。
 
 ```math trans2
@@ -583,7 +591,6 @@ $\Longleftarrow$については、対偶を考える。正則行列でない正�
 $X$は零行を含む。含まなかったら$X=I$となって$A$が正則行列でないことに反する。よって$|X|=0$である。
 
 上記議論より$|P|\neq 0$なので、$|A|=0$となる。
-
 </Prove>
 
 ## 定理: $|AB|=|A|\cdot |B|$
@@ -599,7 +606,6 @@ $|AB|=|P_{p-1}^{-1} \cdots P_1^{-1} P_0^{-1}B|=|P_{p-1}^{-1}| \cdots |P_1^{-1}| 
 ---
 
 $A$が正則行列でない場合について。TODOより、$AB$も正則行列でないため、両辺はそれぞれ$0$だとわかる。
-
 </Prove>
 
 ## 系: $|A^{-1}|=|A|^{-1}$
@@ -617,7 +623,6 @@ $A$が正則行列でない場合について。TODOより、$AB$も正則行列
 -
   |A^{-1}|=|A|^{-1}
 ```
-
 </Prove>
 
 ## 行列式の計算方法
