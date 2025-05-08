@@ -1,3 +1,4 @@
 # generated
 *.gen.ts
-/src/contents/**/*.{md,mdx}
+src/**/*.md
+src/**/*.mdx
