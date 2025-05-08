@@ -1,9 +1,13 @@
 "use server";
 import PathBreadcrumbsClient from "./PathBreadcrumbsClient";
+import { mdxIndex } from "@/contents-index.gen";
 
-export type PathBreadcrumbsPart = {
-  readonly href: string;
+export type PathBreadcrumbsPart0 = {
+  readonly linkPath: string;
   readonly name: string;
+};
+export type PathBreadcrumbsPart = PathBreadcrumbsPart0 & {
+  readonly exists: boolean;
 };
 export type PathBreadcrumbsParts = readonly PathBreadcrumbsPart[];
 
@@ -15,19 +19,22 @@ export default async function PathBreadcrumbs({ path }: PathBreadcrumbsProps) {
     .split("/")
     .toReversed()
     .reduce(
-      (arr: PathBreadcrumbsParts, p) => [
+      (arr: readonly PathBreadcrumbsPart0[], p) => [
         ...arr.map((e) => ({
           ...e,
-          href: `/${p}${e.href}`,
+          linkPath: `${p}/${e.linkPath}`,
         })),
         {
-          href: `/${p}`,
+          linkPath: `${p}`,
           name: p,
         },
       ],
       [],
     )
-    .toReversed();
+    .toReversed()
+    .map(
+      (e): PathBreadcrumbsPart => ({ ...e, exists: e.linkPath in mdxIndex }),
+    );
 
   return <PathBreadcrumbsClient parts={parts} />;
 }

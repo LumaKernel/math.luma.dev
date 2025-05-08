@@ -25,17 +25,30 @@ export default function PathBreadcrumbsClient({
   return (
     <Flex>
       <Link href="/">math.luma.dev</Link>
-      {parts.map((p, i) => (
+      {parts.map(({ linkPath, name, exists }, i) => (
         <React.Fragment key={i}>
           <span>/</span>
-          <Link href={p.href}>{p.name}</Link>
+          {exists ? (
+            <>
+              <Link href={"/" + linkPath}>{name}</Link>
+              <style jsx>{`
+                a {
+                  color: ${cssColors.text};
+                }
+              `}</style>
+            </>
+          ) : (
+            <>
+              <span>{name}</span>
+              <style jsx>{`
+                span {
+                  color: ${cssColors.text};
+                }
+              `}</style>
+            </>
+          )}
         </React.Fragment>
       ))}
-      <style jsx>{`
-        a {
-          color: ${cssColors.text};
-        }
-      `}</style>
     </Flex>
   );
 }

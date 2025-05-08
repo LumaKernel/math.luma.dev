@@ -1,12 +1,11 @@
-import type { FC } from "react";
+"use server";
 import PathBreadcrumbs from "@/components/bread-crumbs/PathBreadcrumbs";
 import ShowError from "@/components/show-error";
 
-type Props = {
-  href?: string;
+export type LinkToPathProps = {
+  readonly href?: string;
 };
-
-const LinkToPath: FC<Props> = ({ href }) => {
+export default async function LinkToPath({ href }: LinkToPathProps) {
   if (!href) return <ShowError error={"Href not set"} />;
   try {
     //const pageMetaData = pagesMetaData.find((m) => m.loc.subdomain === subdomain && m.loc.linkPath === href)!;
@@ -39,6 +38,4 @@ const LinkToPath: FC<Props> = ({ href }) => {
   //   </span>
   //   <br />
   // </div>
-};
-
-export default LinkToPath;
+}
