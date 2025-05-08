@@ -3,8 +3,8 @@ import Button from "@/components/button";
 import MatWithPivot from "./MatWithPivot";
 import { isPivotDescending, isZerosBelowNonZeros } from "@/lib/la";
 import { essentialOfChildren } from "@/lib/react";
-import Ng from "@/components/ng";
-import Ok from "@/components/ok";
+import Ng from "@/components/Ng";
+import Ok from "@/components/Ok";
 import React, { useCallback, useMemo, useState } from "react";
 
 const ResetOuter = (props: React.ComponentProps<"div">) => (
