@@ -2,3 +2,4 @@
 *.gen.ts
 src/**/*.md
 src/**/*.mdx
+next-build/

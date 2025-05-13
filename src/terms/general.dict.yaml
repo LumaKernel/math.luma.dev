@@ -1,6 +1,10 @@
 変数: variable
 多変数: multiple variable
-項: term
+項:
+  ruby: term
+  prevent:
+    - 二項
+    - 2項
 解:
   ruby: solution
   prevent:

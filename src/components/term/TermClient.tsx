@@ -3,6 +3,7 @@ import Link from "next/link";
 import { cssColors } from "@/lib/colors";
 import type { TermDef } from "@/terms-index.gen";
 import { Option } from "@luma-dev/option-ts";
+import { pagefindAttrs } from "@/util/pagefind";
 
 const thickness = "1.2px";
 
@@ -129,7 +130,7 @@ export default function TermClient({
   if (showRuby && typeof main.ruby === "string") {
     return (
       <>
-        <Ruby>
+        <Ruby {...pagefindAttrs.ignore}>
           <Text style={{ minWidth: `${main.ruby.length * 0.4}em` }}>{c}</Text>
           <rp>(</rp>
           <Rt>{main.ruby}</Rt>

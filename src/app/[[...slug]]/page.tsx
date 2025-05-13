@@ -31,6 +31,7 @@ import TermServer from "@/components/term/TermServer";
 import { presets, termDict } from "@/terms-index.gen";
 import { createTermServer } from "@/util/term-server";
 import remarkBreaks from "remark-breaks";
+import { pagefindAttrs } from "@/util/pagefind";
 
 export type ArticlePageProps = {
   readonly params: Promise<{
@@ -50,65 +51,67 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
   return (
     <SharedApp>
       <ArticleLayout meta={srcMeta}>
-        <MDXRemote
-          source={info.contents}
-          components={{
-            ...tsExports,
-            a: makeGeneralAnchor(linkPath),
-            pre: Fragment,
-            code: Code,
-            LumaToc: Fragment,
-            LumaMdxLayout: Fragment,
-            LumaKatex,
-            Term: TermServer,
-            Series: makeSeries(linkPath),
-            LumaCounter: Counter,
-            LumaLoaded: Fragment,
-            Prove,
-            h1: H1,
-            h2: H2,
-            h3: H3,
-            Debug,
-          }}
-          options={{
-            mdxOptions: {
-              remarkRehypeOptions: {
-                allowDangerousHtml: true,
+        <main {...pagefindAttrs.body}>
+          <MDXRemote
+            source={info.contents}
+            components={{
+              ...tsExports,
+              a: makeGeneralAnchor(linkPath),
+              pre: Fragment,
+              code: Code,
+              LumaToc: Fragment,
+              LumaMdxLayout: Fragment,
+              LumaKatex,
+              Term: TermServer,
+              Series: makeSeries(linkPath),
+              LumaCounter: Counter,
+              LumaLoaded: Fragment,
+              Prove,
+              h1: H1,
+              h2: H2,
+              h3: H3,
+              Debug,
+            }}
+            options={{
+              mdxOptions: {
+                remarkRehypeOptions: {
+                  allowDangerousHtml: true,
+                },
+                rehypePlugins: [
+                  rehypeReplaceText,
+                  // rehypeKatex,
+                  [
+                    rehypeKatex,
+                    {
+                      context: index.texContext,
+                    } satisfies RehypeKatexPluginParameters,
+                  ],
+                  [
+                    rehypeProcTerm,
+                    {
+                      termProcessor: termServer,
+                    } satisfies RehypeProcTermPluginParams,
+                  ],
+                  rehypeSave,
+                  rehypeCounter,
+                  rehypeCodeMeta,
+
+                  rehypeAddSlug,
+                  rehypeWrap,
+
+                  rehypeCleanInternal,
+                ],
+                remarkPlugins: [
+                  // remarkFrontmatter,
+                  remarkBreaks,
+                  remarkMath,
+                  // remarkTerm,
+                  // remarkMeta,
+                ],
               },
-              rehypePlugins: [
-                rehypeReplaceText,
-                // rehypeKatex,
-                [
-                  rehypeKatex,
-                  {
-                    context: index.texContext,
-                  } satisfies RehypeKatexPluginParameters,
-                ],
-                [
-                  rehypeProcTerm,
-                  {
-                    termProcessor: termServer,
-                  } satisfies RehypeProcTermPluginParams,
-                ],
-                rehypeSave,
-                rehypeCounter,
-                rehypeCodeMeta,
-
-                rehypeAddSlug,
-                rehypeWrap,
-
-                rehypeCleanInternal,
-              ],
-              remarkPlugins: [
-                // remarkFrontmatter,
-                remarkBreaks,
-                remarkMath,
-                // remarkTerm,
-                // remarkMeta,
-              ],
-            },
-          }}
-        />
+            }}
+          />
+        </main>
       </ArticleLayout>
     </SharedApp>
   );

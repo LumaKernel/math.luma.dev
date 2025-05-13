@@ -1,10 +1,10 @@
 "use client";
 
-const Main = (props: React.ComponentProps<"main">) => (
+const Main = (props: React.ComponentProps<"div">) => (
   <>
-    <main {...props} />
+    <div {...props} />
     <style jsx>{`
-      main {
+      div {
         width: 100%;
         max-width: 900px;
         margin: 0 auto;
