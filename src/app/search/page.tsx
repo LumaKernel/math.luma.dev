@@ -8,7 +8,6 @@ export default function SearchPage() {
   // console.log(((window as any).pagefind = pagefind));
   return (
     <>
-      <Script src="/pagefind/pagefind-ui.js" />
       <SearchUi />
     </>
   );

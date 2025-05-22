@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Suspense, useState } from "react";
 import useSWR from "swr";
 import styles from "./styles.module.css";
+import Debug from "../Debug";
 
 pagefind
   .options({
@@ -66,6 +67,8 @@ function Result({ result }: Props) {
     revalidateOnFocus: false,
     revalidateOnReconnect: false,
   }).data;
+
+  // TODO: url /linear-algebra/basics/matrix-determinant.html
 
   return (
     <div className={styles.container}>
