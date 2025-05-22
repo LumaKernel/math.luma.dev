@@ -19,7 +19,7 @@ export default async function KatexGeneralTag({
   if (props.className === "katex-html") {
     // kathtex-mathml と katex-html で内容が二重になってしまっていそう
     // Pagefind利用のときに二重になる
-    return <HackTag {...props} {...pagefindAttrs.ignore} />;
+    return <HackTag {...props} {...pagefindAttrs.ignoreAll} />;
   }
   return <HackTag {...props} />;
 }

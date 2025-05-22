@@ -4,7 +4,6 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack --port 4030",
-    "next-prebuild": "cross-env NEXT_BUILD_MODE=prebuild npm run next-build",
     "next-build": "next build --no-lint",
     "start": "next start",
     "lint": "eslint && prettier --list-different .",

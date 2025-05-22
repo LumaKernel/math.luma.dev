@@ -130,7 +130,7 @@ export default function TermClient({
   if (showRuby && typeof main.ruby === "string") {
     return (
       <>
-        <Ruby {...pagefindAttrs.ignore}>
+        <Ruby {...pagefindAttrs.ignoreAll}>
           <Text style={{ minWidth: `${main.ruby.length * 0.4}em` }}>{c}</Text>
           <rp>(</rp>
           <Rt>{main.ruby}</Rt>
