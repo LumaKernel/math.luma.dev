@@ -123,24 +123,42 @@ export default function TermClient({
     // return <span title={title}>{text}</span>;
   })();
   const c = slug ? (
-    <PlainAnchor href={`/terms/${slug}`}>{textInner}</PlainAnchor>
+    <PlainAnchor href={`/search?s="term::${slug}"`}>{textInner}</PlainAnchor>
   ) : (
     textInner
   );
-  if (showRuby && typeof main.ruby === "string") {
-    return (
-      <>
-        <Ruby {...pagefindAttrs.ignoreAll}>
-          <Text style={{ minWidth: `${main.ruby.length * 0.4}em` }}>{c}</Text>
-          <rp>(</rp>
-          <Rt>{main.ruby}</Rt>
-          <rp>)</rp>
-        </Ruby>
-        {Option.fromNullish(main.jaRuby)
-          .map((e) => <>（{e}）</>)
-          .unwrapOrNull()}
-      </>
-    );
-  }
-  return c;
+  const final = (() => {
+    if (showRuby && typeof main.ruby === "string") {
+      return (
+        <>
+          <Ruby>
+            <Text style={{ minWidth: `${main.ruby.length * 0.4}em` }}>{c}</Text>
+            <rp {...pagefindAttrs.ignoreAll}>(</rp>
+            <Rt {...pagefindAttrs.ignoreAll}>{main.ruby}</Rt>
+            <rp {...pagefindAttrs.ignoreAll}>)</rp>
+          </Ruby>
+          {Option.fromNullish(main.jaRuby)
+            .map((e) => (
+              <>
+                <span {...pagefindAttrs.ignoreAll}>（{e}）</span>
+              </>
+            ))
+            .unwrapOrNull()}
+        </>
+      );
+    }
+    return c;
+  })();
+
+  return (
+    <span
+      data-pagefind-weight="12"
+      data-pagefind-meta="slug[data-term-slug]"
+      data-pagefind-index-attrs="data-term-slug-finder"
+      data-term-slug={slug}
+      data-term-slug-finder={"term::" + slug}
+    >
+      {final}
+    </span>
+  );
 }

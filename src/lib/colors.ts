@@ -15,6 +15,7 @@ export const cssColorProperties = {
   bgRevPrimary: "--color-bg-rev-pri",
   bgEm1: "--color-bg-em1",
   bgComment: "--color-bg-comment",
+  bgInput: "--color-bg-input",
   brandWikipedia: "--color-brand-wikipedia",
   brandEncyclopediaOfMath: "--color-brand-eom",
   border: "--color-border",

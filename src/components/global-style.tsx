@@ -36,6 +36,7 @@ const darkColors = `
   ${cssColorProperties.bgPrimary}: #222222;
   ${cssColorProperties.bgRevPrimary}: #dddddd;
   ${cssColorProperties.bgComment}: #aaaaaa;
+  ${cssColorProperties.bgInput}: #111;
   ${cssColorProperties.brandWikipedia}: #ffffff;
   ${cssColorProperties.brandEncyclopediaOfMath}: #ffcd18;
 `;
@@ -162,6 +163,7 @@ const GlobalStyle = () => {
         ${cssColorProperties.bgPrimary}: #ffffff;
         ${cssColorProperties.bgRevPrimary}: #dddddd;
         ${cssColorProperties.bgComment}: #aaaaaa;
+        ${cssColorProperties.bgInput}: #e0e0e0;
         ${cssColorProperties.brandWikipedia}: #000000;
         ${cssColorProperties.brandEncyclopediaOfMath}: #ffcd18;
       }

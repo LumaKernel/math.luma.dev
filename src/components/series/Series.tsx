@@ -5,6 +5,7 @@ import { getPageInfo } from "@/util/preparse";
 import { makeMake } from "../make-make";
 import { resolveLinkPath } from "@/lib/link-path";
 import { Option } from "@luma-dev/option-ts";
+import { pagefindAttrs } from "@/util/pagefind";
 
 const renderChapter = (t: string, i: number) => {
   return t.replace(/\{n0\}/g, `${i}`).replace(/\{n1\}/g, `${i + 1}`);
@@ -44,7 +45,7 @@ export default async function Series({ currentLinkPath, link }: SeriesProps) {
       </li>
     );
   });
-  return <ul>{pages}</ul>;
+  return <ul {...pagefindAttrs.ignoreAll}>{pages}</ul>;
 }
 
 export const makeSeries = makeMake(Series);
