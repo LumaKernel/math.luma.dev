@@ -64,6 +64,7 @@ export type PagefindSearchResultData = {
   readonly filters: {};
   readonly locations: readonly number[];
   readonly meta: {
+    readonly termSlug: string;
     readonly title: string;
   };
   readonly raw_content: string;

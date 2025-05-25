@@ -123,7 +123,9 @@ export default function TermClient({
     // return <span title={title}>{text}</span>;
   })();
   const c = slug ? (
-    <PlainAnchor href={`/search?s="term::${slug}"`}>{textInner}</PlainAnchor>
+    // TODO: 単語定義ページを用意しないと微妙…。
+    // <PlainAnchor href={`/search?s=${slug}`}>{textInner}</PlainAnchor>
+    <span>{textInner}</span>
   ) : (
     textInner
   );
@@ -153,10 +155,8 @@ export default function TermClient({
   return (
     <span
       data-pagefind-weight="12"
-      data-pagefind-meta="slug[data-term-slug]"
-      data-pagefind-index-attrs="data-term-slug-finder"
+      data-pagefind-meta="termSlug[data-term-slug]"
       data-term-slug={slug}
-      data-term-slug-finder={"term::" + slug}
     >
       {final}
     </span>

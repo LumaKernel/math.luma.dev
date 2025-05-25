@@ -18,7 +18,6 @@ const SharedApp = ({ children }: Props) => {
       <GlobalStyle />
       <style jsx>{`
         .root {
-          padding-bottom: 4rem;
           min-height: 100vh;
           overflow-x: unset;
         }

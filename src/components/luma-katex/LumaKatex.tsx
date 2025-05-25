@@ -20,6 +20,8 @@ export type LumaKatexProps = {
   readonly content: string;
 };
 
+const isProduction = process.env.NODE_ENV === "production";
+
 export default async function LumaKatex({
   meta,
   globalContext,
@@ -50,15 +52,19 @@ export default async function LumaKatex({
   const mdx = await htmlToMdx({ html });
   return (
     <LumaKatexClient displayMode={meta.mode}>
-      <MDXRemote
-        source={mdx}
-        components={{
-          Wrapper: Fragment,
-          HackTag: KatexGeneralHackTag,
-          Load: Debug,
-          NewLine: () => <br />,
-        }}
-      />
+      {isProduction ? (
+        <MDXRemote
+          source={mdx}
+          components={{
+            Wrapper: Fragment,
+            HackTag: KatexGeneralHackTag,
+            Load: Debug,
+            NewLine: () => <br />,
+          }}
+        />
+      ) : (
+        <span dangerouslySetInnerHTML={{ __html: html }} />
+      )}
     </LumaKatexClient>
   );
 }

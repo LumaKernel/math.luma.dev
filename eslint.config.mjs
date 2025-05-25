@@ -32,6 +32,10 @@ const eslintConfig = tseslint.config(
           fixStyle: "separate-type-imports",
         },
       ],
+      "@typescript-eslint/no-floating-promises": [
+        "error",
+        { ignoreVoid: false },
+      ],
       "@typescript-eslint/require-await": "off",
 
       // TODO: とりあえず RationalField とかで利用するため

@@ -8,6 +8,7 @@ import SharedApp from "../SharedApp";
 import { cssColors } from "@/lib/colors";
 import H2 from "../heading/H2";
 import { stringTrimEnd } from "@luma-dev/string-util-ts";
+import { parseAsString, useQueryState } from "nuqs";
 
 pagefind
   .options({
@@ -32,7 +33,11 @@ function Wrapper({ children }: { children: React.ReactNode }) {
 }
 
 export default function SearchUi() {
-  const [query, setQuery] = useState<string>("");
+  const [queryInQs, setQueryInQs] = useQueryState(
+    "query",
+    parseAsString.withDefault(""),
+  );
+  const [query, setQuery] = useState(queryInQs);
   const search = useSWR(
     ["pagefind", "search", query],
     async () => {
@@ -46,6 +51,8 @@ export default function SearchUi() {
 
   const handleQueryChange = (value: string) => {
     setQuery(value);
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises -- setQuery側でthrottleされる
+    setQueryInQs(value);
   };
 
   return (
@@ -59,7 +66,7 @@ export default function SearchUi() {
               value={query}
               onChange={(ev) => handleQueryChange(ev.target.value)}
               // className={styles.search}
-              autoFocus
+              autoFocus={queryInQs.length === 0}
             />
           </div>
           <style jsx>{`

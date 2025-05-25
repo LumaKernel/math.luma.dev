@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { isTheme, useThemeContext } from "./contexts/theme";
 import type { ChangeEventHandler } from "react";
 import { useCallback } from "react";
@@ -12,6 +13,7 @@ const Wrapper = (props: React.ComponentProps<"div">) => (
         align-items: center;
         padding: 1rem;
         background-color: #789d98;
+        gap: 1rem;
       }
     `}</style>
   </>
@@ -42,8 +44,11 @@ export default function Header() {
 
   return (
     <Wrapper>
-      <span>math.luma.dev</span>
+      <Link href="/" style={{ textDecoration: "none" }}>
+        math.luma.dev
+      </Link>
       <Spacer />
+      <Link href="/search">検索</Link>
       <select value={theme} onChange={themeChangeHandler}>
         <option value="system">system</option>
         <option value="light">light</option>
