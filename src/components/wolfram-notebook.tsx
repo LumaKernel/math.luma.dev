@@ -1,3 +1,4 @@
+import { consumePromise } from "@/util/consume-promise";
 import type { FC } from "react";
 import { useEffect, useRef } from "react";
 import * as WolframNotebookEmbedder from "wolfram-notebook-embedder";
@@ -13,14 +14,17 @@ interface StaticProps {
 const WolframNotebook: FC<Props & StaticProps> = ({ path, preRendered }) => {
   const el = useRef<HTMLDivElement | null>(null);
   useEffect(() => {
-    void (async () => {
-      if (el.current) {
-        await WolframNotebookEmbedder.embed(
-          `https://www.wolframcloud.com/obj/${path}`,
-          el.current,
-        );
-      }
-    })();
+    // TODO: useMutation
+    consumePromise(
+      (async () => {
+        if (el.current) {
+          await WolframNotebookEmbedder.embed(
+            `https://www.wolframcloud.com/obj/${path}`,
+            el.current,
+          );
+        }
+      })(),
+    );
   }, [el, path]);
   if (preRendered) {
     return (

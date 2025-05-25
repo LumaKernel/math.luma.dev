@@ -19,6 +19,7 @@ const Ruby = (props: React.ComponentProps<"ruby">) => (
   </>
 );
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars -- TODO: 用語専用ページを作る
 const PlainAnchor = (props: React.ComponentProps<typeof Link>) => (
   <>
     <Link {...props} />
