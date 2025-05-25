@@ -9,7 +9,7 @@ use_preset = [
 ## 余因子
 
 <Save>
-  ```math:inline
+  ```math inline
     A=
     \left(
       \begin{array}{c|c|c}
@@ -24,7 +24,7 @@ use_preset = [
 [$]について、
 
 <Save>
-  ```math:inline
+  ```math inline
     \tilde a_{i,j} \defeq (-1)^{i+j} \left|\begin{array}{c|c}
       B & C \\ \hline
       D & E \\
@@ -100,44 +100,3 @@ $i \neq i'$について、$\sum_{k \in n}a_{i', k} \tilde a_{i, k}$を考える�
 - $\sum_{k \in n}a_{k, i} \tilde a_{k, j} = |A| \delta _{i, j}$
 
 とかける。
-
-## 余因子行列
-
-余因子行列$\tilde A$を$\t{(\tilde a_{i, j})_{i,j}}={(\tilde a_{j, i})_{i,j}}$として定義する。
-
-## 定理: $A\tilde A = \tilde A A = |A|I$
-
-$A\tilde A = (\sum_{k \in n} a_{i,k} \tilde a_{j,k})_{i,j} = (|A| \delta _{i,j}) = |A| (\delta _{i,j}) = |A|I$
-
-$\tilde AA = (\sum_{k \in n} \tilde a_{k,i} a_{k,j})_{i,j} = (|A| \delta _{i,j}) = |A| (\delta _{i,j}) = |A|I$
-
-## 系: $A^{-1}=|A|^{-1}\tilde A$
-
-<Save>
-  ```math:inline
-    A = \begin{pmatrix}
-      a & b \\
-      c & d \\
-    \end{pmatrix}
-  ```
-</Save>
-
-例えば、[$]の場合を考える。
-
-```math
-  \tilde A = \begin{pmatrix}
-    d & -c \\
-    -b & a \\
-  \end{pmatrix}
-```
-
-なので、
-
-```math
-  A^{-1} =
-  \frac{1}{ad - bc}
-  \begin{pmatrix}
-    d & -c \\
-    -b & a \\
-  \end{pmatrix}
-```

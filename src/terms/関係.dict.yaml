@@ -1,10 +1,10 @@
-relation: 関係
-binary relation: 二項関係
-equivalence relation: 同値関係
-equivalence class: 同値類
-reflexivity: 反射律
-transitivity: 推移律
-symmetricity: 対称律
+関係: relation
+二項関係: binary relation
+同値関係: equivalence relation
+同値類: equivalence class
+反射律: reflexivity
+推移律: transitivity
+対称律: symmetricity
 可換: commutative
 可換則:
   ruby: commutativity

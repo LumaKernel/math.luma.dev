@@ -32,6 +32,7 @@ import { presets, termDict } from "@/terms-index.gen";
 import { createTermServer } from "@/util/term-server";
 import remarkBreaks from "remark-breaks";
 import { pagefindAttrs } from "@/util/pagefind";
+import remarkGfm from "remark-gfm";
 
 export type ArticlePageProps = {
   readonly params: Promise<{
@@ -103,6 +104,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                 ],
                 remarkPlugins: [
                   // remarkFrontmatter,
+                  remarkGfm,
                   remarkBreaks,
                   remarkMath,
                   // remarkTerm,
