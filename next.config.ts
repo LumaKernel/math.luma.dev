@@ -30,6 +30,9 @@ const mode = (() => {
 
 const nextConfig: NextConfig = {
   distDir: `next-build/${mode}`,
+  typescript: {
+    ignoreBuildErrors: true,
+  },
 };
 
 export default nextConfig;

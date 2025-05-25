@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "vercel-build": "npm run pagefind && npm run next-build",
     "dev": "next dev --turbopack --port 4030",
     "next-build": "next build --no-lint",
     "start": "next start",
