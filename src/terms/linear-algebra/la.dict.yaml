@@ -7,3 +7,9 @@
       ruby: vector space
 実数ベクトル空間: real vector space
 虚数ベクトル空間: complex vector space
+内積: inner product
+内積空間:
+  ruby: inner product space
+  alt:
+    - title: 計量ベクトル空間
+      ruby: metric vector space

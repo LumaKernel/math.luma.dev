@@ -13,5 +13,7 @@ chapters = [
   "linear-combination",
   "linear-map",
   "matrix-trace",
+  "inner-product",
+  "inner-product2",
   "eigenvalue",
 ]
