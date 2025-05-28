@@ -12,7 +12,7 @@
     "typecheck": "tsc --noEmit",
     "typecheck-watch": "tsc --noEmit --watch",
     "index": "blogkit-internal-tool index",
-    "index-watch": "watchexec -e .mdx -- npm run index",
+    "index-watch": "watchexec -w src/contents/ -w src/terms -- npm run index",
     "pagefind": "./scripts/pagefind.sh"
   },
   "dependencies": {
