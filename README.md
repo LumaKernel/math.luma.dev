@@ -1,7 +1,9 @@
 
-<a href="https://math.luma.dev">
-    <h1>math.luma.dev</h1>
-</a>
+<h1>
+    <a href="https://math.luma.dev">
+        math.luma.dev
+    </a>
+</h1>
 
 Luma, and mathematics.
 
