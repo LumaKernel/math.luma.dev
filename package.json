@@ -13,7 +13,8 @@
     "typecheck-watch": "tsc --noEmit --watch",
     "index": "blogkit-internal-tool index",
     "index-watch": "watchexec -w src/contents/ -w src/terms -- npm run index",
-    "pagefind": "./scripts/pagefind.sh"
+    "pagefind": "./scripts/pagefind.sh",
+    "vercel-deploy-prod-from-local": "vercel build --prod && vercel deploy --prebuilt --prod"
   },
   "dependencies": {
     "@luma-dev/katex-luma": "npm:@jsr/luma-dev__katex-luma@^0.2.0",
