@@ -153,3 +153,5 @@
 列基本ベクトル: column unit vector
 行ベクトル: row vector
 行基本ベクトル: row unit vector
+射影行列: projection matrix
+ユニタリ行列: unitary matrix

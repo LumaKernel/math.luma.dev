@@ -1,0 +1,243 @@
+```toml
+title = "射影行列"
+published = true
+# strict = true
+use_preset = [
+    "la",
+]
+```
+
+## 射影行列
+
+射影行列では射影を表現する。
+
+
+## 射影の簡単な説明
+
+(TODO: 図)
+
+一般にいう射影のイメージ:
+
+- ペアから特定の(いくつかの)要素を抜き出す:
+  - $F: X \times Y \to X$ であって $(x, y) \mapsto x$ と定義されるものは、 $X$ を抜き出す射影
+- 特定の低次元へと影を落とす:
+  - 三次元物体の、床(XZ平面)に映る影を各点で落とす関数 $p(x,y,z) \defeq (x, 0, z)$ で定義される関数 $p: \R^3 \to \R^3$
+    - その像から誘導される $\powerset {\R^3} \to \powerset {\R^3}$
+  - 円運動をy軸に射影すれば正弦波運動になる。
+
+
+## 射影行列の定義
+
+### 定義1. 羃等性による定義
+
+行列 $P$ が以下すべてを満たすとき、射影行列と呼ぶ。
+
+- 羃等性: $P^2 = P$
+- エルミート行列である: $A = \HermAdj A$
+
+羃等性は、 $P$ による作用は二度目以降は、一度目と同じ効果ということ。
+実数上の線形空間ならエルミート行列に関する条件は必要ない。
+
+### 定義2. 射影を起こすことによる定義
+
+行列 $P$ が、なにかしらの射影関数の表現行列であるとき、射影行列と呼ぶ。
+
+<Note>
+
+$P_V$ が射影関数であるというのをより形式的に書くと次のようになる。
+なにかしらの内積空間 $V \subseteq U$ について、 $P_{V}: U \to V$ が射影関数であるとは、$r = \dim V$ とし、それぞれ以下のように正規直交基底がとれるとして、
+- $E_V = (\vecv_0, \vecv_1, \cdots, \vecv_{r-1})$
+- $E_U = (\vecv_0, \vecv_1, \cdots, \vecv_{r-1}, \cdots)$
+
+としたとき、$P_{V}$ は単に $E_V$ の成分の抜き出しに相当するときをいう。
+
+すなわち、 $P_{V} (\vecu) = \sum_{i \natIn r} \InnerProd {\vecu} {\vecv_i} \vecv_i$ と表される。
+言い換えれば、適当な基底があって、
+
+```math
+\left(\begin{array}{cccc|cccc}
+1&&&& &&&\\
+&1&&& &&&\\
+&&\ddots&& &&&\\
+&&&1& &&&\\
+
+\hline
+
+&&&& 0&&&\\
+&&&& &0&&\\
+&&&& &&\ddots&\\
+&&&& &&&0\\
+\end{array}\right)
+```
+
+なる表現を持つ線形写像のこと。
+
+---
+
+なので、射影行列とは、基底の取り方の揺らぎを許した全体の行列、すなわちこれに基底変換をした行列全体。ユニタリ行列 $U$ を用いて以下の表示を持つ、と整理することもできる。
+
+```math def
+\gdef\projRepr{
+  U
+  \left(\begin{array}{c|c}
+  I_r & \\
+  \hline
+   & O_{n-r} \\
+  \end{array}\right)
+  \HermAdj U
+}
+```
+
+```math
+(\termx{射影行列}) = \projRepr
+```
+
+(通常の基底変換の表示 $\HermAdj UAU$ と逆だが、 $\HermAdj U$ もまたユニタリ行列となるのでこちらで説明する)
+
+ここで、$U = (\vecu_0, \vecu_1, \cdots, \vecu_{r-1}, \vecu_{r}, \cdots, \vecu_{n-1})$ だとすれば、
+
+```math trans1
+  \projRepr
+=
+  (\vecu_0, \vecu_1, \cdots, \vecu_{r-1}, \vecu_{r}, \cdots, \vecu_{n-1})
+  \left (
+    \left(\begin{array}{c|c}
+    I_r & \\
+    \hline
+     & O_{n-r} \\
+    \end{array}\right)
+    \begin{pmatrix}
+      \HermAdj{\vecu_0} \\
+      \HermAdj{\vecu_1} \\
+      \cdots \\
+      \HermAdj{\vecu_{r-1}} \\
+      \hline
+      \HermAdj{\vecu_{r}} \\
+      \cdots \\
+      \HermAdj{\vecu_{n-1}}
+    \end{pmatrix}
+
+  \right )
+=
+  (\vecu_0, \vecu_1, \cdots, \vecu_{r-1}, \vecu_{r}, \cdots, \vecu_{n-1})
+  \begin{pmatrix}
+    \HermAdj{\vecu_0} \\
+    \HermAdj{\vecu_1} \\
+    \cdots \\
+    \HermAdj{\vecu_{r-1}} \\
+    \hline
+    \VecZero \\
+    \cdots \\
+    \VecZero
+  \end{pmatrix}
+=
+  \sum_{i \natIn r} \vecu_i \HermAdj {\vecu_i}
+```
+
+という表示を持つことだとも言える。
+
+</Note>
+
+## (定義1) $\Leftarrow$ (定義2)
+
+<Prove>
+
+### 羃等性
+
+```math trans1
+P^2
+=
+  \left(\sum_{i \natIn r} \vecu_i \HermAdj {\vecu_i} \right)
+  \left(\sum_{i \natIn r} \vecu_i \HermAdj {\vecu_i} \right)
+?定義2の表示で展開
+=
+  \sum_{\substack{i \natIn r \\ j \natIn r}}
+    \vecu_i \HermAdj {\vecu_i}
+    \vecu_j \HermAdj {\vecu_j}
+?ベクトルの分配則
+=
+  \sum_{\substack{i \natIn r \\ j \natIn r}}
+    \vecu_i \left(\HermAdj {\vecu_i}
+    \vecu_j \right) \HermAdj {\vecu_j}
+?ベクトルの結合律
+=
+  \sum_{i \natIn r}
+    \vecu_i \HermAdj {\vecu_j}
+?正規直交基底の性質 ($i \neq j$ は $0$ になって消える)
+=
+  P
+?これは定義2のPの表示そのもの
+```
+
+### エルミート性
+
+```math trans1
+  \HermAdj P
+=
+  \HermAdj {\left( \sum_{i \natIn r} \vecu_i \HermAdj {\vecu_i} \right)}
+?定義2の表示で展開
+=
+  \sum_{i \natIn r} \HermAdj {\left (\vecu_i \HermAdj {\vecu_i} \right)}
+?随伴操作の線形性
+=
+  \sum_{i \natIn r} \HermAdjDouble {\vecu_i} \HermAdj {\vecu_i}
+?随伴操作の性質
+=
+  \sum_{i \natIn r} \vecu_i \HermAdj {\vecu_i}
+?随伴操作の性質
+=
+  P
+```
+
+</Prove>
+
+## (定義1) $\Rightarrow$ (定義2)
+
+<Prove>
+
+### 固有値は0か1
+
+まず、定義1による $P$ は固有値が $0$ か $1$ になることを示す。
+任意の固有値と固有ベクトルの対応するペア $\EigenVal, \EigenVec$ を考える。
+
+```math def
+\gdef\L{\EigenVal}
+\gdef\U{\EigenVec}
+```
+
+```math trans1
+  \InnerProd{P \U}{P \U}
+= \InnerProd{\HermAdj P P \U}{\U}
+?内積の特徴
+= \InnerProd{P^2 \U}{\U}
+?射影行列のエルミート性
+= \InnerProd{P \U}{\U}
+?射影行列の羃等性
+```
+
+最初と最後の式を固有値の特徴から変形すれば、 $\L \cc\L \InnerProd\U\U = \cc\L \InnerProd\U\U$ が得られ、 $\L \cc\L = \cc\L$ となる。
+
+上記の式変形を、右側に $P$ を移すことで、$\L \cc\L = \L$ も得られる。
+
+$\L = \cc\L$ で $\L \cc\L = \cc\L$ を置き換えれば、二次方程式 $\L^2  = \L$ より、 $\L = 0,1$ となる。
+
+### 本証明
+
+ユニタリ行列で対角化すれば、適切に順序を入れ替えることで、
+
+```math
+P = \projRepr
+```
+
+の表示が得られる。
+
+</Prove>
+
+
+
+
+
+
+
+
+

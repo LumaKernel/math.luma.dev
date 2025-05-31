@@ -1,3 +1,4 @@
+import type { MdxIndex } from "@/contents-index.gen";
 import { mdxIndex } from "@/contents-index.gen";
 import type { ArticleInfo, SrcMeta } from "@/types/article";
 import { fromAsyncThrowable } from "neverthrow";
@@ -21,7 +22,13 @@ export const preparse = async (input: PreparseParams) => {
   return info;
 };
 
-export const getPageInfo = async (linkPath: string) => {
+export type PageInfo = {
+  readonly mdx: string;
+  readonly index: MdxIndex;
+  readonly srcMeta: SrcMeta;
+  readonly info: ArticleInfo;
+};
+export const getPageInfo = async (linkPath: string): Promise<PageInfo> => {
   const index = Object.hasOwn(mdxIndex, linkPath) ? mdxIndex[linkPath] : null;
   if (index == null) {
     throw new Error(`No index found for ${JSON.stringify(linkPath)}`);

@@ -11,6 +11,7 @@ import H3 from "@/components/heading/H3";
 import LumaKatex from "@/components/luma-katex/LumaKatex";
 import Counter from "@/components/counter/Counter";
 import Prove from "@/components/Prove";
+import Note from "@/components/Note";
 import { mdxIndex, tsExports } from "@/contents-index.gen";
 import { getPageInfo } from "@/util/preparse";
 import rehypeAddSlug from "@luma-dev/my-unified/rehype-add-slug";
@@ -26,13 +27,16 @@ import rehypeProcTerm, {
 import rehypeSave from "@luma-dev/my-unified/rehype-save";
 import rehypeWrap from "@luma-dev/my-unified/rehype-wrap";
 import { makeGeneralAnchor } from "@/components/anchor/makeGeneralAnchor";
-import { makeSeries } from "@/components/series/Series";
+import Series from "@/components/series/Series";
 import TermServer from "@/components/term/TermServer";
 import { presets, termDict } from "@/terms-index.gen";
 import { createTermServer } from "@/util/term-server";
 import remarkBreaks from "remark-breaks";
 import { pagefindAttrs } from "@/util/pagefind";
 import remarkGfm from "remark-gfm";
+import { makeComponents } from "@/util/server-meta";
+
+const isProduction = process.env.NODE_ENV === "production";
 
 export type ArticlePageProps = {
   readonly params: Promise<{
@@ -42,7 +46,8 @@ export type ArticlePageProps = {
 export default async function ArticlePage({ params }: ArticlePageProps) {
   const { slug } = await params;
   const linkPath = slug?.join("/") ?? "";
-  const { mdx, index, srcMeta, info } = await getPageInfo(linkPath);
+  const pageInfo = await getPageInfo(linkPath);
+  const { mdx, index, srcMeta, info } = pageInfo;
   const termServer = await createTermServer({
     mdx,
     meta: info.meta,
@@ -57,21 +62,30 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
             source={info.contents}
             components={{
               ...tsExports,
-              a: makeGeneralAnchor(linkPath),
-              pre: Fragment,
-              code: Code,
-              LumaToc: Fragment,
-              LumaMdxLayout: Fragment,
-              LumaKatex,
-              Term: TermServer,
-              Series: makeSeries(linkPath),
-              LumaCounter: Counter,
-              LumaLoaded: Fragment,
-              Prove,
-              h1: H1,
-              h2: H2,
-              h3: H3,
-              Debug,
+              ...makeComponents(
+                pageInfo,
+                isProduction,
+                {
+                  a: makeGeneralAnchor(linkPath),
+                  pre: Fragment,
+                  LumaToc: Fragment,
+                  LumaMdxLayout: Fragment,
+                  LumaCounter: Counter,
+                  LumaLoaded: Fragment,
+                  Prove,
+                  Note,
+                  h1: H1,
+                  h2: H2,
+                  h3: H3,
+                  Debug,
+                },
+                {
+                  code: Code,
+                  Term: TermServer,
+                  Series,
+                  LumaKatex,
+                },
+              ),
             }}
             options={{
               mdxOptions: {

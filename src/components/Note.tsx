@@ -15,8 +15,13 @@ const Wrapper = (props: React.ComponentProps<"div">) => (
     <style jsx>{`
       div {
         position: relative;
-        padding: 14px 8px;
-        margin-top: 0.8em;
+        padding-top: 0.3em;
+        padding-left: 1.8em;
+        padding-right: 1.2em;
+        padding-bottom: 0.4em;
+        margin-top: 1.2em;
+        margin-left: 1.1em;
+        margin-right: 0.6em;
       }
     `}</style>
   </>
@@ -28,17 +33,6 @@ const LastLine = (props: React.ComponentProps<"div">) => (
     <style jsx>{`
       div {
         text-align: right;
-      }
-    `}</style>
-  </>
-);
-
-const H4 = (props: React.ComponentProps<"h4">) => (
-  <>
-    <h4 {...props} />
-    <style jsx>{`
-      h4 {
-        margin: 0;
       }
     `}</style>
   </>
@@ -166,7 +160,6 @@ const EmptyCircle = (props: React.ComponentProps<"div">) => (
     <div {...props} />
     <style jsx>{`
       div {
-        ${filledCircleStyle}
         width: ${halfSize};
         height: ${halfSize};
         border-radius: ${size};
@@ -202,21 +195,20 @@ const FilledCircleRight = (props: React.ComponentProps<"div">) => (
   </>
 );
 
-export type ProveProps = {
-  readonly children?: React.ReactNode;
-  readonly simple: boolean;
+export type NoteProps = {
+  readonly children: React.ReactNode;
 };
-export default function Prove({ children, simple }: ProveProps) {
+export default function Note({ children }: NoteProps) {
   return (
     <Wrapper>
       <UpperLine>
-        <FilledCircleLeft />
+        <EmptyCircle />
+        <FilledCircle />
+        <EmptyCircle />
+        <FilledCircle />
         <EmptyCircle />
         <HorizontalLine />
-        <FilledCircle />
-        <FilledCircle />
         <EmptyCircle />
-        <FilledCircleRight />
       </UpperLine>
       <LeftLine>
         <EmptyCircle />
@@ -226,18 +218,12 @@ export default function Prove({ children, simple }: ProveProps) {
       <RightLine>
         <EmptyCircle />
         <VerticalLine />
-        <EmptyCircle />
       </RightLine>
       <LowerLine>
-        <FilledCircleLeft />
         <EmptyCircle />
-        <FilledCircle />
-        <FilledCircle />
+        <EmptyCircle />
         <HorizontalLine />
-        <EmptyCircle />
-        <FilledCircleRight />
       </LowerLine>
-      <H4>{simple ? "略証" : "証明"}</H4>
       {children}
       <LastLine>
         <Qed />

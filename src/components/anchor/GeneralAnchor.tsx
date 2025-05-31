@@ -1,3 +1,4 @@
+"use server";
 import Debug from "../Debug";
 import AnchorInternal from "./internal/AnchorInternal";
 import { resolveLinkPath } from "@/lib/link-path";
@@ -7,7 +8,7 @@ export type GeneralAnchorProps = {
   readonly href: string;
 };
 const AnchorExternal = Debug;
-export default function GeneralAnchor({
+export default async function GeneralAnchorNeedingMeta({
   currentLinkPath,
   href,
 }: GeneralAnchorProps) {

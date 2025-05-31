@@ -12,17 +12,22 @@ import {
   parseMathTransform,
   type KatexLumaMetaShow,
 } from "@luma-dev/my-unified/katex-ex";
+import type { WithServerMeta } from "@/util/server-meta";
 
-export type LumaKatexProps = {
+export type LumaKatexProps = WithServerMeta<{
   readonly meta: KatexLumaMetaShow;
   readonly globalContext: string;
   readonly defContext: string;
   readonly content: string;
-};
-
-const isProduction = process.env.NODE_ENV === "production";
+}>;
 
 export default async function LumaKatex({
+  serverMeta: {
+    articleInfo: {
+      meta: { strict },
+    },
+    isProduction,
+  },
   meta,
   globalContext,
   defContext,
@@ -52,7 +57,7 @@ export default async function LumaKatex({
   const mdx = await htmlToMdx({ html });
   return (
     <LumaKatexClient displayMode={meta.mode}>
-      {isProduction ? (
+      {isProduction || strict ? (
         <MDXRemote
           source={mdx}
           components={{

@@ -3,6 +3,7 @@
  */
 export type ArticleMeta = Readonly<{
   published: boolean;
+  strict: boolean;
   title: string;
   // 使わないものは省略
 }>;

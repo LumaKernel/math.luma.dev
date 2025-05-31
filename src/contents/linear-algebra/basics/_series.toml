@@ -16,4 +16,5 @@ chapters = [
   "inner-product",
   "inner-product2",
   "eigenvalue",
+  "projection-matrix",
 ]

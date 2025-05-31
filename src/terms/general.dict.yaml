@@ -60,6 +60,7 @@
     - text: 可逆な写像
       ruby: invertible mapping
     - text: 上への1対1写像
+像: image
 well-defined: well-defined
 同一視: identify
 列: sequence
@@ -74,3 +75,7 @@ well-defined: well-defined
 有限: finite
 無限: infinite
 配列: array
+射影: projection
+射影関数: projection function
+羃等性: idempotence
+羃等: idempotent
