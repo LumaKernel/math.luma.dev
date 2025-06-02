@@ -1,6 +1,27 @@
+\gdef\vecx{\mathbb x}
+\gdef\vecxi#1{\mathbb x_{#1}}
+\gdef\vecy{\mathbb y}
+\gdef\vecyi#1{\mathbb y_{#1}}
 \gdef\vecv{\mathbb v}
+\gdef\vecvi#1{\mathbb v_{#1}}
 \gdef\vecu{\mathbb u}
+\gdef\vecui#1{\mathbb u_{#1}}
 \gdef\VecZero{\mathbb 0}
+
+\gdef\vece{\mathbb e}
+\gdef\vecei#1{\mathbb e_{#1}}
+
+\gdef\MatT
+
+% Vector Spaces
+\gdef\Vo{V}
+\gdef\Vi#1{V_{#1}}
+\gdef\W{W}
+\gdef\Wi#1{W_{#1}}
+
+% ベクトル空間の直和
+\gdef\DirSum{\oplus}
+
 
 % Hermitian adjoint
 \gdef\HermAdj#1{{{#1}^{\dagger}}}
@@ -13,3 +34,48 @@
 \gdef\EigenVal{\lambda}
 % 固有ベクトル
 \gdef\EigenVec{\vecu}
+
+
+
+% 1x1 Matrix: \MatOneOne{a}
+\gdef\MatOneOne#1{
+  \begin{pmatrix}
+    #1
+  \end{pmatrix}
+}
+
+% 2x2 Matrix: \MatTwoTwo{a}{b}{c}{d}
+\gdef\MatTwoTwo#1#2#3#4{
+  \begin{pmatrix}
+    #1 & #2 \\
+    #3 & #4
+  \end{pmatrix}
+}
+
+% 3x3 Matrix: \MatThreeThree{a}{b}{c}{d}{e}{f}{g}{h}{i}
+\gdef\MatThreeThree#1#2#3#4#5#6#7#8#9{
+  \begin{pmatrix}
+    #1 & #2 & #3 \\
+    #4 & #5 & #6 \\
+    #7 & #8 & #9
+  \end{pmatrix}
+}
+
+\gdef\VecOne#1{
+  \begin{pmatrix}
+    #1
+  \end{pmatrix}
+}
+\gdef\VecTwo#1#2{
+  \begin{pmatrix}
+    #1 \\
+    #2
+  \end{pmatrix}
+}
+\gdef\VecThree#1#2#3{
+  \begin{pmatrix}
+    #1 \\
+    #2 \\
+    #3
+  \end{pmatrix}
+}

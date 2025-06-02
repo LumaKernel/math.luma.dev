@@ -154,4 +154,5 @@
 行ベクトル: row vector
 行基本ベクトル: row unit vector
 射影行列: projection matrix
+直交射影行列: orthogonal projection matrix
 ユニタリ行列: unitary matrix
