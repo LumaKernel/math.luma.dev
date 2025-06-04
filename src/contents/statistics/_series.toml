@@ -1,0 +1,35 @@
+tags = [
+  "統計学",
+]
+chapters = [
+  "elementary",
+  "measure-theory",
+  "moment",
+
+# 二項分布
+  "discrete-binomial-distribution",
+# ポアソン分布
+  "discrete-poisson-distribution",
+  # 幾何分布
+  "discrete-geometric-distribution",
+
+  # 一様分布
+  "continuous-uniform-distribution",
+  # 指数分布
+  "continuous-exponential-distribution",
+  # 正規分布
+  "continuous-normal-distribution",
+
+
+
+  # チェビシェフの不等式
+  # 弱大数の法則
+  # 中心極限定理
+
+
+  # 推定
+
+
+  # マルコフ連鎖
+
+]

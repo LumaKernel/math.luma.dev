@@ -34,7 +34,7 @@ import { createTermServer } from "@/util/term-server";
 import remarkBreaks from "remark-breaks";
 import { pagefindAttrs } from "@/util/pagefind";
 import remarkGfm from "remark-gfm";
-import { makeComponents } from "@/util/server-meta";
+import { makeComponents, makeServerMeta } from "@/util/server-meta";
 
 const isProduction = process.env.NODE_ENV === "production";
 
@@ -47,7 +47,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
   const { slug } = await params;
   const linkPath = slug?.join("/") ?? "";
   const pageInfo = await getPageInfo(linkPath);
-  const { mdx, index, srcMeta, info } = pageInfo;
+  const { mdx, index, info } = pageInfo;
   const termServer = await createTermServer({
     mdx,
     meta: info.meta,
@@ -56,7 +56,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
   });
   return (
     <SharedApp>
-      <ArticleLayout meta={srcMeta}>
+      <ArticleLayout serverMeta={makeServerMeta(pageInfo, isProduction)}>
         <main {...pagefindAttrs.body}>
           <MDXRemote
             source={info.contents}

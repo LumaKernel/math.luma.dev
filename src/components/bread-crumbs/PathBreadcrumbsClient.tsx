@@ -24,7 +24,6 @@ export default function PathBreadcrumbsClient({
 }: PathBreadcrumbsClientProps) {
   return (
     <Flex>
-      <Link href="/">math.luma.dev</Link>
       {parts.map(({ linkPath, name, exists }, i) => (
         <React.Fragment key={i}>
           <span>/</span>

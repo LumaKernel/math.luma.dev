@@ -49,10 +49,22 @@ export default async function LumaKatex({
   })();
 
   const fullContent = globalContext + defContext + content;
+  const katexDisplayMode = (() => {
+    switch (meta.mode) {
+      case "inline":
+      case "inline-block":
+        return false;
+      case "display":
+        return true;
+      default:
+        throw new Error(`Unknown mode: ${meta.mode satisfies never as 0}`);
+    }
+  })();
   const html = katexLumaRenderToString(fullContent, {
     throwOnError: false,
     strict: false,
     trust: true,
+    displayMode: katexDisplayMode,
   });
   const mdx = await htmlToMdx({ html });
   return (

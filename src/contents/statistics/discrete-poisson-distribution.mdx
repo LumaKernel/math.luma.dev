@@ -1,0 +1,35 @@
+```toml
+title = "ポアソン分布"
+published = true
+```
+
+https://ja.wikipedia.org/wiki/%E3%83%9D%E3%82%A2%E3%82%BD%E3%83%B3%E5%88%86%E5%B8%83
+
+
+
+## 意味
+
+ポアソン過程において、単位時間あたりの平均発生回数が $\lambda$ のとき、ある時間区間における発生回数を確率変数とする離散確率分布。
+
+## 確率密度関数
+
+```math
+f(k; \lambda) = \frac{\lambda^k e^{-\lambda}}{k!}
+```
+
+ここで $k$ は発生回数、 $\lambda$ は単位時間あたりの平均発生回数。
+
+## 期待値と分散
+
+```math
+\begin{align*}
+\Exp {X} &= \lambda \\
+\Var {X} &= \lambda
+\end{align*}
+```
+
+- 感覚的な理解:
+  - 単位時間あたりの平均発生回数が $\lambda$ なので、期待値は $\lambda$。
+  - 発生回数の散らばりも、平均発生回数に比例する。
+
+
