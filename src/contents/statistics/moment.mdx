@@ -3,10 +3,125 @@ title = "モーメント"
 published = true
 ```
 
-TODO
+## モーメントの定義
 
-- モーメント、モーメント母関数(積率母関数)
-- 平均、分散、歪度、尖度
+モーメントにはいくつかある。確率変数 $X$ それぞれに対してモーメントを対応させて考えることができる。
+
+- $k$次のゼロモーメント: $\ZeroMom k \defeq \Exp {X^k}$
+- $k$次の中心モーメント: $\CentMom k \defeq \Exp {(X - \mu)^k}$
+  - $\mu_k$と表記されることもあるが、$\mu \ne \mu_1$には注意
+- $k$次の標準モーメント: $\StdMom k \defeq \Exp {\left(\frac{X - \mu}{\sigma}\right)^k}$
+
+<Note>
+それぞれの呼び名「ゼロ」「中心」「標準」にあたる訳語はあまり見当らなかったので、このサイトではそう呼ぶことにする
+</Note>
+
+ゼロモーメントと中心モーメントは、さらに以下のように一般化できる。
+
+- $k$次の$a$周りのモーメント: $\Exp {(X - a)^k}$
 
 
+## モーメント母関数
+
+モーメント母関数とは、$k$次のモーメントを数列として生成する指数母関数のこと。
+
+ゼロモーメントに関しては特に以下のようにして定義される。
+
+```math
+  M_X(\theta) \defeq \sum_{k=0}^{\infty} \frac{1}{k!} \Exp {X^k} \theta^k
+```
+
+$M_X$ の $X$ は文脈から明らかな場合は省略される。
+また、 $M(\theta) = \Exp {\Expo {X\theta}}$ というより簡単な表示がある。
+
+<Prove>
+
+```math trans1
+  M(\theta)
+= \sum_{k=0}^{\infty} \frac{1}{k!} \Exp {X^k} \theta^k
+= \sum_{k=0}^{\infty} \Exp {\frac{1}{k!} X^k \theta^k}
+= \sum_{k=0}^{\infty} \Exp {\frac{1}{k!} (X \theta)^k}
+= \Exp {\sum_{k=0}^{\infty} \frac{1}{k!} (X \theta)^k}
+? 級数と期待値の線形性による入れ替え(注意が必要)
+= \Exp {\Expo {X\theta}}
+? 指数関数のマクローリン展開
+```
+
+TODO: 注意の部分
+
+</Prove>
+
+期待値の定義より、これは以下のように計算される。
+
+```math inline display $0
+M(\theta) = \sum_x \Expo {x \theta} \cdot P(X=x)
+```
+
+```math inline display $1
+M(\theta) = \int_{-\infty}^{\infty} \Expo {x \theta} \cdot f(x) dx
+```
+
+- 離散の場合: [$0]
+- 連続の場合: [$1]
+
+
+なお、以降は連続確率分布の場合のみを記述するが、基本はすべて離散確率分布の場合でも同様。
+
+$\Exp {X^k} = \left(\DiffTimes \theta k M\right)(0)$ として計算できる。 (指数母関数の一般の特徴)
+
+- 一般の$a$周りのモーメント母関数: $\Exp {\Expo{(X-a)\theta}}$
+  - $Y \defeq X-a$ で確率変数を新たに定義すれば、 $M_Y(\theta)$ そのものだ。
+- 標準モーメント母関数: $\Exp {\Expo{\frac{X-\mu}{\sigma}\theta}}$
+  - $Y \defeq \frac{X-\mu}{\sigma}$ で確率変数を新たに定義すれば、 $M_Y(\theta)$ そのものだ。
+
+
+## モーメント母関数を利用した計算
+
+```math inline display $3
+\StdMom 3 = \Exp {(X - \mu)^3} / \sigma^3 = \frac{\CentMom 3}{{(\CentMom 2)}^{3/2}}
+```
+
+```math inline display $4
+\StdMom 4 = \Exp {(X - \mu)^4} / \sigma^4 = \frac{\CentMom 4}{{(\CentMom 2)}^2}
+```
+
+
+- 平均 $\mu = \Exp {X} = M'(0)$
+- 分散 $\Exp {X^2} - \left(\Exp {X}\right)^2 = M''(0) - (M'(0))^2$
+  - $\Var {X}$ とも書き、 $\CentMom 2$ でもある。
+  - 通常 $\sigma^2$ と書かれる。 $\sigma = \sqrt{\CentMom 2}$ のことを標準偏差と呼ぶ。
+  - 非負性: $0 \le \sigma^2$
+- 歪度 [$3]
+  - 負の値をとることがある。
+  - 歪度は、確率分布の非対称性(歪み)を表す指標である。
+  - 正方向ならば右に歪んでいる、負方向ならば左に歪んでいる。 (TODO: 図解)
+- 尖度 [$4]
+  - 尖度は、確率分布の尖り具合を表す指標である。 (TODO: 図解)
+  - 非負性: $0 \le \StdMom 4$
+- より一般に: TODO
+
+などが得られる。
+
+<Prove>
+
+分散について。
+
+```math trans1
+  \sigma^2
+= \Exp {(X - \mu)^2}
+= \Exp {X^2 - 2 X \mu + \mu^2}
+= \Exp {X^2} - 2 \Exp X \mu + \mu^2
+= \Exp {X^2} - \mu^2
+= M''(0) - (M'(0))^2
+```
+
+</Prove>
+
+
+## 参考
+
+- https://en.wikipedia.org/wiki/Skewness
+- https://en.wikipedia.org/wiki/Moment_(mathematics)
+- https://en.wikipedia.org/wiki/Central_moment
+- https://en.wikipedia.org/wiki/Standardized_moment
 

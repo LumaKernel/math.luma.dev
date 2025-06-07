@@ -18,12 +18,16 @@ export const makeComponents = (
   isProduction: boolean,
   usualComponents: Record<
     string,
-    | ((props: any) => React.ReactElement | React.JSX.Element)
+    | ((
+        props: any,
+      ) => React.ReactElement | React.JSX.Element | null | undefined)
     | React.ExoticComponent
   >,
   serverComponents: Record<
     string,
-    (props: any) => Promise<React.ReactElement | React.JSX.Element>
+    (
+      props: any,
+    ) => Promise<React.ReactElement | React.JSX.Element | null | undefined>
   >,
 ) => {
   const serverMeta = makeServerMeta(pageInfo, isProduction);

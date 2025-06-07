@@ -6,16 +6,16 @@ import { htmlToMdx } from "@/util/html-to-mdx";
 import { Fragment } from "react";
 import Debug from "../Debug";
 import KatexGeneralHackTag from "./KatexGeneralHackTag";
+import type { KatexLumaMeta } from "@luma-dev/my-unified/katex-ex";
 import {
   makeMathTransform1Column,
   makeMathTransform2Column,
   parseMathTransform,
-  type KatexLumaMetaShow,
 } from "@luma-dev/my-unified/katex-ex";
 import type { WithServerMeta } from "@/util/server-meta";
 
 export type LumaKatexProps = WithServerMeta<{
-  readonly meta: KatexLumaMetaShow;
+  readonly meta: KatexLumaMeta;
   readonly globalContext: string;
   readonly defContext: string;
   readonly content: string;
@@ -28,11 +28,23 @@ export default async function LumaKatex({
     },
     isProduction,
   },
-  meta,
+  meta: metaOrig,
   globalContext,
   defContext,
   content: contentOriginal,
 }: LumaKatexProps) {
+  if (metaOrig.category === "def") {
+    return null;
+  }
+
+  const meta = (() => {
+    // saveをloadしたものの場合はsaveのまま来る
+    if (metaOrig.category === "save") {
+      return metaOrig.saved;
+    }
+    return metaOrig;
+  })();
+
   const content = (() => {
     switch (meta.subCategory) {
       case "normal":
@@ -47,28 +59,23 @@ export default async function LumaKatex({
         );
     }
   })();
-
-  const fullContent = globalContext + defContext + content;
-  const katexDisplayMode = (() => {
-    switch (meta.mode) {
-      case "inline":
-      case "inline-block":
-        return false;
-      case "display":
-        return true;
-      default:
-        throw new Error(`Unknown mode: ${meta.mode satisfies never as 0}`);
+  const styleSpec = (() => {
+    if (!meta.block && meta.display) {
+      return "\\displaystyle ";
     }
+    return "";
   })();
+
+  const fullContent = styleSpec + globalContext + defContext + content;
   const html = katexLumaRenderToString(fullContent, {
     throwOnError: false,
     strict: false,
     trust: true,
-    displayMode: katexDisplayMode,
+    displayMode: meta.display && meta.block,
   });
   const mdx = await htmlToMdx({ html });
   return (
-    <LumaKatexClient displayMode={meta.mode}>
+    <LumaKatexClient block={meta.block}>
       {isProduction || strict ? (
         <MDXRemote
           source={mdx}

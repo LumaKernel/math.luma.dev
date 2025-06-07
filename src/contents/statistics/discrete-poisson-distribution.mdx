@@ -3,21 +3,29 @@ title = "ポアソン分布"
 published = true
 ```
 
-https://ja.wikipedia.org/wiki/%E3%83%9D%E3%82%A2%E3%82%BD%E3%83%B3%E5%88%86%E5%B8%83
-
 
 
 ## 意味
 
 ポアソン過程において、単位時間あたりの平均発生回数が $\lambda$ のとき、ある時間区間における発生回数を確率変数とする離散確率分布。
 
-## 確率密度関数
+## ポアソン過程について
+
+TODO
+
+## 確率質量関数
 
 ```math
-f(k; \lambda) = \frac{\lambda^k e^{-\lambda}}{k!}
+P(X=k; \lambda) = e^{-\lambda} \frac{\lambda^k}{k!}
 ```
 
-ここで $k$ は発生回数、 $\lambda$ は単位時間あたりの平均発生回数。
+ここで確率変数$X$は発生回数、 $\lambda$ は単位時間あたりの平均発生回数を表すパラメータ。
+
+<Note>
+
+$\frac{\lambda^k}{k!}$と$e^{-\lambda}$に分解して見るとよい。そうすれば、指数関数のマクローリン展開 $e^x = \sum_k x^k/k!$ と、その正規化項として捉えられる。
+
+</Note>
 
 ## 期待値と分散
 
@@ -31,5 +39,12 @@ f(k; \lambda) = \frac{\lambda^k e^{-\lambda}}{k!}
 - 感覚的な理解:
   - 単位時間あたりの平均発生回数が $\lambda$ なので、期待値は $\lambda$。
   - 発生回数の散らばりも、平均発生回数に比例する。
+    - より多く起こるなら、よりバラバラに起こる。
 
+
+## 参考
+
+- https://ja.wikipedia.org/wiki/%E3%83%9D%E3%82%A2%E3%82%BD%E3%83%B3%E5%88%86%E5%B8%83
+- https://en.wikipedia.org/wiki/Poisson_distribution
+- https://en.wikipedia.org/wiki/Poisson_point_process
 

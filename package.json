@@ -1,5 +1,5 @@
 {
-  "name": "next-sand-15",
+  "name": "@luma-dev/math.luma.dev",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "@luma-dev/katex-luma": "npm:@jsr/luma-dev__katex-luma@^0.2.0",
-    "@luma-dev/my-unified": "^1.15.0",
+    "@luma-dev/my-unified": "^1.16.0",
     "@luma-dev/option-ts": "npm:@jsr/luma-dev__option-ts@^2.1.0",
     "@luma-dev/string-util-ts": "npm:@jsr/luma-dev__string-util-ts@^1.0.0",
     "@mdx-js/loader": "^3.1.0",
@@ -56,6 +56,6 @@
     "shx": "^0.4.0",
     "typescript": "~5.8",
     "typescript-eslint": "^8.33.1",
-    "vitest": "^3.2.1"
+    "vitest": "^3.2.2"
   }
 }

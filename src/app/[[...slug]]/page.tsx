@@ -1,7 +1,7 @@
 import Code from "@/components/code/Code";
 import ArticleLayout from "@/components/layouts/ArticleLayout";
 import SharedApp from "@/components/SharedApp";
-import { MDXRemote } from "next-mdx-remote/rsc";
+import { MDXRemote, compileMDX } from "next-mdx-remote/rsc";
 import { Fragment } from "react";
 import remarkMath from "remark-math";
 import Debug from "@/components/Debug";
@@ -54,9 +54,10 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
     presets,
     termDict,
   });
+  const serverMeta = makeServerMeta(pageInfo, isProduction);
   return (
     <SharedApp>
-      <ArticleLayout serverMeta={makeServerMeta(pageInfo, isProduction)}>
+      <ArticleLayout serverMeta={serverMeta}>
         <main {...pagefindAttrs.body}>
           <MDXRemote
             source={info.contents}
@@ -89,9 +90,18 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
             }}
             options={{
               mdxOptions: {
+                development: !isProduction,
                 remarkRehypeOptions: {
                   allowDangerousHtml: true,
                 },
+                remarkPlugins: [
+                  // remarkFrontmatter,
+                  remarkGfm,
+                  remarkBreaks,
+                  remarkMath,
+                  // remarkTerm,
+                  // remarkMeta,
+                ],
                 rehypePlugins: [
                   rehypeReplaceText,
                   // rehypeKatex,
@@ -115,14 +125,6 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                   rehypeWrap,
 
                   rehypeCleanInternal,
-                ],
-                remarkPlugins: [
-                  // remarkFrontmatter,
-                  remarkGfm,
-                  remarkBreaks,
-                  remarkMath,
-                  // remarkTerm,
-                  // remarkMeta,
                 ],
               },
             }}

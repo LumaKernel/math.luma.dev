@@ -3,8 +3,6 @@ title = "二項分布"
 published = true
 ```
 
-https://ja.wikipedia.org/wiki/%E4%BA%8C%E9%A0%85%E5%88%86%E5%B8%83
-
 ## 意味
 
 成功確率 $p$ のベルヌーイ試行を $n$ 繰り返したときの、成功回数を確率変数とする離散確率分布。
@@ -36,12 +34,6 @@ $$
 - $n$ が大きいほど、分散は大きくなる。試行回数が多いほど、成功回数の散らばりは大きくなる。
 
 
-<Prove>
-
-TODO
-
-</Prove>
-
 ## モーメント母関数
 
 ```math trans1
@@ -57,9 +49,16 @@ TODO
 
 - $M'_X(t) = n(pe^t)^{n-1} e^t$
 - $M''_X(t) = n(n-1)(pe^t)^{n-2} e^{2t} + n(pe^t)^{n-1} e^t$
-- $M'''_X(t) = n(n-1)(n-2)(pe^t)^{n-3} e^{3t} + 3n(n-1)(pe^t)^{n-2} e^{2t} + n(pe^t)^{n-1} e^t$
 
 - $\Exp {X} = M'_X(0) = np$
 - $\Var {X} = M''_X(0) - (M'_X(0))^2 = np(1-p)$
-- $\Skew {X} = \frac{M'''_X(0)}{(M''_X(0))^{3/2}} = \frac{(1-2p)}{\sqrt{np(1-p)}}$
+
+## double-countingによる別証明
+
+TODO
+
+## 参考
+
+- https://ja.wikipedia.org/wiki/%E4%BA%8C%E9%A0%85%E5%88%86%E5%B8%83
+
 

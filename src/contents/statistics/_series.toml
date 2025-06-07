@@ -6,9 +6,9 @@ chapters = [
   "measure-theory",
   "moment",
 
-# 二項分布
+  # 二項分布
   "discrete-binomial-distribution",
-# ポアソン分布
+  # ポアソン分布
   "discrete-poisson-distribution",
   # 幾何分布
   "discrete-geometric-distribution",
@@ -30,6 +30,10 @@ chapters = [
   # 推定
 
 
-  # マルコフ連鎖
-
 ]
+
+
+# 最尤推定
+# マルコフ連鎖
+
+

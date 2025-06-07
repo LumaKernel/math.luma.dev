@@ -5,13 +5,18 @@
   prevent:
     - 二項
     - 2項
+    - 化項
 解:
   ruby: solution
   prevent:
     - 解説
     - 解法
     - 解釈
+    - 解答
     - 理解
+    - 図解
+    - 詳解
+    - 分解
 多項式: polynomial
 係数: coefficient
 方程式: equation
@@ -65,6 +70,8 @@
 well-defined: well-defined
 同一視: identify
 列: sequence
+数列: number sequence
+点列: point sequence
 空列: "null sequence"
 無限列: infinite sequence
 有限列: finite sequence
@@ -81,3 +88,4 @@ well-defined: well-defined
 射影関数: projection function
 羃等性: idempotence
 羃等: idempotent
+指数関数: exponential function

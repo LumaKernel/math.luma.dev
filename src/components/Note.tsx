@@ -225,9 +225,6 @@ export default function Note({ children }: NoteProps) {
         <HorizontalLine />
       </LowerLine>
       {children}
-      <LastLine>
-        <Qed />
-      </LastLine>
     </Wrapper>
   );
 }

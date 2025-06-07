@@ -35,6 +35,14 @@
 % 像
 \gdef\Img#1{\operatorname{Im}\left(#1\right)}
 
+% 微分
+\gdef\DiffD{\mathop{d}}
+% 変数 #1 に関する微分
+\gdef\Diff#1{\frac{\DiffD}{\DiffD #1}}
+\gdef\DiffTimes#1#2{\left(\frac{\DiffD}{\DiffD #1}\right)^{#2}}
+
+% exponential
+\gdef\Expo#1{\operatorname{exp}\left(#1\right)}
 
 % 統計学
 \gdef\Exp#1{\operatorname{E}\left[#1\right]}
