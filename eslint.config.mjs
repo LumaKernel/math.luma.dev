@@ -60,7 +60,13 @@ const eslintConfig = tseslint.config(
   },
 
   {
-    ignores: [".next/*", "next-build/*", "**/*.gen.ts", "**/*.gen/*"],
+    ignores: [
+      ".vercel/*",
+      ".next/*",
+      "next-build/*",
+      "**/*.gen.ts",
+      "**/*.gen/*",
+    ],
   },
 );
 

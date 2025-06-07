@@ -1,5 +1,4 @@
 "use client";
-
 import { cssColors } from "@/lib/colors";
 import SlugLink from "./SlugLink";
 
@@ -61,14 +60,14 @@ const Column = (props: React.ComponentProps<"div">) => (
 );
 
 export type H2Props = React.PropsWithChildren<{
-  lastH1Slug?: string;
-  slug?: string;
+  readonly lastH1Slug?: string;
+  readonly slug?: string;
 }>;
-
-export default function H2({ children, slug }: H2Props) {
+export default function H2({ children, lastH1Slug, slug }: H2Props) {
+  const fullSlug = [lastH1Slug, slug].filter((s) => s).join("/");
   return (
     <>
-      <SlugLink Heading={StyledH2} slug={slug}>
+      <SlugLink Heading={StyledH2} slug={fullSlug}>
         {children}
       </SlugLink>
       <Column>

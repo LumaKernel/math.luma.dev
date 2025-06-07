@@ -1,4 +1,5 @@
 # generated
+.vercel/
 *.gen.ts
 src/**/*.md
 src/**/*.mdx

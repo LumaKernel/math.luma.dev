@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import Link from "next/link";
 import { cssColors } from "@/lib/colors";
 
@@ -47,24 +47,40 @@ export type WikipediaProps = {
   readonly ja?: string;
   readonly en?: string;
   readonly main?: string;
-}
+};
 export default function Wikipedia({ ja, en, main }: WikipediaProps) {
-  const Ja = ja && (() => {
-    const jaDisplay = decodeURIComponent(ja.replace(/_/g, " "));
-    return <Link key="ja" href={`https://ja.wikipedia.org/wiki/${ja}`} target="_blank">
-      {jaDisplay}
-    </Link>
-  })();
-  const En = en && (() => {
-    const enDisplay = decodeURIComponent(en.replace(/_/g, " "));
-    return <Link key="en" href={`https://en.wikipedia.org/wiki/${en}`} target="_blank">
-      {enDisplay}
-    </Link>
-  })();
+  const Ja =
+    ja &&
+    (() => {
+      const jaDisplay = decodeURIComponent(ja.replace(/_/g, " "));
+      return (
+        <Link
+          key="ja"
+          href={`https://ja.wikipedia.org/wiki/${ja}`}
+          target="_blank"
+        >
+          {jaDisplay}
+        </Link>
+      );
+    })();
+  const En =
+    en &&
+    (() => {
+      const enDisplay = decodeURIComponent(en.replace(/_/g, " "));
+      return (
+        <Link
+          key="en"
+          href={`https://en.wikipedia.org/wiki/${en}`}
+          target="_blank"
+        >
+          {enDisplay}
+        </Link>
+      );
+    })();
   const list = { ja: [Ja, En], en: [En, Ja] }[main ?? "ja"];
   return (
     <Badge>
       <C /> {list}
     </Badge>
   );
-};
+}

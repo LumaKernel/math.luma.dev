@@ -39,9 +39,7 @@ export default function SlugLink({ Heading, slug, children }: SlugLinkProps) {
           <a href={`#${slug}`} aria-hidden="true" tabIndex={-1}>
             <HiLink />
           </a>
-        ) : (
-          <></>
-        )}
+        ) : null}
         {children}
       </Heading>
       <style jsx>{`

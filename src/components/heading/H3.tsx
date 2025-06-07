@@ -74,18 +74,22 @@ const Column = (props: React.ComponentProps<"div">) => (
   </>
 );
 
-export type H3Props = Readonly<
-  React.PropsWithChildren<{
-    lastH1Slug: string;
-    lastH2Slug: string;
-    slug?: string;
-  }>
->;
+export type H3Props = React.PropsWithChildren<{
+  readonly lastH1Slug?: string;
+  readonly lastH2Slug?: string;
+  readonly slug?: string;
+}>;
 
-export default function H3({ children, slug }: H3Props) {
+export default function H3({
+  children,
+  lastH1Slug,
+  lastH2Slug,
+  slug,
+}: H3Props) {
+  const fullSlug = [lastH1Slug, lastH2Slug, slug].filter((s) => s).join("/");
   return (
     <>
-      <SlugLink Heading={StyledH3} slug={slug}>
+      <SlugLink Heading={StyledH3} slug={fullSlug}>
         {children}
       </SlugLink>
       <Column>

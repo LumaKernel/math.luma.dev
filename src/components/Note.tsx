@@ -2,7 +2,6 @@
 
 import { cssColors } from "@/lib/colors";
 import React from "react";
-import Qed from "./Qed";
 
 const thickness = "0.5px";
 const size = "6px";
@@ -22,17 +21,6 @@ const Wrapper = (props: React.ComponentProps<"div">) => (
         margin-top: 1.2em;
         margin-left: 1.1em;
         margin-right: 0.6em;
-      }
-    `}</style>
-  </>
-);
-
-const LastLine = (props: React.ComponentProps<"div">) => (
-  <>
-    <div {...props} />
-    <style jsx>{`
-      div {
-        text-align: right;
       }
     `}</style>
   </>
@@ -163,33 +151,6 @@ const EmptyCircle = (props: React.ComponentProps<"div">) => (
         width: ${halfSize};
         height: ${halfSize};
         border-radius: ${size};
-      }
-    `}</style>
-  </>
-);
-
-const FilledCircleLeft = (props: React.ComponentProps<"div">) => (
-  <>
-    <div {...props} />
-    <style jsx>{`
-      div {
-        ${filledCircleStyle}
-        position: absolute;
-        left: 0;
-        transform: translateX(-50%);
-      }
-    `}</style>
-  </>
-);
-
-const FilledCircleRight = (props: React.ComponentProps<"div">) => (
-  <>
-    <div {...props} />
-    <style jsx>{`
-      div {
-        position: absolute;
-        right: 0;
-        transform: translateX(50%);
       }
     `}</style>
   </>

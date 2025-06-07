@@ -1,7 +1,7 @@
 import Code from "@/components/code/Code";
 import ArticleLayout from "@/components/layouts/ArticleLayout";
 import SharedApp from "@/components/SharedApp";
-import { MDXRemote, compileMDX } from "next-mdx-remote/rsc";
+import { MDXRemote } from "next-mdx-remote/rsc";
 import { Fragment } from "react";
 import remarkMath from "remark-math";
 import Debug from "@/components/Debug";
@@ -103,6 +103,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                   // remarkMeta,
                 ],
                 rehypePlugins: [
+                  rehypeAddSlug,
                   rehypeReplaceText,
                   // rehypeKatex,
                   [
@@ -121,7 +122,6 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                   rehypeCounter,
                   rehypeCodeMeta,
 
-                  rehypeAddSlug,
                   rehypeWrap,
 
                   rehypeCleanInternal,
