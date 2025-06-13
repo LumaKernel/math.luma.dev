@@ -4,6 +4,7 @@ import { cssColors } from "@/lib/colors";
 import type { TermDef } from "@/terms-index.gen";
 import { Option } from "@luma-dev/option-ts";
 import { pagefindAttrs } from "@/util/pagefind";
+import type { TermContainer } from "@luma-dev/my-unified/rehype-proc-term";
 
 const thickness = "1.2px";
 
@@ -19,15 +20,15 @@ const Ruby = (props: React.ComponentProps<"ruby">) => (
   </>
 );
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars -- TODO: 用語専用ページを作る
 const PlainAnchor = (props: React.ComponentProps<typeof Link>) => (
   <>
-    <Link {...props} />
-    <style jsx>{`
-      a {
-        text-decoration: none;
-      }
-    `}</style>
+    <Link
+      {...props}
+      style={{
+        textDecoration: "none",
+        ...props.style,
+      }}
+    />
   </>
 );
 
@@ -98,12 +99,14 @@ type TermClientProps = {
   readonly reference: string;
   readonly term: TermDef;
   readonly showRuby: boolean;
+  readonly termContainer: TermContainer | null;
 };
 
 export default function TermClient({
   text,
   term: { main, slug },
   showRuby,
+  termContainer,
 }: TermClientProps): React.ReactElement {
   const textInner = (() => {
     return (
@@ -124,9 +127,7 @@ export default function TermClient({
     // return <span title={title}>{text}</span>;
   })();
   const c = slug ? (
-    // TODO: 単語定義ページを用意しないと微妙…。
-    // <PlainAnchor href={`/search?s=${slug}`}>{textInner}</PlainAnchor>
-    <span>{textInner}</span>
+    <PlainAnchor href={`/term/${slug}`}>{textInner}</PlainAnchor>
   ) : (
     textInner
   );
@@ -158,6 +159,7 @@ export default function TermClient({
       data-pagefind-weight="12"
       data-pagefind-meta="termSlug[data-term-slug]"
       data-term-slug={slug}
+      data-term-container={termContainer}
     >
       {final}
     </span>

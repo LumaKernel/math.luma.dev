@@ -103,6 +103,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                   // remarkMeta,
                 ],
                 rehypePlugins: [
+                  rehypeCounter,
                   rehypeAddSlug,
                   rehypeReplaceText,
                   // rehypeKatex,
@@ -119,7 +120,6 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                     } satisfies RehypeProcTermPluginParams,
                   ],
                   rehypeSave,
-                  rehypeCounter,
                   rehypeCodeMeta,
 
                   rehypeWrap,
