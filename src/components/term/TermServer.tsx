@@ -6,7 +6,7 @@ import type { TermContainer } from "@luma-dev/my-unified/rehype-proc-term";
 type TermProps = {
   readonly text: string;
   readonly reference: string;
-  readonly refIndex?: number;
+  readonly refIndex: number;
   readonly termContainer: TermContainer | null;
 };
 
@@ -26,6 +26,7 @@ export default async function TermServer({
       reference={reference}
       term={term}
       showRuby={refIndex === 0}
+      refIndex={refIndex}
       termContainer={termContainer}
     />
   );

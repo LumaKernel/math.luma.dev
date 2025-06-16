@@ -5,6 +5,14 @@ import type { TermDef } from "@/terms-index.gen";
 import { Option } from "@luma-dev/option-ts";
 import { pagefindAttrs } from "@/util/pagefind";
 import type { TermContainer } from "@luma-dev/my-unified/rehype-proc-term";
+import {
+  parseAsBoolean,
+  parseAsIndex,
+  parseAsInteger,
+  parseAsString,
+  useQueryState,
+} from "nuqs";
+import { useEffect, useRef } from "react";
 
 const thickness = "1.2px";
 
@@ -100,6 +108,7 @@ type TermClientProps = {
   readonly term: TermDef;
   readonly showRuby: boolean;
   readonly termContainer: TermContainer | null;
+  readonly refIndex: number;
 };
 
 export default function TermClient({
@@ -107,11 +116,35 @@ export default function TermClient({
   term: { main, slug },
   showRuby,
   termContainer,
+  refIndex,
 }: TermClientProps): React.ReactElement {
+  const [termRefView] = useQueryState(
+    "termRefView",
+    parseAsBoolean.withDefault(false),
+  );
+  // http://localhost:4030/statistics/elementary?termRefView=true&termRefView.ref=correlation-coefficient&termRefView.index=0#term.correlation-coefficient.0
+  const [termRefRef] = useQueryState("termRefView.ref", parseAsString);
+  const [termRefIndex] = useQueryState("termRefView.index", parseAsInteger);
+
+  const isHighlighted =
+    termRefView && termRefRef === slug && termRefIndex === refIndex;
+
+  const ref = useRef<HTMLSpanElement>(null);
+
+  useEffect(() => {
+    // scroll to it
+    if (isHighlighted && ref.current) {
+      ref.current.scrollIntoView({
+        behavior: "instant",
+        block: "center",
+      });
+    }
+  }, [isHighlighted]);
+
   const textInner = (() => {
     return (
       <TextWrapper title={main.text}>
-        <span>{text}</span>
+        <span ref={ref}>{text}</span>
         <Svg width="100%" height="2px" xmlns="http://www.w3.org/2000/svg">
           <Line
             x1="0"
@@ -122,6 +155,11 @@ export default function TermClient({
             strokeWidth={thickness}
           />
         </Svg>
+        <style jsx>{`
+          span {
+            color: ${isHighlighted && cssColors.em3};
+          }
+        `}</style>
       </TextWrapper>
     );
     // return <span title={title}>{text}</span>;
@@ -160,6 +198,8 @@ export default function TermClient({
       data-pagefind-meta="termSlug[data-term-slug]"
       data-term-slug={slug}
       data-term-container={termContainer}
+      data-term-ref-index={refIndex}
+      id={`term.${slug}.${refIndex}`}
     >
       {final}
     </span>

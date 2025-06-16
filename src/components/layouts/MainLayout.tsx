@@ -1,5 +1,7 @@
 "use client";
 
+import { parseAsBoolean, useQueryState } from "nuqs";
+
 const Main = (props: React.ComponentProps<"div">) => (
   <>
     <div {...props} />
@@ -26,8 +28,19 @@ const Wrapper = (props: React.ComponentProps<"div">) => (
 
 type MainLayoutProps = Readonly<React.PropsWithChildren>;
 export default function MainLayout({ children }: MainLayoutProps) {
+  const [termRefView] = useQueryState(
+    "termRefView",
+    parseAsBoolean.withDefault(false),
+  );
   return (
     <Main>
+      {termRefView && (
+        <style jsx global>{`
+          body {
+            overflow: hidden;
+          }
+        `}</style>
+      )}
       <Wrapper>{children}</Wrapper>
     </Main>
   );
