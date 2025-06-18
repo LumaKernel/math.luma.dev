@@ -5,14 +5,8 @@ import type { TermDef } from "@/terms-index.gen";
 import { Option } from "@luma-dev/option-ts";
 import { pagefindAttrs } from "@/util/pagefind";
 import type { TermContainer } from "@luma-dev/my-unified/rehype-proc-term";
-import {
-  parseAsBoolean,
-  parseAsIndex,
-  parseAsInteger,
-  parseAsString,
-  useQueryState,
-} from "nuqs";
 import { useEffect, useRef } from "react";
+import { useTermRefViewQs } from "@/util/use-term-ref-view-qs";
 
 const thickness = "1.2px";
 
@@ -118,16 +112,10 @@ export default function TermClient({
   termContainer,
   refIndex,
 }: TermClientProps): React.ReactElement {
-  const [termRefView] = useQueryState(
-    "termRefView",
-    parseAsBoolean.withDefault(false),
-  );
-  // http://localhost:4030/statistics/elementary?termRefView=true&termRefView.ref=correlation-coefficient&termRefView.index=0#term.correlation-coefficient.0
-  const [termRefRef] = useQueryState("termRefView.ref", parseAsString);
-  const [termRefIndex] = useQueryState("termRefView.index", parseAsInteger);
+  const termRef = useTermRefViewQs();
 
   const isHighlighted =
-    termRefView && termRefRef === slug && termRefIndex === refIndex;
+    termRef !== null && termRef.ref === slug && termRef.index === refIndex;
 
   const ref = useRef<HTMLSpanElement>(null);
 

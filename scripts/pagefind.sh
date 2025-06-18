@@ -5,7 +5,7 @@ set -euo pipefail
 shx rm -rf ./public/pagefind.gen ./src/pagefind.gen
 shx cp -r ./pagefind-null ./src/pagefind.gen
 
-NEXT_BUILD_MODE=prebuild npm run next-build
+npm run next-prebuild
 
 shx rm -rf ./public/pagefind.gen ./src/pagefind.gen
 pagefind --site next-build/prebuild/server/app --output-path public/pagefind.gen

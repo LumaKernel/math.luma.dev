@@ -6,6 +6,8 @@
     "vercel-build": "npm run pagefind && npm run next-build",
     "dev": "next dev --turbopack --port 4030",
     "next-build": "next build --no-lint",
+    "next-prebuild": "NEXT_BUILD_MODE=prebuild npm run next-build",
+    "preview": "next start --port 4030",
     "start": "next start",
     "lint": "eslint && prettier --list-different .",
     "lint-fix": "eslint --fix && prettier --write .",

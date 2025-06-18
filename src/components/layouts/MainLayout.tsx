@@ -1,6 +1,5 @@
 "use client";
-
-import { parseAsBoolean, useQueryState } from "nuqs";
+import { useTermRefViewQs } from "@/util/use-term-ref-view-qs";
 
 const Main = (props: React.ComponentProps<"div">) => (
   <>
@@ -28,13 +27,10 @@ const Wrapper = (props: React.ComponentProps<"div">) => (
 
 type MainLayoutProps = Readonly<React.PropsWithChildren>;
 export default function MainLayout({ children }: MainLayoutProps) {
-  const [termRefView] = useQueryState(
-    "termRefView",
-    parseAsBoolean.withDefault(false),
-  );
+  const isTermRefView = useTermRefViewQs() != null;
   return (
     <Main>
-      {termRefView && (
+      {isTermRefView && (
         <style jsx global>{`
           body {
             overflow: hidden;

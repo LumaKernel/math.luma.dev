@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import { NuqsAdapter } from "nuqs/adapters/next/app";
-import { Suspense } from "react";
+import ClientLayout from "./ClientLayout";
 
 export const metadata: Metadata = {
   title: "math.luma.dev",
@@ -12,9 +11,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="ja">
       <body className="antialiased">
-        <NuqsAdapter>
-          <Suspense>{children}</Suspense>
-        </NuqsAdapter>
+        <ClientLayout>{children}</ClientLayout>
       </body>
     </html>
   );
