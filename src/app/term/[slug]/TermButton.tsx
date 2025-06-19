@@ -3,21 +3,21 @@ import Link from "next/link";
 import { cssColors } from "@/lib/colors";
 import { useRef, useState, useEffect } from "react";
 
-export type FooProps = {
+export type TermButtonProps = {
   readonly linkPath: string;
   readonly targetTermRef: string;
   readonly targetTermRefIndex: number;
-  readonly height: string | number;
+  readonly height: string;
 };
-export default function Foo({
+export default function TermButton({
   linkPath,
   targetTermRef,
   targetTermRefIndex,
   height,
-}: FooProps) {
+}: TermButtonProps) {
   return (
     <>
-      <span>
+      <span className="container">
         <Link href={`${linkPath}#term.${targetTermRef}.${targetTermRefIndex}`}>
           <iframe
             src={`${linkPath}?termRefView=true&termRefView.ref=${targetTermRef}&termRefView.index=${targetTermRefIndex}#term.${targetTermRef}.${targetTermRefIndex}`}
@@ -27,9 +27,24 @@ export default function Foo({
         </Link>
       </span>
       <style jsx>{`
-        span > :global(a) {
+        .container {
+          height: ${height};
           display: block;
+          position: relative;
+        }
+        .container > :global(a) {
+          display: block;
+          position: relative;
           border: 1px solid ${cssColors.text};
+          overflow: hidden;
+          mask-image: radial-gradient(
+            ellipse 100% 100% at center,
+            black 70%,
+            transparent 100%
+          );
+          mask-position:
+            0 0,
+            center center;
         }
         iframe {
           display: block;

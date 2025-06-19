@@ -1,6 +1,7 @@
 import TermPageContent from "./TermPageContent";
 import { termOccuranceIndexMap } from "@/term-occurances.gen";
 import { termDictMapBySlug } from "@/terms-index.gen";
+import SharedApp from "@/components/SharedApp";
 
 export type ArticlePageProps = {
   readonly params: Promise<{
@@ -24,7 +25,13 @@ async function TermPage({ params }: ArticlePageProps) {
     throw new Error(`No index found for slug: ${slug}`);
   }
 
-  return <TermPageContent slug={slug} term={term} index={index} />;
+  return (
+    <SharedApp>
+      <main>
+        <TermPageContent slug={slug} term={term} index={index} />
+      </main>
+    </SharedApp>
+  );
 }
 
 export default TermPage;

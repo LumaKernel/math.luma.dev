@@ -1,11 +1,11 @@
 "use client";
 import MainLayout from "@/components/layouts/MainLayout";
 import TermClient from "@/components/term/TermClient";
-import Foo from "@/contents/sand/comps/Foo";
 import { type TermOccuranceIndex } from "@/term-occurances.gen";
 import { type TermDef } from "@/terms-index.gen";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import { useRef, useMemo } from "react";
+import TermButton from "./TermButton";
 
 export type TermPageContentProps = {
   readonly slug: string;
@@ -51,90 +51,46 @@ export default function TermPageContent({
             termContainer={null}
           />
         </h1>
-        {1 && (
-          <>
-            <h2>定義している箇所</h2>
-            <div
-              ref={definitionsListRef}
-              style={{
-                height: `400px`,
-                overflow: "auto",
-              }}
-            >
-              <div
-                style={{
-                  height: `${definitionsVirtualizer.getTotalSize()}px`,
-                  width: "100%",
-                  position: "relative",
-                }}
-              >
-                {definitionsVirtualizer.getVirtualItems().map((virtualItem) => {
-                  const item = definitions[virtualItem.index];
-                  return (
-                    <div
-                      key={virtualItem.key}
-                      style={{
-                        position: "absolute",
-                        top: 0,
-                        left: 0,
-                        width: "100%",
-                        height: `${virtualItem.size}px`,
-                        transform: `translateY(${virtualItem.start}px)`,
-                      }}
-                    >
-                      <Foo
-                        linkPath={item.linkPath}
-                        targetTermRef={item.slug}
-                        targetTermRefIndex={item.refIndex}
-                        height={200}
-                      />
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-            <h2>使用している箇所</h2>
-            <div
-              ref={usagesListRef}
-              style={{
-                height: `400px`,
-                overflow: "auto",
-              }}
-            >
-              <div
-                style={{
-                  height: `${usagesVirtualizer.getTotalSize()}px`,
-                  width: "100%",
-                  position: "relative",
-                }}
-              >
-                {usagesVirtualizer.getVirtualItems().map((virtualItem) => {
-                  const item = usages[virtualItem.index];
-                  return (
-                    <div
-                      key={virtualItem.key}
-                      style={{
-                        position: "absolute",
-                        top: 0,
-                        left: 0,
-                        width: "100%",
-                        height: `${virtualItem.size}px`,
-                        transform: `translateY(${virtualItem.start}px)`,
-                      }}
-                    >
-                      <Foo
-                        linkPath={item.linkPath}
-                        targetTermRef={item.slug}
-                        targetTermRefIndex={item.refIndex}
-                        height={200}
-                      />
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          </>
-        )}
+        <h2>定義している箇所</h2>
+        <div
+          ref={definitionsListRef}
+          style={{
+            height: `400px`,
+            overflow: "auto",
+          }}
+        >
+          <div
+            style={{
+              height: `${definitionsVirtualizer.getTotalSize()}px`,
+              width: "100%",
+              position: "relative",
+            }}
+          >
+            {definitionsVirtualizer.getVirtualItems().map((virtualItem) => {
+              const item = definitions[virtualItem.index];
+              return (
+                <div
+                  key={virtualItem.key}
+                  style={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    width: "100%",
+                    height: `${virtualItem.size}px`,
+                    transform: `translateY(${virtualItem.start}px)`,
+                  }}
+                >
+                  <TermButton
+                    linkPath={item.linkPath}
+                    targetTermRef={item.slug}
+                    targetTermRefIndex={item.refIndex}
+                    height="200px"
+                  />
+                </div>
+              );
+            })}
+          </div>
+        </div>
       </main>
     </MainLayout>
   );
