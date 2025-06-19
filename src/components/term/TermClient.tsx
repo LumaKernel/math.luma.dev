@@ -5,8 +5,9 @@ import type { TermDef } from "@/terms-index.gen";
 import { Option } from "@luma-dev/option-ts";
 import { pagefindAttrs } from "@/util/pagefind";
 import type { TermContainer } from "@luma-dev/my-unified/rehype-proc-term";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTermRefViewQs } from "@/util/use-term-ref-view-qs";
+import Debug from "../Debug";
 
 const thickness = "1.2px";
 
@@ -114,25 +115,34 @@ export default function TermClient({
 }: TermClientProps): React.ReactElement {
   const termRef = useTermRefViewQs();
 
-  const isHighlighted =
+  const isHighlightedOrig =
     termRef !== null && termRef.ref === slug && termRef.index === refIndex;
+  const [isHighlighted, setIsHighlighted] = useState(false);
 
-  const ref = useRef<HTMLSpanElement>(null);
+  const [sapnEl, setSpanEl] = useState<HTMLSpanElement | null>(null);
 
   useEffect(() => {
-    // scroll to it
-    if (isHighlighted && ref.current) {
-      ref.current.scrollIntoView({
-        behavior: "instant",
-        block: "center",
-      });
+    setIsHighlighted(isHighlightedOrig);
+  }, [isHighlightedOrig]);
+  useEffect(() => {
+    if (isHighlighted && sapnEl != null) {
+      const { top } = sapnEl.getBoundingClientRect();
+      window.scrollBy({ top });
     }
-  }, [isHighlighted]);
+  }, [isHighlighted, sapnEl]);
 
   const textInner = (() => {
     return (
       <TextWrapper title={main.text}>
-        <span ref={ref}>{text}</span>
+        <span
+          ref={(el) => {
+            if (el != null) {
+              setSpanEl(el);
+            }
+          }}
+        >
+          {text}
+        </span>
         <Svg width="100%" height="2px" xmlns="http://www.w3.org/2000/svg">
           <Line
             x1="0"
@@ -145,7 +155,7 @@ export default function TermClient({
         </Svg>
         <style jsx>{`
           span {
-            color: ${isHighlighted && cssColors.em3};
+            ${isHighlighted ? `color: ${cssColors.em3};` : ""}
           }
         `}</style>
       </TextWrapper>

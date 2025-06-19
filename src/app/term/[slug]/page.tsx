@@ -1,6 +1,4 @@
-import MainLayout from "@/components/layouts/MainLayout";
-import TermClient from "@/components/term/TermClient";
-import Foo from "@/contents/sand/comps/Foo";
+import TermPageContent from "./TermPageContent";
 import { termOccuranceIndexMap } from "@/term-occurances.gen";
 import { termDictMapBySlug } from "@/terms-index.gen";
 
@@ -9,7 +7,8 @@ export type ArticlePageProps = {
     readonly slug?: string;
   }>;
 };
-export default async function ArticlePage({ params }: ArticlePageProps) {
+
+async function TermPage({ params }: ArticlePageProps) {
   const { slug: slugEncoded } = await params;
   if (slugEncoded == null) {
     throw new Error("Slug is required");
@@ -25,45 +24,10 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
     throw new Error(`No index found for slug: ${slug}`);
   }
 
-  return (
-    <MainLayout>
-      <main>
-        <h1>
-          <TermClient
-            text={term.main.text}
-            reference={term.main.text}
-            term={term}
-            showRuby={true}
-            refIndex={0}
-            termContainer={null}
-          />
-        </h1>
-        <h2>定義している箇所</h2>
-        {index?.h2
-          .slice(0, 3)
-          .map(({ linkPath, refIndex, slug }) => (
-            <Foo
-              key={`${linkPath}-${refIndex}`}
-              linkPath={linkPath}
-              targetTermRef={slug}
-              targetTermRefIndex={refIndex}
-            />
-          ))}
-        <h2>使用している箇所</h2>
-        {index?.others
-          .slice(0, 2)
-          .map(({ linkPath, refIndex, slug }) => (
-            <Foo
-              key={`${linkPath}-${refIndex}`}
-              linkPath={linkPath}
-              targetTermRef={slug}
-              targetTermRefIndex={refIndex}
-            />
-          ))}
-      </main>
-    </MainLayout>
-  );
+  return <TermPageContent slug={slug} term={term} index={index} />;
 }
+
+export default TermPage;
 
 //export const revalidate = 60
 export const dynamicParams = false;
