@@ -47,7 +47,7 @@ function Tabbed<TabTitle extends string>({
             </button>
           ))}
         </div>
-        <div className="tab-content">{activeTabItem?.render()}</div>
+        <div className="tab-content">{activeTabItem.render()}</div>
       </div>
       <style jsx>{`
         .tabbed-container {
@@ -55,6 +55,7 @@ function Tabbed<TabTitle extends string>({
           flex-direction: column;
           height: 100%;
           flex: 1;
+          overflow: hidden;
         }
         .tab-headers {
           display: flex;
@@ -107,13 +108,7 @@ function TabWindow({ listRef, virtualizer, items }: TabWindowProps) {
   return (
     <>
       <div ref={listRef} className="window">
-        <div
-          style={{
-            height: `${virtualizer.getTotalSize()}px`,
-            width: "100%",
-            position: "relative",
-          }}
-        >
+        <div>
           {virtualizer.getVirtualItems().map((virtualItem) => {
             const item = items[virtualItem.index];
             return (
@@ -129,7 +124,6 @@ function TabWindow({ listRef, virtualizer, items }: TabWindowProps) {
       <style jsx>{`
         .window {
           height: 100%;
-          flex: 1;
           overflow-y: auto;
           position: relative;
           padding-right: 1.2rem;
@@ -231,7 +225,7 @@ export default function TermPageContent({ term, index }: TermPageContentProps) {
 
   return (
     <>
-      <main>
+      <div className="wrapper">
         <h1>
           <TermClient
             text={term.main.text}
@@ -247,12 +241,16 @@ export default function TermPageContent({ term, index }: TermPageContentProps) {
           onTabChange={handleTabChange}
           tabs={tabs}
         />
-      </main>
+      </div>
       <style jsx>{`
-        main {
+        .wrapper {
           height: 100%;
           display: flex;
           flex-direction: column;
+        }
+        .tabs-container {
+          flex: 1;
+          overflow: hidden;
         }
       `}</style>
     </>
