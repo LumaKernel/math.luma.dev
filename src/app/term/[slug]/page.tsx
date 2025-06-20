@@ -1,7 +1,7 @@
+import TermLayout from "@/components/layouts/TermLayout";
 import TermPageContent from "./TermPageContent";
 import { termOccuranceIndexMap } from "@/term-occurances.gen";
 import { termDictMapBySlug } from "@/terms-index.gen";
-import SharedApp from "@/components/SharedApp";
 
 export type ArticlePageProps = {
   readonly params: Promise<{
@@ -26,11 +26,9 @@ async function TermPage({ params }: ArticlePageProps) {
   }
 
   return (
-    <SharedApp>
-      <main>
-        <TermPageContent slug={slug} term={term} index={index} />
-      </main>
-    </SharedApp>
+    <TermLayout>
+      <TermPageContent slug={slug} term={term} index={index} />
+    </TermLayout>
   );
 }
 

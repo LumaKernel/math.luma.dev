@@ -127,7 +127,7 @@ export default function TermClient({
   useEffect(() => {
     if (isHighlighted && sapnEl != null) {
       const { top } = sapnEl.getBoundingClientRect();
-      window.scrollBy({ top });
+      window.scrollBy({ top: top - 20 });
     }
   }, [isHighlighted, sapnEl]);
 

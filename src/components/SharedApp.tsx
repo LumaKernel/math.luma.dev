@@ -1,6 +1,6 @@
 "use client";
 
-import { ThemeContext, useTheme } from "./contexts/theme";
+import { ThemeContext, useTheme } from "@/contexts/theme";
 import GlobalStyle from "./global-style";
 import Header from "./header";
 import "katex/dist/katex.css";
