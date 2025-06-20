@@ -1,9 +1,6 @@
 "use client";
 import TermClient from "@/components/term/TermClient";
-import {
-  type TermOccuranceIndex,
-  type TermOccurance,
-} from "@/term-occurances.gen";
+import { type TermOccurrenceIndex, type TermOccurrence } from "@/term-find.gen";
 import { type TermDef } from "@/terms-index.gen";
 import type { Virtualizer } from "@tanstack/react-virtual";
 import { useVirtualizer, type VirtualItem } from "@tanstack/react-virtual";
@@ -101,27 +98,40 @@ function Tabbed<TabTitle extends string>({
 type TabWindowProps = {
   readonly listRef: React.RefObject<HTMLDivElement | null>;
   readonly virtualizer: Virtualizer<HTMLDivElement, Element>;
-  readonly items: readonly TermOccurance[];
+  readonly items: readonly TermOccurrence[];
 };
 
 function TabWindow({ listRef, virtualizer, items }: TabWindowProps) {
   return (
     <>
-      <div ref={listRef} className="window">
-        <div>
-          {virtualizer.getVirtualItems().map((virtualItem) => {
-            const item = items[virtualItem.index];
-            return (
-              <VirtualTermItem
-                key={virtualItem.key}
-                virtualItem={virtualItem}
-                item={item}
-              />
-            );
-          })}
+      {items.length === 0 ? (
+        <div className="no-entry">
+          <p>該当する項目はありません。</p>
         </div>
-      </div>
+      ) : (
+        <div ref={listRef} className="window">
+          <div>
+            {virtualizer.getVirtualItems().map((virtualItem) => {
+              const item = items[virtualItem.index];
+              return (
+                <VirtualTermItem
+                  key={virtualItem.key}
+                  virtualItem={virtualItem}
+                  item={item}
+                />
+              );
+            })}
+          </div>
+        </div>
+      )}
       <style jsx>{`
+        .no-entry {
+          display: flex;
+          justify-content: center;
+          font-size: 1.2rem;
+          height: 100%;
+          color: var(--colors-text-secondary);
+        }
         .window {
           height: 100%;
           overflow-y: auto;
@@ -135,7 +145,7 @@ function TabWindow({ listRef, virtualizer, items }: TabWindowProps) {
 
 export type VirtualTermItemProps = {
   readonly virtualItem: VirtualItem;
-  readonly item: TermOccurance;
+  readonly item: TermOccurrence;
 };
 function VirtualTermItem({ virtualItem, item }: VirtualTermItemProps) {
   return (
@@ -166,7 +176,7 @@ function VirtualTermItem({ virtualItem, item }: VirtualTermItemProps) {
 
 export type TermPageContentProps = {
   readonly term: TermDef;
-  readonly index: TermOccuranceIndex | null;
+  readonly index: TermOccurrenceIndex | null;
 };
 export default function TermPageContent({ term, index }: TermPageContentProps) {
   const definitionsListRef = useRef<HTMLDivElement>(null);
@@ -175,7 +185,7 @@ export default function TermPageContent({ term, index }: TermPageContentProps) {
   const definitions = useMemo(() => index?.h2 ?? [], [index]);
   const usages = useMemo(() => index?.others ?? [], [index]);
 
-  const itemHeight = 260;
+  const itemHeight = 280;
 
   const definitionsVirtualizer = useVirtualizer({
     count: definitions.length,

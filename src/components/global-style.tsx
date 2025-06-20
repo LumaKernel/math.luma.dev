@@ -25,7 +25,6 @@ const darkColors = `
   ${cssColorProperties.text}: #eeeeee;
   ${cssColorProperties.decorationPrimary}: #eeeeee;
   ${cssColorProperties.decorationSecondary}: #666666;
-  ${cssColorProperties.border}: #eeeeee;
   ${cssColorProperties.revertedText}: #222222;
   ${cssColorProperties.em1}: #40eaed;
   ${cssColorProperties.em2}: #ec9dd1;
@@ -39,6 +38,7 @@ const darkColors = `
   ${cssColorProperties.bgInput}: #111;
   ${cssColorProperties.brandWikipedia}: #ffffff;
   ${cssColorProperties.brandEncyclopediaOfMath}: #ffcd18;
+  ${cssColorProperties.skeletonPrimary}: #444444;
 `;
 
 const GlobalStyle = () => {
@@ -152,7 +152,6 @@ const GlobalStyle = () => {
         ${cssColorProperties.text}: #222222;
         ${cssColorProperties.decorationPrimary}: #222222;
         ${cssColorProperties.decorationSecondary}: #8f8f8f;
-        ${cssColorProperties.border}: #222222;
         ${cssColorProperties.revertedText}: #ffffff;
         ${cssColorProperties.em1}: #10adaf;
         ${cssColorProperties.em2}: #cd2896;
@@ -166,6 +165,7 @@ const GlobalStyle = () => {
         ${cssColorProperties.bgInput}: #e0e0e0;
         ${cssColorProperties.brandWikipedia}: #000000;
         ${cssColorProperties.brandEncyclopediaOfMath}: #ffcd18;
+        ${cssColorProperties.skeletonPrimary}: #e0e0e0;
       }
 
       .root {

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import ClientLayout from "./ClientLayout";
+import StyledJsxRegistry from "./registry";
 
 export const metadata: Metadata = {
   title: "math.luma.dev",
@@ -11,7 +12,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="ja">
       <body className="antialiased">
-        <ClientLayout>{children}</ClientLayout>
+        <StyledJsxRegistry>
+          <ClientLayout>{children}</ClientLayout>
+        </StyledJsxRegistry>
       </body>
     </html>
   );

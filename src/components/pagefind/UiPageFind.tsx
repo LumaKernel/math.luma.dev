@@ -83,7 +83,7 @@ export default function SearchUi() {
               border-style: none;
               border-bottom-style: solid;
               border-width: 1px;
-              border-color: ${cssColors.border};
+              border-color: ${cssColors.decorationPrimary};
             }
           `}</style>
         </>

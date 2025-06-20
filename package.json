@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "vercel-build": "npm run pagefind && npm run next-build",
+    "vercel-build": "npm run pagefind && npm run termfind && npm run next-build",
     "dev": "next dev --turbopack --port 4030",
     "next-build": "next build --no-lint",
     "next-prebuild": "NEXT_BUILD_MODE=prebuild npm run next-build",
@@ -16,6 +16,7 @@
     "index": "blogkit-internal-tool index",
     "index-watch": "watchexec -w src/contents/ -w src/terms/ -- npm run index",
     "pagefind": "./scripts/pagefind.sh",
+    "termfind": "blogkit-internal-tool term-find --target ./next-build/prebuild/server/app",
     "vercel-deploy-prod-from-local": "vercel build --prod && vercel deploy --prebuilt --prod"
   },
   "dependencies": {

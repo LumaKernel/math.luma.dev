@@ -18,7 +18,7 @@ export const cssColorProperties = {
   bgInput: "--color-bg-input",
   brandWikipedia: "--color-brand-wikipedia",
   brandEncyclopediaOfMath: "--color-brand-eom",
-  border: "--color-border",
+  skeletonPrimary: "--color-skeleton-pri",
 };
 
 export const cssColors = Object.fromEntries(

@@ -1,6 +1,6 @@
 import TermLayout from "@/components/layouts/TermLayout";
 import TermPageContent from "./TermPageContent";
-import { termOccuranceIndexMap } from "@/term-occurances.gen";
+import { termOccurrenceIndexMap } from "@/term-find.gen";
 import { termDictMapBySlug } from "@/terms-index.gen";
 
 export type ArticlePageProps = {
@@ -15,8 +15,8 @@ async function TermPage({ params }: ArticlePageProps) {
     throw new Error("Slug is required");
   }
   const slug = decodeURIComponent(slugEncoded);
-  const index = Object.hasOwn(termOccuranceIndexMap, slug)
-    ? termOccuranceIndexMap[slug]
+  const index = Object.hasOwn(termOccurrenceIndexMap, slug)
+    ? termOccurrenceIndexMap[slug]
     : null;
   const term = Object.hasOwn(termDictMapBySlug, slug)
     ? termDictMapBySlug[slug]
@@ -37,7 +37,7 @@ export default TermPage;
 //export const revalidate = 60
 export const dynamicParams = false;
 export async function generateStaticParams() {
-  return Object.entries(termOccuranceIndexMap).map(([slug]) => {
+  return Object.entries(termOccurrenceIndexMap).map(([slug]) => {
     return {
       slug,
     };

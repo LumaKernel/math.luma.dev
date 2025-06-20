@@ -1,5 +1,7 @@
 "use client";
+import { cssColors } from "@/lib/colors";
 import Link from "next/link";
+import { useState } from "react";
 
 export type TermButtonProps = {
   readonly linkPath: string;
@@ -13,11 +15,19 @@ export default function TermButton({
   targetTermRefIndex,
   height,
 }: TermButtonProps) {
-  const gradSize = "4rem";
+  const gradSizeX = "1rem";
+  const gradSizeY = "4rem";
+  const [isLoading, setIsLoading] = useState(true);
+
   return (
     <>
       <span className="container">
-        <span className="mask1">
+        {isLoading && (
+          <span className="skeleton">
+            <span className="skeleton-shimmer" />
+          </span>
+        )}
+        <span className="mask1" style={{ opacity: isLoading ? 0 : 1 }}>
           <span className="mask2">
             <Link
               href={`${linkPath}#term.${targetTermRef}.${targetTermRefIndex}`}
@@ -26,15 +36,50 @@ export default function TermButton({
                 src={`${linkPath}?termRefView=true&termRefView.ref=${targetTermRef}&termRefView.index=${targetTermRefIndex}#term.${targetTermRef}.${targetTermRefIndex}`}
                 width="100%"
                 height={height}
+                onLoad={() => setIsLoading(false)}
               />
             </Link>
-            <span className="foo2" />
           </span>
         </span>
         <span className="deco-1" />
         <span className="deco-2" />
       </span>
       <style jsx>{`
+        .skeleton {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: ${cssColors.skeletonPrimary};
+          border-radius: 0.4rem;
+          overflow: hidden;
+        }
+        .skeleton-shimmer {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(
+            90deg,
+            transparent,
+            rgb(255 255 255 / 0.1),
+            transparent
+          );
+          animation: shimmer 1.5s infinite;
+        }
+        @keyframes shimmer {
+          0% {
+            transform: translateX(-100%);
+          }
+          100% {
+            transform: translateX(100%);
+          }
+        }
+        .mask1 {
+          transition: opacity 0.3s ease-in-out;
+        }
         .deco-1 {
           width: calc(100% + 10px);
           height: calc(100% + 10px);
@@ -43,7 +88,9 @@ export default function TermButton({
           top: -5px;
           left: -5px;
           pointer-events: none;
-          border: 1.5px solid #fff8;
+          border-width: 1.5px;
+          border-style: solid;
+          border-color: rgb(${cssColors.decorationPrimary} 0.8);
           border-radius: 0.4rem;
           margin: -5px;
           opacity: 0;
@@ -60,7 +107,9 @@ export default function TermButton({
           top: 0;
           left: 0;
           pointer-events: none;
-          border: 1.5px solid #fff8;
+          border-width: 1.5px;
+          border-style: solid;
+          border-color: rgb(${cssColors.decorationPrimary}, 0.8);
           border-radius: 0.4rem;
           transition: all 0.2s ease-in-out;
           box-sizing: border-box;
@@ -74,9 +123,9 @@ export default function TermButton({
           mask-image: linear-gradient(
             0deg,
             #0000,
-            #000 ${gradSize},
+            #000 ${gradSizeY},
             #000,
-            #000 calc(100% - ${gradSize}),
+            #000 calc(100% - ${gradSizeY}),
             #0000
           );
         }
@@ -84,35 +133,11 @@ export default function TermButton({
           mask-image: linear-gradient(
             90deg,
             #0000,
-            #000 ${gradSize},
+            #000 ${gradSizeX},
             #000,
-            #000 calc(100% - ${gradSize}),
+            #000 calc(100% - ${gradSizeX}),
             #0000
           );
-        }
-        .foo {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background:
-            linear-gradient(
-              0deg,
-              #0000,
-              #fff 20px,
-              #fff,
-              #fff calc(100% - 20px),
-              #0000
-            ),
-            linear-gradient(
-              90deg,
-              #0000,
-              #fff 20px,
-              #fff,
-              #fff calc(100% - 20px),
-              #0000
-            );
         }
         .container {
           height: ${height};
@@ -142,20 +167,3 @@ export default function TermButton({
     </>
   );
 }
-// background:
-//   linear-gradient(
-//     0deg,
-//     #0000,
-//     #fff 20px,
-//     #fff,
-//     #fff calc(100% - 20px),
-//     #0000
-//   ),
-//   linear-gradient(
-//     90deg,
-//     #0000,
-//     #fff 20px,
-//     #fff,
-//     #fff calc(100% - 20px),
-//     #0000
-//   );

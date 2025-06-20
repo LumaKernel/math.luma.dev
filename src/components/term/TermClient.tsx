@@ -96,6 +96,8 @@ const Line = (props: React.ComponentProps<"line">) => (
   </>
 );
 
+const scrollBufferPx = 50;
+
 type TermClientProps = {
   readonly text: string;
   readonly reference: string;
@@ -104,7 +106,6 @@ type TermClientProps = {
   readonly termContainer: TermContainer | null;
   readonly refIndex: number;
 };
-
 export default function TermClient({
   text,
   term: { main, slug },
@@ -126,7 +127,7 @@ export default function TermClient({
   useEffect(() => {
     if (isHighlighted && sapnEl != null) {
       const { top } = sapnEl.getBoundingClientRect();
-      window.scrollBy({ top: top - 20 });
+      window.scrollBy({ top: top - scrollBufferPx });
     }
   }, [isHighlighted, sapnEl]);
 
