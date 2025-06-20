@@ -27,7 +27,7 @@ async function TermPage({ params }: ArticlePageProps) {
 
   return (
     <TermLayout>
-      <TermPageContent slug={slug} term={term} index={index} />
+      <TermPageContent term={term} index={index} />
     </TermLayout>
   );
 }

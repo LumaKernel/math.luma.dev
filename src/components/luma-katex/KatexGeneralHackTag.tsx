@@ -14,7 +14,7 @@ export default async function KatexGeneralTag({
   ...props
 }: KatexGeneralTagProps) {
   if (typeof term === "string" && typeof reference === "string") {
-    return <TermServer text={term} reference={reference} />;
+    return <TermServer text={term} reference={reference} refIndex={0} termContainer={null} />;
   }
   if (props.className === "katex-html") {
     // kathtex-mathml と katex-html で内容が二重になってしまっていそう
