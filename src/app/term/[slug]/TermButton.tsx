@@ -1,7 +1,5 @@
 "use client";
 import Link from "next/link";
-import { cssColors } from "@/lib/colors";
-import { useRef, useState, useEffect } from "react";
 
 export type TermButtonProps = {
   readonly linkPath: string;

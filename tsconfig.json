@@ -23,10 +23,11 @@
     }
   },
   "include": [
-    "**/*.ts",
-    "**/*.tsx",
+    "src/**/*.ts",
+    "src/**/*.tsx",
     ".next/types/**/*.ts",
     "next-env.d.ts",
+    "*.config.ts",
     "next-build/build/types/**/*.ts",
     "next-build/dev/types/**/*.ts",
     "next-build/prebuild/types/**/*.ts"

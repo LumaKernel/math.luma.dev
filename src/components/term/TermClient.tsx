@@ -5,9 +5,8 @@ import type { TermDef } from "@/terms-index.gen";
 import { Option } from "@luma-dev/option-ts";
 import { pagefindAttrs } from "@/util/pagefind";
 import type { TermContainer } from "@luma-dev/my-unified/rehype-proc-term";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useTermRefViewQs } from "@/util/use-term-ref-view-qs";
-import Debug from "../Debug";
 
 const thickness = "1.2px";
 
