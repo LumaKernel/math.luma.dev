@@ -33,6 +33,9 @@ function Tabbed<TabTitle extends string>({
     ev: React.MouseEvent<HTMLAnchorElement>,
     title: TabTitle,
   ) => {
+    if (ev.metaKey || ev.ctrlKey) {
+      return;
+    }
     ev.preventDefault();
     onTabChange(title);
   };
@@ -52,9 +55,15 @@ function Tabbed<TabTitle extends string>({
             </a>
           ))}
         </div>
-        <div className="tab-content">{activeTabItem.render()}</div>
+        <div className="tab-content" key={activeTabItem.title}>
+          {activeTabItem.render()}
+        </div>
       </div>
       <style jsx>{`
+        a {
+          text-decoration: none;
+          color: inherit;
+        }
         .tabbed-container {
           display: flex;
           flex-direction: column;
