@@ -68,7 +68,7 @@ export default async function LumaKatex({
 
   const fullContent = styleSpec + globalContext + defContext + content;
   const html = katexLumaRenderToString(fullContent, {
-    throwOnError: false,
+    throwOnError: isProduction,
     strict: false,
     trust: true,
     displayMode: meta.display && meta.block,
