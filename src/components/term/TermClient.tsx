@@ -133,6 +133,20 @@ export default function TermClient({
     if (isHighlighted && sapnEl != null) {
       const { top } = sapnEl.getBoundingClientRect();
       window.scrollBy({ top: top - scrollBufferPx });
+      const abortController = new AbortController();
+      window.addEventListener(
+        "resize",
+        () => {
+          const { top } = sapnEl.getBoundingClientRect();
+          window.scrollBy({ top: top - scrollBufferPx });
+        },
+        {
+          signal: abortController.signal,
+        },
+      );
+      return () => {
+        abortController.abort();
+      };
     }
   }, [isHighlighted, sapnEl]);
 
@@ -201,8 +215,8 @@ export default function TermClient({
       data-pagefind-meta="termSlug[data-term-slug]"
       data-term-slug={slug}
       data-term-container={termContainer}
-      data-term-ref-index={refIndex}
       data-term-ref-category={refCategory}
+      data-term-ref-index={refIndex}
       id={`term.${slug}.${refCategory}.${refIndex}`}
     >
       {final}
