@@ -1,6 +1,5 @@
 import Link from "next/link";
 import type { FC } from "react";
-import { cssColors } from "@/lib/colors";
 
 const Badge = (props: React.ComponentProps<"span">) => (
   <>
@@ -16,7 +15,7 @@ const Badge = (props: React.ComponentProps<"span">) => (
         align-items: center;
         gap: 0.5em;
 
-        border-color: ${cssColors.brandEncyclopediaOfMath};
+        border-color: var(--color-brand-eom);
       }
     `}</style>
   </>

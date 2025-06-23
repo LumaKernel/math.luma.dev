@@ -1,5 +1,4 @@
 "use client";
-import { cssFonts } from "@/lib/fonts";
 
 const Indicator = (props: React.ComponentProps<"div">) => (
   <>
@@ -12,7 +11,7 @@ const Indicator = (props: React.ComponentProps<"div">) => (
         display: flex;
         justify-content: center;
         align-items: center;
-        font-family: ${cssFonts.monospace};
+        font-family: "Inconsolata", monospace;
       }
     `}</style>
   </>

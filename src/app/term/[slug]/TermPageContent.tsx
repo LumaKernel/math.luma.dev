@@ -29,19 +29,27 @@ function Tabbed<TabTitle extends string>({
   const activeTabTitle = activeTab ?? tabs[0]?.title;
   const activeTabItem =
     tabs.find((tab) => tab.title === activeTabTitle) ?? tabs[0];
+  const handleTabChange = (
+    ev: React.MouseEvent<HTMLAnchorElement>,
+    title: TabTitle,
+  ) => {
+    ev.preventDefault();
+    onTabChange(title);
+  };
 
   return (
     <>
       <div className="tabbed-container">
         <div className="tab-headers">
           {tabs.map((tab) => (
-            <button
+            <a
               key={tab.title}
               className={`tab-header ${tab.title === activeTabTitle ? "active" : ""}`}
-              onClick={() => onTabChange(tab.title)}
+              href={`?tab=${tab.title}`}
+              onClick={(ev) => handleTabChange(ev, tab.title)}
             >
               {tab.title}
-            </button>
+            </a>
           ))}
         </div>
         <div className="tab-content">{activeTabItem.render()}</div>
@@ -56,7 +64,7 @@ function Tabbed<TabTitle extends string>({
         }
         .tab-headers {
           display: flex;
-          border-bottom: 2px solid var(--colors-border);
+          border-bottom: 2px solid var(--color-deco-pri);
           margin-bottom: 1rem;
         }
         .tab-header {
@@ -65,7 +73,7 @@ function Tabbed<TabTitle extends string>({
           border: none;
           cursor: pointer;
           font-size: 1rem;
-          color: var(--colors-text);
+          color: var(--color-text);
           position: relative;
           transition: opacity 0.2s;
         }
@@ -82,7 +90,7 @@ function Tabbed<TabTitle extends string>({
           left: 0;
           right: 0;
           height: 2px;
-          background: var(--colors-text);
+          background: var(--color-text);
         }
         .tab-content {
           flex: 1;
@@ -130,7 +138,7 @@ function TabWindow({ listRef, virtualizer, items }: TabWindowProps) {
           justify-content: center;
           font-size: 1.2rem;
           height: 100%;
-          color: var(--colors-text-secondary);
+          color: var(--color-text);
         }
         .window {
           height: 100%;
@@ -154,6 +162,7 @@ function VirtualTermItem({ virtualItem, item }: VirtualTermItemProps) {
         <TermButton
           linkPath={item.linkPath}
           targetTermRef={item.slug}
+          targetTermRefCategory={item.refCategory}
           targetTermRefIndex={item.refIndex}
           height="100%"
         />
@@ -230,7 +239,9 @@ export default function TermPageContent({ term, index }: TermPageContentProps) {
 
   const handleTabChange = (title: (typeof tabs)[number]["title"]) => {
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    setActiveTab(title);
+    setActiveTab(title, {
+      history: "replace",
+    });
   };
 
   return (

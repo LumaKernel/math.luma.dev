@@ -1,6 +1,5 @@
 "use client";
 
-import { cssColors } from "@/lib/colors";
 import React from "react";
 
 const thickness = "0.5px";
@@ -32,8 +31,8 @@ const HorizontalLine = (props: React.ComponentProps<"div">) => (
     <style jsx>{`
       div {
         flex-grow: 1;
-        border-bottom: ${thickness} solid ${cssColors.decorationPrimary};
-        background-color: ${cssColors.decorationPrimary};
+        border-bottom: ${thickness} solid var(--color-deco-pri);
+        background-color: var(--color-deco-pri);
         border-radius: ${size};
       }
     `}</style>
@@ -47,8 +46,8 @@ const VerticalLine = (props: React.ComponentProps<"div">) => (
       div {
         flex-grow: 1;
         width: 0;
-        border-right: ${thickness} solid ${cssColors.decorationPrimary};
-        background-color: ${cssColors.decorationPrimary};
+        border-right: ${thickness} solid var(--color-deco-pri);
+        background-color: var(--color-deco-pri);
         border-radius: ${size};
       }
     `}</style>
@@ -127,7 +126,7 @@ const RightLine = (props: React.ComponentProps<"div">) => (
 );
 
 const filledCircleStyle = `
-  background-color: ${cssColors.decorationPrimary};
+  background-color: var(--color-deco-pri);
   width: ${size};
   height: ${size};
   border-radius: ${size};

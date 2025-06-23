@@ -25,6 +25,7 @@
   "include": [
     "src/**/*.ts",
     "src/**/*.tsx",
+    "pagefind-null/**/*.ts",
     ".next/types/**/*.ts",
     "next-env.d.ts",
     "*.config.ts",

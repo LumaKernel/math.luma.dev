@@ -1,7 +1,6 @@
 "use client";
 import { clampInAbs100Number } from "@/lib/number";
 import type { ChangeEventHandler } from "react";
-import { cssColors } from "@/lib/colors";
 
 const Input = (props: React.ComponentProps<"input">) => {
   return (
@@ -10,10 +9,10 @@ const Input = (props: React.ComponentProps<"input">) => {
       <style jsx>{`
         input {
           width: 4em;
-          background-color: ${cssColors.bgPrimary};
-          color: ${cssColors.text};
+          background-color: var(--color-bg-pri);
+          color: var(--color-text);
           border: none;
-          border: 1px solid ${cssColors.decorationPrimary};
+          border: 1px solid var(--color-deco-pri);
         }
       `}</style>
     </>

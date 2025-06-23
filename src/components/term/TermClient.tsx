@@ -1,6 +1,5 @@
 "use client";
 import Link from "next/link";
-import { cssColors } from "@/lib/colors";
 import type { TermDef } from "@/terms-index.gen";
 import { Option } from "@luma-dev/option-ts";
 import { pagefindAttrs } from "@/util/pagefind";
@@ -90,7 +89,7 @@ const Line = (props: React.ComponentProps<"line">) => (
     <line {...props} />
     <style jsx>{`
       line {
-        stroke: ${cssColors.decorationPrimary};
+        stroke: var(--color-deco-pri);
       }
     `}</style>
   </>
@@ -98,13 +97,15 @@ const Line = (props: React.ComponentProps<"line">) => (
 
 const scrollBufferPx = 50;
 
-type TermClientProps = {
+export type TermRefCategory = "auto" | "in-math";
+export type TermClientProps = {
   readonly text: string;
   readonly reference: string;
   readonly term: TermDef;
   readonly showRuby: boolean;
   readonly termContainer: TermContainer | null;
   readonly refIndex: number;
+  readonly refCategory?: TermRefCategory;
 };
 export default function TermClient({
   text,
@@ -112,11 +113,15 @@ export default function TermClient({
   showRuby,
   termContainer,
   refIndex,
+  refCategory = "auto",
 }: TermClientProps): React.ReactElement {
   const termRef = useTermRefViewQs();
 
   const isHighlightedOrig =
-    termRef !== null && termRef.ref === slug && termRef.index === refIndex;
+    termRef !== null &&
+    termRef.ref === slug &&
+    termRef.category === refCategory &&
+    termRef.index === refIndex;
   const [isHighlighted, setIsHighlighted] = useState(false);
 
   const [sapnEl, setSpanEl] = useState<HTMLSpanElement | null>(null);
@@ -155,7 +160,7 @@ export default function TermClient({
         </Svg>
         <style jsx>{`
           span {
-            ${isHighlighted ? `color: ${cssColors.em3};` : ""}
+            ${isHighlighted ? `color: var(--color-em3);` : ""}
           }
         `}</style>
       </TextWrapper>
@@ -197,7 +202,8 @@ export default function TermClient({
       data-term-slug={slug}
       data-term-container={termContainer}
       data-term-ref-index={refIndex}
-      id={`term.${slug}.${refIndex}`}
+      data-term-ref-category={refCategory}
+      id={`term.${slug}.${refCategory}.${refIndex}`}
     >
       {final}
     </span>

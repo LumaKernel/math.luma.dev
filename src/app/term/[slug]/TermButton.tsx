@@ -1,23 +1,27 @@
 "use client";
-import { cssColors } from "@/lib/colors";
 import Link from "next/link";
 import { useState } from "react";
 
 export type TermButtonProps = {
   readonly linkPath: string;
   readonly targetTermRef: string;
+  readonly targetTermRefCategory: string;
   readonly targetTermRefIndex: number;
   readonly height: string;
 };
 export default function TermButton({
   linkPath,
   targetTermRef,
+  targetTermRefCategory,
   targetTermRefIndex,
   height,
 }: TermButtonProps) {
   const gradSizeX = "1rem";
   const gradSizeY = "4rem";
   const [isLoading, setIsLoading] = useState(true);
+
+  const query = `?termRefView=true&termRefView.ref=${targetTermRef}&termRefView.category=${targetTermRefCategory}&termRefView.index=${targetTermRefIndex}`;
+  const hash = `#term.${targetTermRef}.${targetTermRefCategory}.${targetTermRefIndex}`;
 
   return (
     <>
@@ -29,11 +33,9 @@ export default function TermButton({
         )}
         <span className="mask1" style={{ opacity: isLoading ? 0 : 1 }}>
           <span className="mask2">
-            <Link
-              href={`${linkPath}#term.${targetTermRef}.${targetTermRefIndex}`}
-            >
+            <Link href={`${linkPath}${hash}`}>
               <iframe
-                src={`${linkPath}?termRefView=true&termRefView.ref=${targetTermRef}&termRefView.index=${targetTermRefIndex}#term.${targetTermRef}.${targetTermRefIndex}`}
+                src={`${linkPath}${query}${hash}`}
                 width="100%"
                 height={height}
                 onLoad={() => setIsLoading(false)}
@@ -51,7 +53,7 @@ export default function TermButton({
           left: 0;
           width: 100%;
           height: 100%;
-          background: ${cssColors.skeletonPrimary};
+          background: var(--color-skeleton-pri);
           border-radius: 0.4rem;
           overflow: hidden;
         }
@@ -90,7 +92,7 @@ export default function TermButton({
           pointer-events: none;
           border-width: 1.5px;
           border-style: solid;
-          border-color: rgb(${cssColors.decorationPrimary} 0.8);
+          border-color: rgba(var(--color-deco-pri), 0.8);
           border-radius: 0.4rem;
           margin: -5px;
           opacity: 0;
@@ -109,7 +111,7 @@ export default function TermButton({
           pointer-events: none;
           border-width: 1.5px;
           border-style: solid;
-          border-color: rgb(${cssColors.decorationPrimary}, 0.8);
+          border-color: rgba(var(--color-deco-pri), 0.8);
           border-radius: 0.4rem;
           transition: all 0.2s ease-in-out;
           box-sizing: border-box;

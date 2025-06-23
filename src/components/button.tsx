@@ -1,7 +1,6 @@
 import Link from "next/link";
 import type { FC, MouseEventHandler } from "react";
 import { useRef, useState } from "react";
-import { cssColors } from "@/lib/colors";
 import { rootClass } from "@/components/root";
 
 const thickness = "0.5px";
@@ -48,7 +47,7 @@ const wrapperStyle = `
   appearance: none;
   background: none;
   cursor: pointer;
-  color: ${cssColors.text};
+  color: var(--color-text);
   text-decoration: none;
 `;
 
@@ -58,7 +57,7 @@ const HorizontalLine = (props: React.ComponentProps<"div">) => (
     <style jsx>{`
       div {
         flex-grow: 1;
-        border-bottom: ${thickness} solid ${cssColors.decorationPrimary};
+        border-bottom: ${thickness} solid var(--color-deco-pri);
       }
     `}</style>
   </>
@@ -99,7 +98,7 @@ const LowerLine = (props: React.ComponentProps<"div">) => (
 );
 
 const filledCircleStyle = `
-  background-color: ${cssColors.decorationPrimary};
+  background-color: var(--color-deco-pri);
   width: ${size};
   height: ${size};
   border-radius: ${size};
@@ -173,7 +172,7 @@ const Background = (props: React.ComponentProps<"div">) => (
 );
 
 const outlinedCircleStyle = `
-  border: ${thickness} solid ${cssColors.decorationPrimary};
+  border: ${thickness} solid var(--color-deco-pri);
   width: ${size};
   height: ${size};
   box-sizing: border-box;

@@ -5,7 +5,6 @@ import Link from "next/link";
 import { Suspense, useId, useState } from "react";
 import useSWR from "swr";
 import SharedApp from "../SharedApp";
-import { cssColors } from "@/lib/colors";
 import H2 from "../heading/H2";
 import { stringTrimEnd } from "@luma-dev/string-util-ts";
 import { parseAsString, useQueryState } from "nuqs";
@@ -78,12 +77,12 @@ export default function SearchUi() {
             input {
               flex: 1;
               padding: 20px;
-              color: ${cssColors.text};
-              background-color: ${cssColors.bgInput};
+              color: var(--color-text);
+              background-color: var(--color-bg-input);
               border-style: none;
               border-bottom-style: solid;
               border-width: 1px;
-              border-color: ${cssColors.decorationPrimary};
+              border-color: var(--color-deco-pri);
             }
           `}</style>
         </>
@@ -108,7 +107,7 @@ export default function SearchUi() {
                       margin: 0 0 24px 20px;
                       padding: 0;
                       font-size: 1.4rem;
-                      color: ${cssColors.text};
+                      color: var(--color-text);
                     }
                   `}</style>
                 </>
@@ -243,10 +242,10 @@ function Result({ result }: Props) {
         div {
           padding: 20px;
           border-radius: 10px;
-          background-color: ${cssColors.bgInput};
+          background-color: var(--color-bg-input);
           & :global(mark) {
             background-color: #ec9dd134;
-            color: ${cssColors.text};
+            color: var(--color-text);
           }
         }
         p {
