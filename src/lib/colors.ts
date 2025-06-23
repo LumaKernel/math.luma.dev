@@ -43,10 +43,3 @@ export const cssColors = {
   brandEncyclopediaOfMath: `var(${cssColorProperties.brandEncyclopediaOfMath})`,
   skeletonPrimary: `var(${cssColorProperties.skeletonPrimary})`,
 };
-
-// export const cssColors = Object.fromEntries(
-//   Object.entries(cssColorProperties).map(([key, value]) => [
-//     key,
-//     `var(${value})`,
-//   ]),
-// ) as Record<keyof typeof cssColorProperties, string>;

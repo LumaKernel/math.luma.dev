@@ -2,7 +2,7 @@
 
 - `npm run typecheck` and `npm run lint-fix` to check types after you edit.
 
-# Geneeral Style
+# General Style
 
 - Must use `readonly` for almost everywhere.
   - `{ readonly foo: number }`
