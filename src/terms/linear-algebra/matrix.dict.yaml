@@ -2,6 +2,10 @@
 行列の行:
   ruby: row
   local@la: 行
+  prevent:
+    - 行う
+    - 行い
+    - 行っ
 行列の列:
   ruby: column
   local@la: 列

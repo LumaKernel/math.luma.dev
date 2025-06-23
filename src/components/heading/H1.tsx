@@ -1,6 +1,5 @@
 "use client";
 
-import { cssColors } from "@/lib/colors";
 import SlugLink from "./SlugLink";
 
 const size = "0.24em";
@@ -23,7 +22,7 @@ const Circle = (props: React.ComponentProps<"div">) => (
     <div {...props} />
     <style jsx>{`
       div {
-        background-color: ${cssColors.decorationPrimary};
+        background-color: var(--color-deco-pri);
         width: ${size};
         height: ${size};
         border-radius: ${size};
@@ -37,7 +36,7 @@ const Pole = (props: React.ComponentProps<"div">) => (
     <div {...props} />
     <style jsx>{`
       div {
-        background-color: ${cssColors.decorationPrimary};
+        background-color: var(--color-deco-pri);
         width: 100%;
         height: ${size};
         border-radius: ${size};

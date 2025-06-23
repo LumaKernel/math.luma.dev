@@ -18,12 +18,28 @@ export const cssColorProperties = {
   bgInput: "--color-bg-input",
   brandWikipedia: "--color-brand-wikipedia",
   brandEncyclopediaOfMath: "--color-brand-eom",
-  border: "--color-border",
+  skeletonPrimary: "--color-skeleton-pri",
 };
 
-export const cssColors = Object.fromEntries(
-  Object.entries(cssColorProperties).map(([key, value]) => [
-    key,
-    `var(${value})`,
-  ]),
-) as Record<keyof typeof cssColorProperties, string>;
+export const cssColors = {
+  text: `var(${cssColorProperties.text})`,
+  decorationPrimary: `var(${cssColorProperties.decorationPrimary})`,
+  decorationSecondary: `var(${cssColorProperties.decorationSecondary})`,
+  revertedText: `var(${cssColorProperties.revertedText})`,
+  em1: `var(${cssColorProperties.em1})`,
+  em2: `var(${cssColorProperties.em2})`,
+  em3: `var(${cssColorProperties.em3})`,
+  em4: `var(${cssColorProperties.em4})`,
+  em1Dim: `var(${cssColorProperties.em1Dim})`,
+  em2Dim: `var(${cssColorProperties.em2Dim})`,
+  em3Dim: `var(${cssColorProperties.em3Dim})`,
+  em4Dim: `var(${cssColorProperties.em4Dim})`,
+  bgPrimary: `var(${cssColorProperties.bgPrimary})`,
+  bgRevPrimary: `var(${cssColorProperties.bgRevPrimary})`,
+  bgEm1: `var(${cssColorProperties.bgEm1})`,
+  bgComment: `var(${cssColorProperties.bgComment})`,
+  bgInput: `var(${cssColorProperties.bgInput})`,
+  brandWikipedia: `var(${cssColorProperties.brandWikipedia})`,
+  brandEncyclopediaOfMath: `var(${cssColorProperties.brandEncyclopediaOfMath})`,
+  skeletonPrimary: `var(${cssColorProperties.skeletonPrimary})`,
+};

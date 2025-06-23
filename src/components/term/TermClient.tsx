@@ -1,10 +1,11 @@
 "use client";
 import Link from "next/link";
-import { cssColors } from "@/lib/colors";
 import type { TermDef } from "@/terms-index.gen";
 import { Option } from "@luma-dev/option-ts";
 import { pagefindAttrs } from "@/util/pagefind";
 import type { TermContainer } from "@luma-dev/my-unified/rehype-proc-term";
+import { useEffect, useState } from "react";
+import { useTermRefViewQs } from "@/util/use-term-ref-view-qs";
 
 const thickness = "1.2px";
 
@@ -88,30 +89,79 @@ const Line = (props: React.ComponentProps<"line">) => (
     <line {...props} />
     <style jsx>{`
       line {
-        stroke: ${cssColors.decorationPrimary};
+        stroke: var(--color-deco-pri);
       }
     `}</style>
   </>
 );
 
-type TermClientProps = {
+const scrollBufferPx = 50;
+
+export type TermRefCategory = "auto" | "in-math";
+export type TermClientProps = {
   readonly text: string;
   readonly reference: string;
   readonly term: TermDef;
   readonly showRuby: boolean;
   readonly termContainer: TermContainer | null;
+  readonly refIndex: number;
+  readonly refCategory?: TermRefCategory;
 };
-
 export default function TermClient({
   text,
   term: { main, slug },
   showRuby,
   termContainer,
+  refIndex,
+  refCategory = "auto",
 }: TermClientProps): React.ReactElement {
+  const termRef = useTermRefViewQs();
+
+  const isHighlightedOrig =
+    termRef !== null &&
+    termRef.ref === slug &&
+    termRef.category === refCategory &&
+    termRef.index === refIndex;
+  const [isHighlighted, setIsHighlighted] = useState(false);
+
+  const [sapnEl, setSpanEl] = useState<HTMLSpanElement | null>(null);
+
+  useEffect(() => {
+    setIsHighlighted(isHighlightedOrig);
+  }, [isHighlightedOrig]);
+  useEffect(() => {
+    if (isHighlighted && sapnEl != null) {
+      const { top } = sapnEl.getBoundingClientRect();
+      window.scrollBy({ top: top - scrollBufferPx });
+      const abortController = new AbortController();
+      window.addEventListener(
+        "resize",
+        () => {
+          const { top } = sapnEl.getBoundingClientRect();
+          window.scrollBy({ top: top - scrollBufferPx });
+        },
+        {
+          signal: abortController.signal,
+        },
+      );
+      return () => {
+        abortController.abort();
+      };
+    }
+  }, [isHighlighted, sapnEl]);
+
   const textInner = (() => {
     return (
       <TextWrapper title={main.text}>
-        <span>{text}</span>
+        <span
+          ref={(el) => {
+            if (el != null) {
+              setSpanEl(el);
+            }
+          }}
+        >
+          {text}
+        </span>
         <Svg width="100%" height="2px" xmlns="http://www.w3.org/2000/svg">
           <Line
             x1="0"
@@ -122,6 +172,11 @@ export default function TermClient({
             strokeWidth={thickness}
           />
         </Svg>
+        <style jsx>{`
+          span {
+            ${isHighlighted ? `color: var(--color-em3);` : ""}
+          }
+        `}</style>
       </TextWrapper>
     );
     // return <span title={title}>{text}</span>;
@@ -160,6 +215,9 @@ export default function TermClient({
       data-pagefind-meta="termSlug[data-term-slug]"
       data-term-slug={slug}
       data-term-container={termContainer}
+      data-term-ref-category={refCategory}
+      data-term-ref-index={refIndex}
+      id={`term.${slug}.${refCategory}.${refIndex}`}
     >
       {final}
     </span>

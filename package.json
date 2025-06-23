@@ -3,9 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "vercel-build": "npm run pagefind && npm run next-build",
+    "vercel-build": "npm run pagefind && npm run termfind && npm run next-build",
     "dev": "next dev --turbopack --port 4030",
     "next-build": "next build --no-lint",
+    "next-prebuild": "NEXT_BUILD_MODE=prebuild npm run next-build",
+    "preview": "next start --port 4040",
     "start": "next start",
     "lint": "eslint && prettier --list-different .",
     "lint-fix": "eslint --fix && prettier --write .",
@@ -14,6 +16,7 @@
     "index": "blogkit-internal-tool index",
     "index-watch": "watchexec -w src/contents/ -w src/terms/ -- npm run index",
     "pagefind": "./scripts/pagefind.sh",
+    "termfind": "blogkit-internal-tool term-find --target ./next-build/prebuild/server/app",
     "vercel-deploy-prod-from-local": "vercel build --prod && vercel deploy --prebuilt --prod"
   },
   "dependencies": {
@@ -24,6 +27,7 @@
     "@mdx-js/loader": "^3.1.0",
     "@mdx-js/react": "^3.1.0",
     "@next/mdx": "^15.3.3",
+    "@tanstack/react-virtual": "^3.13.10",
     "@types/mdx": "^2.0.13",
     "flip-toolkit": "^7.2.6",
     "inline-style-parser": "^0.2.4",

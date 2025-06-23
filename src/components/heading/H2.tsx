@@ -1,5 +1,4 @@
 "use client";
-import { cssColors } from "@/lib/colors";
 import SlugLink from "./SlugLink";
 
 const size = "0.19em";
@@ -23,7 +22,7 @@ const Circle = (props: React.ComponentProps<"div">) => (
     <div {...props} />
     <style jsx>{`
       div {
-        border: ${thickness} solid ${cssColors.decorationPrimary};
+        border: ${thickness} solid var(--color-deco-pri);
         width: ${size};
         height: ${size};
         margin-right: ${gap};
@@ -38,7 +37,7 @@ const Pole = (props: React.ComponentProps<"div">) => (
     <div {...props} />
     <style jsx>{`
       div {
-        border: ${thickness} solid ${cssColors.decorationPrimary};
+        border: ${thickness} solid var(--color-deco-pri);
         width: 100%;
         height: ${size};
         border-radius: ${size};

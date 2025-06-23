@@ -1,6 +1,5 @@
 "use client";
 import Link from "next/link";
-import { cssColors } from "@/lib/colors";
 
 const Badge = (props: React.ComponentProps<"span">) => (
   <>
@@ -16,7 +15,7 @@ const Badge = (props: React.ComponentProps<"span">) => (
         align-items: center;
         gap: 0.5em;
 
-        border-color: ${cssColors.brandWikipedia};
+        border-color: var(--color-brand-wikipedia);
       }
     `}</style>
   </>
@@ -32,8 +31,8 @@ const Svg = (props: React.ComponentProps<"svg">) => (
         border-right-style: solid;
         border-right-width: 1px;
 
-        fill: ${cssColors.brandWikipedia};
-        border-right-color: ${cssColors.brandWikipedia};
+        fill: var(--color-brand-wikipedia);
+        border-right-color: var(--color-brand-wikipedia);
       }
     `}</style>
   </>

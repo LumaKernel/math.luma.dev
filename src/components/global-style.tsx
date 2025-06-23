@@ -1,6 +1,3 @@
-import { cssColorProperties, cssColors } from "@/lib/colors";
-import { cssFonts } from "@/lib/fonts";
-
 const darkColors = `
   --color-code-bg: #101010;
   --color-code-default: #eeeeee;
@@ -22,23 +19,26 @@ const darkColors = `
   --color-number: #cc4444;
   --color-tag: #ebffa3;
 
-  ${cssColorProperties.text}: #eeeeee;
-  ${cssColorProperties.decorationPrimary}: #eeeeee;
-  ${cssColorProperties.decorationSecondary}: #666666;
-  ${cssColorProperties.border}: #eeeeee;
-  ${cssColorProperties.revertedText}: #222222;
-  ${cssColorProperties.em1}: #40eaed;
-  ${cssColorProperties.em2}: #ec9dd1;
-  ${cssColorProperties.em3}: #eda840;
-  ${cssColorProperties.em1Dim}: #30aaad;
-  ${cssColorProperties.em2Dim}: #ac6d91;
-  ${cssColorProperties.em3Dim}: #ad6810;
-  ${cssColorProperties.bgPrimary}: #222222;
-  ${cssColorProperties.bgRevPrimary}: #dddddd;
-  ${cssColorProperties.bgComment}: #aaaaaa;
-  ${cssColorProperties.bgInput}: #111;
-  ${cssColorProperties.brandWikipedia}: #ffffff;
-  ${cssColorProperties.brandEncyclopediaOfMath}: #ffcd18;
+  --color-text: #eeeeee;
+  --color-deco-pri: #eeeeee;
+  --color-deco-sec: #666666;
+  --color-rev-text: #222222;
+  --color-em1: #40eaed;
+  --color-em2: #ec9dd1;
+  --color-em3: #eda840;
+  --color-em4: #40ed90;
+  --color-em1-dim: #30aaad;
+  --color-em2-dim: #ac6d91;
+  --color-em3-dim: #ad6810;
+  --color-em4-dim: #30ad60;
+  --color-bg-pri: #222222;
+  --color-bg-rev-pri: #dddddd;
+  --color-bg-comment: #aaaaaa;
+  --color-bg-em1: #30aaad;
+  --color-bg-input: #111;
+  --color-brand-wikipedia: #ffffff;
+  --color-brand-eom: #ffcd18;
+  --color-skeleton-pri: #444444;
 `;
 
 const GlobalStyle = () => {
@@ -52,30 +52,30 @@ const GlobalStyle = () => {
       }
 
       body {
-        font-family: ${cssFonts.sansSelf};
+        font-family: "Noto Sans JP", "Roboto", sans-serif;
         font-weight: 400;
         padding: 0;
         margin: 0;
       }
 
       [data-color="em1"] {
-        color: ${cssColors.em1};
+        color: var(--color-em1);
       }
 
       [data-color="em2"] {
-        color: ${cssColors.em2};
+        color: var(--color-em2);
       }
 
       [data-color="em3"] {
-        color: ${cssColors.em3};
+        color: var(--color-em3);
       }
 
       [data-bd-color="decoration-primary"] {
-        border-color: ${cssColors.decorationPrimary};
+        border-color: var(--color-deco-pri);
       }
 
       body {
-        color: ${cssColors.text};
+        color: var(--color-text);
       }
 
       div,
@@ -97,7 +97,7 @@ const GlobalStyle = () => {
       }
 
       text {
-        fill: ${cssColors.text};
+        fill: var(--color-text);
       }
 
       p {
@@ -109,23 +109,23 @@ const GlobalStyle = () => {
       }
 
       table {
-        border-top: 0.6px solid ${cssColors.decorationSecondary};
+        border-top: 0.6px solid var(--color-deco-sec);
       }
 
       th {
         padding: 0.3rem 0rem;
-        border-bottom: 4px solid ${cssColors.decorationSecondary};
+        border-bottom: 4px solid var(--color-deco-sec);
       }
       th:not(:last-child) {
-        border-right: 0.6px solid ${cssColors.decorationSecondary};
+        border-right: 0.6px solid var(--color-deco-sec);
       }
 
       td {
         padding: 0.4rem 0.6rem;
-        border-bottom: 0.6px solid ${cssColors.decorationSecondary};
+        border-bottom: 0.6px solid var(--color-deco-sec);
       }
       td:not(:last-child) {
-        border-right: 0.6px solid ${cssColors.decorationSecondary};
+        border-right: 0.6px solid var(--color-deco-sec);
       }
 
       .root {
@@ -149,28 +149,31 @@ const GlobalStyle = () => {
         --color-number: #cc4444;
         --color-tag: #8888cc;
 
-        ${cssColorProperties.text}: #222222;
-        ${cssColorProperties.decorationPrimary}: #222222;
-        ${cssColorProperties.decorationSecondary}: #8f8f8f;
-        ${cssColorProperties.border}: #222222;
-        ${cssColorProperties.revertedText}: #ffffff;
-        ${cssColorProperties.em1}: #10adaf;
-        ${cssColorProperties.em2}: #cd2896;
-        ${cssColorProperties.em3}: #dc8b14;
-        ${cssColorProperties.em1Dim}: #026d6f;
-        ${cssColorProperties.em2Dim}: #ac6d91;
-        ${cssColorProperties.em3Dim}: #ad6810;
-        ${cssColorProperties.bgPrimary}: #ffffff;
-        ${cssColorProperties.bgRevPrimary}: #dddddd;
-        ${cssColorProperties.bgComment}: #aaaaaa;
-        ${cssColorProperties.bgInput}: #e0e0e0;
-        ${cssColorProperties.brandWikipedia}: #000000;
-        ${cssColorProperties.brandEncyclopediaOfMath}: #ffcd18;
+        --color-text: #222222;
+        --color-deco-pri: #222222;
+        --color-deco-sec: #8f8f8f;
+        --color-rev-text: #ffffff;
+        --color-em1: #10adaf;
+        --color-em2: #cd2896;
+        --color-em3: #dc8b14;
+        --color-em4: #10ad50;
+        --color-em1-dim: #026d6f;
+        --color-em2-dim: #ac6d91;
+        --color-em3-dim: #ad6810;
+        --color-em4-dim: #006d30;
+        --color-bg-pri: #ffffff;
+        --color-bg-rev-pri: #dddddd;
+        --color-bg-comment: #aaaaaa;
+        --color-bg-em1: #d0f0f0;
+        --color-bg-input: #e0e0e0;
+        --color-brand-wikipedia: #000000;
+        --color-brand-eom: #ffcd18;
+        --color-skeleton-pri: #e0e0e0;
       }
 
       .root {
-        color: ${cssColors.text};
-        background-color: ${cssColors.revertedText};
+        color: var(--color-text);
+        background-color: var(--color-rev-text);
       }
 
       @media (prefers-color-scheme: dark) {
@@ -184,16 +187,16 @@ const GlobalStyle = () => {
       }
 
       .sk-top-container {
-        background-color: var(${cssColorProperties.bgPrimary}) !important;
+        background-color: var(--color-bg-pri) !important;
       }
       .sk-toggleable__content,
       .sk-toggleable__content pre {
-        background-color: var(${cssColorProperties.bgPrimary}) !important;
-        color: var(${cssColorProperties.text}) !important;
+        background-color: var(--color-bg-pri) !important;
+        color: var(--color-text) !important;
       }
       .sk-toggleable__label.sk-toggleable__label-arrow {
-        background-color: var(${cssColorProperties.em1}) !important;
-        color: var(${cssColorProperties.revertedText}) !important;
+        background-color: var(--color-em1) !important;
+        color: var(--color-rev-text) !important;
       }
     `}</style>
   );

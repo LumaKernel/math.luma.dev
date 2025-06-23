@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { isTheme, useThemeContext } from "./contexts/theme";
+import { isTheme, useThemeContext } from "@/contexts/theme";
 import type { ChangeEventHandler } from "react";
 import { useCallback } from "react";
 

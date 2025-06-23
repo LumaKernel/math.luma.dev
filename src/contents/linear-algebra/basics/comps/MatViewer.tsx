@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import { cssColors } from "@/lib/colors";
 import { range } from "@/lib/number";
 import { usePrefixedFlipped } from "@/components/graphs/prefixed-flipped";
 
@@ -28,7 +27,7 @@ const Grid = (props: React.ComponentProps<"div">) => (
   </>
 );
 
-const bracketBorder = `2px solid ${cssColors.text}`;
+const bracketBorder = `2px solid var(--color-text)`;
 
 const squareBraketWrapperStyle = `
   box-sizing: border-box;

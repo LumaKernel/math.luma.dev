@@ -1,0 +1,6 @@
+{
+  "permissions": {
+    "allow": [],
+    "deny": ["Write(eslint.config.mjs)", "Write(tsconfig.json)"]
+  }
+}

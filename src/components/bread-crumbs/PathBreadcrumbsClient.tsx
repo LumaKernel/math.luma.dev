@@ -1,7 +1,6 @@
 "use client";
 import Link from "next/link";
 import React from "react";
-import { cssColors } from "@/lib/colors";
 import type { PathBreadcrumbsParts } from "./PathBreadcrumbs";
 
 const Flex = (props: React.ComponentProps<"div">) => (
@@ -32,7 +31,7 @@ export default function PathBreadcrumbsClient({
               <Link href={"/" + linkPath}>{name}</Link>
               <style jsx>{`
                 a {
-                  color: ${cssColors.text};
+                  color: var(--color-text);
                 }
               `}</style>
             </>
@@ -41,7 +40,7 @@ export default function PathBreadcrumbsClient({
               <span>{name}</span>
               <style jsx>{`
                 span {
-                  color: ${cssColors.text};
+                  color: var(--color-text);
                 }
               `}</style>
             </>

@@ -1,4 +1,5 @@
 "use client";
+import { useTermRefViewQs } from "@/util/use-term-ref-view-qs";
 
 const Main = (props: React.ComponentProps<"div">) => (
   <>
@@ -26,8 +27,16 @@ const Wrapper = (props: React.ComponentProps<"div">) => (
 
 type MainLayoutProps = Readonly<React.PropsWithChildren>;
 export default function MainLayout({ children }: MainLayoutProps) {
+  const isTermRefView = useTermRefViewQs() != null;
   return (
     <Main>
+      {isTermRefView && (
+        <style jsx global>{`
+          body {
+            overflow: hidden;
+          }
+        `}</style>
+      )}
       <Wrapper>{children}</Wrapper>
     </Main>
   );

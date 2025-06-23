@@ -148,7 +148,7 @@ const IndexNumber = (props: React.ComponentProps<"div">) => (
         display: flex;
         align-items: center;
         justify-content: center;
-        border-color: ${cssColors.text};
+        border-color: var(--color-text);
         border-width: 0.4px;
         border-style: solid;
         font-size: 0.88em;
