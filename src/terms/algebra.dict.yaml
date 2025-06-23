@@ -28,6 +28,8 @@
     - 具体
     - 正体
     - 自体
+    - 物体
+    - 単体
 群: group
 可換群:
   ruby: commutative group
