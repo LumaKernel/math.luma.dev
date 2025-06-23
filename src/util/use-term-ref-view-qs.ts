@@ -10,11 +10,17 @@ export const useTermRefViewQs = () => {
   const searchParams = useSearchParams();
   const ref = searchParams.get("termRefView.ref");
   const index = parseInteger(searchParams.get("termRefView.index"));
+  const category = searchParams.get("termRefView.category");
 
-  if (typeof ref === "string" && typeof index === "number") {
+  if (
+    typeof ref === "string" &&
+    typeof index === "number" &&
+    typeof category === "string"
+  ) {
     return {
       ref,
       index,
+      category,
     };
   }
   return null;
